@@ -274,14 +274,10 @@
   }
   .mm-app .mm-title-money { color: var(--blanco); display: inline-block; padding-right: 0.1em; }
   .mm-app .mm-title-magnet {
-    background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 50%, var(--dorado) 100%);
-    background-size: 200%;
-    animation: shimmer 3s linear infinite;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--dorado);
     display: inline-block;
     padding-right: 0.15em;
+    text-shadow: 0 2px 24px rgba(245, 184, 0, 0.35);
   }
   .mm-app .mm-subtitle-region {
     font-family: 'Montserrat', sans-serif;
@@ -317,6 +313,24 @@
   }
 
   /* VSL Placeholder */
+  /* IMAGEN HERO WEBINAR */
+  .mm-app .mm-hero-image {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 24px 0 28px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(245, 184, 0, 0.2);
+    transition: transform 0.35s ease;
+  }
+  .mm-app .mm-hero-image:hover { transform: translateY(-4px); }
+  .mm-app .mm-hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+  }
   .mm-app .mm-vsl-wrap {
     position: relative;
     max-width: 520px;
@@ -1101,17 +1115,9 @@
             PARTE DEL MUNDO
           </p>
 
-          <!-- VSL Placeholder -->
-          <div class="mm-vsl-wrap" id="mm-vsl-wrap" onclick="mmReproducirVSL(this)">
-            <div class="mm-vsl-placeholder">
-              <div class="mm-vsl-play">
-                <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z"/>
-                </svg>
-              </div>
-              <div class="mm-vsl-text">Conoce el webinar</div>
-              <div class="mm-vsl-sub">Toca para reproducir &middot; 2 min</div>
-            </div>
+          <!-- IMAGEN DEL WEBINAR -->
+          <div class="mm-hero-image">
+            <img src="https://drive.google.com/thumbnail?id=1KYfPPwVrYSYUyquzRUh0b5Kfd-wrPBay&sz=w1600" alt="Money Magnet - Webinar Academia Intrade" referrerpolicy="no-referrer" loading="eager">
           </div>
 
           <div class="mm-stats">
@@ -1195,79 +1201,80 @@
   <section class="mm-section">
     <div class="mm-section-inner">
       <div class="mm-section-head reveal">
-        <div class="mm-kicker">ESTE WEBINAR ES PARA TI SI&hellip;</div>
-        <h2 class="mm-h2"><span class="mm-h2-gold">SIENTES</span> ESTO</h2>
+        <div class="mm-kicker">QUIZ&Aacute;S TE HA PASADO&hellip;</div>
+        <h2 class="mm-h2">DIME SI <span class="mm-h2-gold">TE SUENA</span></h2>
         <p class="mm-section-sub" style="max-width:760px;margin:18px auto 0;color:rgba(255,255,255,0.65);font-size:16px;line-height:1.6;">
-          No importa en qu&eacute; etapa est&eacute;s con tu dinero. Lo que vas a aprender funciona
-          tanto si nunca has invertido como si llevas a&ntilde;os intent&aacute;ndolo sin resultados.
+          La bolsa, las criptomonedas, las acciones, los &iacute;ndices, las materias primas, el forex, los ETFs&hellip;
+          tantas opciones para multiplicar tu capital, pero pocas personas logran hacerlo de verdad.
+          Y normalmente, no es por el mercado. Es por algo mucho m&aacute;s profundo.
         </p>
       </div>
       <div class="mm-cards-grid">
 
-        <!-- Card 1: heridas inconscientes -->
+        <!-- Card 1: la frase heredada -->
         <div class="mm-card-feat reveal d1">
           <div class="mm-card-icon">
             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <h3>Crees que &ldquo;as&iacute; es la vida&rdquo;</h3>
-          <p>Vives mes a mes, ves que el dinero se va sin saber a d&oacute;nde, y en el fondo crees que &ldquo;a la gente como yo no le va bien con la plata&rdquo;. Vamos a romper esa creencia heredada de generaciones que nunca tuvieron acceso a esto.</p>
+          <h3>&iquest;Cu&aacute;ntas veces escuchaste &ldquo;el dinero no crece en los &aacute;rboles&rdquo;?</h3>
+          <p>Crecimos rodeados de frases que sin querer nos programaron para vivir con escasez. &ldquo;Trabaja duro&rdquo;, &ldquo;la plata es para los vivos&rdquo;, &ldquo;los ricos son malos&rdquo;. Esas creencias siguen ah&iacute;, decidiendo por ti, sin que te des cuenta.</p>
         </div>
 
-        <!-- Card 2: consciente del problema, sin solucion -->
+        <!-- Card 2: ves a otros invirtiendo -->
         <div class="mm-card-feat reveal d2">
           <div class="mm-card-icon">
             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <h3>Sabes que hay un problema</h3>
-          <p>Sientes ese peso en el pecho cuando llega fin de mes. Te frustra ver a otros invirtiendo mientras t&uacute; sigues igual. Sabes que algo tiene que cambiar pero no sabes por d&oacute;nde empezar. Aqu&iacute; te damos el primer paso real.</p>
+          <h3>&iquest;Te late distinto el coraz&oacute;n cuando ves a alguien hablando de bolsa o cripto?</h3>
+          <p>Sientes curiosidad, ganas, miedo, todo al mismo tiempo. Y cierras la pesta&ntilde;a sin hacer nada. No es falta de inter&eacute;s, es la se&ntilde;al de que algo dentro de ti ya entendi&oacute; que est&aacute;s perdiendo tiempo.</p>
         </div>
 
-        <!-- Card 3: lo ha intentado sin resultados -->
+        <!-- Card 3: lo intentó y fracasó -->
         <div class="mm-card-feat reveal d3">
           <div class="mm-card-icon">
             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
               <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <h3>Ya lo intentaste y no funcion&oacute;</h3>
-          <p>Compraste cursos, viste videos de YouTube, intentaste cripto, forex, acciones&hellip; y terminaste perdiendo dinero o frustrado. No es tu culpa. Te ense&ntilde;aron piezas sueltas sin el m&eacute;todo completo. Aqu&iacute; lo vas a ver entero.</p>
+          <h3>&iquest;Ya pusiste plata en algo y terminaste peor que antes?</h3>
+          <p>Cripto que se desplom&oacute;, una acci&oacute;n que recomendaron, un curso que prometi&oacute; mucho. No fue tu culpa. Te dieron piezas sueltas, sin contexto, sin el sistema completo. Aprender a invertir no es coleccionar tips, es entender el juego.</p>
         </div>
 
-        <!-- Card 4: heridas emocionales del dinero -->
+        <!-- Card 4: relación emocional -->
         <div class="mm-card-feat reveal d1">
           <div class="mm-card-icon">
             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3M3 12c0-1.66 4-3 9-3s9 1.34 9 3M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5M3 5c0-1.66 4-3 9-3s9 1.34 9 3M3 5l3 3m12-3l-3 3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <h3>Tu relaci&oacute;n con el dinero te bloquea</h3>
-          <p>Cuando piensas en invertir te da miedo perder. Cuando ganas algo, se te va igual de r&aacute;pido. Sientes culpa al gastar y ansiedad al no tener. Esto no es un problema de plata, es una herida emocional. Vamos a sanarla.</p>
+          <h3>&iquest;Cuando gana, se va? &iquest;Cuando ahorra, gasta?</h3>
+          <p>Esto no es matem&aacute;tica, es emocional. Hay un techo invisible que cada quien tiene con su dinero, y por m&aacute;s estrategia que aprendas, si no lo identificas, vas a chocar con &eacute;l una y otra vez. Ese es el primer trabajo.</p>
         </div>
 
-        <!-- Card 5: el metodo correcto -->
+        <!-- Card 5: el método -->
         <div class="mm-card-feat reveal d2">
           <div class="mm-card-icon">
             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
               <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <h3>El m&eacute;todo que s&iacute; funciona</h3>
-          <p>No es magia, no es suerte, no es &ldquo;gur&uacute;es&rdquo;. Es un sistema l&oacute;gico, probado, que combina mentalidad correcta + estrategia t&eacute;cnica + ejecuci&oacute;n disciplinada. Lo mismo que usan los inversionistas que s&iacute; generan retornos consistentes.</p>
+          <h3>Forex, acciones, ETFs, cripto, &iacute;ndices, materias primas&hellip; &iquest;por d&oacute;nde empezar?</h3>
+          <p>Hay un orden l&oacute;gico para construir capital. No se trata de saltar de mercado en mercado siguiendo modas. Existe un m&eacute;todo paso a paso que combina mentalidad + estrategia + ejecuci&oacute;n, y eso es exactamente lo que vamos a ver.</p>
         </div>
 
-        <!-- Card 6: el tiempo es ahora -->
+        <!-- Card 6: la inflación se come el tiempo -->
         <div class="mm-card-feat reveal d3">
           <div class="mm-card-icon">
             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <h3>El momento es ahora</h3>
-          <p>Cada mes que pasa sin invertir es dinero que tu inflaci&oacute;n se come. Cada a&ntilde;o sin aprender es una ventaja que otros est&aacute;n acumulando. No necesitas mucho capital para empezar. Necesitas el m&eacute;todo correcto. Vamos a d&aacute;rtelo.</p>
+          <h3>&iquest;Sab&iacute;as que tu dinero hoy vale menos que el mismo dinero hace un a&ntilde;o?</h3>
+          <p>La inflaci&oacute;n no es un concepto te&oacute;rico, es una p&eacute;rdida real que ya est&aacute;s teniendo aunque no lo sientas. Cada mes que pasa sin que tu capital trabaje para ti, est&aacute;s pagando un impuesto silencioso. Y no necesitas mucho para empezar; necesitas el m&eacute;todo correcto.</p>
         </div>
       </div>
     </div>
@@ -1478,51 +1485,60 @@
   };
 
   var PAISES = [
-    {code:'CO',name:'Colombia',dial:'+57',flag:''},
-    {code:'MX',name:'Mexico',dial:'+52',flag:''},
-    {code:'AR',name:'Argentina',dial:'+54',flag:''},
-    {code:'PE',name:'Peru',dial:'+51',flag:''},
-    {code:'CL',name:'Chile',dial:'+56',flag:''},
-    {code:'VE',name:'Venezuela',dial:'+58',flag:''},
-    {code:'EC',name:'Ecuador',dial:'+593',flag:''},
-    {code:'BO',name:'Bolivia',dial:'+591',flag:''},
-    {code:'PY',name:'Paraguay',dial:'+595',flag:''},
-    {code:'UY',name:'Uruguay',dial:'+598',flag:''},
-    {code:'BR',name:'Brasil',dial:'+55',flag:''},
-    {code:'CR',name:'Costa Rica',dial:'+506',flag:''},
-    {code:'PA',name:'Panama',dial:'+507',flag:''},
-    {code:'DO',name:'Rep. Dominicana',dial:'+1',flag:''},
-    {code:'GT',name:'Guatemala',dial:'+502',flag:''},
-    {code:'HN',name:'Honduras',dial:'+504',flag:''},
-    {code:'SV',name:'El Salvador',dial:'+503',flag:''},
-    {code:'NI',name:'Nicaragua',dial:'+505',flag:''},
-    {code:'CU',name:'Cuba',dial:'+53',flag:''},
-    {code:'PR',name:'Puerto Rico',dial:'+1',flag:''},
-    {code:'HT',name:'Haiti',dial:'+509',flag:''},
-    {code:'US',name:'Estados Unidos',dial:'+1',flag:''},
-    {code:'CA',name:'Canada',dial:'+1',flag:''},
-    {code:'ES',name:'Espana',dial:'+34',flag:''},
-    {code:'PT',name:'Portugal',dial:'+351',flag:''},
-    {code:'IT',name:'Italia',dial:'+39',flag:''},
-    {code:'FR',name:'Francia',dial:'+33',flag:''},
-    {code:'DE',name:'Alemania',dial:'+49',flag:''},
-    {code:'GB',name:'Reino Unido',dial:'+44',flag:''},
-    {code:'NL',name:'Paises Bajos',dial:'+31',flag:''},
-    {code:'BE',name:'Belgica',dial:'+32',flag:''},
-    {code:'CH',name:'Suiza',dial:'+41',flag:''},
-    {code:'AT',name:'Austria',dial:'+43',flag:''},
-    {code:'SE',name:'Suecia',dial:'+46',flag:''},
-    {code:'NO',name:'Noruega',dial:'+47',flag:''},
-    {code:'DK',name:'Dinamarca',dial:'+45',flag:''},
-    {code:'FI',name:'Finlandia',dial:'+358',flag:''},
-    {code:'IE',name:'Irlanda',dial:'+353',flag:''},
-    {code:'PL',name:'Polonia',dial:'+48',flag:''},
-    {code:'CZ',name:'Rep. Checa',dial:'+420',flag:''},
-    {code:'GR',name:'Grecia',dial:'+30',flag:''},
-    {code:'HU',name:'Hungria',dial:'+36',flag:''},
-    {code:'RO',name:'Rumania',dial:'+40',flag:''},
-    {code:'LU',name:'Luxemburgo',dial:'+352',flag:''}
+    {code:'CO',name:'Colombia',dial:'+57'},
+    {code:'MX',name:'M\u00e9xico',dial:'+52'},
+    {code:'AR',name:'Argentina',dial:'+54'},
+    {code:'PE',name:'Per\u00fa',dial:'+51'},
+    {code:'CL',name:'Chile',dial:'+56'},
+    {code:'VE',name:'Venezuela',dial:'+58'},
+    {code:'EC',name:'Ecuador',dial:'+593'},
+    {code:'BO',name:'Bolivia',dial:'+591'},
+    {code:'PY',name:'Paraguay',dial:'+595'},
+    {code:'UY',name:'Uruguay',dial:'+598'},
+    {code:'BR',name:'Brasil',dial:'+55'},
+    {code:'CR',name:'Costa Rica',dial:'+506'},
+    {code:'PA',name:'Panam\u00e1',dial:'+507'},
+    {code:'DO',name:'Rep. Dominicana',dial:'+1'},
+    {code:'GT',name:'Guatemala',dial:'+502'},
+    {code:'HN',name:'Honduras',dial:'+504'},
+    {code:'SV',name:'El Salvador',dial:'+503'},
+    {code:'NI',name:'Nicaragua',dial:'+505'},
+    {code:'CU',name:'Cuba',dial:'+53'},
+    {code:'PR',name:'Puerto Rico',dial:'+1'},
+    {code:'HT',name:'Hait\u00ed',dial:'+509'},
+    {code:'US',name:'Estados Unidos',dial:'+1'},
+    {code:'CA',name:'Canad\u00e1',dial:'+1'},
+    {code:'ES',name:'Espa\u00f1a',dial:'+34'},
+    {code:'PT',name:'Portugal',dial:'+351'},
+    {code:'IT',name:'Italia',dial:'+39'},
+    {code:'FR',name:'Francia',dial:'+33'},
+    {code:'DE',name:'Alemania',dial:'+49'},
+    {code:'GB',name:'Reino Unido',dial:'+44'},
+    {code:'NL',name:'Pa\u00edses Bajos',dial:'+31'},
+    {code:'BE',name:'B\u00e9lgica',dial:'+32'},
+    {code:'CH',name:'Suiza',dial:'+41'},
+    {code:'AT',name:'Austria',dial:'+43'},
+    {code:'SE',name:'Suecia',dial:'+46'},
+    {code:'NO',name:'Noruega',dial:'+47'},
+    {code:'DK',name:'Dinamarca',dial:'+45'},
+    {code:'FI',name:'Finlandia',dial:'+358'},
+    {code:'IE',name:'Irlanda',dial:'+353'},
+    {code:'PL',name:'Polonia',dial:'+48'},
+    {code:'CZ',name:'Rep. Checa',dial:'+420'},
+    {code:'GR',name:'Grecia',dial:'+30'},
+    {code:'HU',name:'Hungr\u00eda',dial:'+36'},
+    {code:'RO',name:'Ruman\u00eda',dial:'+40'},
+    {code:'LU',name:'Luxemburgo',dial:'+352'}
   ];
+
+  // Generar emoji de bandera desde código ISO (CO -> 🇨🇴)
+  function flagEmoji(code) {
+    if (!code || code.length !== 2) return '';
+    var c1 = code.charCodeAt(0);
+    var c2 = code.charCodeAt(1);
+    // A=65, mapeamos a Regional Indicator Symbol Letter A (0x1F1E6)
+    return String.fromCodePoint(0x1F1E6 + (c1 - 65)) + String.fromCodePoint(0x1F1E6 + (c2 - 65));
+  }
 
   var eventoActual = EVENTOS['latam_bajo'];
 
@@ -1531,7 +1547,7 @@
       PAISES.forEach(function(p) {
         var o = document.createElement('option');
         o.value = p.code;
-        o.textContent = p.flag + ' ' + p.name;
+        o.textContent = flagEmoji(p.code) + '  ' + p.name;
         sel.appendChild(o);
       });
     });
@@ -1540,7 +1556,7 @@
         var o = document.createElement('option');
         o.value = p.dial;
         o.dataset.code = p.code;
-        o.textContent = p.flag + ' ' + p.dial;
+        o.textContent = flagEmoji(p.code) + '  ' + p.dial;
         sel.appendChild(o);
       });
     });
