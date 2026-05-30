@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pago confirmado - Money Magnet</title>
+  <link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=1aaAXVGDHYHEXr3uQC1k5f9WBqPnSeFt4&sz=w120">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&family=Inter:wght@400;500;600&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #050010;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: radial-gradient(ellipse at top, #1A1F3D 0%, #050010 70%);
+    }
+    .wrap {
+      max-width: 520px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(245, 184, 0, 0.25);
+      border-radius: 20px;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+    .check-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00C896 0%, #00A57A 100%);
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pop 0.5s ease-out;
+      box-shadow: 0 8px 24px rgba(0, 200, 150, 0.35);
+    }
+    @keyframes pop {
+      0% { transform: scale(0); opacity: 0; }
+      80% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      font-weight: 900;
+      margin-bottom: 14px;
+      letter-spacing: -0.5px;
+    }
+    h1 .gold { color: #F5B800; }
+    p { line-height: 1.65; color: rgba(255,255,255,0.75); margin-bottom: 18px; font-size: 15px; }
+    .ref-box {
+      background: rgba(245, 184, 0, 0.08);
+      border: 1px solid rgba(245, 184, 0, 0.2);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 20px 0 24px;
+      font-family: 'Inter', monospace;
+      font-size: 12px;
+      color: #F5B800;
+      letter-spacing: 0.5px;
+      word-break: break-all;
+    }
+    .ref-lbl {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: rgba(245,184,0,0.6);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+    .info {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid #F5B800;
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 20px 0;
+      text-align: left;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.8);
+    }
+    .info strong { color: #fff; }
+    .btn {
+      display: inline-block;
+      background: #F5B800;
+      color: #0B1131;
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-top: 14px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(245,184,0,0.3); }
+    .btn-secondary {
+      display: inline-block;
+      background: rgba(245,184,0,0.12);
+      color: #F5B800;
+      border: 1px solid rgba(245,184,0,0.35);
+      padding: 12px 26px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin: 14px 6px 0;
+    }
+    .wa {
+      color: #25D366;
+      font-weight: 700;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="check-circle">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+
+    <h1>¡Pago <span class="gold">confirmado</span>!</h1>
+    <p>Tu acceso VIP a <strong style="color:#F5B800;">Money Magnet</strong> está en proceso de activación. En los próximos minutos recibirás un correo de confirmación con todos los detalles.</p>
+
+    <div class="ref-box">
+      <div class="ref-lbl">Referencia de pago</div>
+      <span id="ref-code">Procesando&hellip;</span>
+    </div>
+
+    <div class="info">
+      <strong>Próximos pasos:</strong><br>
+      &nbsp;&middot; Recibirás un email con los enlaces de Zoom (Q&amp;A privada) y Microsoft Teams<br>
+      &nbsp;&middot; Te uniremos al canal exclusivo de miembros VIP<br>
+      &nbsp;&middot; Si pagaste el plan de 2 personas, también recibirás el segundo acceso
+    </div>
+
+    <p style="font-size:13px;color:rgba(255,255,255,0.6);">¿Alguna duda? Escríbenos al WhatsApp: <a href="https://wa.me/573052460919" class="wa">+57 305 246 0919</a></p>
+
+    <a href="/" class="btn-secondary">Volver al inicio</a>
+  </div>
+
+  <script>
+    // Mostrar referenceCode si viene en la URL (PayU lo manda)
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var ref = params.get('referenceCode') || params.get('reference_pol') || params.get('reference_sale');
+      if (ref) {
+        document.getElementById('ref-code').textContent = ref;
+      } else {
+        document.getElementById('ref-code').textContent = 'Se enviará por correo';
+      }
+    } catch(e) {
+      document.getElementById('ref-code').textContent = 'Se enviará por correo';
+    }
+  </script>
+</body>
+</html>
