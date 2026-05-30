@@ -643,8 +643,57 @@
           <div class="gm-evento-info">
             <div class="gm-evento-lbl">TU SESI&Oacute;N</div>
             <div class="gm-evento-fecha" id="gm-fecha-display">Cargando&hellip;</div>
-            <div class="gm-evento-hora" id="gm-hora-display">8:00 PM &middot; 2 horas en vivo &middot; Sin grabaci&oacute;n</div>
+            <div class="gm-evento-hora" id="gm-hora-display">8:00 PM &middot; 2 horas en vivo</div>
           </div>
+        </div>
+
+        <!-- ============ VIP UPSELL (posición prime, justo después del evento) ============ -->
+        <div class="gm-card gold gm-vip-card">
+          <div class="gm-vip-head">
+            <div class="gm-vip-lbl">&#9733; EXPERIENCIA VIP &#9733;</div>
+            <h2 class="gm-vip-h">Lleva tu experiencia<br>al siguiente nivel</h2>
+            <p class="gm-vip-sub">
+              Beneficios exclusivos para quienes quieren ir m&aacute;s profundo despu&eacute;s del webinar.
+            </p>
+          </div>
+
+          <ul class="gm-vip-benefits">
+            <li><span class="gm-vip-check">OK</span> <strong>Acceso a la grabaci&oacute;n permanente</strong> del webinar</li>
+            <li><span class="gm-vip-check">OK</span> Sesi&oacute;n privada de Q&amp;A por <strong>Microsoft Teams</strong> despu&eacute;s del webinar</li>
+            <li><span class="gm-vip-check">OK</span> Ebook exclusivo con el sistema completo</li>
+            <li><span class="gm-vip-check">OK</span> Acceso al equipo privado en <strong>Microsoft Teams</strong></li>
+            <li><span class="gm-vip-check">OK</span> Libro sorpresa seleccionado por Nicol&aacute;s</li>
+          </ul>
+
+          <div class="gm-vip-buttons">
+            <button class="gm-vip-btn" onclick="gmIniciarPagoVIP('vip_1', this)">
+              <div class="qty">1 VIP</div>
+              <div class="price">$15 USD</div>
+              <div style="font-size:9px;color:rgba(245,184,0,0.7);letter-spacing:1px;text-transform:uppercase;font-weight:700;">Para ti</div>
+            </button>
+            <button class="gm-vip-btn featured" onclick="gmIniciarPagoVIP('vip_2', this)">
+              <div class="qty">2 VIPs</div>
+              <div class="price">$20 USD</div>
+              <div class="popular">La m&aacute;s popular</div>
+            </button>
+          </div>
+
+          <div id="gm-vip-loading" style="display:none;text-align:center;margin-top:14px;color:rgba(245,184,0,0.9);font-size:13px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:6px;animation:gm-spin 1s linear infinite;">
+              <circle cx="12" cy="12" r="10" stroke-opacity="0.3"/>
+              <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
+            </svg>
+            Procesando pago seguro&hellip;
+          </div>
+
+          <div id="gm-vip-error" style="display:none;text-align:center;margin-top:14px;color:#FF6B6B;font-size:13px;background:rgba(255,107,107,0.1);padding:10px;border-radius:8px;border:1px solid rgba(255,107,107,0.3);"></div>
+
+          <p style="text-align:center;color:rgba(255,255,255,0.4);font-size:11px;margin-top:16px;">
+            Pago seguro con PayU &middot; Tu email del registro ser&aacute; usado para confirmar
+          </p>
+          <p style="text-align:center;color:rgba(255,255,255,0.3);font-size:10px;margin-top:6px;">
+            <img src="https://flagcdn.com/16x12/co.png" style="vertical-align:middle;margin-right:4px;border-radius:2px;"> Acepta tarjetas de cr&eacute;dito, d&eacute;bito, PSE, Nequi, Bancolombia, Daviplata y m&aacute;s
+          </p>
         </div>
 
         <!-- ============ QUE VAS A APRENDER ============ -->
@@ -803,55 +852,6 @@
           </a>
         </div>
 
-        <!-- ============ VIP UPSELL ============ -->
-        <div class="gm-card gold gm-vip-card">
-          <div class="gm-vip-head">
-            <div class="gm-vip-lbl">&#9733; EXPERIENCIA VIP &#9733;</div>
-            <h2 class="gm-vip-h">Sube de nivel<br>tu experiencia</h2>
-            <p class="gm-vip-sub">
-              Lleva tu aprendizaje al siguiente nivel con beneficios exclusivos
-              solo para miembros VIP.
-            </p>
-          </div>
-
-          <ul class="gm-vip-benefits">
-            <li><span class="gm-vip-check">OK</span> Sesi&oacute;n privada de Q&amp;A por Zoom despu&eacute;s del webinar</li>
-            <li><span class="gm-vip-check">OK</span> Ebook exclusivo con el sistema completo</li>
-            <li><span class="gm-vip-check">OK</span> Acceso a equipo privado en Microsoft Teams</li>
-            <li><span class="gm-vip-check">OK</span> Libro sorpresa seleccionado por Nicol&aacute;s</li>
-          </ul>
-
-          <div class="gm-vip-buttons">
-            <button class="gm-vip-btn" onclick="gmIniciarPagoVIP('vip_1', this)">
-              <div class="qty">1 VIP</div>
-              <div class="price">$15 USD</div>
-              <div style="font-size:9px;color:rgba(245,184,0,0.7);letter-spacing:1px;text-transform:uppercase;font-weight:700;">Para ti</div>
-            </button>
-            <button class="gm-vip-btn featured" onclick="gmIniciarPagoVIP('vip_2', this)">
-              <div class="qty">2 VIPs</div>
-              <div class="price">$20 USD</div>
-              <div class="popular">La m&aacute;s popular</div>
-            </button>
-          </div>
-
-          <div id="gm-vip-loading" style="display:none;text-align:center;margin-top:14px;color:rgba(245,184,0,0.9);font-size:13px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:6px;animation:gm-spin 1s linear infinite;">
-              <circle cx="12" cy="12" r="10" stroke-opacity="0.3"/>
-              <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
-            </svg>
-            Procesando pago seguro...
-          </div>
-
-          <div id="gm-vip-error" style="display:none;text-align:center;margin-top:14px;color:#FF6B6B;font-size:13px;background:rgba(255,107,107,0.1);padding:10px;border-radius:8px;border:1px solid rgba(255,107,107,0.3);"></div>
-
-          <p style="text-align:center;color:rgba(255,255,255,0.3);font-size:11px;margin-top:16px;">
-            Pago seguro con PayU &middot; Tu email del registro ser&aacute; usado para confirmar
-          </p>
-          <p style="text-align:center;color:rgba(255,255,255,0.25);font-size:10px;margin-top:6px;">
-            <img src="https://flagcdn.com/16x12/co.png" style="vertical-align:middle;margin-right:4px;border-radius:2px;"> Acepta tarjetas de cr&eacute;dito, d&eacute;bito, PSE, Nequi, Bancolombia, Daviplata y m&aacute;s
-          </p>
-        </div>
-
       </div>
     </main>
 
@@ -964,7 +964,7 @@
   // ============ INFO DEL EVENTO ============
   document.getElementById('gm-fecha-display').textContent = userData.fecha_evento || 'Proximo webinar';
   document.getElementById('gm-hora-display').innerHTML =
-    (userData.hora_evento || '8:00 PM') + ' . 2 horas en vivo . <strong>Sin grabacion</strong>';
+    (userData.hora_evento || '8:00 PM') + ' &middot; 2 horas en vivo';
 
   // ============ BOTONES DE COMUNIDAD ============
   var btnWp = document.getElementById('gm-btn-wp');
