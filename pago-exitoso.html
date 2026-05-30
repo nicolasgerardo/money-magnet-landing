@@ -234,82 +234,96 @@
     (function() {
       'use strict';
 
+      // URL del backend Apps Script
+      var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK6XSxi1T4I2hCSZeEScJy7pKhFGs2S1OVtxSmAfc2oFjK1UonFmIGFjGEmJAdTymQ8g/exec';
+
       // Parámetros que envía PayU en la responseUrl:
       // - transactionState: 4=APROBADO, 6=DECLINADO, 7=PENDIENTE, 5=EXPIRADO, 104=ERROR
       // - lapTransactionState: APPROVED, DECLINED, PENDING, EXPIRED, ERROR
-      // - referenceCode
-      // - TX_VALUE
-      // - polTransactionState (igual al state_pol)
-      // - polResponseCode
-      // - message
-
+      // - referenceCode, TX_VALUE, currency, signature, etc.
       var params = new URLSearchParams(window.location.search);
-
-      var transactionState = params.get('transactionState') ||
-                             params.get('polTransactionState') ||
-                             params.get('lapTransactionState') ||
-                             '';
 
       var referenceCode = params.get('referenceCode') ||
                           params.get('reference_pol') ||
-                          params.get('reference_sale') ||
-                          '';
-
+                          params.get('reference_sale') || '';
       var mensajeError = params.get('message') || '';
 
-      // Normalizar el estado a un valor textual
-      var estado = 'desconocido';
-      var stateStr = String(transactionState).toUpperCase();
+      // Mostrar pendiente como default mientras valida
+      mostrarEstado('pendiente', referenceCode, mensajeError);
 
-      if (stateStr === '4' || stateStr === 'APPROVED') {
-        estado = 'aprobado';
-      } else if (stateStr === '7' || stateStr === 'PENDING') {
-        estado = 'pendiente';
-      } else if (stateStr === '6' || stateStr === 'DECLINED' ||
-                 stateStr === '5' || stateStr === 'EXPIRED' ||
-                 stateStr === '104' || stateStr === 'ERROR') {
-        estado = 'rechazado';
-      } else if (!transactionState) {
-        // Si no hay parámetro, probablemente el usuario navegó manualmente
-        // o canceló antes de enviar el form. Mostramos rechazado.
-        estado = 'rechazado';
-        mensajeError = 'No recibimos confirmaci\u00f3n del pago. Si lo cancelaste, no se hizo ning\u00fan cargo.';
-      } else {
-        // Estado desconocido - asumimos pendiente para no asustar al usuario
-        estado = 'pendiente';
-      }
+      // Construir query string con todos los parámetros para enviar al backend
+      var paramsObj = {};
+      params.forEach(function(value, key){ paramsObj[key] = value; });
+      paramsObj.action = 'payu_validar';
+      var qs = Object.keys(paramsObj)
+        .map(function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(paramsObj[k]); })
+        .join('&');
 
-      // Mostrar el bloque correcto
-      var wrap = document.getElementById('wrap');
-      var bloqueId = 'estado-' + estado;
-      var bloque = document.getElementById(bloqueId);
-      if (bloque) {
-        bloque.classList.remove('hidden');
-      } else {
-        // Fallback
-        document.getElementById('estado-pendiente').classList.remove('hidden');
-        estado = 'pendiente';
-      }
+      // Validar server-side
+      fetch(APPS_SCRIPT_URL + '?' + qs, { method: 'GET' })
+        .then(function(r){ return r.json(); })
+        .then(function(res){
+          console.log('[Pago] Validación server:', res);
 
-      // Agregar clase al wrap para colorear el borde
-      wrap.classList.add('estado-' + estado);
+          if (!res || !res.ok) {
+            // Error de validación → mostrar pendiente
+            mostrarEstado('pendiente', referenceCode, '');
+            return;
+          }
 
-      // Mensaje personalizado de rechazado
-      if (estado === 'rechazado' && mensajeError) {
-        var msgEl = document.getElementById('rechazado-msg');
-        if (msgEl && mensajeError.length < 200) {
-          // Solo mostrar mensajes cortos para evitar errores técnicos largos
-          msgEl.innerHTML = mensajeError + ' <strong>No se realiz&oacute; ning&uacute;n cargo</strong> en tu tarjeta.';
+          if (!res.verificado) {
+            // Firma inválida (URL manipulada) o sin datos → pendiente con mensaje neutro
+            mostrarEstado('pendiente', referenceCode,
+              res.mensaje || 'Estamos verificando tu pago. Revisa tu email en unos minutos.');
+            return;
+          }
+
+          // Estado VERIFICADO por el servidor
+          mostrarEstado(res.estado, res.referenceCode || referenceCode, '');
+        })
+        .catch(function(err){
+          console.error('[Pago] Error validación:', err);
+          // En caso de error de red, mostramos pendiente
+          mostrarEstado('pendiente', referenceCode,
+            'Estamos verificando tu pago. Revisa tu email en unos minutos.');
+        });
+
+      // ============ HELPERS ============
+      function mostrarEstado(estado, ref, mensaje) {
+        // Mapear estados especiales
+        if (estado === 'sin_datos' || estado === 'firma_invalida') estado = 'pendiente';
+
+        // Ocultar todos los bloques primero
+        ['estado-aprobado', 'estado-pendiente', 'estado-rechazado'].forEach(function(id){
+          var el = document.getElementById(id);
+          if (el) el.classList.add('hidden');
+        });
+
+        // Mostrar el correcto
+        var bloque = document.getElementById('estado-' + estado);
+        if (!bloque) {
+          bloque = document.getElementById('estado-pendiente');
+          estado = 'pendiente';
         }
-      }
+        bloque.classList.remove('hidden');
 
-      // Referencia
-      var refEl = document.getElementById('ref-code');
-      if (refEl) {
-        refEl.textContent = referenceCode || 'Se enviar\u00e1 por correo';
-      }
+        // Borde de color del wrap
+        var wrap = document.getElementById('wrap');
+        wrap.classList.remove('estado-aprobado', 'estado-pendiente', 'estado-rechazado');
+        wrap.classList.add('estado-' + estado);
 
-      console.log('[PayU Response] estado:', estado, 'transactionState:', transactionState, 'ref:', referenceCode);
+        // Mensaje personalizado si es rechazado
+        if (estado === 'rechazado' && mensaje && mensaje.length < 200) {
+          var msgEl = document.getElementById('rechazado-msg');
+          if (msgEl) {
+            msgEl.innerHTML = mensaje + ' <strong>No se realiz&oacute; ning&uacute;n cargo</strong> en tu tarjeta.';
+          }
+        }
+
+        // Referencia
+        var refEl = document.getElementById('ref-code');
+        if (refEl) refEl.textContent = ref || 'Se enviar\u00e1 por correo';
+      }
 
     })();
   </script>
