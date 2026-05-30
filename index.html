@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Money Magnet - Webinar Gratuito | Academia Intrade</title>
   <meta name="description" content="Webinar gratuito Money Magnet: descubre como multiplicar tu capital con Nicolas Cuellar de Academia Intrade.">
+  <link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=1KYfPPwVrYSYUyquzRUh0b5Kfd-wrPBay&sz=w120">
+  <link rel="apple-touch-icon" href="https://drive.google.com/thumbnail?id=1KYfPPwVrYSYUyquzRUh0b5Kfd-wrPBay&sz=w180">
 </head>
 <body style="margin:0;padding:0;">
 <style>
@@ -73,6 +75,22 @@
     font-size: 15px;
     font-weight: 900;
     letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .mm-app .mm-logo-img {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(245, 184, 0, 0.3);
+  }
+  .mm-app .mm-logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
   }
   .mm-app .mm-logo small {
     display: block;
@@ -477,6 +495,99 @@
   .mm-app .mm-form-phone { display: grid; grid-template-columns: 124px 1fr; gap: 6px; }
   .mm-app .mm-form-phone select { padding: 14px 6px; font-size: 13px; }
 
+  /* ============ DROPDOWN CUSTOM CON BANDERAS ============ */
+  .mm-app .mm-custom-select {
+    position: relative;
+    width: 100%;
+  }
+  .mm-app .mm-cs-trigger {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 14px 14px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    transition: border-color 0.18s ease, background 0.18s ease;
+    text-align: left;
+  }
+  .mm-app .mm-cs-trigger:hover { background: rgba(255, 255, 255, 0.06); border-color: rgba(245, 184, 0, 0.3); }
+  .mm-app .mm-cs-trigger.open { border-color: var(--dorado); background: rgba(245, 184, 0, 0.04); }
+  .mm-app .mm-cs-label {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    min-width: 0;
+  }
+  .mm-app .mm-cs-label.placeholder { color: rgba(255, 255, 255, 0.45); }
+  .mm-app .mm-cs-label img {
+    width: 22px;
+    height: 16px;
+    object-fit: cover;
+    border-radius: 2px;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+  .mm-app .mm-cs-caret {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+  .mm-app .mm-cs-trigger.open .mm-cs-caret { transform: rotate(180deg); }
+  .mm-app .mm-cs-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: #0B1131;
+    border: 1px solid rgba(245, 184, 0, 0.3);
+    border-radius: 10px;
+    max-height: 280px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 100;
+    display: none;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  }
+  .mm-app .mm-cs-dropdown.open { display: block; }
+  .mm-app .mm-cs-option {
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 14px;
+    transition: background 0.15s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+  .mm-app .mm-cs-option:last-child { border-bottom: none; }
+  .mm-app .mm-cs-option:hover { background: rgba(245, 184, 0, 0.08); }
+  .mm-app .mm-cs-option.selected { background: rgba(245, 184, 0, 0.15); color: var(--dorado); }
+  .mm-app .mm-cs-option img {
+    width: 22px;
+    height: 16px;
+    object-fit: cover;
+    border-radius: 2px;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+  /* scrollbar dorado */
+  .mm-app .mm-cs-dropdown::-webkit-scrollbar { width: 6px; }
+  .mm-app .mm-cs-dropdown::-webkit-scrollbar-track { background: transparent; }
+  .mm-app .mm-cs-dropdown::-webkit-scrollbar-thumb { background: rgba(245, 184, 0, 0.4); border-radius: 3px; }
+
   .mm-app .mm-form-submit {
     width: 100%;
     background: linear-gradient(135deg, #2EBD2E 0%, #37CA37 50%, #45D945 100%);
@@ -632,6 +743,66 @@
   }
   @media (min-width: 768px) { .mm-app .mm-cards-grid { grid-template-columns: 1fr 1fr; } }
   @media (min-width: 1024px) { .mm-app .mm-cards-grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+  /* ============ AQUI APRENDERAS ============ */
+  .mm-app .mm-section-alt {
+    background: linear-gradient(180deg, transparent 0%, rgba(245, 184, 0, 0.04) 50%, transparent 100%);
+    position: relative;
+  }
+  .mm-app .mm-aprenderas-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    max-width: 920px;
+    margin: 40px auto 0;
+  }
+  @media (min-width: 768px) {
+    .mm-app .mm-aprenderas-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .mm-app .mm-aprenderas-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    padding: 22px 22px;
+    transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+  }
+  .mm-app .mm-aprenderas-item:hover {
+    border-color: rgba(245, 184, 0, 0.3);
+    background: rgba(245, 184, 0, 0.04);
+    transform: translateY(-2px);
+  }
+  .mm-app .mm-aprenderas-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--dorado);
+    line-height: 1;
+    flex-shrink: 0;
+    opacity: 0.85;
+    min-width: 50px;
+  }
+  .mm-app .mm-aprenderas-body h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 8px;
+    line-height: 1.3;
+  }
+  .mm-app .mm-aprenderas-body p {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+  }
+  @media (max-width: 480px) {
+    .mm-app .mm-aprenderas-item { padding: 18px 16px; gap: 14px; }
+    .mm-app .mm-aprenderas-num { font-size: 34px; min-width: 40px; }
+    .mm-app .mm-aprenderas-body h3 { font-size: 15px; }
+  }
   .mm-app .mm-card-feat {
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -1068,8 +1239,11 @@
   <nav class="mm-nav">
     <div class="mm-nav-inner">
       <div class="mm-logo">
-        <small>ACADEMIA INTRADE</small>
-        MONEY <span class="mm-logo-acc">MAGNET</span>
+        <img class="mm-logo-img" src="https://drive.google.com/thumbnail?id=1KYfPPwVrYSYUyquzRUh0b5Kfd-wrPBay&sz=w120" alt="Money Magnet" referrerpolicy="no-referrer">
+        <div class="mm-logo-text">
+          <small>ACADEMIA INTRADE</small>
+          <span>MONEY <span class="mm-logo-acc">MAGNET</span></span>
+        </div>
       </div>
       <button class="mm-nav-cta" onclick="document.getElementById('registro').scrollIntoView({behavior:'smooth'})">
         REGISTRO GRATIS
@@ -1115,9 +1289,17 @@
             PARTE DEL MUNDO
           </p>
 
-          <!-- IMAGEN DEL WEBINAR -->
-          <div class="mm-hero-image">
-            <img src="https://drive.google.com/thumbnail?id=1KYfPPwVrYSYUyquzRUh0b5Kfd-wrPBay&sz=w1600" alt="Money Magnet - Webinar Academia Intrade" referrerpolicy="no-referrer" loading="eager">
+          <!-- VSL Placeholder - aqui subiras tu mensaje de bienvenida -->
+          <div class="mm-vsl-wrap" id="mm-vsl-wrap" onclick="mmReproducirVSL(this)">
+            <div class="mm-vsl-placeholder">
+              <div class="mm-vsl-play">
+                <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+              <div class="mm-vsl-text">Conoce el webinar</div>
+              <div class="mm-vsl-sub">Toca para reproducir &middot; 2 min</div>
+            </div>
           </div>
 
           <div class="mm-stats">
@@ -1147,12 +1329,18 @@
                   <option value="F">Mujer</option>
                   <option value="N">Prefiero no decir</option>
                 </select>
-                <select name="pais" required class="mm-pais-select">
-                  <option value="">Pa&iacute;s*</option>
-                </select>
+                <div class="mm-custom-select" data-type="pais">
+                  <input type="hidden" name="pais" class="mm-pais-input" required>
+                  <button type="button" class="mm-cs-trigger" data-placeholder="Pa&iacute;s*"><span class="mm-cs-label">Pa&iacute;s*</span><span class="mm-cs-caret">&#9662;</span></button>
+                  <div class="mm-cs-dropdown"></div>
+                </div>
               </div>
               <div class="mm-form-phone">
-                <select name="indicativo" class="mm-ind-select"><option value="">+</option></select>
+                <div class="mm-custom-select mm-cs-narrow" data-type="indicativo">
+                  <input type="hidden" name="indicativo" class="mm-ind-input">
+                  <button type="button" class="mm-cs-trigger" data-placeholder="+"><span class="mm-cs-label">+</span><span class="mm-cs-caret">&#9662;</span></button>
+                  <div class="mm-cs-dropdown"></div>
+                </div>
                 <input type="tel" name="telefono" inputmode="numeric" placeholder="Celular*" required>
               </div>
 
@@ -1276,6 +1464,73 @@
           <h3>&iquest;Sab&iacute;as que tu dinero hoy vale menos que el mismo dinero hace un a&ntilde;o?</h3>
           <p>La inflaci&oacute;n no es un concepto te&oacute;rico, es una p&eacute;rdida real que ya est&aacute;s teniendo aunque no lo sientas. Cada mes que pasa sin que tu capital trabaje para ti, est&aacute;s pagando un impuesto silencioso. Y no necesitas mucho para empezar; necesitas el m&eacute;todo correcto.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AQUI APRENDERAS ============ -->
+  <section class="mm-section mm-section-alt">
+    <div class="mm-section-inner">
+      <div class="mm-section-head reveal">
+        <div class="mm-kicker">EN ESTE WEBINAR</div>
+        <h2 class="mm-h2">AQU&Iacute; <span class="mm-h2-gold">APRENDER&Aacute;S</span></h2>
+        <p class="mm-section-sub" style="max-width:780px;margin:18px auto 0;color:rgba(255,255,255,0.7);font-size:16px;line-height:1.65;">
+          Este no es un webinar m&aacute;s de promesas vac&iacute;as. Es una sesi&oacute;n pr&aacute;ctica donde vas a salir con
+          claridad real sobre c&oacute;mo atraer dinero a tu vida y construir una herramienta que te permita
+          generar ingresos desde cualquier parte del mundo a trav&eacute;s de las inversiones.
+        </p>
+      </div>
+
+      <div class="mm-aprenderas-grid">
+
+        <div class="mm-aprenderas-item reveal d1">
+          <div class="mm-aprenderas-num">01</div>
+          <div class="mm-aprenderas-body">
+            <h3>A reprogramar tu relaci&oacute;n con el dinero</h3>
+            <p>Vas a identificar las creencias heredadas que sin saberlo te mantienen donde est&aacute;s, y aprender&aacute;s a sustituirlas por nuevas que te permitan recibir y multiplicar capital sin culpa ni miedo.</p>
+          </div>
+        </div>
+
+        <div class="mm-aprenderas-item reveal d2">
+          <div class="mm-aprenderas-num">02</div>
+          <div class="mm-aprenderas-body">
+            <h3>El panorama real de los mercados financieros</h3>
+            <p>Bolsa, acciones, ETFs, &iacute;ndices, criptomonedas, forex, materias primas: c&oacute;mo funciona cada uno, sus diferencias, qu&eacute; ofrece, qu&eacute; riesgos tiene y por d&oacute;nde tiene sentido empezar seg&uacute;n tu situaci&oacute;n.</p>
+          </div>
+        </div>
+
+        <div class="mm-aprenderas-item reveal d3">
+          <div class="mm-aprenderas-num">03</div>
+          <div class="mm-aprenderas-body">
+            <h3>El m&eacute;todo paso a paso para construir tu sistema</h3>
+            <p>No vamos a darte tips sueltos. Vas a ver el sistema completo: mentalidad, an&aacute;lisis, gesti&oacute;n del riesgo y ejecuci&oacute;n. La misma estructura que usan los inversionistas que generan retornos consistentes.</p>
+          </div>
+        </div>
+
+        <div class="mm-aprenderas-item reveal d1">
+          <div class="mm-aprenderas-num">04</div>
+          <div class="mm-aprenderas-body">
+            <h3>C&oacute;mo empezar con lo que tienes hoy</h3>
+            <p>No necesitas miles de d&oacute;lares ni vivir en un pa&iacute;s espec&iacute;fico. Vas a aprender c&oacute;mo dar tus primeros pasos desde donde est&aacute;s, con el capital que tengas, con las herramientas que cualquier persona puede acceder.</p>
+          </div>
+        </div>
+
+        <div class="mm-aprenderas-item reveal d2">
+          <div class="mm-aprenderas-num">05</div>
+          <div class="mm-aprenderas-body">
+            <h3>Errores comunes que cuestan caro y c&oacute;mo evitarlos</h3>
+            <p>Las trampas en las que cae el 95% de las personas que intentan invertir solas. Si las identificas a tiempo, te ahorras a&ntilde;os de frustraci&oacute;n y mucho dinero perdido en operaciones mal tomadas.</p>
+          </div>
+        </div>
+
+        <div class="mm-aprenderas-item reveal d3">
+          <div class="mm-aprenderas-num">06</div>
+          <div class="mm-aprenderas-body">
+            <h3>Un plan claro para la siguiente semana</h3>
+            <p>Al cerrar el webinar vas a salir con pasos concretos para aplicar esa misma noche. No m&aacute;s &ldquo;voy a empezar alg&uacute;n d&iacute;a&rdquo;. Vas a saber exactamente qu&eacute; hacer ma&ntilde;ana, pasado ma&ntilde;ana y la pr&oacute;xima semana.</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1411,12 +1666,18 @@
               <option value="F">Mujer</option>
               <option value="N">Prefiero no decir</option>
             </select>
-            <select name="pais" required class="mm-pais-select">
-              <option value="">Pa&iacute;s*</option>
-            </select>
+            <div class="mm-custom-select" data-type="pais">
+              <input type="hidden" name="pais" class="mm-pais-input" required>
+              <button type="button" class="mm-cs-trigger" data-placeholder="Pa&iacute;s*"><span class="mm-cs-label">Pa&iacute;s*</span><span class="mm-cs-caret">&#9662;</span></button>
+              <div class="mm-cs-dropdown"></div>
+            </div>
           </div>
           <div class="mm-form-phone">
-            <select name="indicativo" class="mm-ind-select"><option value="">+</option></select>
+            <div class="mm-custom-select mm-cs-narrow" data-type="indicativo">
+              <input type="hidden" name="indicativo" class="mm-ind-input">
+              <button type="button" class="mm-cs-trigger" data-placeholder="+"><span class="mm-cs-label">+</span><span class="mm-cs-caret">&#9662;</span></button>
+              <div class="mm-cs-dropdown"></div>
+            </div>
             <input type="tel" name="telefono" inputmode="numeric" placeholder="Celular*" required>
           </div>
           <button type="submit" class="mm-form-submit">QUIERO MI LUGAR GRATIS</button>
@@ -1531,57 +1792,116 @@
     {code:'LU',name:'Luxemburgo',dial:'+352'}
   ];
 
-  // Generar emoji de bandera desde código ISO (CO -> 🇨🇴)
-  function flagEmoji(code) {
-    if (!code || code.length !== 2) return '';
-    var c1 = code.charCodeAt(0);
-    var c2 = code.charCodeAt(1);
-    // A=65, mapeamos a Regional Indicator Symbol Letter A (0x1F1E6)
-    return String.fromCodePoint(0x1F1E6 + (c1 - 65)) + String.fromCodePoint(0x1F1E6 + (c2 - 65));
+  // URL de banderas: flagcdn.com da PNGs livianos (24x18, 1-3KB cada uno)
+  function flagURL(code) {
+    return 'https://flagcdn.com/24x18/' + code.toLowerCase() + '.png';
   }
+
+  // ============ DROPDOWN CUSTOM CON BANDERAS ============
+  // Reemplaza los <select> nativos por elementos custom que sí muestran imágenes
+  function construirDropdown(container) {
+    var type = container.dataset.type; // 'pais' o 'indicativo'
+    var input = container.querySelector('input[type="hidden"]');
+    var trigger = container.querySelector('.mm-cs-trigger');
+    var label = container.querySelector('.mm-cs-label');
+    var dropdown = container.querySelector('.mm-cs-dropdown');
+    var placeholder = trigger.dataset.placeholder;
+
+    // Marca el label como placeholder inicialmente
+    label.classList.add('placeholder');
+
+    // Construir opciones
+    dropdown.innerHTML = '';
+    PAISES.forEach(function(p) {
+      var opt = document.createElement('div');
+      opt.className = 'mm-cs-option';
+      opt.dataset.code = p.code;
+      opt.dataset.dial = p.dial;
+      opt.dataset.name = p.name;
+
+      var img = document.createElement('img');
+      img.src = flagURL(p.code);
+      img.alt = p.code;
+      img.loading = 'lazy';
+      opt.appendChild(img);
+
+      var span = document.createElement('span');
+      span.textContent = type === 'indicativo' ? (p.dial + '  ' + p.name) : p.name;
+      opt.appendChild(span);
+
+      opt.addEventListener('click', function() {
+        seleccionarOpcion(container, p);
+        dropdown.classList.remove('open');
+        trigger.classList.remove('open');
+      });
+      dropdown.appendChild(opt);
+    });
+
+    // Toggle dropdown al hacer click
+    trigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      // Cerrar otros dropdowns abiertos
+      document.querySelectorAll('.mm-cs-dropdown.open').forEach(function(d){
+        if (d !== dropdown) {
+          d.classList.remove('open');
+          d.parentElement.querySelector('.mm-cs-trigger').classList.remove('open');
+        }
+      });
+      dropdown.classList.toggle('open');
+      trigger.classList.toggle('open');
+    });
+  }
+
+  function seleccionarOpcion(container, pais) {
+    var type = container.dataset.type;
+    var input = container.querySelector('input[type="hidden"]');
+    var label = container.querySelector('.mm-cs-label');
+
+    // Actualizar valor según tipo
+    input.value = type === 'indicativo' ? pais.dial : pais.code;
+    input.dataset.code = pais.code; // siempre guardar code para sincronizar
+
+    // Actualizar label visual con bandera
+    label.classList.remove('placeholder');
+    label.innerHTML = '';
+    var img = document.createElement('img');
+    img.src = flagURL(pais.code);
+    img.alt = pais.code;
+    label.appendChild(img);
+    var span = document.createElement('span');
+    span.textContent = type === 'indicativo' ? pais.dial : pais.name;
+    label.appendChild(span);
+
+    // Marcar visualmente como seleccionada
+    container.querySelectorAll('.mm-cs-option').forEach(function(o){
+      o.classList.toggle('selected', o.dataset.code === pais.code);
+    });
+
+    // Si es el dropdown de país, sincronizar también el indicativo del mismo formulario
+    if (type === 'pais') {
+      var form = container.closest('form');
+      if (form) {
+        var indContainer = form.querySelector('.mm-custom-select[data-type="indicativo"]');
+        if (indContainer) seleccionarOpcion(indContainer, pais);
+      }
+      // Y cambiar evento mostrado según grupo
+      var grupo = GRUPOS_PAIS[pais.code] || 'latam_bajo';
+      mostrarEvento(grupo);
+    }
+  }
+
+  // Cerrar dropdowns al hacer click afuera
+  document.addEventListener('click', function() {
+    document.querySelectorAll('.mm-cs-dropdown.open').forEach(function(d){
+      d.classList.remove('open');
+      d.parentElement.querySelector('.mm-cs-trigger').classList.remove('open');
+    });
+  });
 
   var eventoActual = EVENTOS['latam_bajo'];
 
   function poblarSelectores() {
-    document.querySelectorAll('.mm-pais-select').forEach(function(sel) {
-      PAISES.forEach(function(p) {
-        var o = document.createElement('option');
-        o.value = p.code;
-        o.textContent = flagEmoji(p.code) + '  ' + p.name;
-        sel.appendChild(o);
-      });
-    });
-    document.querySelectorAll('.mm-ind-select').forEach(function(sel) {
-      PAISES.forEach(function(p) {
-        var o = document.createElement('option');
-        o.value = p.dial;
-        o.dataset.code = p.code;
-        o.textContent = flagEmoji(p.code) + '  ' + p.dial;
-        sel.appendChild(o);
-      });
-    });
-
-    // Sincronizar pais <-> indicativo
-    document.querySelectorAll('.mm-pais-select').forEach(function(sel) {
-      sel.addEventListener('change', function(e) {
-        var code = e.target.value;
-        if (!code) return;
-        // Sincronizar indicativo del mismo formulario
-        var form = e.target.closest('form');
-        var indSel = form.querySelector('.mm-ind-select');
-        if (indSel) {
-          for (var i = 0; i < indSel.options.length; i++) {
-            if (indSel.options[i].dataset && indSel.options[i].dataset.code === code) {
-              indSel.selectedIndex = i;
-              break;
-            }
-          }
-        }
-        // Cambiar evento si el grupo cambia
-        var grupo = GRUPOS_PAIS[code] || 'latam_bajo';
-        mostrarEvento(grupo);
-      });
-    });
+    document.querySelectorAll('.mm-custom-select').forEach(construirDropdown);
   }
 
   function detectarPais() {
@@ -1590,19 +1910,13 @@
       .then(function(d){
         var code = d.country_code || d.country;
         if (code) {
-          // Pre-seleccionar en TODOS los selectores de pais
-          document.querySelectorAll('.mm-pais-select').forEach(function(sel) {
-            for (var i = 0; i < sel.options.length; i++) {
-              if (sel.options[i].value === code) { sel.selectedIndex = i; break; }
-            }
-          });
-          document.querySelectorAll('.mm-ind-select').forEach(function(sel) {
-            for (var j = 0; j < sel.options.length; j++) {
-              if (sel.options[j].dataset && sel.options[j].dataset.code === code) {
-                sel.selectedIndex = j; break;
-              }
-            }
-          });
+          var pais = PAISES.find(function(p){ return p.code === code; });
+          if (pais) {
+            // Pre-seleccionar en TODOS los dropdowns custom (pais e indicativo)
+            document.querySelectorAll('.mm-custom-select').forEach(function(c) {
+              seleccionarOpcion(c, pais);
+            });
+          }
           mostrarEvento(GRUPOS_PAIS[code] || 'latam_bajo');
         } else {
           mostrarEvento('latam_bajo');
