@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pago confirmado - Money Magnet</title>
+  <title>Estado del pago - Money Magnet</title>
   <link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=1aaAXVGDHYHEXr3uQC1k5f9WBqPnSeFt4&sz=w120">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&family=Inter:wght@400;500;600&display=swap');
@@ -20,41 +20,68 @@
       background: radial-gradient(ellipse at top, #1A1F3D 0%, #050010 70%);
     }
     .wrap {
-      max-width: 520px;
+      max-width: 540px;
       width: 100%;
       background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(245, 184, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 20px;
       padding: 40px 30px;
       text-align: center;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     }
-    .check-circle {
+    .wrap.estado-aprobado { border-color: rgba(0, 200, 150, 0.35); }
+    .wrap.estado-pendiente { border-color: rgba(245, 184, 0, 0.35); }
+    .wrap.estado-rechazado { border-color: rgba(255, 107, 107, 0.35); }
+
+    .icon-circle {
       width: 80px;
       height: 80px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #00C896 0%, #00A57A 100%);
       margin: 0 auto 24px;
       display: flex;
       align-items: center;
       justify-content: center;
       animation: pop 0.5s ease-out;
+    }
+    .icon-circle.ok {
+      background: linear-gradient(135deg, #00C896 0%, #00A57A 100%);
       box-shadow: 0 8px 24px rgba(0, 200, 150, 0.35);
+    }
+    .icon-circle.pending {
+      background: linear-gradient(135deg, #F5B800 0%, #D49A00 100%);
+      box-shadow: 0 8px 24px rgba(245, 184, 0, 0.35);
+    }
+    .icon-circle.error {
+      background: linear-gradient(135deg, #FF6B6B 0%, #C94545 100%);
+      box-shadow: 0 8px 24px rgba(255, 107, 107, 0.35);
+    }
+    .icon-circle .pulse {
+      animation: pulse 1.5s ease-in-out infinite;
     }
     @keyframes pop {
       0% { transform: scale(0); opacity: 0; }
       80% { transform: scale(1.1); }
       100% { transform: scale(1); opacity: 1; }
     }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
     h1 {
       font-family: 'Montserrat', sans-serif;
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 900;
       margin-bottom: 14px;
       letter-spacing: -0.5px;
+      line-height: 1.2;
     }
     h1 .gold { color: #F5B800; }
+    h1 .green { color: #00C896; }
+    h1 .red { color: #FF6B6B; }
+
     p { line-height: 1.65; color: rgba(255,255,255,0.75); margin-bottom: 18px; font-size: 15px; }
+
     .ref-box {
       background: rgba(245, 184, 0, 0.08);
       border: 1px solid rgba(245, 184, 0, 0.2);
@@ -86,7 +113,10 @@
       line-height: 1.65;
       color: rgba(255,255,255,0.8);
     }
+    .info.warn { border-left-color: #F5B800; background: rgba(245,184,0,0.05); }
+    .info.error { border-left-color: #FF6B6B; background: rgba(255,107,107,0.05); }
     .info strong { color: #fff; }
+
     .btn {
       display: inline-block;
       background: #F5B800;
@@ -98,7 +128,7 @@
       font-size: 14px;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      margin-top: 14px;
+      margin: 8px 6px;
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(245,184,0,0.3); }
@@ -114,56 +144,174 @@
       font-size: 13px;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      margin: 14px 6px 0;
+      margin: 8px 6px;
     }
-    .wa {
-      color: #25D366;
-      font-weight: 700;
-      text-decoration: none;
-    }
+    .wa { color: #25D366; font-weight: 700; text-decoration: none; }
+
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="check-circle">
-      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="20 6 9 17 4 12"/>
-      </svg>
+  <div class="wrap" id="wrap">
+
+    <!-- ESTADO: APROBADO (4) -->
+    <div id="estado-aprobado" class="hidden">
+      <div class="icon-circle ok">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <h1>&iexcl;Pago <span class="green">confirmado</span>!</h1>
+      <p>Tu acceso VIP a <strong style="color:#F5B800;">Money Magnet</strong> est&aacute; en proceso de activaci&oacute;n. En los pr&oacute;ximos minutos recibir&aacute;s un correo de confirmaci&oacute;n con todos los detalles.</p>
+
+      <div class="info">
+        <strong>Pr&oacute;ximos pasos:</strong><br>
+        &middot; Recibir&aacute;s un email con los enlaces de Microsoft Teams (Q&amp;A privada)<br>
+        &middot; Te uniremos al canal exclusivo de miembros VIP<br>
+        &middot; Tendr&aacute;s acceso a la <strong>grabaci&oacute;n del webinar</strong> permanente<br>
+        &middot; Si pagaste el plan de 2 personas, recibir&aacute;s el segundo acceso
+      </div>
+
+      <p style="font-size:13px;color:rgba(255,255,255,0.6);">&iquest;Alguna duda? Escr&iacute;benos al WhatsApp: <a href="https://wa.me/573052460919" class="wa">+57 305 246 0919</a></p>
     </div>
 
-    <h1>¡Pago <span class="gold">confirmado</span>!</h1>
-    <p>Tu acceso VIP a <strong style="color:#F5B800;">Money Magnet</strong> está en proceso de activación. En los próximos minutos recibirás un correo de confirmación con todos los detalles.</p>
+    <!-- ESTADO: PENDIENTE (7) -->
+    <div id="estado-pendiente" class="hidden">
+      <div class="icon-circle pending">
+        <svg class="pulse" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <h1>Pago en <span class="gold">proceso</span></h1>
+      <p>Tu pago est&aacute; siendo procesado por la entidad bancaria. Esto puede tomar entre <strong>algunos minutos hasta 24 horas</strong>, dependiendo del m&eacute;todo de pago utilizado.</p>
 
-    <div class="ref-box">
-      <div class="ref-lbl">Referencia de pago</div>
-      <span id="ref-code">Procesando&hellip;</span>
+      <div class="info warn">
+        <strong>&iquest;Qu&eacute; pasa ahora?</strong><br>
+        &middot; Recibir&aacute;s un correo cuando tu pago se confirme<br>
+        &middot; No es necesario que vuelvas a pagar<br>
+        &middot; Si pasadas 24 horas no recibes confirmaci&oacute;n, escr&iacute;benos al WhatsApp
+      </div>
+
+      <p style="font-size:13px;color:rgba(255,255,255,0.6);">&iquest;Necesitas ayuda? Escr&iacute;benos al WhatsApp: <a href="https://wa.me/573052460919" class="wa">+57 305 246 0919</a></p>
     </div>
 
-    <div class="info">
-      <strong>Próximos pasos:</strong><br>
-      &nbsp;&middot; Recibirás un email con los enlaces de Zoom (Q&amp;A privada) y Microsoft Teams<br>
-      &nbsp;&middot; Te uniremos al canal exclusivo de miembros VIP<br>
-      &nbsp;&middot; Si pagaste el plan de 2 personas, también recibirás el segundo acceso
+    <!-- ESTADO: RECHAZADO (6) / EXPIRADO (5) / ERROR (104) -->
+    <div id="estado-rechazado" class="hidden">
+      <div class="icon-circle error">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </div>
+      <h1>Pago <span class="red">no completado</span></h1>
+      <p id="rechazado-msg">Tu pago no pudo ser procesado en esta ocasi&oacute;n. No te preocupes, <strong>no se realiz&oacute; ning&uacute;n cargo</strong> en tu tarjeta.</p>
+
+      <div class="info error">
+        <strong>&iquest;Qu&eacute; puedes hacer?</strong><br>
+        &middot; Intentar nuevamente con la misma tarjeta<br>
+        &middot; Probar con otro m&eacute;todo de pago (PSE, otra tarjeta)<br>
+        &middot; Verificar que tu tarjeta acepte pagos internacionales o en l&iacute;nea<br>
+        &middot; Escribirnos por WhatsApp si necesitas ayuda
+      </div>
+
+      <a href="/gracias" class="btn">Volver a intentar</a>
+      <p style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:18px;">&iquest;Necesitas ayuda? Escr&iacute;benos al WhatsApp: <a href="https://wa.me/573052460919" class="wa">+57 305 246 0919</a></p>
     </div>
 
-    <p style="font-size:13px;color:rgba(255,255,255,0.6);">¿Alguna duda? Escríbenos al WhatsApp: <a href="https://wa.me/573052460919" class="wa">+57 305 246 0919</a></p>
+    <!-- BLOQUE COMÚN: Referencia + Volver -->
+    <div id="bloque-comun">
+      <div class="ref-box">
+        <div class="ref-lbl">Referencia de pago</div>
+        <span id="ref-code">&mdash;</span>
+      </div>
+      <a href="/" class="btn-secondary">Volver al inicio</a>
+    </div>
 
-    <a href="/" class="btn-secondary">Volver al inicio</a>
   </div>
 
   <script>
-    // Mostrar referenceCode si viene en la URL (PayU lo manda)
-    try {
+    (function() {
+      'use strict';
+
+      // Parámetros que envía PayU en la responseUrl:
+      // - transactionState: 4=APROBADO, 6=DECLINADO, 7=PENDIENTE, 5=EXPIRADO, 104=ERROR
+      // - lapTransactionState: APPROVED, DECLINED, PENDING, EXPIRED, ERROR
+      // - referenceCode
+      // - TX_VALUE
+      // - polTransactionState (igual al state_pol)
+      // - polResponseCode
+      // - message
+
       var params = new URLSearchParams(window.location.search);
-      var ref = params.get('referenceCode') || params.get('reference_pol') || params.get('reference_sale');
-      if (ref) {
-        document.getElementById('ref-code').textContent = ref;
+
+      var transactionState = params.get('transactionState') ||
+                             params.get('polTransactionState') ||
+                             params.get('lapTransactionState') ||
+                             '';
+
+      var referenceCode = params.get('referenceCode') ||
+                          params.get('reference_pol') ||
+                          params.get('reference_sale') ||
+                          '';
+
+      var mensajeError = params.get('message') || '';
+
+      // Normalizar el estado a un valor textual
+      var estado = 'desconocido';
+      var stateStr = String(transactionState).toUpperCase();
+
+      if (stateStr === '4' || stateStr === 'APPROVED') {
+        estado = 'aprobado';
+      } else if (stateStr === '7' || stateStr === 'PENDING') {
+        estado = 'pendiente';
+      } else if (stateStr === '6' || stateStr === 'DECLINED' ||
+                 stateStr === '5' || stateStr === 'EXPIRED' ||
+                 stateStr === '104' || stateStr === 'ERROR') {
+        estado = 'rechazado';
+      } else if (!transactionState) {
+        // Si no hay parámetro, probablemente el usuario navegó manualmente
+        // o canceló antes de enviar el form. Mostramos rechazado.
+        estado = 'rechazado';
+        mensajeError = 'No recibimos confirmaci\u00f3n del pago. Si lo cancelaste, no se hizo ning\u00fan cargo.';
       } else {
-        document.getElementById('ref-code').textContent = 'Se enviará por correo';
+        // Estado desconocido - asumimos pendiente para no asustar al usuario
+        estado = 'pendiente';
       }
-    } catch(e) {
-      document.getElementById('ref-code').textContent = 'Se enviará por correo';
-    }
+
+      // Mostrar el bloque correcto
+      var wrap = document.getElementById('wrap');
+      var bloqueId = 'estado-' + estado;
+      var bloque = document.getElementById(bloqueId);
+      if (bloque) {
+        bloque.classList.remove('hidden');
+      } else {
+        // Fallback
+        document.getElementById('estado-pendiente').classList.remove('hidden');
+        estado = 'pendiente';
+      }
+
+      // Agregar clase al wrap para colorear el borde
+      wrap.classList.add('estado-' + estado);
+
+      // Mensaje personalizado de rechazado
+      if (estado === 'rechazado' && mensajeError) {
+        var msgEl = document.getElementById('rechazado-msg');
+        if (msgEl && mensajeError.length < 200) {
+          // Solo mostrar mensajes cortos para evitar errores técnicos largos
+          msgEl.innerHTML = mensajeError + ' <strong>No se realiz&oacute; ning&uacute;n cargo</strong> en tu tarjeta.';
+        }
+      }
+
+      // Referencia
+      var refEl = document.getElementById('ref-code');
+      if (refEl) {
+        refEl.textContent = referenceCode || 'Se enviar\u00e1 por correo';
+      }
+
+      console.log('[PayU Response] estado:', estado, 'transactionState:', transactionState, 'ref:', referenceCode);
+
+    })();
   </script>
 </body>
 </html>
