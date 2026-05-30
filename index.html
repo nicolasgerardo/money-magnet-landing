@@ -1586,9 +1586,12 @@
     payload.url_origen = window.location.href;
 
     fetch(APPS_SCRIPT_URL + '?action=registro_landing', {
-      method: 'POST',
-      body: JSON.stringify(payload),
-      mode: 'no-cors'
+      // Enviar via imagen invisible (bypass CORS garantizado)
+var img = new Image();
+var params = Object.keys(payload).map(function(k){
+  return encodeURIComponent(k) + '=' + encodeURIComponent(payload[k]);
+}).join('&');
+img.src = APPS_SCRIPT_URL + '?action=registro_landing_get&' + params;
     }).then(function() {
       console.log('[LANDING] Registro enviado al backend');
     }).catch(function(err) {
