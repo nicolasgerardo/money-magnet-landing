@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estas dentro! - Money Magnet | Academia Intrade</title>
+</head>
+<body style="margin:0;padding:0;">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap');
+
+  .gm-app * { box-sizing: border-box; margin: 0; padding: 0; }
+  .gm-app {
+    --dorado: #F5B800;
+    --dorado-claro: #FFD24D;
+    --dorado-oscuro: #B8860B;
+    --azul-marino: #0B1131;
+    --azul-marino-2: #1A1F3D;
+    --azul-marino-3: #2A2F4C;
+    --blanco: #FFFFFF;
+    --verde-wp: #25D366;
+    --telegram: #229ED9;
+
+    font-family: 'Inter', sans-serif;
+    color: var(--blanco);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    background: linear-gradient(135deg, #050010 0%, #0B1131 25%, #1A1F3D 50%, #0d1b3e 75%, #050010 100%);
+    position: relative;
+  }
+
+  @keyframes shimmer { 0%{background-position:-200% center;} 100%{background-position:200% center;} }
+  @keyframes fade-up { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+  @keyframes float-particle { 0%,100%{transform:translateY(0) rotate(0deg); opacity:.3;} 50%{transform:translateY(-80vh) rotate(180deg); opacity:.8;} }
+  @keyframes pulse-soft { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
+  @keyframes scaleIn { 0%{transform:scale(0); opacity:0;} 50%{transform:scale(1.1);} 100%{transform:scale(1); opacity:1;} }
+
+  /* Particles de fondo */
+  .gm-app .gm-particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .gm-app .gm-particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(245, 184, 0, 0.15);
+  }
+
+  .gm-app .gm-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    opacity: 0.1;
+    background: radial-gradient(circle, var(--dorado) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ============ NAV ============ */
+  .gm-app .gm-nav {
+    position: relative;
+    z-index: 10;
+    padding: 20px 24px;
+  }
+  .gm-app .gm-nav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .gm-app .gm-nav-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 2px;
+  }
+  .gm-app .gm-nav-logo .gold { color: var(--dorado); }
+
+  /* ============ MAIN ============ */
+  .gm-app .gm-main {
+    position: relative;
+    z-index: 10;
+    padding: 16px 16px 40px;
+  }
+  .gm-app .gm-inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .gm-app .gm-inner > * + * { margin-top: 24px; }
+
+  /* ============ HEADER GRACIAS ============ */
+  .gm-app .gm-header {
+    text-align: center;
+    animation: fade-up 0.6s ease-out;
+  }
+  .gm-app .gm-emoji-success {
+    font-size: 64px;
+    animation: scaleIn 0.7s ease-out;
+    margin-bottom: 8px;
+  }
+  .gm-app .gm-saludo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 900;
+    line-height: 1.1;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .gm-app .gm-saludo .gold {
+    background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 50%, var(--dorado) 100%);
+    background-size: 200%;
+    animation: shimmer 3s linear infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .gm-app .gm-saludo-sub {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* ============ CARD BASE ============ */
+  .gm-app .gm-card {
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 24px;
+    animation: fade-up 0.8s ease-out;
+  }
+  .gm-app .gm-card.gold {
+    border-color: rgba(245, 184, 0, 0.3);
+    background: linear-gradient(180deg, rgba(245, 184, 0, 0.06) 0%, rgba(245, 184, 0, 0.02) 100%);
+  }
+  .gm-app .gm-card.wp {
+    border-color: rgba(37, 211, 102, 0.3);
+    background: rgba(37, 211, 102, 0.04);
+  }
+  .gm-app .gm-card.tg {
+    border-color: rgba(34, 158, 217, 0.3);
+    background: rgba(34, 158, 217, 0.04);
+  }
+
+  /* ============ EVENTO INFO ============ */
+  .gm-app .gm-evento-card {
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s;
+  }
+  .gm-app .gm-evento-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(245, 184, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .gm-app .gm-evento-info { flex: 1; }
+  .gm-app .gm-evento-lbl {
+    color: var(--dorado);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .gm-app .gm-evento-fecha {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+  .gm-app .gm-evento-hora {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  .gm-app .gm-evento-hora strong { color: var(--dorado); }
+
+  /* ============ TICKET con QR ============ */
+  .gm-app .gm-ticket-section {
+    padding: 28px 22px;
+    text-align: center;
+  }
+  .gm-app .gm-ticket-lbl {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .gm-app .gm-ticket {
+    background: linear-gradient(135deg, #0B1131 0%, #1A1F3D 100%);
+    border: 2px solid var(--dorado);
+    border-radius: 16px;
+    padding: 24px 20px;
+    position: relative;
+    max-width: 340px;
+    margin: 0 auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+  .gm-app .gm-ticket-header {
+    text-align: left;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed rgba(245, 184, 0, 0.3);
+    margin-bottom: 16px;
+  }
+  .gm-app .gm-ticket-brand {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--dorado);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .gm-app .gm-ticket-evento {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1;
+    margin-top: 4px;
+    text-transform: uppercase;
+    color: var(--blanco);
+  }
+  .gm-app .gm-ticket-evento .gold {
+    background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .gm-app .gm-ticket-body {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .gm-app .gm-ticket-data {
+    flex: 1;
+    text-align: left;
+    font-size: 11px;
+  }
+  .gm-app .gm-ticket-data .row {
+    margin-bottom: 8px;
+  }
+  .gm-app .gm-ticket-data .row .lbl {
+    color: rgba(245, 184, 0, 0.7);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .gm-app .gm-ticket-data .row .val {
+    color: var(--blanco);
+    font-weight: 600;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+  .gm-app .gm-ticket-qr {
+    background: var(--blanco);
+    padding: 8px;
+    border-radius: 8px;
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gm-app .gm-ticket-qr canvas, .gm-app .gm-ticket-qr img {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .gm-app .gm-ticket-tipo {
+    background: rgba(245, 184, 0, 0.15);
+    color: var(--dorado);
+    padding: 8px 0;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .gm-app .gm-ticket-tipo.vip {
+    background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%);
+    color: var(--azul-marino);
+  }
+  .gm-app .gm-ticket-id {
+    color: rgba(245, 184, 0, 0.8);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    margin-top: 14px;
+    font-style: italic;
+    font-weight: 500;
+  }
+  .gm-app .gm-ticket-actions {
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .gm-app .gm-btn-download {
+    background: rgba(245, 184, 0, 0.12);
+    color: var(--dorado);
+    border: 1px solid rgba(245, 184, 0, 0.3);
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s;
+  }
+  .gm-app .gm-btn-download:hover {
+    background: rgba(245, 184, 0, 0.2);
+    transform: translateY(-2px);
+  }
+  .gm-app .gm-ticket-sub {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 11px;
+    margin-top: 12px;
+  }
+
+  /* ============ WHATSAPP CARD ============ */
+  .gm-app .gm-wp-card {
+    text-align: center;
+    padding: 32px 24px;
+  }
+  .gm-app .gm-wp-lbl {
+    color: var(--verde-wp);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .gm-app .gm-wp-h {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .gm-app .gm-wp-sub {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 13.5px;
+    max-width: 400px;
+    margin: 0 auto 20px;
+    line-height: 1.6;
+  }
+  .gm-app .gm-wp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--verde-wp);
+    color: var(--blanco);
+    padding: 16px 32px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+  }
+  .gm-app .gm-wp-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 12px 36px rgba(37, 211, 102, 0.45);
+  }
+
+  /* Tag personalizado segun grupo */
+  .gm-app .gm-tg-btn {
+    background: var(--telegram);
+    box-shadow: 0 8px 24px rgba(34, 158, 217, 0.3);
+  }
+  .gm-app .gm-tg-btn:hover {
+    box-shadow: 0 12px 36px rgba(34, 158, 217, 0.45);
+  }
+
+  /* ============ VIP UPSELL ============ */
+  .gm-app .gm-vip-card {
+    padding: 28px 24px;
+  }
+  .gm-app .gm-vip-head { text-align: center; margin-bottom: 24px; }
+  .gm-app .gm-vip-lbl {
+    color: var(--dorado);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .gm-app .gm-vip-h {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+  .gm-app .gm-vip-sub {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 13.5px;
+    line-height: 1.6;
+    max-width: 460px;
+    margin: 0 auto 8px;
+  }
+  .gm-app .gm-vip-benefits {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 24px;
+  }
+  .gm-app .gm-vip-benefits li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 14px;
+    padding: 8px 0;
+  }
+  .gm-app .gm-vip-benefits .gm-vip-check {
+    color: var(--dorado);
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .gm-app .gm-vip-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 480px) {
+    .gm-app .gm-vip-buttons { grid-template-columns: 1fr; }
+  }
+  .gm-app .gm-vip-btn {
+    background: rgba(245, 184, 0, 0.1);
+    border: 1px solid rgba(245, 184, 0, 0.35);
+    color: var(--dorado);
+    padding: 16px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+  }
+  .gm-app .gm-vip-btn:hover {
+    transform: scale(1.02);
+    background: rgba(245, 184, 0, 0.15);
+  }
+  .gm-app .gm-vip-btn.featured {
+    background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%);
+    color: var(--azul-marino);
+    border-color: transparent;
+  }
+  .gm-app .gm-vip-btn.featured:hover { box-shadow: 0 12px 32px rgba(245, 184, 0, 0.4); }
+  .gm-app .gm-vip-btn .qty {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .gm-app .gm-vip-btn .price {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+  }
+  .gm-app .gm-vip-btn .popular {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(11, 17, 49, 0.7);
+    margin-top: 2px;
+  }
+
+  /* ============ VSL placeholder ============ */
+  .gm-app .gm-vsl-grac {
+    aspect-ratio: 16/9;
+    background:
+      radial-gradient(circle at center, rgba(245, 184, 0, 0.15) 0%, transparent 60%),
+      linear-gradient(135deg, var(--azul-marino) 0%, var(--azul-marino-2) 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(245, 184, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .gm-app .gm-vsl-grac:hover { border-color: var(--dorado); }
+  .gm-app .gm-vsl-grac .play {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--dorado);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--azul-marino);
+    box-shadow: 0 8px 24px rgba(245, 184, 0, 0.4);
+  }
+  .gm-app .gm-vsl-grac .play svg { margin-left: 3px; }
+
+  /* ============ FOOTER ============ */
+  .gm-app .gm-footer {
+    text-align: center;
+    padding: 30px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 11px;
+    position: relative;
+    z-index: 10;
+  }
+
+  /* ============ MENSAJE ACCESO DIRECTO ============ */
+  .gm-app .gm-no-acceso {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+  }
+  .gm-app .gm-no-acceso-card {
+    max-width: 480px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(245, 184, 0, 0.25);
+    border-radius: 20px;
+    padding: 48px 32px;
+  }
+  .gm-app .gm-no-acceso-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+  .gm-app .gm-no-acceso h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .gm-app .gm-no-acceso p {
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+  .gm-app .gm-no-acceso a {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%);
+    color: var(--azul-marino);
+    padding: 14px 32px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 13px;
+    transition: all 0.3s;
+  }
+  .gm-app .gm-no-acceso a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(245, 184, 0, 0.4);
+  }
+</style>
+
+<div class="gm-app">
+
+  <!-- Particles de fondo -->
+  <div class="gm-particles" id="gm-particles"></div>
+  <div class="gm-glow"></div>
+
+  <!-- ============ CONTENIDO VALIDO (se muestra solo si hay datos del registro) ============ -->
+  <div id="gm-contenido" style="display:none;">
+
+    <nav class="gm-nav">
+      <div class="gm-nav-inner">
+        <div class="gm-nav-logo">MONEY <span class="gold">MAGNET</span></div>
+      </div>
+    </nav>
+
+    <main class="gm-main">
+      <div class="gm-inner">
+
+        <!-- ============ HEADER GRACIAS ============ -->
+        <div class="gm-header">
+          <div class="gm-emoji-success">*</div>
+          <h1 class="gm-saludo" id="gm-saludo">
+            <span id="gm-saludo-prefix">Bienvenido</span>, <span class="gold" id="gm-nombre"></span><br>
+            YA ESTAS <span class="gold">DENTRO</span>
+          </h1>
+          <p class="gm-saludo-sub">
+            Tu lugar al webinar <strong style="color:#F5B800;">Money Magnet</strong>
+            esta confirmado. Te enviamos tu boleto al correo.
+          </p>
+        </div>
+
+        <!-- ============ EVENTO ============ -->
+        <div class="gm-card gold gm-evento-card">
+          <div class="gm-evento-icon">[F]</div>
+          <div class="gm-evento-info">
+            <div class="gm-evento-lbl">TU SESION</div>
+            <div class="gm-evento-fecha" id="gm-fecha-display">Cargando...</div>
+            <div class="gm-evento-hora" id="gm-hora-display">8:00 PM . 2 horas en vivo . Sin grabacion</div>
+          </div>
+        </div>
+
+        <!-- ============ WHATSAPP COMUNIDAD ============ -->
+        <div class="gm-card wp gm-wp-card">
+          <div class="gm-wp-lbl">SIGUIENTE PASO IMPORTANTE</div>
+          <h2 class="gm-wp-h">Unete a la comunidad</h2>
+          <p class="gm-wp-sub">
+            Entra al grupo exclusivo donde compartiremos
+            recordatorios, recursos y contenido antes del evento.
+          </p>
+          <a href="#" id="gm-btn-wp" target="_blank" rel="noopener" class="gm-wp-btn">
+            <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            UNIRSE AL GRUPO
+          </a>
+        </div>
+
+        <!-- ============ TELEGRAM CANAL ============ -->
+        <div class="gm-card tg gm-wp-card">
+          <div class="gm-wp-lbl" style="color:#229ED9;">CANAL OFICIAL</div>
+          <h2 class="gm-wp-h">Unete a Telegram</h2>
+          <p class="gm-wp-sub">
+            Recibe notificaciones de cada actualizacion
+            y material extra que ire publicando.
+          </p>
+          <a href="#" id="gm-btn-tg" target="_blank" rel="noopener" class="gm-wp-btn gm-tg-btn">
+            <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.508.508 0 01.171.325c.016.093.036.306.02.473-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+            </svg>
+            UNIRME AL CANAL
+          </a>
+        </div>
+
+        <!-- ============ VSL DE GRACIAS (PLACEHOLDER) ============ -->
+        <div class="gm-card" style="padding:0;overflow:hidden;">
+          <div class="gm-vsl-grac" onclick="alert('Aqui puedes subir un video personalizado de bienvenida. Por ahora es un placeholder.')">
+            <div class="play">
+              <svg width="26" height="26" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;">
+              Mensaje personal de Nicolas
+            </div>
+            <div style="color:rgba(255,255,255,0.4);font-size:12px;">
+              Tu proximo paso . 1 min
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ TICKET CON QR ============ -->
+        <div class="gm-card gm-ticket-section">
+          <div class="gm-ticket-lbl">TU BOLETO</div>
+          <div class="gm-ticket" id="gm-ticket">
+            <div class="gm-ticket-header">
+              <div class="gm-ticket-brand">ACADEMIA INTRADE . WEBINAR</div>
+              <div class="gm-ticket-evento">MONEY <span class="gold">MAGNET</span></div>
+            </div>
+            <div class="gm-ticket-body">
+              <div class="gm-ticket-data">
+                <div class="row">
+                  <div class="lbl">Asistente</div>
+                  <div class="val" id="gm-ticket-nombre">-</div>
+                </div>
+                <div class="row">
+                  <div class="lbl">Fecha</div>
+                  <div class="val" id="gm-ticket-fecha">-</div>
+                </div>
+                <div class="row">
+                  <div class="lbl">Hora</div>
+                  <div class="val">8:00 PM</div>
+                </div>
+              </div>
+              <div class="gm-ticket-qr" id="gm-qr-container">
+                <!-- QR se genera con JS -->
+              </div>
+            </div>
+            <div class="gm-ticket-tipo" id="gm-ticket-tipo">ACCESO GENERAL</div>
+            <div class="gm-ticket-id" id="gm-ticket-id">MM-XXXX-XXXX</div>
+          </div>
+          <div class="gm-ticket-actions">
+            <button class="gm-btn-download" onclick="gmDescargarBoleto()">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Descargar
+            </button>
+          </div>
+          <div class="gm-ticket-sub">Tambien lo enviamos a tu correo</div>
+        </div>
+
+        <!-- ============ ASESORIA WHATSAPP DIRECTA ============ -->
+        <div class="gm-card" style="text-align:center;">
+          <div style="font-size:34px;margin-bottom:8px;"></div>
+          <h3 style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;text-transform:uppercase;margin-bottom:8px;">
+            Tienes dudas?
+          </h3>
+          <p style="color:rgba(255,255,255,0.55);font-size:13.5px;margin-bottom:20px;max-width:380px;margin-left:auto;margin-right:auto;">
+            Escribeme directamente al WhatsApp para asesoria personal.
+          </p>
+          <a href="#" id="gm-btn-asesor" target="_blank" rel="noopener"
+             style="display:inline-block;background:rgba(245,184,0,0.12);color:#F5B800;border:1px solid rgba(245,184,0,0.35);padding:12px 24px;border-radius:10px;font-weight:700;text-decoration:none;font-size:13px;letter-spacing:0.5px;text-transform:uppercase;">
+            Hablar con Nicolas ->
+          </a>
+        </div>
+
+        <!-- ============ VIP UPSELL ============ -->
+        <div class="gm-card gold gm-vip-card">
+          <div class="gm-vip-head">
+            <div class="gm-vip-lbl">* EXPERIENCIA VIP *</div>
+            <h2 class="gm-vip-h">Sube de nivel<br>tu experiencia</h2>
+            <p class="gm-vip-sub">
+              Lleva tu aprendizaje al siguiente nivel con beneficios exclusivos
+              solo para miembros VIP.
+            </p>
+          </div>
+
+          <ul class="gm-vip-benefits">
+            <li><span class="gm-vip-check">OK</span> Sesion privada de Q&A por Zoom despues del webinar</li>
+            <li><span class="gm-vip-check">OK</span> Ebook exclusivo con el sistema completo</li>
+            <li><span class="gm-vip-check">OK</span> Acceso a equipo privado en Microsoft Teams</li>
+            <li><span class="gm-vip-check">OK</span> Libro sorpresa seleccionado por Nicolas</li>
+          </ul>
+
+          <div class="gm-vip-buttons">
+            <button class="gm-vip-btn" onclick="gmAvisoVIP()">
+              <div class="qty">1 VIP</div>
+              <div class="price">$27 USD</div>
+              <div style="font-size:9px;color:rgba(245,184,0,0.7);letter-spacing:1px;text-transform:uppercase;font-weight:700;">Para ti</div>
+            </button>
+            <button class="gm-vip-btn featured" onclick="gmAvisoVIP()">
+              <div class="qty">2 VIPs</div>
+              <div class="price">$39 USD</div>
+              <div class="popular">La mas popular</div>
+            </button>
+          </div>
+
+          <p style="text-align:center;color:rgba(255,255,255,0.3);font-size:11px;margin-top:16px;">
+            Pago seguro . Cupos limitados
+          </p>
+        </div>
+
+      </div>
+    </main>
+
+    <footer class="gm-footer">
+      <div>ACADEMIA INTRADE</div>
+      <div style="margin-top:4px;">admin@academiaintrade.com . Colombia</div>
+      <div style="margin-top:8px;opacity:0.7;">(c) 2026 Academia Intrade</div>
+    </footer>
+  </div>
+
+  <!-- ============ MENSAJE NO ACCESO ============ -->
+  <div id="gm-sin-registro" style="display:none;">
+    <div class="gm-no-acceso">
+      <div class="gm-no-acceso-card">
+        <div class="gm-no-acceso-icon">[X]</div>
+        <h2>Acceso restringido</h2>
+        <p>
+          Esta pagina es solo para quienes ya estan registrados al webinar.
+          Si quieres asegurar tu lugar, regresa a la pagina de registro y
+          completa el formulario gratis.
+        </p>
+        <a href="#" id="gm-link-registro">Ir al registro</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Libreria QR (CDN ligero, ~6KB) -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+
+<script>
+(function() {
+  'use strict';
+
+  // URL de retorno si no hay registro valido
+  var URL_REGISTRO = '/';
+
+  // ============ LEER DATOS DEL USUARIO DESDE LA URL ============
+  // El registro paso los datos como parametro ?d=BASE64
+  var userData = null;
+
+  // LOGS DE DEBUG
+  console.log('[GRACIAS] URL:', window.location.href);
+
+  // Leer datos del parametro ?d=BASE64 en la URL
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var dataParam = params.get('d');
+    if (dataParam) {
+      var decodedRaw = decodeURIComponent(escape(atob(dataParam)));
+      var decoded = JSON.parse(decodedRaw);
+      console.log('[GRACIAS] Datos decodificados OK');
+      userData = {
+        nombre: decoded.n, apellido: decoded.a, email: decoded.e,
+        sexo: decoded.s, pais: decoded.p, pais_codigo: decoded.pc,
+        grupo: decoded.g, fecha_evento: decoded.fe, hora_evento: decoded.he,
+        whatsapp_url: decoded.wp, telegram_url: decoded.tg,
+        telefono: decoded.tel, ticket_id: decoded.t
+      };
+    }
+  } catch(e) {
+    console.error('[GRACIAS] Error decodificando datos:', e.message);
+  }
+
+  // ===== VALIDACION DE ACCESO =====
+  if (!userData || !userData.email || !userData.ticket_id) {
+    console.warn('[GRACIAS] Sin datos validos. Mostrando acceso restringido.');
+    var link = document.getElementById('gm-link-registro');
+    if (link) link.href = '/';
+    document.getElementById('gm-sin-registro').style.display = 'block';
+    document.getElementById('gm-contenido').style.display = 'none';
+    return;
+  }
+
+  // ============ Mostrar contenido ============
+  document.getElementById('gm-contenido').style.display = 'block';
+
+  // ============ GENERAR PARTICLES DE FONDO ============
+  function generarParticles() {
+    var cont = document.getElementById('gm-particles');
+    for (var i = 0; i < 18; i++) {
+      var p = document.createElement('div');
+      p.className = 'gm-particle';
+      var size = Math.random() * 3 + 1;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.left = (Math.random() * 100) + '%';
+      p.style.top = (Math.random() * 100) + '%';
+      p.style.animation = 'float-particle ' + (Math.random() * 20 + 15) + 's linear ' + (-Math.random() * 20) + 's infinite';
+      cont.appendChild(p);
+    }
+  }
+  generarParticles();
+
+  // ============ PERSONALIZAR SALUDO ============
+  function personalizarSaludo() {
+    var prefix = document.getElementById('gm-saludo-prefix');
+    var nombreEl = document.getElementById('gm-nombre');
+    if (userData.sexo === 'M') prefix.textContent = 'Bienvenido';
+    else if (userData.sexo === 'F') prefix.textContent = 'Bienvenida';
+    else prefix.textContent = 'Hola';
+    nombreEl.textContent = userData.nombre.toUpperCase();
+  }
+  personalizarSaludo();
+
+  // ============ INFO DEL EVENTO ============
+  document.getElementById('gm-fecha-display').textContent = userData.fecha_evento || 'Proximo webinar';
+  document.getElementById('gm-hora-display').innerHTML =
+    (userData.hora_evento || '8:00 PM') + ' . 2 horas en vivo . <strong>Sin grabacion</strong>';
+
+  // ============ BOTONES DE COMUNIDAD ============
+  var btnWp = document.getElementById('gm-btn-wp');
+  var btnTg = document.getElementById('gm-btn-tg');
+  var btnAsesor = document.getElementById('gm-btn-asesor');
+
+  btnWp.href = userData.whatsapp_url || 'https://chat.whatsapp.com/EjbCRtt9gr98iciCjJwrFD';
+  btnTg.href = userData.telegram_url || 'https://t.me/+h6kz_j2FyHxhZmIx';
+
+  // Boton asesoria con mensaje
+  var msgAsesoria = 'Hola Nicolas, soy ' + userData.nombre +
+    ' y me registre al webinar Money Magnet (' + (userData.fecha_evento || '') +
+    '). Necesito ayuda en ___';
+  btnAsesor.href = 'https://wa.me/573052460919?text=' + encodeURIComponent(msgAsesoria);
+
+  // ============ TICKET ============
+  document.getElementById('gm-ticket-nombre').textContent =
+    (userData.nombre + ' ' + (userData.apellido || '')).trim().toUpperCase();
+  document.getElementById('gm-ticket-fecha').textContent = userData.fecha_evento || '-';
+  // Mostrar mensaje de bienvenida en lugar del ID tecnico
+  var msgBienvenida;
+  if (userData.sexo === 'M') msgBienvenida = 'Bienvenido a Money Magnet, ' + userData.nombre;
+  else if (userData.sexo === 'F') msgBienvenida = 'Bienvenida a Money Magnet, ' + userData.nombre;
+  else msgBienvenida = userData.nombre + ', te damos la bienvenida a Money Magnet';
+  document.getElementById('gm-ticket-id').textContent = msgBienvenida;
+
+  // Generar QR
+  var qrData = JSON.stringify({
+    id: userData.ticket_id,
+    email: userData.email,
+    evento: userData.fecha_evento,
+    tipo: 'GENERAL'
+  });
+  if (typeof QRCode !== 'undefined') {
+    QRCode.toCanvas(qrData, {
+      width: 110,
+      margin: 0,
+      color: { dark: '#0B1131', light: '#FFFFFF' }
+    }, function(err, canvas) {
+      if (!err && canvas) {
+        document.getElementById('gm-qr-container').appendChild(canvas);
+      }
+    });
+  } else {
+    // Fallback con API gratuita si QRCode no cargo
+    var img = document.createElement('img');
+    img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(qrData);
+    img.alt = 'QR';
+    document.getElementById('gm-qr-container').appendChild(img);
+  }
+
+  // ============ DESCARGAR BOLETO ============
+  window.gmDescargarBoleto = function() {
+    var ticket = document.getElementById('gm-ticket');
+    // Solucion 1: usar html2canvas (CDN). Si no, abrimos el QR como imagen.
+    if (typeof html2canvas !== 'undefined') {
+      html2canvas(ticket, { backgroundColor: '#0B1131', scale: 2 }).then(function(canvas) {
+        var link = document.createElement('a');
+        link.download = 'boleto-money-magnet-' + userData.ticket_id + '.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    } else {
+      // Fallback: cargar html2canvas dinamicamente
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+      script.onload = function() { gmDescargarBoleto(); };
+      script.onerror = function() {
+        alert('No se pudo generar la descarga automatica. Haz captura de pantalla de tu boleto.');
+      };
+      document.body.appendChild(script);
+    }
+  };
+
+  // ============ ASIVO VIP ============
+  window.gmAvisoVIP = function() {
+    var msg = 'Hola Nicolas, soy ' + userData.nombre +
+      ' y quiero acceder al plan VIP del webinar Money Magnet (' +
+      (userData.fecha_evento || '') + '). Por favor enviame los detalles para realizar el pago.';
+    window.open('https://wa.me/573052460919?text=' + encodeURIComponent(msg), '_blank');
+  };
+
+})();
+</script>
+</body>
+</html>
