@@ -1071,7 +1071,15 @@
     padding: 10px 0;
     color: rgba(255, 255, 255, 0.7);
     font-size: 14px;
+    line-height: 1.5;
   }
+  /* El texto después del check debe fluir como un solo bloque,
+     no como items flex separados (eso rompía las palabras en columnas) */
+  .mm-app .mm-vip-list li > span:not(.mm-vip-check) {
+    flex: 1;
+    min-width: 0;
+  }
+  .mm-app .mm-vip-list li strong { font-weight: 700; color: rgba(255,255,255,0.95); }
   .mm-app .mm-vip-check {
     width: 20px;
     height: 20px;
@@ -1598,8 +1606,8 @@
           <div class="mm-vip-precio">$0<span class="mm-vip-cur">USD</span></div>
           <div class="mm-vip-divider"></div>
           <ul class="mm-vip-list">
-            <li><span class="mm-vip-check">OK</span> Acceso al <strong>evento en vivo</strong> de 2 horas</li>
-            <li><span class="mm-vip-check">OK</span> Acceso al <strong>grupo de WhatsApp y Telegram</strong> pre-evento y post</li>
+            <li><span class="mm-vip-check">OK</span> <span>Acceso al <strong>evento en vivo</strong> de 2 horas</span></li>
+            <li><span class="mm-vip-check">OK</span> <span>Acceso al <strong>grupo de WhatsApp y Telegram</strong> pre-evento y post</span></li>
           </ul>
           <button class="mm-vip-cta" onclick="document.getElementById('registro').scrollIntoView({behavior:'smooth'})">REGISTRARME GRATIS</button>
         </div>
@@ -1610,13 +1618,13 @@
           <div class="mm-vip-precio">$15<span class="mm-vip-cur">USD</span></div>
           <div class="mm-vip-divider"></div>
           <ul class="mm-vip-list">
-            <li><span class="mm-vip-check">OK</span> Todo lo del plan gratis</li>
-            <li><span class="mm-vip-check">OK</span> <strong>Acceso a la grabaci&oacute;n permanente</strong> del webinar</li>
-            <li><span class="mm-vip-check">OK</span> Sesi&oacute;n de Q&amp;A <strong>privada por Microsoft Teams</strong> despu&eacute;s del webinar</li>
-            <li><span class="mm-vip-check">OK</span> <strong>Ebook exclusivo</strong> con el sistema completo</li>
-            <li><span class="mm-vip-check">OK</span> Acceso a equipo privado VIP en <strong>WhatsApp</strong></li>
-            <li><span class="mm-vip-check">OK</span> <strong>Libro sorpresa</strong> seleccionado por Nicol&aacute;s</li>
-            <li><span class="mm-vip-check">OK</span> <strong>Certificado de asistencia</strong> personalizado</li>
+            <li><span class="mm-vip-check">OK</span> <span>Todo lo del plan gratis</span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>Acceso a la grabaci&oacute;n permanente</strong> del webinar</span></li>
+            <li><span class="mm-vip-check">OK</span> <span>Sesi&oacute;n de Q&amp;A <strong>privada por Microsoft Teams</strong> despu&eacute;s del webinar</span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>Ebook exclusivo</strong> con el sistema completo</span></li>
+            <li><span class="mm-vip-check">OK</span> <span>Acceso a equipo privado VIP en <strong>WhatsApp</strong></span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>Libro sorpresa</strong> seleccionado por Nicol&aacute;s</span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>Certificado de asistencia</strong> personalizado</span></li>
           </ul>
           <button class="mm-vip-cta" onclick="mmAvisoVIP()">QUIERO SER VIP</button>
         </div>
@@ -1628,14 +1636,14 @@
           <div class="mm-vip-precio">$20<span class="mm-vip-cur">USD</span></div>
           <div class="mm-vip-divider"></div>
           <ul class="mm-vip-list">
-            <li><span class="mm-vip-check">OK</span> <strong>Acceso a la grabaci&oacute;n permanente</strong> para los dos</li>
-            <li><span class="mm-vip-check">OK</span> Sesi&oacute;n de Q&amp;A <strong>privada por Microsoft Teams</strong> para ambos</li>
-            <li><span class="mm-vip-check">OK</span> <strong>Ebook exclusivo</strong> con el sistema completo</li>
-            <li><span class="mm-vip-check">OK</span> Acceso a equipo privado VIP en <strong>WhatsApp</strong></li>
-            <li><span class="mm-vip-check">OK</span> <strong>2 libros sorpresa</strong>, uno para cada persona</li>
-            <li><span class="mm-vip-check">OK</span> <strong>2 certificados</strong> de asistencia personalizados</li>
-            <li><span class="mm-vip-check">OK</span> Ahorras <strong>$10 USD</strong> vs. comprar 2 por separado</li>
-            <li><span class="mm-vip-check">OK</span> Ideal para <strong>parejas, socios o amigos</strong></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>Acceso a la grabaci&oacute;n permanente</strong> para los dos</span></li>
+            <li><span class="mm-vip-check">OK</span> <span>Sesi&oacute;n de Q&amp;A <strong>privada por Microsoft Teams</strong> para ambos</span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>Ebook exclusivo</strong> con el sistema completo</span></li>
+            <li><span class="mm-vip-check">OK</span> <span>Acceso a equipo privado VIP en <strong>WhatsApp</strong></span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>2 libros sorpresa</strong>, uno para cada persona</span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>2 certificados</strong> de asistencia personalizados</span></li>
+            <li><span class="mm-vip-check">OK</span> <span>Ahorras <strong>$10 USD</strong> vs. comprar 2 por separado</span></li>
+            <li><span class="mm-vip-check">OK</span> <span>Ideal para <strong>parejas, socios o amigos</strong></span></li>
           </ul>
           <button class="mm-vip-cta" onclick="mmAvisoVIP()">ACCEDER POR $20</button>
         </div>
