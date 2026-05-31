@@ -99,29 +99,36 @@
     padding: 24px 20px 48px;
   }
   .gm-app .gm-inner {
-    max-width: 1200px;
+    max-width: 720px;
     margin: 0 auto;
   }
   .gm-app .gm-inner > * + * { margin-top: 18px; }
 
-  /* === Sistema de filas (rejilla 2 columnas en desktop, 1 en móvil) === */
-  .gm-app .gm-row {
+  /* === Una sola columna centrada === */
+  .gm-app .gm-row { display: block; }
+  .gm-app .gm-hero-grid { display: block; }
+
+  /* Redes en 2 columnas, VIP full ancho destacado abajo === */
+  .gm-app .gm-bento {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 18px;
+    gap: 16px;
     align-items: stretch;
   }
-  .gm-app .gm-row > * { margin-top: 0; }
-  .gm-app .gm-row.full { grid-template-columns: 1fr; }
-  .gm-app .gm-row > .gm-card { height: 100%; display: flex; flex-direction: column; }
-  .gm-app .gm-row > .gm-header { height: 100%; display: flex; flex-direction: column; justify-content: center; }
+  .gm-app .gm-bento .gm-vip-card { grid-column: 1 / span 2; }
+  .gm-app .gm-bento > * { margin-top: 0; }
+  .gm-app .gm-bento .gm-wp-card {
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+  }
+  .gm-app .gm-bento .gm-wp-card .gm-wp-sub { margin-bottom: 22px; }
 
-  /* === HERO asimétrico: VSL+saludo (1.3fr) | ticket (0.7fr) === */
-  .gm-app .gm-hero-grid {
-    display: grid;
-    grid-template-columns: 1.35fr 0.65fr;
-    gap: 22px;
-    align-items: start;
+  /* En móvil cae a 1 columna */
+  @media (max-width: 860px) {
+    .gm-app .gm-bento { grid-template-columns: 1fr; }
+    .gm-app .gm-bento .gm-vip-card { grid-column: 1; }
+    .gm-app .gm-teams-grid { grid-template-columns: 1fr !important; }
+    .gm-app .gm-aprender-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
   }
 
   /* === VSL placeholder (video de bienvenida) === */
@@ -170,45 +177,6 @@
     50% { box-shadow: 0 8px 44px rgba(245,184,0,0.6); transform: scale(1.05); }
   }
 
-  /* === MOSAICO BENTO === */
-  /* 3 columnas: 2 tiles pequeños (col 1-2) + VIP XL (col 3, alto completo) === */
-  .gm-app .gm-bento {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1.15fr;
-    grid-auto-rows: minmax(0, auto);
-    gap: 16px;
-    align-items: stretch;
-  }
-  /* VIP ocupa la 3a columna, 2 filas de alto */
-  .gm-app .gm-bento .gm-vip-card {
-    grid-column: 3;
-    grid-row: 1 / span 2;
-  }
-  .gm-app .gm-bento > * { margin-top: 0; }
-  /* Las tiles de redes centran su contenido verticalmente para llenar el alto */
-  .gm-app .gm-bento .gm-wp-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .gm-app .gm-bento .gm-wp-card .gm-wp-sub { margin-bottom: 22px; }
-
-  /* En móvil cae a 1 columna */
-  @media (max-width: 860px) {
-    .gm-app .gm-row { grid-template-columns: 1fr; gap: 16px; }
-    .gm-app .gm-hero-grid { grid-template-columns: 1fr; gap: 18px; }
-    .gm-app .gm-bento { grid-template-columns: 1fr; }
-    .gm-app .gm-bento .gm-vip-card { grid-column: 1; grid-row: auto; }
-    .gm-app .gm-teams-grid { grid-template-columns: 1fr !important; }
-    .gm-app .gm-aprender-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
-  }
-  /* En tablet: bento a 2 columnas */
-  @media (min-width: 861px) and (max-width: 1080px) {
-    .gm-app .gm-bento { grid-template-columns: 1fr 1fr; }
-    .gm-app .gm-bento .gm-vip-card { grid-column: 1 / span 2; grid-row: auto; }
-  }
-
   /* ============ HEADER GRACIAS ============ */
   .gm-app .gm-header {
     text-align: center;
@@ -242,15 +210,7 @@
     line-height: 1.65;
     margin: 0 auto;
   }
-  /* En desktop el header va alineado izquierda dentro de la columna */
-  @media (min-width: 861px) {
-    .gm-app .gm-row > .gm-header {
-      text-align: left;
-      padding: 8px 4px;
-    }
-    .gm-app .gm-row > .gm-header .gm-emoji-success { margin-left: -4px; }
-    .gm-app .gm-row > .gm-header .gm-saludo-sub { max-width: 540px; }
-  }
+
 
   /* ============ CARD BASE ============ */
   .gm-app .gm-card {
@@ -526,12 +486,45 @@
 
   /* ============ VIP UPSELL ============ */
   .gm-app .gm-vip-card {
-    padding: 28px 24px;
+    padding: 36px 28px 30px;
+    position: relative;
+    overflow: visible;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(245, 184, 0, 0.18) 0%, transparent 55%),
+      linear-gradient(160deg, rgba(245, 184, 0, 0.10) 0%, rgba(11, 17, 49, 0.6) 60%);
+    border: 2px solid var(--dorado);
+    border-radius: 20px;
+    box-shadow:
+      0 0 0 1px rgba(245, 184, 0, 0.25),
+      0 12px 50px rgba(245, 184, 0, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    animation: vip-glow 3s ease-in-out infinite;
+  }
+  @keyframes vip-glow {
+    0%, 100% { box-shadow: 0 0 0 1px rgba(245,184,0,0.25), 0 12px 50px rgba(245,184,0,0.20), inset 0 1px 0 rgba(255,255,255,0.08); }
+    50% { box-shadow: 0 0 0 1px rgba(245,184,0,0.45), 0 16px 64px rgba(245,184,0,0.38), inset 0 1px 0 rgba(255,255,255,0.12); }
+  }
+  /* Badge "RECOMENDADO" flotante arriba del VIP */
+  .gm-app .gm-vip-card::before {
+    content: "\2728  RECOMENDADO  \2728";
+    position: absolute;
+    top: -13px; left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--dorado), var(--dorado-claro));
+    color: #0B1131;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    padding: 6px 18px;
+    border-radius: 100px;
+    white-space: nowrap;
+    box-shadow: 0 6px 20px rgba(245, 184, 0, 0.5);
   }
   .gm-app .gm-vip-head { text-align: center; margin-bottom: 24px; }
   .gm-app .gm-vip-lbl {
     color: var(--dorado);
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 800;
     letter-spacing: 3px;
     text-transform: uppercase;
@@ -539,11 +532,15 @@
   }
   .gm-app .gm-vip-h {
     font-family: 'Montserrat', sans-serif;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 900;
     text-transform: uppercase;
-    line-height: 1.15;
+    line-height: 1.12;
     margin-bottom: 8px;
+    background: linear-gradient(135deg, #fff 0%, var(--dorado-claro) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   .gm-app .gm-vip-sub {
     color: rgba(255, 255, 255, 0.55);
@@ -737,12 +734,11 @@
     <main class="gm-main">
       <div class="gm-inner">
 
-        <!-- ============ HERO: VSL + saludo (izq) | ticket (der) ============ -->
+        <!-- ============ HERO: VSL + saludo + sesión + aprenderás (centrado) ============ -->
         <div class="gm-hero-grid">
-          <!-- COLUMNA IZQUIERDA: VSL + saludo + sesión -->
-          <div class="gm-header" style="text-align:left;">
+          <div class="gm-header" style="text-align:center;">
             <!-- VSL Placeholder (video de bienvenida) -->
-            <div class="gm-vsl-wrap" id="gm-vsl-wrap" onclick="gmReproducirVSL(this)">
+            <div class="gm-vsl-wrap" id="gm-vsl-wrap" onclick="gmReproducirVSL(this)" style="margin-left:auto;margin-right:auto;">
               <div class="gm-vsl-placeholder">
                 <div class="gm-vsl-play">
                   <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -798,8 +794,8 @@
             </div>
           </div>
 
-          <!-- COLUMNA DERECHA: TICKET CON QR (compacto, sticky) -->
-          <div class="gm-card gm-ticket-section" style="position:sticky;top:90px;">
+          <!-- TICKET CON QR (centrado, debajo del hero) -->
+          <div class="gm-card gm-ticket-section" style="max-width:420px;margin:18px auto 0;">
             <div class="gm-ticket-lbl">TU BOLETO</div>
             <div class="gm-ticket" id="gm-ticket">
               <div class="gm-ticket-header">
@@ -871,7 +867,7 @@
           </div>
 
           <!-- VIP (tile XL, ocupa columna 3, 2 filas de alto) -->
-          <div class="gm-card gold gm-vip-card">
+          <div class="gm-card gm-vip-card">
             <div class="gm-vip-head">
               <div class="gm-vip-lbl">&#9733; EXPERIENCIA VIP &#9733;</div>
               <h2 class="gm-vip-h">Lleva tu experiencia<br>al siguiente nivel</h2>
