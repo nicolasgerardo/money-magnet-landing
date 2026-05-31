@@ -111,18 +111,93 @@
     gap: 18px;
     align-items: stretch;
   }
-  .gm-app .gm-row > * { margin-top: 0; }  /* anula el espacio del flujo */
+  .gm-app .gm-row > * { margin-top: 0; }
   .gm-app .gm-row.full { grid-template-columns: 1fr; }
-
-  /* Cuando una card está dentro de gm-row necesita altura completa */
   .gm-app .gm-row > .gm-card { height: 100%; display: flex; flex-direction: column; }
   .gm-app .gm-row > .gm-header { height: 100%; display: flex; flex-direction: column; justify-content: center; }
+
+  /* === HERO asimétrico: VSL+saludo (1.3fr) | ticket (0.7fr) === */
+  .gm-app .gm-hero-grid {
+    display: grid;
+    grid-template-columns: 1.35fr 0.65fr;
+    gap: 22px;
+    align-items: start;
+  }
+
+  /* === VSL placeholder (video de bienvenida) === */
+  .gm-app .gm-vsl-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(245, 184, 0, 0.25);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+    background: #0B1131;
+    margin-bottom: 22px;
+    cursor: pointer;
+  }
+  .gm-app .gm-vsl-placeholder {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 14px;
+    background:
+      radial-gradient(circle at center, rgba(245, 184, 0, 0.15) 0%, transparent 60%),
+      linear-gradient(135deg, #0B1131 0%, #1A1F3D 100%);
+    transition: all 0.3s;
+  }
+  .gm-app .gm-vsl-placeholder:hover { background-color: rgba(245, 184, 0, 0.05); }
+  .gm-app .gm-vsl-play {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: var(--dorado);
+    display: flex; align-items: center; justify-content: center;
+    color: #0B1131;
+    box-shadow: 0 8px 32px rgba(245, 184, 0, 0.4);
+    animation: pulse-strong 2.5s infinite;
+  }
+  .gm-app .gm-vsl-play svg { margin-left: 4px; }
+  .gm-app .gm-vsl-text {
+    color: rgba(255,255,255,0.95);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .gm-app .gm-vsl-sub { color: rgba(255,255,255,0.5); font-size: 12px; }
+  @keyframes pulse-strong {
+    0%, 100% { box-shadow: 0 8px 32px rgba(245,184,0,0.4); transform: scale(1); }
+    50% { box-shadow: 0 8px 44px rgba(245,184,0,0.6); transform: scale(1.05); }
+  }
+
+  /* === MOSAICO BENTO === */
+  /* 3 columnas: 2 tiles pequeños (col 1-2) + VIP XL (col 3, alto completo) === */
+  .gm-app .gm-bento {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.15fr;
+    grid-auto-rows: minmax(0, auto);
+    gap: 16px;
+  }
+  /* VIP ocupa la 3a columna, 2 filas de alto */
+  .gm-app .gm-bento .gm-vip-card {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+  }
+  .gm-app .gm-bento > * { margin-top: 0; }
 
   /* En móvil cae a 1 columna */
   @media (max-width: 860px) {
     .gm-app .gm-row { grid-template-columns: 1fr; gap: 16px; }
+    .gm-app .gm-hero-grid { grid-template-columns: 1fr; gap: 18px; }
+    .gm-app .gm-bento { grid-template-columns: 1fr; }
+    .gm-app .gm-bento .gm-vip-card { grid-column: 1; grid-row: auto; }
     .gm-app .gm-teams-grid { grid-template-columns: 1fr !important; }
     .gm-app .gm-aprender-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
+  }
+  /* En tablet: bento a 2 columnas */
+  @media (min-width: 861px) and (max-width: 1080px) {
+    .gm-app .gm-bento { grid-template-columns: 1fr 1fr; }
+    .gm-app .gm-bento .gm-vip-card { grid-column: 1 / span 2; grid-row: auto; }
   }
 
   /* ============ HEADER GRACIAS ============ */
@@ -653,11 +728,21 @@
     <main class="gm-main">
       <div class="gm-inner">
 
-        <!-- ============ FILA 1: HEADER (izq) + EVENTO/TICKET (der) ============ -->
-        <div class="gm-row">
-          <!-- HEADER GRACIAS -->
-          <div class="gm-header">
-            <div class="gm-emoji-success">&#10003;</div>
+        <!-- ============ HERO: VSL + saludo (izq) | ticket (der) ============ -->
+        <div class="gm-hero-grid">
+          <!-- COLUMNA IZQUIERDA: VSL + saludo + sesión -->
+          <div class="gm-header" style="text-align:left;">
+            <!-- VSL Placeholder (video de bienvenida) -->
+            <div class="gm-vsl-wrap" id="gm-vsl-wrap" onclick="gmReproducirVSL(this)">
+              <div class="gm-vsl-placeholder">
+                <div class="gm-vsl-play">
+                  <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <div class="gm-vsl-text">Un mensaje para ti</div>
+                <div class="gm-vsl-sub">Toca para reproducir</div>
+              </div>
+            </div>
+
             <h1 class="gm-saludo" id="gm-saludo">
               <span id="gm-saludo-prefix">Bienvenido</span>, <span class="gold" id="gm-nombre"></span><br>
               YA EST&Aacute;S <span class="gold">DENTRO</span>
@@ -669,7 +754,7 @@
               est&aacute; confirmado y tu boleto va en camino a tu correo.
             </p>
 
-            <!-- EVENTO DENTRO DEL HEADER -->
+            <!-- EVENTO -->
             <div class="gm-card gold gm-evento-card" style="margin-top:22px;">
               <div class="gm-evento-icon">&#x1F4C5;</div>
               <div class="gm-evento-info">
@@ -680,8 +765,8 @@
             </div>
           </div>
 
-          <!-- TICKET CON QR -->
-          <div class="gm-card gm-ticket-section">
+          <!-- COLUMNA DERECHA: TICKET CON QR (compacto, sticky) -->
+          <div class="gm-card gm-ticket-section" style="position:sticky;top:90px;">
             <div class="gm-ticket-lbl">TU BOLETO</div>
             <div class="gm-ticket" id="gm-ticket">
               <div class="gm-ticket-header">
@@ -703,9 +788,7 @@
                     <div class="val">8:00 PM</div>
                   </div>
                 </div>
-                <div class="gm-ticket-qr" id="gm-qr-container">
-                  <!-- QR se genera con JS -->
-                </div>
+                <div class="gm-ticket-qr" id="gm-qr-container"></div>
               </div>
               <div class="gm-ticket-tipo" id="gm-ticket-tipo">ACCESO GENERAL</div>
               <div class="gm-ticket-id" id="gm-ticket-id">MM-XXXX-XXXX</div>
@@ -722,13 +805,45 @@
           </div>
         </div>
 
-        <!-- ============ FILA 2: VIP (ancho completo) ============ -->
-        <div class="gm-card gold gm-vip-card">
-          <div class="gm-vip-head">
-            <div class="gm-vip-lbl">&#9733; EXPERIENCIA VIP &#9733;</div>
-            <h2 class="gm-vip-h">Lleva tu experiencia<br>al siguiente nivel</h2>
-            <p class="gm-vip-sub">
-              Beneficios exclusivos para quienes quieren ir m&aacute;s profundo despu&eacute;s del webinar.
+        <!-- ============ MOSAICO BENTO: WhatsApp + Telegram + Dudas (tiles) | VIP (XL) ============ -->
+        <div class="gm-bento">
+          <!-- WHATSAPP -->
+          <div class="gm-card wp gm-wp-card" style="text-align:center;">
+            <div class="gm-wp-lbl">COMUNIDAD</div>
+            <h2 class="gm-wp-h" style="font-size:20px;">&Uacute;nete al grupo</h2>
+            <p class="gm-wp-sub" style="font-size:13px;margin-left:auto;margin-right:auto;">
+              Recordatorios, recursos y contenido antes del evento.
+            </p>
+            <a href="#" id="gm-btn-wp" target="_blank" rel="noopener" class="gm-wp-btn">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              UNIRSE
+            </a>
+          </div>
+
+          <!-- TELEGRAM -->
+          <div class="gm-card tg gm-wp-card" style="text-align:center;">
+            <div class="gm-wp-lbl" style="color:#229ED9;">CANAL</div>
+            <h2 class="gm-wp-h" style="font-size:20px;">Telegram oficial</h2>
+            <p class="gm-wp-sub" style="font-size:13px;margin-left:auto;margin-right:auto;">
+              Notificaciones y material extra que ir&eacute; publicando.
+            </p>
+            <a href="#" id="gm-btn-tg" target="_blank" rel="noopener" class="gm-wp-btn gm-tg-btn">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.508.508 0 01.171.325c.016.093.036.306.02.473-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+              </svg>
+              UNIRME
+            </a>
+          </div>
+
+          <!-- VIP (tile XL, ocupa columna 3, 2 filas de alto) -->
+          <div class="gm-card gold gm-vip-card">
+            <div class="gm-vip-head">
+              <div class="gm-vip-lbl">&#9733; EXPERIENCIA VIP &#9733;</div>
+              <h2 class="gm-vip-h">Lleva tu experiencia<br>al siguiente nivel</h2>
+              <p class="gm-vip-sub">
+                Beneficios exclusivos para quienes quieren ir m&aacute;s profundo despu&eacute;s del webinar.
             </p>
           </div>
 
@@ -769,52 +884,34 @@
           <p style="text-align:center;color:rgba(255,255,255,0.3);font-size:10px;margin-top:6px;">
             <img src="https://flagcdn.com/16x12/co.png" style="vertical-align:middle;margin-right:4px;border-radius:2px;"> Acepta tarjetas de cr&eacute;dito, d&eacute;bito, PSE, Nequi, Bancolombia, Daviplata y m&aacute;s
           </p>
-        </div>
-
-        <!-- ============ FILA 3: WHATSAPP (izq) + TELEGRAM (der) ============ -->
-        <div class="gm-row">
-          <!-- WHATSAPP COMUNIDAD -->
-          <div class="gm-card wp gm-wp-card">
-            <div class="gm-wp-lbl">SIGUIENTE PASO IMPORTANTE</div>
-            <h2 class="gm-wp-h">&Uacute;nete a la comunidad</h2>
-            <p class="gm-wp-sub">
-              Entra al grupo exclusivo donde compartiremos
-              recordatorios, recursos y contenido antes del evento.
-            </p>
-            <a href="#" id="gm-btn-wp" target="_blank" rel="noopener" class="gm-wp-btn">
-              <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-              </svg>
-              UNIRSE AL GRUPO
-            </a>
           </div>
+          <!-- FIN VIP -->
 
-          <!-- TELEGRAM CANAL -->
-          <div class="gm-card tg gm-wp-card">
-            <div class="gm-wp-lbl" style="color:#229ED9;">CANAL OFICIAL</div>
-            <h2 class="gm-wp-h">&Uacute;nete a Telegram</h2>
-            <p class="gm-wp-sub">
-              Recibe notificaciones de cada actualizaci&oacute;n
-              y material extra que ir&eacute; publicando.
-            </p>
-            <a href="#" id="gm-btn-tg" target="_blank" rel="noopener" class="gm-wp-btn gm-tg-btn">
-              <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.508.508 0 01.171.325c.016.093.036.306.02.473-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-              </svg>
-              UNIRME AL CANAL
+          <!-- TILE: ¿DUDAS? (completa el bento debajo de WhatsApp/Telegram) -->
+          <div class="gm-card" style="grid-column: 1 / span 2; display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap; text-align:center;">
+            <div style="flex:1; min-width:200px;">
+              <div class="gm-wp-lbl" style="color:#F5B800;">&iquest;TIENES DUDAS?</div>
+              <h3 style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;margin:4px 0 6px;">Habla directo con Nicol&aacute;s</h3>
+              <p style="color:rgba(255,255,255,0.55);font-size:13px;margin:0;">Te respondo personalmente por WhatsApp.</p>
+            </div>
+            <a href="#" id="gm-btn-asesor" target="_blank" rel="noopener"
+               style="display:inline-flex;align-items:center;gap:8px;background:rgba(245,184,0,0.12);color:#F5B800;border:1px solid rgba(245,184,0,0.35);padding:13px 26px;border-radius:10px;font-weight:700;text-decoration:none;font-size:13px;letter-spacing:0.5px;text-transform:uppercase;white-space:nowrap;">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+              Hablar con Nicol&aacute;s
             </a>
           </div>
         </div>
+        <!-- FIN MOSAICO BENTO -->
 
-        <!-- ============ FILA 4: TEAMS (full) ============ -->
-        <div class="gm-card" style="background:linear-gradient(135deg, rgba(70,80,255,0.08), rgba(70,80,255,0.02));border-color:rgba(70,80,255,0.3);">
+        <!-- ============ FILA: TEAMS (full) ============ -->
+        <div class="gm-card" style="background:linear-gradient(135deg, rgba(70,80,255,0.08), rgba(70,80,255,0.02));border-color:rgba(70,80,255,0.3);text-align:center;">
           <div class="gm-wp-lbl" style="color:#6B7BFF;">PREP&Aacute;RATE PARA EL EVENTO</div>
           <h2 class="gm-wp-h">Descarga Microsoft Teams</h2>
-          <p class="gm-wp-sub">
+          <p class="gm-wp-sub" style="margin-left:auto;margin-right:auto;">
             El webinar ser&aacute; por Microsoft Teams. Descarga la app en tu dispositivo
             con anticipaci&oacute;n para evitar problemas el d&iacute;a del evento.
           </p>
-          <div class="gm-teams-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px;">
+          <div class="gm-teams-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px;text-align:left;">
             <a href="https://www.microsoft.com/es-co/microsoft-teams/download-app" target="_blank" rel="noopener"
                style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(107,123,255,0.3);border-radius:12px;color:#fff;text-decoration:none;transition:background 0.2s ease;"
                onmouseover="this.style.background='rgba(107,123,255,0.15)'"
@@ -852,10 +949,10 @@
         </div>
 
         <!-- ============ FILA 5: QUE VAS A APRENDER (full) ============ -->
-        <div class="gm-card" style="background:rgba(245,184,0,0.04);border-color:rgba(245,184,0,0.2);">
+        <div class="gm-card" style="background:rgba(245,184,0,0.04);border-color:rgba(245,184,0,0.2);text-align:center;">
           <div class="gm-wp-lbl" style="color:#F5B800;">RECUERDA POR QU&Eacute; TE INSCRIBISTE</div>
           <h2 class="gm-wp-h" style="font-size:24px;">Lo que vas a aprender</h2>
-          <ul class="gm-aprender-grid" style="list-style:none;padding:0;margin:20px 0 0 0;display:grid;grid-template-columns:repeat(2,1fr);gap:16px 24px;">
+          <ul class="gm-aprender-grid" style="list-style:none;padding:0;margin:20px 0 0 0;display:grid;grid-template-columns:repeat(2,1fr);gap:16px 24px;text-align:left;">
             <li style="display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.55;">
               <span style="color:#F5B800;font-weight:900;font-size:18px;flex-shrink:0;line-height:1;">1.</span>
               <span><strong style="color:#fff;">A sanar tu relaci&oacute;n emocional con el dinero.</strong> Vas a identificar las creencias que heredaste y que te bloquean para tener m&aacute;s.</span>
@@ -873,20 +970,6 @@
               <span><strong style="color:#fff;">Un mapa claro de qu&eacute; hacer la pr&oacute;xima semana</strong> para empezar a aplicar lo aprendido y dejar de quedarte solo con teor&iacute;a.</span>
             </li>
           </ul>
-        </div>
-
-        <!-- ============ FILA 6: ASESORIA (full) ============ -->
-        <div class="gm-card" style="text-align:center;">
-          <h3 style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;text-transform:uppercase;margin-bottom:8px;">
-            &iquest;Tienes dudas?
-          </h3>
-          <p style="color:rgba(255,255,255,0.55);font-size:13.5px;margin-bottom:20px;max-width:380px;margin-left:auto;margin-right:auto;">
-            Escr&iacute;beme directamente al WhatsApp para asesor&iacute;a personal.
-          </p>
-          <a href="#" id="gm-btn-asesor" target="_blank" rel="noopener"
-             style="display:inline-block;background:rgba(245,184,0,0.12);color:#F5B800;border:1px solid rgba(245,184,0,0.35);padding:12px 24px;border-radius:10px;font-weight:700;text-decoration:none;font-size:13px;letter-spacing:0.5px;text-transform:uppercase;">
-            Hablar con Nicol&aacute;s &rarr;
-          </a>
         </div>
 
       </div>
@@ -1077,6 +1160,17 @@
   }
 
   renderQR();
+
+  // ============ VSL (video de bienvenida) ============
+  // Placeholder por ahora. Cuando tengas el video, reemplaza el contenido
+  // de esta función por el embed (YouTube/Vimeo) igual que en la landing.
+  window.gmReproducirVSL = function(wrap) {
+    // EJEMPLO para activar con YouTube (descomenta y pon tu ID):
+    // wrap.innerHTML = '<iframe src="https://www.youtube.com/embed/TU_VIDEO_ID?autoplay=1" ' +
+    //   'style="position:absolute;inset:0;width:100%;height:100%;border:none;" ' +
+    //   'allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+    alert('Aqui ira tu video de bienvenida. Para activarlo, sube tu video a YouTube o Vimeo y reemplaza el placeholder en la funcion gmReproducirVSL del codigo.');
+  };
 
   // ============ DESCARGAR BOLETO ============
   window.gmDescargarBoleto = function() {
