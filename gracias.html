@@ -96,13 +96,34 @@
   .gm-app .gm-main {
     position: relative;
     z-index: 10;
-    padding: 16px 16px 40px;
+    padding: 24px 20px 48px;
   }
   .gm-app .gm-inner {
-    max-width: 600px;
+    max-width: 1200px;
     margin: 0 auto;
   }
-  .gm-app .gm-inner > * + * { margin-top: 24px; }
+  .gm-app .gm-inner > * + * { margin-top: 18px; }
+
+  /* === Sistema de filas (rejilla 2 columnas en desktop, 1 en móvil) === */
+  .gm-app .gm-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    align-items: stretch;
+  }
+  .gm-app .gm-row > * { margin-top: 0; }  /* anula el espacio del flujo */
+  .gm-app .gm-row.full { grid-template-columns: 1fr; }
+
+  /* Cuando una card está dentro de gm-row necesita altura completa */
+  .gm-app .gm-row > .gm-card { height: 100%; display: flex; flex-direction: column; }
+  .gm-app .gm-row > .gm-header { height: 100%; display: flex; flex-direction: column; justify-content: center; }
+
+  /* En móvil cae a 1 columna */
+  @media (max-width: 860px) {
+    .gm-app .gm-row { grid-template-columns: 1fr; gap: 16px; }
+    .gm-app .gm-teams-grid { grid-template-columns: 1fr !important; }
+    .gm-app .gm-aprender-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
+  }
 
   /* ============ HEADER GRACIAS ============ */
   .gm-app .gm-header {
@@ -110,17 +131,18 @@
     animation: fade-up 0.6s ease-out;
   }
   .gm-app .gm-emoji-success {
-    font-size: 64px;
+    font-size: 56px;
     animation: scaleIn 0.7s ease-out;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
   .gm-app .gm-saludo {
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(28px, 5vw, 40px);
+    font-size: clamp(26px, 3.4vw, 38px);
     font-weight: 900;
-    line-height: 1.1;
+    line-height: 1.05;
     text-transform: uppercase;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    letter-spacing: -0.5px;
   }
   .gm-app .gm-saludo .gold {
     background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 50%, var(--dorado) 100%);
@@ -131,10 +153,19 @@
     -webkit-text-fill-color: transparent;
   }
   .gm-app .gm-saludo-sub {
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(255, 255, 255, 0.6);
     font-size: 15px;
-    max-width: 500px;
+    line-height: 1.65;
     margin: 0 auto;
+  }
+  /* En desktop el header va alineado izquierda dentro de la columna */
+  @media (min-width: 861px) {
+    .gm-app .gm-row > .gm-header {
+      text-align: left;
+      padding: 8px 4px;
+    }
+    .gm-app .gm-row > .gm-header .gm-emoji-success { margin-left: -4px; }
+    .gm-app .gm-row > .gm-header .gm-saludo-sub { max-width: 540px; }
   }
 
   /* ============ CARD BASE ============ */
@@ -622,32 +653,76 @@
     <main class="gm-main">
       <div class="gm-inner">
 
-        <!-- ============ HEADER GRACIAS ============ -->
-        <div class="gm-header">
-          <div class="gm-emoji-success">&#10003;</div>
-          <h1 class="gm-saludo" id="gm-saludo">
-            <span id="gm-saludo-prefix">Bienvenido</span>, <span class="gold" id="gm-nombre"></span><br>
-            YA EST&Aacute;S <span class="gold">DENTRO</span>
-          </h1>
-          <p class="gm-saludo-sub">
-            Te diste el regalo m&aacute;s importante: <strong style="color:#F5B800;">decidir actuar</strong>.
-            Hoy diste el primer paso para cambiar tu relaci&oacute;n con el dinero.
-            Tu lugar al webinar <strong style="color:#F5B800;">Money Magnet</strong>
-            est&aacute; confirmado y tu boleto va en camino a tu correo.
-          </p>
-        </div>
+        <!-- ============ FILA 1: HEADER (izq) + EVENTO/TICKET (der) ============ -->
+        <div class="gm-row">
+          <!-- HEADER GRACIAS -->
+          <div class="gm-header">
+            <div class="gm-emoji-success">&#10003;</div>
+            <h1 class="gm-saludo" id="gm-saludo">
+              <span id="gm-saludo-prefix">Bienvenido</span>, <span class="gold" id="gm-nombre"></span><br>
+              YA EST&Aacute;S <span class="gold">DENTRO</span>
+            </h1>
+            <p class="gm-saludo-sub">
+              Te diste el regalo m&aacute;s importante: <strong style="color:#F5B800;">decidir actuar</strong>.
+              Hoy diste el primer paso para cambiar tu relaci&oacute;n con el dinero.
+              Tu lugar al webinar <strong style="color:#F5B800;">Money Magnet</strong>
+              est&aacute; confirmado y tu boleto va en camino a tu correo.
+            </p>
 
-        <!-- ============ EVENTO ============ -->
-        <div class="gm-card gold gm-evento-card">
-          <div class="gm-evento-icon">&#x1F4C5;</div>
-          <div class="gm-evento-info">
-            <div class="gm-evento-lbl">TU SESI&Oacute;N</div>
-            <div class="gm-evento-fecha" id="gm-fecha-display">Cargando&hellip;</div>
-            <div class="gm-evento-hora" id="gm-hora-display">8:00 PM &middot; 2 horas en vivo</div>
+            <!-- EVENTO DENTRO DEL HEADER -->
+            <div class="gm-card gold gm-evento-card" style="margin-top:22px;">
+              <div class="gm-evento-icon">&#x1F4C5;</div>
+              <div class="gm-evento-info">
+                <div class="gm-evento-lbl">TU SESI&Oacute;N</div>
+                <div class="gm-evento-fecha" id="gm-fecha-display">Cargando&hellip;</div>
+                <div class="gm-evento-hora" id="gm-hora-display">8:00 PM &middot; 2 horas en vivo</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TICKET CON QR -->
+          <div class="gm-card gm-ticket-section">
+            <div class="gm-ticket-lbl">TU BOLETO</div>
+            <div class="gm-ticket" id="gm-ticket">
+              <div class="gm-ticket-header">
+                <div class="gm-ticket-brand">ACADEMIA INTRADE &middot; WEBINAR</div>
+                <div class="gm-ticket-evento">MONEY <span class="gold">MAGNET</span></div>
+              </div>
+              <div class="gm-ticket-body">
+                <div class="gm-ticket-data">
+                  <div class="row">
+                    <div class="lbl">Asistente</div>
+                    <div class="val" id="gm-ticket-nombre">-</div>
+                  </div>
+                  <div class="row">
+                    <div class="lbl">Fecha</div>
+                    <div class="val" id="gm-ticket-fecha">-</div>
+                  </div>
+                  <div class="row">
+                    <div class="lbl">Hora</div>
+                    <div class="val">8:00 PM</div>
+                  </div>
+                </div>
+                <div class="gm-ticket-qr" id="gm-qr-container">
+                  <!-- QR se genera con JS -->
+                </div>
+              </div>
+              <div class="gm-ticket-tipo" id="gm-ticket-tipo">ACCESO GENERAL</div>
+              <div class="gm-ticket-id" id="gm-ticket-id">MM-XXXX-XXXX</div>
+            </div>
+            <div class="gm-ticket-actions">
+              <button class="gm-btn-download" onclick="gmDescargarBoleto()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descargar
+              </button>
+            </div>
+            <div class="gm-ticket-sub">Tambi&eacute;n lo enviamos a tu correo</div>
           </div>
         </div>
 
-        <!-- ============ VIP UPSELL (posición prime, justo después del evento) ============ -->
+        <!-- ============ FILA 2: VIP (ancho completo) ============ -->
         <div class="gm-card gold gm-vip-card">
           <div class="gm-vip-head">
             <div class="gm-vip-lbl">&#9733; EXPERIENCIA VIP &#9733;</div>
@@ -696,11 +771,91 @@
           </p>
         </div>
 
-        <!-- ============ QUE VAS A APRENDER ============ -->
+        <!-- ============ FILA 3: WHATSAPP (izq) + TELEGRAM (der) ============ -->
+        <div class="gm-row">
+          <!-- WHATSAPP COMUNIDAD -->
+          <div class="gm-card wp gm-wp-card">
+            <div class="gm-wp-lbl">SIGUIENTE PASO IMPORTANTE</div>
+            <h2 class="gm-wp-h">&Uacute;nete a la comunidad</h2>
+            <p class="gm-wp-sub">
+              Entra al grupo exclusivo donde compartiremos
+              recordatorios, recursos y contenido antes del evento.
+            </p>
+            <a href="#" id="gm-btn-wp" target="_blank" rel="noopener" class="gm-wp-btn">
+              <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              UNIRSE AL GRUPO
+            </a>
+          </div>
+
+          <!-- TELEGRAM CANAL -->
+          <div class="gm-card tg gm-wp-card">
+            <div class="gm-wp-lbl" style="color:#229ED9;">CANAL OFICIAL</div>
+            <h2 class="gm-wp-h">&Uacute;nete a Telegram</h2>
+            <p class="gm-wp-sub">
+              Recibe notificaciones de cada actualizaci&oacute;n
+              y material extra que ir&eacute; publicando.
+            </p>
+            <a href="#" id="gm-btn-tg" target="_blank" rel="noopener" class="gm-wp-btn gm-tg-btn">
+              <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.508.508 0 01.171.325c.016.093.036.306.02.473-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+              </svg>
+              UNIRME AL CANAL
+            </a>
+          </div>
+        </div>
+
+        <!-- ============ FILA 4: TEAMS (full) ============ -->
+        <div class="gm-card" style="background:linear-gradient(135deg, rgba(70,80,255,0.08), rgba(70,80,255,0.02));border-color:rgba(70,80,255,0.3);">
+          <div class="gm-wp-lbl" style="color:#6B7BFF;">PREP&Aacute;RATE PARA EL EVENTO</div>
+          <h2 class="gm-wp-h">Descarga Microsoft Teams</h2>
+          <p class="gm-wp-sub">
+            El webinar ser&aacute; por Microsoft Teams. Descarga la app en tu dispositivo
+            con anticipaci&oacute;n para evitar problemas el d&iacute;a del evento.
+          </p>
+          <div class="gm-teams-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px;">
+            <a href="https://www.microsoft.com/es-co/microsoft-teams/download-app" target="_blank" rel="noopener"
+               style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(107,123,255,0.3);border-radius:12px;color:#fff;text-decoration:none;transition:background 0.2s ease;"
+               onmouseover="this.style.background='rgba(107,123,255,0.15)'"
+               onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+              <svg width="28" height="28" fill="#6B7BFF" viewBox="0 0 24 24"><path d="M19.5 8.25h-3V6c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h11.5c.55 0 1-.45 1-1v-2.25h3c.55 0 1-.45 1-1v-6.5c0-.55-.45-1-1-1zM9.5 16h-2v-5h-2V9.5h6V11h-2v5z"/></svg>
+              <div style="flex:1;">
+                <div style="font-weight:700;font-size:14px;">PC / Mac</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.55);">Windows, macOS</div>
+              </div>
+              <span style="color:#6B7BFF;font-size:18px;">&rarr;</span>
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.microsoft.teams" target="_blank" rel="noopener"
+               style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(107,123,255,0.3);border-radius:12px;color:#fff;text-decoration:none;transition:background 0.2s ease;"
+               onmouseover="this.style.background='rgba(107,123,255,0.15)'"
+               onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+              <svg width="28" height="28" fill="#34A853" viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734c0-.4.244-.747.609-.92zm10.89 10.893l2.302 2.302-10.937 6.149 8.635-8.451zm3.93-3.926a.999.999 0 010 1.731l-2.732 1.537-2.62-2.62 2.62-2.621 2.732 1.973zM5.864 2.658l10.937 6.149-2.302 2.302-8.635-8.451z"/></svg>
+              <div style="flex:1;">
+                <div style="font-weight:700;font-size:14px;">Android</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.55);">Google Play</div>
+              </div>
+              <span style="color:#6B7BFF;font-size:18px;">&rarr;</span>
+            </a>
+            <a href="https://apps.apple.com/app/microsoft-teams/id1113153706" target="_blank" rel="noopener"
+               style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(107,123,255,0.3);border-radius:12px;color:#fff;text-decoration:none;transition:background 0.2s ease;"
+               onmouseover="this.style.background='rgba(107,123,255,0.15)'"
+               onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+              <svg width="28" height="28" fill="#fff" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09z"/></svg>
+              <div style="flex:1;">
+                <div style="font-weight:700;font-size:14px;">iPhone / iPad</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.55);">App Store</div>
+              </div>
+              <span style="color:#6B7BFF;font-size:18px;">&rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- ============ FILA 5: QUE VAS A APRENDER (full) ============ -->
         <div class="gm-card" style="background:rgba(245,184,0,0.04);border-color:rgba(245,184,0,0.2);">
           <div class="gm-wp-lbl" style="color:#F5B800;">RECUERDA POR QU&Eacute; TE INSCRIBISTE</div>
           <h2 class="gm-wp-h" style="font-size:24px;">Lo que vas a aprender</h2>
-          <ul style="list-style:none;padding:0;margin:18px 0 0 0;display:flex;flex-direction:column;gap:14px;">
+          <ul class="gm-aprender-grid" style="list-style:none;padding:0;margin:20px 0 0 0;display:grid;grid-template-columns:repeat(2,1fr);gap:16px 24px;">
             <li style="display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.55;">
               <span style="color:#F5B800;font-weight:900;font-size:18px;flex-shrink:0;line-height:1;">1.</span>
               <span><strong style="color:#fff;">A sanar tu relaci&oacute;n emocional con el dinero.</strong> Vas a identificar las creencias que heredaste y que te bloquean para tener m&aacute;s.</span>
@@ -720,125 +875,7 @@
           </ul>
         </div>
 
-        <!-- ============ WHATSAPP COMUNIDAD ============ -->
-        <div class="gm-card wp gm-wp-card">
-          <div class="gm-wp-lbl">SIGUIENTE PASO IMPORTANTE</div>
-          <h2 class="gm-wp-h">&Uacute;nete a la comunidad</h2>
-          <p class="gm-wp-sub">
-            Entra al grupo exclusivo donde compartiremos
-            recordatorios, recursos y contenido antes del evento.
-          </p>
-          <a href="#" id="gm-btn-wp" target="_blank" rel="noopener" class="gm-wp-btn">
-            <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
-            UNIRSE AL GRUPO
-          </a>
-        </div>
-
-        <!-- ============ TELEGRAM CANAL ============ -->
-        <div class="gm-card tg gm-wp-card">
-          <div class="gm-wp-lbl" style="color:#229ED9;">CANAL OFICIAL</div>
-          <h2 class="gm-wp-h">&Uacute;nete a Telegram</h2>
-          <p class="gm-wp-sub">
-            Recibe notificaciones de cada actualizaci&oacute;n
-            y material extra que ir&eacute; publicando.
-          </p>
-          <a href="#" id="gm-btn-tg" target="_blank" rel="noopener" class="gm-wp-btn gm-tg-btn">
-            <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.508.508 0 01.171.325c.016.093.036.306.02.473-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-            </svg>
-            UNIRME AL CANAL
-          </a>
-        </div>
-
-        <!-- ============ DESCARGA TEAMS ============ -->
-        <div class="gm-card" style="background:linear-gradient(135deg, rgba(70,80,255,0.08), rgba(70,80,255,0.02));border-color:rgba(70,80,255,0.3);">
-          <div class="gm-wp-lbl" style="color:#6B7BFF;">PREP&Aacute;RATE PARA EL EVENTO</div>
-          <h2 class="gm-wp-h">Descarga Microsoft Teams</h2>
-          <p class="gm-wp-sub">
-            El webinar ser&aacute; por Microsoft Teams. Descarga la app en tu dispositivo
-            con anticipaci&oacute;n para evitar problemas el d&iacute;a del evento.
-          </p>
-          <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
-            <a href="https://www.microsoft.com/es-co/microsoft-teams/download-app" target="_blank" rel="noopener"
-               style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(107,123,255,0.3);border-radius:12px;color:#fff;text-decoration:none;transition:background 0.2s ease;"
-               onmouseover="this.style.background='rgba(107,123,255,0.15)'"
-               onmouseout="this.style.background='rgba(255,255,255,0.04)'">
-              <svg width="28" height="28" fill="#6B7BFF" viewBox="0 0 24 24"><path d="M19.5 8.25h-3V6c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h11.5c.55 0 1-.45 1-1v-2.25h3c.55 0 1-.45 1-1v-6.5c0-.55-.45-1-1-1zM9.5 16h-2v-5h-2V9.5h6V11h-2v5z"/></svg>
-              <div style="flex:1;">
-                <div style="font-weight:700;font-size:14px;">Descargar para PC / Mac</div>
-                <div style="font-size:12px;color:rgba(255,255,255,0.55);">Windows, macOS, Linux</div>
-              </div>
-              <span style="color:#6B7BFF;font-size:18px;">&rarr;</span>
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=com.microsoft.teams" target="_blank" rel="noopener"
-               style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(107,123,255,0.3);border-radius:12px;color:#fff;text-decoration:none;transition:background 0.2s ease;"
-               onmouseover="this.style.background='rgba(107,123,255,0.15)'"
-               onmouseout="this.style.background='rgba(255,255,255,0.04)'">
-              <svg width="28" height="28" fill="#34A853" viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734c0-.4.244-.747.609-.92zm10.89 10.893l2.302 2.302-10.937 6.149 8.635-8.451zm3.93-3.926a.999.999 0 010 1.731l-2.732 1.537-2.62-2.62 2.62-2.621 2.732 1.973zM5.864 2.658l10.937 6.149-2.302 2.302-8.635-8.451z"/></svg>
-              <div style="flex:1;">
-                <div style="font-weight:700;font-size:14px;">Descargar para Android</div>
-                <div style="font-size:12px;color:rgba(255,255,255,0.55);">Google Play Store</div>
-              </div>
-              <span style="color:#6B7BFF;font-size:18px;">&rarr;</span>
-            </a>
-            <a href="https://apps.apple.com/app/microsoft-teams/id1113153706" target="_blank" rel="noopener"
-               style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(107,123,255,0.3);border-radius:12px;color:#fff;text-decoration:none;transition:background 0.2s ease;"
-               onmouseover="this.style.background='rgba(107,123,255,0.15)'"
-               onmouseout="this.style.background='rgba(255,255,255,0.04)'">
-              <svg width="28" height="28" fill="#fff" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09z"/></svg>
-              <div style="flex:1;">
-                <div style="font-weight:700;font-size:14px;">Descargar para iPhone / iPad</div>
-                <div style="font-size:12px;color:rgba(255,255,255,0.55);">App Store</div>
-              </div>
-              <span style="color:#6B7BFF;font-size:18px;">&rarr;</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- ============ TICKET CON QR ============ -->
-        <div class="gm-card gm-ticket-section">
-          <div class="gm-ticket-lbl">TU BOLETO</div>
-          <div class="gm-ticket" id="gm-ticket">
-            <div class="gm-ticket-header">
-              <div class="gm-ticket-brand">ACADEMIA INTRADE &middot; WEBINAR</div>
-              <div class="gm-ticket-evento">MONEY <span class="gold">MAGNET</span></div>
-            </div>
-            <div class="gm-ticket-body">
-              <div class="gm-ticket-data">
-                <div class="row">
-                  <div class="lbl">Asistente</div>
-                  <div class="val" id="gm-ticket-nombre">-</div>
-                </div>
-                <div class="row">
-                  <div class="lbl">Fecha</div>
-                  <div class="val" id="gm-ticket-fecha">-</div>
-                </div>
-                <div class="row">
-                  <div class="lbl">Hora</div>
-                  <div class="val">8:00 PM</div>
-                </div>
-              </div>
-              <div class="gm-ticket-qr" id="gm-qr-container">
-                <!-- QR se genera con JS -->
-              </div>
-            </div>
-            <div class="gm-ticket-tipo" id="gm-ticket-tipo">ACCESO GENERAL</div>
-            <div class="gm-ticket-id" id="gm-ticket-id">MM-XXXX-XXXX</div>
-          </div>
-          <div class="gm-ticket-actions">
-            <button class="gm-btn-download" onclick="gmDescargarBoleto()">
-              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Descargar
-            </button>
-          </div>
-          <div class="gm-ticket-sub">Tambi&eacute;n lo enviamos a tu correo</div>
-        </div>
-
-        <!-- ============ ASESORIA WHATSAPP DIRECTA ============ -->
+        <!-- ============ FILA 6: ASESORIA (full) ============ -->
         <div class="gm-card" style="text-align:center;">
           <h3 style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;text-transform:uppercase;margin-bottom:8px;">
             &iquest;Tienes dudas?
