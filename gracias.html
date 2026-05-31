@@ -177,6 +177,7 @@
     grid-template-columns: 1fr 1fr 1.15fr;
     grid-auto-rows: minmax(0, auto);
     gap: 16px;
+    align-items: stretch;
   }
   /* VIP ocupa la 3a columna, 2 filas de alto */
   .gm-app .gm-bento .gm-vip-card {
@@ -184,6 +185,14 @@
     grid-row: 1 / span 2;
   }
   .gm-app .gm-bento > * { margin-top: 0; }
+  /* Las tiles de redes centran su contenido verticalmente para llenar el alto */
+  .gm-app .gm-bento .gm-wp-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .gm-app .gm-bento .gm-wp-card .gm-wp-sub { margin-bottom: 22px; }
 
   /* En móvil cae a 1 columna */
   @media (max-width: 860px) {
@@ -763,6 +772,30 @@
                 <div class="gm-evento-hora" id="gm-hora-display">8:00 PM &middot; 2 horas en vivo</div>
               </div>
             </div>
+
+            <!-- LO QUE VAS A APRENDER (debajo de la sesión) -->
+            <div class="gm-card" style="background:rgba(245,184,0,0.04);border-color:rgba(245,184,0,0.2);margin-top:18px;">
+              <div class="gm-wp-lbl" style="color:#F5B800;">RECUERDA POR QU&Eacute; TE INSCRIBISTE</div>
+              <h2 class="gm-wp-h" style="font-size:22px;margin-bottom:4px;">Lo que vas a aprender</h2>
+              <ul style="list-style:none;padding:0;margin:18px 0 0 0;display:flex;flex-direction:column;gap:14px;">
+                <li style="display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.55;">
+                  <span style="color:#F5B800;font-weight:900;font-size:18px;flex-shrink:0;line-height:1;">1.</span>
+                  <span><strong style="color:#fff;">A sanar tu relaci&oacute;n emocional con el dinero.</strong> Vas a identificar las creencias que heredaste y que te bloquean para tener m&aacute;s.</span>
+                </li>
+                <li style="display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.55;">
+                  <span style="color:#F5B800;font-weight:900;font-size:18px;flex-shrink:0;line-height:1;">2.</span>
+                  <span><strong style="color:#fff;">El m&eacute;todo l&oacute;gico y probado</strong> que usan los inversionistas que s&iacute; generan retornos consistentes, sin humo ni promesas falsas.</span>
+                </li>
+                <li style="display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.55;">
+                  <span style="color:#F5B800;font-weight:900;font-size:18px;flex-shrink:0;line-height:1;">3.</span>
+                  <span><strong style="color:#fff;">C&oacute;mo empezar a invertir desde donde est&aacute;s</strong>, con lo que tienes, sin importar si nunca lo has hecho o si ya lo intentaste sin &eacute;xito.</span>
+                </li>
+                <li style="display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.55;">
+                  <span style="color:#F5B800;font-weight:900;font-size:18px;flex-shrink:0;line-height:1;">4.</span>
+                  <span><strong style="color:#fff;">Un mapa claro de qu&eacute; hacer la pr&oacute;xima semana</strong> para empezar a aplicar lo aprendido y dejar de quedarte solo con teor&iacute;a.</span>
+                </li>
+              </ul>
+            </div>
           </div>
 
           <!-- COLUMNA DERECHA: TICKET CON QR (compacto, sticky) -->
@@ -946,30 +979,6 @@
               <span style="color:#6B7BFF;font-size:18px;">&rarr;</span>
             </a>
           </div>
-        </div>
-
-        <!-- ============ FILA 5: QUE VAS A APRENDER (full) ============ -->
-        <div class="gm-card" style="background:rgba(245,184,0,0.04);border-color:rgba(245,184,0,0.2);text-align:center;">
-          <div class="gm-wp-lbl" style="color:#F5B800;">RECUERDA POR QU&Eacute; TE INSCRIBISTE</div>
-          <h2 class="gm-wp-h" style="font-size:24px;">Lo que vas a aprender</h2>
-          <ul class="gm-aprender-grid" style="list-style:none;padding:0;margin:20px 0 0 0;display:grid;grid-template-columns:repeat(2,1fr);gap:16px 24px;text-align:left;">
-            <li style="display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.55;">
-              <span style="color:#F5B800;font-weight:900;font-size:18px;flex-shrink:0;line-height:1;">1.</span>
-              <span><strong style="color:#fff;">A sanar tu relaci&oacute;n emocional con el dinero.</strong> Vas a identificar las creencias que heredaste y que te bloquean para tener m&aacute;s.</span>
-            </li>
-            <li style="display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.55;">
-              <span style="color:#F5B800;font-weight:900;font-size:18px;flex-shrink:0;line-height:1;">2.</span>
-              <span><strong style="color:#fff;">El m&eacute;todo l&oacute;gico y probado</strong> que usan los inversionistas que s&iacute; generan retornos consistentes, sin humo ni promesas falsas.</span>
-            </li>
-            <li style="display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.55;">
-              <span style="color:#F5B800;font-weight:900;font-size:18px;flex-shrink:0;line-height:1;">3.</span>
-              <span><strong style="color:#fff;">C&oacute;mo empezar a invertir desde donde est&aacute;s</strong>, con lo que tienes, sin importar si nunca lo has hecho o si ya lo intentaste sin &eacute;xito.</span>
-            </li>
-            <li style="display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.55;">
-              <span style="color:#F5B800;font-weight:900;font-size:18px;flex-shrink:0;line-height:1;">4.</span>
-              <span><strong style="color:#fff;">Un mapa claro de qu&eacute; hacer la pr&oacute;xima semana</strong> para empezar a aplicar lo aprendido y dejar de quedarte solo con teor&iacute;a.</span>
-            </li>
-          </ul>
         </div>
 
       </div>
