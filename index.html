@@ -984,7 +984,7 @@
     background: radial-gradient(ellipse at center, rgba(245, 184, 0, 0.12) 0%, transparent 60%);
   }
   .mm-app .mm-vip-inner {
-    max-width: 1000px;
+    max-width: 1140px;
     margin: 0 auto;
     position: relative;
     z-index: 2;
@@ -993,9 +993,10 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 24px;
-    max-width: 800px;
+    max-width: 1100px;
     margin: 0 auto;
     margin-top: 50px;
+    align-items: start;
   }
   @media (min-width: 768px) { .mm-app .mm-vip-grid { grid-template-columns: 1fr 1fr; } }
   @media (min-width: 1024px) {
@@ -1011,8 +1012,13 @@
   }
   .mm-app .mm-vip-card.featured {
     border-width: 2px;
-    border-color: rgba(245, 184, 0, 0.5);
-    background: linear-gradient(180deg, rgba(245, 184, 0, 0.08) 0%, transparent 100%);
+    border-color: var(--dorado);
+    background: linear-gradient(180deg, rgba(245, 184, 0, 0.12) 0%, transparent 100%);
+    box-shadow: 0 16px 50px rgba(245, 184, 0, 0.18);
+  }
+  @media (min-width: 1024px) {
+    .mm-app .mm-vip-card.featured { transform: scale(1.04); }
+    .mm-app .mm-vip-card.featured:hover { transform: scale(1.04) translateY(-6px); }
   }
   .mm-app .mm-vip-card:hover {
     transform: translateY(-6px);
@@ -1022,15 +1028,17 @@
   .mm-app .mm-vip-badge {
     position: absolute;
     top: -14px;
-    right: 28px;
+    left: 50%;
+    transform: translateX(-50%);
     background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%);
     color: var(--azul-marino);
-    padding: 6px 16px;
+    padding: 6px 18px;
     border-radius: 100px;
     font-size: 10px;
     font-weight: 900;
     letter-spacing: 1px;
     text-transform: uppercase;
+    white-space: nowrap;
     box-shadow: 0 8px 20px rgba(245, 184, 0, 0.35);
   }
   .mm-app .mm-vip-tipo {
@@ -1612,25 +1620,8 @@
           <button class="mm-vip-cta" onclick="document.getElementById('registro').scrollIntoView({behavior:'smooth'})">REGISTRARME GRATIS</button>
         </div>
 
-        <!-- VIP 1 persona -->
-        <div class="mm-vip-card reveal d1">
-          <div class="mm-vip-tipo">VIP &middot; 1 PERSONA</div>
-          <div class="mm-vip-precio">$15<span class="mm-vip-cur">USD</span></div>
-          <div class="mm-vip-divider"></div>
-          <ul class="mm-vip-list">
-            <li><span class="mm-vip-check">OK</span> <span>Todo lo del plan gratis</span></li>
-            <li><span class="mm-vip-check">OK</span> <span><strong>Acceso a la grabaci&oacute;n permanente</strong> del webinar</span></li>
-            <li><span class="mm-vip-check">OK</span> <span>Sesi&oacute;n de Q&amp;A <strong>privada por Microsoft Teams</strong> despu&eacute;s del webinar</span></li>
-            <li><span class="mm-vip-check">OK</span> <span><strong>Ebook exclusivo</strong> con el sistema completo</span></li>
-            <li><span class="mm-vip-check">OK</span> <span>Acceso a equipo privado VIP en <strong>WhatsApp</strong></span></li>
-            <li><span class="mm-vip-check">OK</span> <span><strong>Libro sorpresa</strong> seleccionado por Nicol&aacute;s</span></li>
-            <li><span class="mm-vip-check">OK</span> <span><strong>Certificado de asistencia</strong> personalizado</span></li>
-          </ul>
-          <button class="mm-vip-cta" onclick="mmAvisoVIP()">QUIERO SER VIP</button>
-        </div>
-
-        <!-- VIP 2 personas -->
-        <div class="mm-vip-card featured reveal d2">
+        <!-- VIP 2 personas (MEJOR VALOR - en el medio) -->
+        <div class="mm-vip-card featured reveal d1">
           <div class="mm-vip-badge">MEJOR VALOR</div>
           <div class="mm-vip-tipo">VIP &middot; 2 PERSONAS</div>
           <div class="mm-vip-precio">$20<span class="mm-vip-cur">USD</span></div>
@@ -1646,6 +1637,23 @@
             <li><span class="mm-vip-check">OK</span> <span>Ideal para <strong>parejas, socios o amigos</strong></span></li>
           </ul>
           <button class="mm-vip-cta" onclick="mmAvisoVIP()">ACCEDER POR $20</button>
+        </div>
+
+        <!-- VIP 1 persona -->
+        <div class="mm-vip-card reveal d2">
+          <div class="mm-vip-tipo">VIP &middot; 1 PERSONA</div>
+          <div class="mm-vip-precio">$15<span class="mm-vip-cur">USD</span></div>
+          <div class="mm-vip-divider"></div>
+          <ul class="mm-vip-list">
+            <li><span class="mm-vip-check">OK</span> <span>Todo lo del plan gratis</span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>Acceso a la grabaci&oacute;n permanente</strong> del webinar</span></li>
+            <li><span class="mm-vip-check">OK</span> <span>Sesi&oacute;n de Q&amp;A <strong>privada por Microsoft Teams</strong> despu&eacute;s del webinar</span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>Ebook exclusivo</strong> con el sistema completo</span></li>
+            <li><span class="mm-vip-check">OK</span> <span>Acceso a equipo privado VIP en <strong>WhatsApp</strong></span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>Libro sorpresa</strong> seleccionado por Nicol&aacute;s</span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>Certificado de asistencia</strong> personalizado</span></li>
+          </ul>
+          <button class="mm-vip-cta" onclick="mmAvisoVIP()">QUIERO SER VIP</button>
         </div>
 
       </div>
