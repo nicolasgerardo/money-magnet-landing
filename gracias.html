@@ -897,12 +897,12 @@
           <div class="gm-vip-buttons">
             <button class="gm-vip-btn" onclick="gmIniciarPagoVIP('vip_1', this)">
               <div class="qty">1 VIP</div>
-              <div class="price">$15 USD</div>
+              <div class="price">$<span id="gm-precio-vip1">15</span> USD</div>
               <div style="font-size:9px;color:rgba(245,184,0,0.7);letter-spacing:1px;text-transform:uppercase;font-weight:700;">Para ti</div>
             </button>
             <button class="gm-vip-btn featured" onclick="gmIniciarPagoVIP('vip_2', this)">
               <div class="qty">2 VIPs</div>
-              <div class="price">$20 USD</div>
+              <div class="price">$<span id="gm-precio-vip2">20</span> USD</div>
               <div class="popular">La m&aacute;s popular</div>
             </button>
           </div>
@@ -1027,6 +1027,28 @@
 
   // URL del backend (Apps Script) para procesar pagos VIP
   var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK6XSxi1T4I2hCSZeEScJy7pKhFGs2S1OVtxSmAfc2oFjK1UonFmIGFjGEmJAdTymQ8g/exec';
+
+  // Cargar precios VIP dinámicos desde el CRM (evento activo).
+  (function gmCargarPrecios() {
+    try {
+      fetch(APPS_SCRIPT_URL + '?action=evento_activo')
+        .then(function(r){ return r.json(); })
+        .then(function(res){
+          if (!res || !res.ok || !res.sectores) return;
+          var s = res.sectores.latam_bajo || res.sectores.latam_alto || {};
+          if (s.precio_vip1 != null) {
+            var e1 = document.getElementById('gm-precio-vip1');
+            if (e1) e1.textContent = s.precio_vip1;
+          }
+          if (s.precio_vip2 != null) {
+            var e2 = document.getElementById('gm-precio-vip2');
+            if (e2) e2.textContent = s.precio_vip2;
+          }
+        })
+        .catch(function(){});
+    } catch (e) {}
+  })();
+
 
   // ============ LEER DATOS DEL USUARIO DESDE LA URL ============
   // El registro paso los datos como parametro ?d=BASE64
