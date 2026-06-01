@@ -1624,7 +1624,7 @@
         <div class="mm-vip-card featured reveal d1">
           <div class="mm-vip-badge">MEJOR VALOR</div>
           <div class="mm-vip-tipo">VIP &middot; 2 PERSONAS</div>
-          <div class="mm-vip-precio">$20<span class="mm-vip-cur">USD</span></div>
+          <div class="mm-vip-precio">$<span id="mm-precio-vip2">20</span><span class="mm-vip-cur">USD</span></div>
           <div class="mm-vip-divider"></div>
           <ul class="mm-vip-list">
             <li><span class="mm-vip-check">OK</span> <span><strong>Acceso a la grabaci&oacute;n permanente</strong> para los dos</span></li>
@@ -1633,16 +1633,16 @@
             <li><span class="mm-vip-check">OK</span> <span>Acceso a equipo privado VIP en <strong>WhatsApp</strong></span></li>
             <li><span class="mm-vip-check">OK</span> <span><strong>2 libros sorpresa</strong>, uno para cada persona</span></li>
             <li><span class="mm-vip-check">OK</span> <span><strong>2 certificados</strong> de asistencia personalizados</span></li>
-            <li><span class="mm-vip-check">OK</span> <span>Ahorras <strong>$10 USD</strong> vs. comprar 2 por separado</span></li>
+            <li><span class="mm-vip-check">OK</span> <span>Ahorras <strong><span id="mm-ahorro-vip2">$10 USD</span></strong> vs. comprar 2 por separado</span></li>
             <li><span class="mm-vip-check">OK</span> <span>Ideal para <strong>parejas, socios o amigos</strong></span></li>
           </ul>
-          <button class="mm-vip-cta" onclick="mmAvisoVIP()">ACCEDER POR $20</button>
+          <button class="mm-vip-cta" onclick="mmAvisoVIP()">ACCEDER POR $<span id="mm-btn-vip2">20</span></button>
         </div>
 
         <!-- VIP 1 persona -->
         <div class="mm-vip-card reveal d2">
           <div class="mm-vip-tipo">VIP &middot; 1 PERSONA</div>
-          <div class="mm-vip-precio">$15<span class="mm-vip-cur">USD</span></div>
+          <div class="mm-vip-precio">$<span id="mm-precio-vip1">15</span><span class="mm-vip-cur">USD</span></div>
           <div class="mm-vip-divider"></div>
           <ul class="mm-vip-list">
             <li><span class="mm-vip-check">OK</span> <span>Todo lo del plan gratis</span></li>
@@ -1725,6 +1725,38 @@
   var FUENTE_ID = 'landing_money_magnet';
   // URL del Apps Script inyectada por el backend al servir esta pagina
   var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK6XSxi1T4I2hCSZeEScJy7pKhFGs2S1OVtxSmAfc2oFjK1UonFmIGFjGEmJAdTymQ8g/exec';
+
+  // Cargar precios VIP dinámicos desde el CRM (evento activo).
+  // Si falla, quedan los valores por defecto del HTML.
+  (function cargarPreciosDinamicos() {
+    try {
+      fetch(APPS_SCRIPT_URL + '?action=evento_activo')
+        .then(function(r){ return r.json(); })
+        .then(function(res){
+          if (!res || !res.ok || !res.sectores) return;
+          // Tomamos los precios del sector latam_bajo como referencia de display
+          var s = res.sectores.latam_bajo || res.sectores.latam_alto || {};
+          if (s.precio_vip1 != null) {
+            var e1 = document.getElementById('mm-precio-vip1');
+            if (e1) e1.textContent = s.precio_vip1;
+          }
+          if (s.precio_vip2 != null) {
+            var e2 = document.getElementById('mm-precio-vip2');
+            var b2 = document.getElementById('mm-btn-vip2');
+            if (e2) e2.textContent = s.precio_vip2;
+            if (b2) b2.textContent = s.precio_vip2;
+            // recalcular ahorro
+            if (s.precio_vip1 != null) {
+              var ahorro = (s.precio_vip1 * 2) - s.precio_vip2;
+              var ea = document.getElementById('mm-ahorro-vip2');
+              if (ea && ahorro > 0) ea.textContent = '$' + ahorro + ' ' + (s.moneda || 'USD');
+            }
+          }
+        })
+        .catch(function(){});
+    } catch (e) {}
+  })();
+
 
   var EVENTOS = {
     'latam_bajo': {
