@@ -1726,11 +1726,13 @@
   // URL del Apps Script inyectada por el backend al servir esta pagina
   var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK6XSxi1T4I2hCSZeEScJy7pKhFGs2S1OVtxSmAfc2oFjK1UonFmIGFjGEmJAdTymQ8g/exec';
 
-  // Cargar precios VIP dinámicos desde el CRM (evento activo).
+  // Cargar precios VIP dinámicos desde el CRM (evento activo o el de ?ev=).
   // Si falla, quedan los valores por defecto del HTML.
   (function cargarPreciosDinamicos() {
     try {
-      fetch(APPS_SCRIPT_URL + '?action=evento_activo')
+      var evParam = new URLSearchParams(window.location.search).get('ev') || '';
+      var url = APPS_SCRIPT_URL + '?action=evento_activo' + (evParam ? '&ev=' + encodeURIComponent(evParam) : '');
+      fetch(url)
         .then(function(r){ return r.json(); })
         .then(function(res){
           if (!res || !res.ok || !res.sectores) return;
