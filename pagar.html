@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pago VIP · Academia Intrade</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#050010;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
+      background:radial-gradient(circle at 50% 0%,#0B1131,#050010)}
+    .card{background:rgba(255,255,255,0.04);border:1px solid rgba(245,184,0,0.2);border-radius:20px;padding:40px 32px;max-width:440px;width:100%;text-align:center}
+    .logo{font-family:'Montserrat';font-weight:800;font-size:20px;color:#F5B800;letter-spacing:1px;margin-bottom:8px}
+    h1{font-family:'Montserrat';font-size:24px;font-weight:800;margin-bottom:12px}
+    p{color:#9CA3AF;font-size:14px;line-height:1.6;margin-bottom:8px}
+    .monto{font-size:38px;font-weight:800;color:#F5B800;margin:18px 0}
+    .btn{display:inline-block;width:100%;background:#F5B800;color:#0B1131;border:none;padding:16px;border-radius:12px;font-weight:800;font-size:16px;cursor:pointer;margin-top:12px;font-family:'Montserrat';transition:transform .15s}
+    .btn:hover{transform:translateY(-2px)}
+    .btn:disabled{opacity:.5;cursor:default;transform:none}
+    .loading{color:#9CA3AF;font-size:14px;margin-top:16px}
+    .error{color:#f87171;font-size:14px;margin-top:16px;display:none}
+    .secure{color:#6B7280;font-size:12px;margin-top:18px}
+    .spin{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.2);border-top-color:#F5B800;border-radius:50%;animation:s 0.7s linear infinite;vertical-align:middle;margin-right:6px}
+    @keyframes s{to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">ACADEMIA INTRADE</div>
+    <h1>Asegura tu cupo VIP</h1>
+    <p id="desc">Estás a un paso de confirmar tu acceso VIP al evento.</p>
+    <div class="monto" id="monto">&nbsp;</div>
+    <button class="btn" id="btn-pagar" onclick="pagar()">Pagar ahora</button>
+    <div class="loading" id="loading" style="display:none;"><span class="spin"></span>Redirigiendo a la pasarela segura&hellip;</div>
+    <div class="error" id="error"></div>
+    <div class="secure">🔒 Pago procesado de forma segura por PayU</div>
+  </div>
+
+  <script>
+    var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK6XSxi1T4I2hCSZeEScJy7pKhFGs2S1OVtxSmAfc2oFjK1UonFmIGFjGEmJAdTymQ8g/exec';
+
+    // Leer parámetros de la URL
+    var params = new URLSearchParams(window.location.search);
+    var datos = {
+      plan: params.get('plan') || 'vip_1',
+      email: params.get('email') || '',
+      nombre: params.get('nombre') || '',
+      apellido: params.get('apellido') || '',
+      telefono: params.get('telefono') || '',
+      grupo: params.get('grupo') || 'latam_bajo',
+      ticket_id: params.get('boleto') || ''
+    };
+
+    // Mostrar el monto preliminar pidiéndolo al backend
+    fetch(APPS_SCRIPT_URL + '?action=evento_activo&ev=' + encodeURIComponent(params.get('ev')||''))
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        if (res && res.ok && res.sectores && res.sectores[datos.grupo]) {
+          var s = res.sectores[datos.grupo];
+          var precio = datos.plan === 'vip_2' ? s.precio_vip2 : s.precio_vip1;
+          var moneda = s.moneda || 'USD';
+          if (precio) document.getElementById('monto').textContent = '$' + precio + ' ' + moneda;
+        }
+      }).catch(function(){});
+
+    window.pagar = function(){
+      var btn = document.getElementById('btn-pagar');
+      var loading = document.getElementById('loading');
+      var errorEl = document.getElementById('error');
+      errorEl.style.display = 'none';
+      btn.disabled = true;
+      loading.style.display = 'block';
+
+      fetch(APPS_SCRIPT_URL + '?action=payu_iniciar_checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          action: 'payu_iniciar_checkout',
+          plan: datos.plan,
+          email: datos.email,
+          nombre: datos.nombre,
+          apellido: datos.apellido,
+          telefono: datos.telefono,
+          grupo_evento: datos.grupo,
+          ticket_id: datos.ticket_id
+        })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        if (!res.ok || !res.data) throw new Error(res.error || 'No se pudo generar el pago');
+        // Construir y enviar el form a PayU
+        var d = res.data;
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = d.actionURL;
+        var campos = {
+          merchantId: d.merchantId, accountId: d.accountId, description: d.description,
+          referenceCode: d.referenceCode, amount: d.amount, tax: d.tax,
+          taxReturnBase: d.taxReturnBase, currency: d.currency, signature: d.signature,
+          test: d.test, buyerEmail: d.buyerEmail, buyerFullName: d.buyerFullName,
+          responseUrl: d.responseUrl, confirmationUrl: d.confirmationUrl
+        };
+        for (var k in campos){
+          var inp = document.createElement('input');
+          inp.type = 'hidden'; inp.name = k; inp.value = campos[k] == null ? '' : campos[k];
+          form.appendChild(inp);
+        }
+        document.body.appendChild(form);
+        form.submit();
+      })
+      .catch(function(err){
+        btn.disabled = false;
+        loading.style.display = 'none';
+        errorEl.textContent = 'Error: ' + (err.message || err) + '. Intenta de nuevo o contáctanos.';
+        errorEl.style.display = 'block';
+      });
+    };
+
+    // Validación mínima
+    if (!datos.email && !datos.nombre){
+      document.getElementById('desc').textContent = 'Falta información del comprador. Pide el enlace nuevamente a tu asesor.';
+    }
+  </script>
+</body>
+</html>
