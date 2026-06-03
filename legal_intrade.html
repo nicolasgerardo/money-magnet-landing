@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academia Intrade · Información Legal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1131; --navy-soft:#141b3d; --gold:#F5B800; --green:#2BBE66;
+    --ink:#1f2433; --muted:#6B7280; --line:#e7e9f0; --bg:#f6f7fb; --white:#fff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Poppins',sans-serif;color:var(--ink);background:var(--bg);line-height:1.7;}
+  a{color:var(--green);}
+  /* Header */
+  .top{background:var(--navy);color:#fff;padding:30px 0 90px;position:relative;overflow:hidden;}
+  .top::after{content:"";position:absolute;inset:0;background:
+    radial-gradient(900px 300px at 90% -10%, rgba(245,184,0,.18), transparent 60%),
+    radial-gradient(700px 280px at 0% 120%, rgba(43,190,102,.14), transparent 60%);}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:2;}
+  .brand{display:flex;align-items:center;gap:12px;}
+  .dot{width:14px;height:14px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(245,184,0,.2);}
+  .brand b{font-weight:800;letter-spacing:.5px;font-size:18px;}
+  .brand span{display:block;font-size:11px;opacity:.7;font-weight:400;letter-spacing:1px;text-transform:uppercase;}
+  .top h1{font-family:'Fraunces',serif;font-weight:600;font-size:42px;margin-top:26px;line-height:1.1;}
+  .top p{opacity:.8;margin-top:10px;max-width:620px;font-size:15px;}
+  /* Card */
+  .panel{max-width:920px;margin:-60px auto 60px;padding:0 24px;position:relative;z-index:3;}
+  .card{background:var(--white);border-radius:20px;box-shadow:0 24px 60px rgba(11,17,49,.10);overflow:hidden;}
+  /* Tabs */
+  .tabs{display:flex;flex-wrap:wrap;gap:4px;background:var(--navy-soft);padding:8px;}
+  .tab{flex:1;min-width:130px;border:none;background:transparent;color:#cfd3e6;font-family:inherit;font-weight:600;
+    font-size:13.5px;padding:12px 10px;border-radius:12px;cursor:pointer;transition:.2s;}
+  .tab:hover{color:#fff;}
+  .tab.active{background:var(--gold);color:var(--navy);}
+  .content{padding:38px 42px 46px;}
+  .doc{display:none;}
+  .doc.active{display:block;animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  .doc h2{font-family:'Fraunces',serif;font-weight:600;color:var(--navy);font-size:28px;margin-bottom:6px;}
+  .upd{color:var(--muted);font-size:12.5px;margin-bottom:24px;}
+  .doc h3{color:var(--navy);font-size:16px;font-weight:700;margin:26px 0 8px;display:flex;align-items:center;gap:9px;}
+  .doc h3::before{content:"";width:7px;height:7px;border-radius:2px;background:var(--gold);}
+  .doc p{font-size:14.5px;color:#374151;margin-bottom:12px;}
+  .doc ul{margin:0 0 14px 4px;list-style:none;}
+  .doc li{font-size:14.5px;color:#374151;padding-left:22px;position:relative;margin-bottom:7px;}
+  .doc li::before{content:"";position:absolute;left:4px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--green);}
+  .risk{background:linear-gradient(135deg,rgba(11,17,49,.04),rgba(245,184,0,.06));border-left:5px solid var(--navy);
+    border-radius:10px;padding:16px 18px;margin:18px 0;font-size:13.5px;color:var(--navy);font-weight:500;}
+  .note{background:#fff8e6;border-left:5px solid var(--gold);border-radius:10px;padding:12px 16px;margin:14px 0;
+    font-size:12.5px;color:#8A6D00;font-style:italic;}
+  .foot{padding:26px 42px;border-top:1px solid var(--line);background:#fbfbfe;color:var(--muted);font-size:12px;text-align:center;}
+  @media(max-width:600px){.top h1{font-size:32px;}.content{padding:26px 22px 34px;}.foot{padding:22px;}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <span class="dot"></span>
+      <b>ACADEMIA INTRADE<span>Ganar · Retener · Multiplicar</span></b>
+    </div>
+    <h1>Información legal</h1>
+    <p>Academia Intrade enseña a ganar el juego del dinero y crear libertad financiera, a través de tres pilares: ganar, retener y multiplicar. Aquí encuentras los términos que rigen el uso de nuestros productos y el tratamiento de tus datos.</p>
+  </div>
+</header>
+
+<div class="panel">
+  <div class="card">
+    <div class="tabs">
+      <button class="tab active" data-doc="terminos">Términos y Condiciones</button>
+      <button class="tab" data-doc="datos">Tratamiento de Datos</button>
+      <button class="tab" data-doc="privacidad">Aviso de Privacidad</button>
+      <button class="tab" data-doc="cookies">Política de Cookies</button>
+    </div>
+
+    <div class="content">
+
+      <!-- ===== TÉRMINOS ===== -->
+      <section class="doc active" id="terminos">
+        <h2>Términos y Condiciones de Uso</h2>
+        <div class="upd">Vigente desde el 3 de junio de 2026</div>
+
+        <div class="risk">
+          Lee estos términos antes de usar el sitio o adquirir cualquier producto. Al registrarte, comprar o acceder al contenido, declaras ser mayor de edad y aceptar estos términos. Todo el contenido de Academia Intrade es <b>educativo</b> y <b>no constituye asesoría financiera, de inversión, legal ni tributaria</b>, ni promesa de ingresos o resultados. Los resultados dependen del esfuerzo de cada persona, y las actividades de inversión y trading implican riesgo de pérdida de capital.
+        </div>
+
+        <h3>1. Responsable</h3>
+        <p>Este sitio y los productos ofrecidos son operados por <b>Academia Intrade</b> (S.A.S. en constitución), con domicilio en Bogotá D.C., Colombia. Para cualquier asunto relacionado con estos términos puedes escribirnos a <a href="mailto:admin@academiaintrade.com">admin@academiaintrade.com</a>.</p>
+
+        <h3>2. Naturaleza educativa y advertencia general</h3>
+        <p>Academia Intrade ofrece formación para ganar el juego del dinero y crear libertad financiera, organizada en tres pilares: <b>ganar</b> (negocios, Airbnb), <b>retener</b> (finanzas) y <b>multiplicar</b> (trading e inversión). Todo nuestro contenido es exclusivamente educativo e informativo y no constituye asesoría financiera, de inversión, legal, contable ni tributaria, ni recomendación de compra o venta de activos, ni promesa o garantía de ingresos, resultados o rentabilidad. Los resultados dependen del esfuerzo, la dedicación y las circunstancias de cada persona. Las actividades de inversión y trading, además, conllevan riesgo de pérdida de capital, incluida la pérdida total. Las decisiones son responsabilidad exclusiva del usuario, quien, cuando lo considere apropiado, debe consultar a un profesional autorizado.</p>
+
+        <h3>3. Registro y cuenta</h3>
+        <p>El usuario debe suministrar información veraz y es responsable de la confidencialidad de sus credenciales y de la actividad bajo su cuenta.</p>
+
+        <h3>4. Precios, pagos y facturación</h3>
+        <p>Los precios se expresan en la moneda indicada en el sitio. La factura electrónica se emite conforme a la normativa de la DIAN.</p>
+
+        <h3>5. Reembolsos</h3>
+        <p>Las condiciones de reembolso de cada producto se informan en su página de venta. Se respetan los derechos del consumidor establecidos en la Ley 1480 de 2011 (Estatuto del Consumidor), incluido el derecho de retracto cuando aplique.</p>
+
+        <h3>6. Propiedad intelectual</h3>
+        <p>Todo el contenido (videos, plantillas, marca, metodología) es propiedad de Academia Intrade. Se concede una licencia personal e intransferible de uso educativo. Queda prohibida su reproducción, reventa o distribución sin autorización escrita.</p>
+
+        <h3>7. Limitación de responsabilidad</h3>
+        <p>En la máxima medida permitida por la ley, Academia Intrade no será responsable por decisiones de inversión del usuario ni por interrupciones o errores del sitio. La responsabilidad total no excederá el valor pagado por el producto que originó la reclamación.</p>
+
+        <h3>8. Ley aplicable</h3>
+        <p>Estos términos se rigen por las leyes de Colombia. Las controversias se resolverán mediante arreglo directo y, en su defecto, ante la jurisdicción competente.</p>
+
+      </section>
+
+      <!-- ===== DATOS ===== -->
+      <section class="doc" id="datos">
+        <h2>Política de Tratamiento de Datos Personales</h2>
+        <div class="upd">Conforme a la Ley 1581 de 2012 y el Decreto 1377 de 2013 · Vigente desde junio de 2026</div>
+
+        <h3>1. Responsable</h3>
+        <p><b>Academia Intrade</b> (S.A.S. en constitución), con domicilio en Bogotá D.C., Colombia. Canal de atención para el ejercicio de tus derechos: <a href="mailto:admin@academiaintrade.com">admin@academiaintrade.com</a>.</p>
+
+        <h3>2. Datos que recolectamos</h3>
+        <ul>
+          <li>Identificación y contacto: nombre, documento, correo, teléfono, ciudad.</li>
+          <li>Comerciales: productos adquiridos, historial e interacciones en el CRM.</li>
+          <li>De pago: los necesarios para procesar transacciones (no almacenamos datos completos de tarjetas).</li>
+          <li>De navegación: cookies y datos técnicos del sitio.</li>
+        </ul>
+
+        <h3>3. Finalidades</h3>
+        <ul>
+          <li>Prestar los servicios educativos y entregar los productos.</li>
+          <li>Gestionar registro, facturación y obligaciones tributarias.</li>
+          <li>Enviar información comercial cuando lo autorices.</li>
+          <li>Gestionar la fuerza de ventas (Titanes) y el seguimiento de prospectos.</li>
+          <li>Cumplir obligaciones legales y requerimientos de autoridades.</li>
+        </ul>
+
+        <h3>4. Tus derechos (art. 8, Ley 1581)</h3>
+        <ul>
+          <li>Conocer, actualizar y rectificar tus datos.</li>
+          <li>Solicitar prueba de la autorización otorgada.</li>
+          <li>Ser informado sobre el uso de tus datos.</li>
+          <li>Presentar quejas ante la Superintendencia de Industria y Comercio (SIC).</li>
+          <li>Revocar la autorización y solicitar la supresión cuando proceda.</li>
+          <li>Acceder gratuitamente a tus datos.</li>
+        </ul>
+
+        <h3>5. Cómo ejercer tus derechos</h3>
+        <p>Envía tu solicitud al correo <a href="mailto:admin@academiaintrade.com">admin@academiaintrade.com</a>. Las consultas se atienden en máximo 10 días hábiles y los reclamos en máximo 15 días hábiles.</p>
+
+        <h3>6. Seguridad</h3>
+        <p>Adoptamos medidas técnicas y administrativas razonables para proteger tus datos. El personal y los Titanes que acceden a datos están obligados a mantener su confidencialidad.</p>
+
+      </section>
+
+      <!-- ===== PRIVACIDAD ===== -->
+      <section class="doc" id="privacidad">
+        <h2>Aviso de Privacidad</h2>
+        <div class="upd">Resumen para el usuario · Vigente desde junio de 2026</div>
+        <p>Academia Intrade (S.A.S. en constitución) es responsable del tratamiento de tus datos personales. Los recolectamos para prestarte nuestros servicios educativos, gestionar tu cuenta y, si lo autorizas, enviarte información comercial.</p>
+        <h3>Tus datos están protegidos</h3>
+        <p>Tratamos tu información conforme a la Ley 1581 de 2012. Puedes conocer, actualizar, rectificar o suprimir tus datos, y revocar tu autorización, escribiendo a <a href="mailto:admin@academiaintrade.com">admin@academiaintrade.com</a>.</p>
+        <h3>Autorización</h3>
+        <p>Al registrarte, comprar o aceptar este aviso, autorizas el tratamiento de tus datos para las finalidades descritas en nuestra Política de Tratamiento de Datos Personales, disponible en este mismo sitio.</p>
+        <div class="risk">Este aviso es un resumen. La información completa está en la pestaña "Tratamiento de Datos".</div>
+      </section>
+
+      <!-- ===== COOKIES ===== -->
+      <section class="doc" id="cookies">
+        <h2>Política de Cookies</h2>
+        <div class="upd">Vigente desde junio de 2026</div>
+        <p>Usamos cookies para que el sitio funcione correctamente, recordar tus preferencias y entender cómo se usa nuestra plataforma.</p>
+        <h3>Tipos de cookies</h3>
+        <ul>
+          <li><b>Necesarias:</b> indispensables para el funcionamiento del sitio y tu sesión.</li>
+          <li><b>De preferencias:</b> recuerdan tus ajustes.</li>
+          <li><b>Analíticas:</b> nos ayudan a mejorar (de forma agregada).</li>
+        </ul>
+        <h3>Cómo gestionarlas</h3>
+        <p>Puedes configurar o eliminar las cookies desde tu navegador. Si las desactivas, algunas funciones del sitio podrían no operar correctamente.</p>
+      </section>
+
+    </div>
+
+    <div class="foot">
+      © <span id="y"></span> Academia Intrade S.A.S. · Todos los derechos reservados · Bogotá D.C., Colombia<br>
+      Contenido de carácter educativo. No constituye asesoría financiera. Las actividades de inversión conllevan riesgo de pérdida de capital.
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click', function(){
+      document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});
+      document.querySelectorAll('.doc').forEach(function(x){x.classList.remove('active');});
+      t.classList.add('active');
+      document.getElementById(t.dataset.doc).classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+</script>
+</body>
+</html>
