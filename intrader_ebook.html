@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INTRADER · Descarga tu ebook gratuito</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+  :root{
+    --negro:#0A0A0A; --sup-oscura:#161616; --sup-media:#1E1E1E;
+    --oro:#C9A84C; --oro-oscuro:#8B6B2A; --blanco:#FAF8F4;
+    --texto-sec:#9A9489; --exito:#4C9C6C; --alerta:#C94C4C;
+    --borde-oro:rgba(201,168,76,0.30);
+  }
+  body{
+    font-family:'DM Sans',sans-serif;
+    background:radial-gradient(circle at 50% -5%, #141414, #0A0A0A 55%);
+    color:var(--blanco);min-height:100vh;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    display:flex;align-items:center;justify-content:center;padding:32px 18px;
+  }
+
+  .grid{
+    width:100%;max-width:1040px;
+    display:grid;grid-template-columns:1.05fr 0.95fr;gap:0;
+    border:1px solid var(--borde-oro);border-radius:22px;overflow:hidden;
+    box-shadow:0 40px 100px rgba(0,0,0,0.6);
+    background:linear-gradient(180deg, var(--sup-oscura), var(--negro));
+  }
+
+  /* ---- IZQUIERDA: PITCH + EBOOK ---- */
+  .pitch{padding:44px 40px;position:relative;overflow:hidden}
+  .pitch::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(circle at 0% 0%, rgba(201,168,76,0.08), transparent 55%);
+    pointer-events:none;
+  }
+  .wordmark{
+    font-family:'Playfair Display',serif;font-weight:900;font-size:24px;
+    letter-spacing:5px;color:var(--blanco);position:relative;
+  }
+  .wordmark-sub{
+    font-family:'DM Mono',monospace;font-size:9px;letter-spacing:4px;
+    color:var(--oro);margin-top:3px;position:relative;
+  }
+  .badge-free{
+    display:inline-block;margin:26px 0 14px;position:relative;
+    font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--oro);border:1px solid var(--borde-oro);background:rgba(201,168,76,0.06);
+    padding:5px 12px;border-radius:100px;
+  }
+  .pitch h1{
+    font-family:'Playfair Display',serif;font-weight:900;
+    font-size:clamp(28px,4.2vw,40px);line-height:1.12;position:relative;
+  }
+  .pitch h1 em{color:var(--oro);font-style:normal}
+  .pitch .lead{
+    color:var(--texto-sec);font-size:15px;font-weight:300;margin-top:14px;
+    max-width:420px;position:relative;
+  }
+  .ebook-mock{
+    display:flex;align-items:center;gap:18px;margin-top:28px;position:relative;
+    border:1px solid var(--borde-oro);border-radius:14px;padding:18px;
+    background:rgba(255,255,255,0.02);
+  }
+  .ebook-cover{
+    width:84px;height:112px;flex-shrink:0;border-radius:6px;
+    background:linear-gradient(160deg, #1c1c1c, #050505);
+    border:1px solid var(--borde-oro);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:8px;box-shadow:0 14px 30px rgba(0,0,0,0.5);
+    /* reemplaza por <img> con la portada real del ebook si la tienes */
+  }
+  .ebook-cover .ec-w{font-family:'Playfair Display',serif;font-weight:900;font-size:11px;letter-spacing:2px;color:var(--oro)}
+  .ebook-cover .ec-line{width:30px;height:1px;background:var(--oro-oscuro);margin:6px 0}
+  .ebook-cover .ec-t{font-size:8px;color:var(--texto-sec);font-weight:300;line-height:1.3}
+  .ebook-info .ei-t{font-weight:600;font-size:15px}
+  .ebook-info .ei-s{font-size:13px;color:var(--texto-sec);font-weight:300;margin-top:3px}
+
+  .bullets{margin-top:24px;position:relative}
+  .bullet{display:flex;gap:11px;padding:7px 0;font-size:14px;color:var(--blanco);font-weight:300}
+  .bullet .b-ar{color:var(--oro);font-weight:600;flex-shrink:0}
+  .bullet b{font-weight:500}
+
+  /* ---- DERECHA: FORMULARIO ---- */
+  .form-side{
+    background:linear-gradient(180deg, var(--sup-media), var(--sup-oscura));
+    border-left:1px solid var(--borde-oro);
+    padding:40px 36px;display:flex;flex-direction:column;justify-content:center;
+  }
+  .form-side h2{
+    font-family:'Playfair Display',serif;font-weight:700;font-size:21px;text-align:center;
+  }
+  .form-side .fs-sub{
+    text-align:center;color:var(--texto-sec);font-size:12.5px;font-weight:300;
+    margin:5px 0 22px;
+  }
+  .campo{margin-bottom:12px}
+  .campo label{
+    display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;
+    color:var(--texto-sec);text-transform:uppercase;margin-bottom:6px;
+  }
+  input,select{
+    width:100%;padding:13px 14px;border-radius:9px;
+    border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);
+    color:var(--blanco);font-size:14px;font-family:'DM Sans',sans-serif;transition:border-color .2s;
+  }
+  input:focus,select:focus{outline:none;border-color:var(--oro)}
+  input::placeholder{color:#5c574e}
+  .row2{display:flex;gap:8px}
+  .row2 .campo{flex:1}
+  .tel-row{display:flex;gap:8px}
+  .tel-select{position:relative;flex-shrink:0}
+  .tel-select select{appearance:none;-webkit-appearance:none;padding:13px 28px 13px 12px;height:100%;cursor:pointer}
+  .tel-select::after{content:'▾';position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--texto-sec);font-size:11px;pointer-events:none}
+  .tel-select select option{background:var(--sup-media);color:var(--blanco)}
+  .tel-row input{flex:1}
+  select option{background:var(--sup-media);color:var(--blanco)}
+
+  .btn{
+    width:100%;background:var(--oro);color:var(--negro);border:none;
+    padding:16px;border-radius:11px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:15px;
+    letter-spacing:.3px;cursor:pointer;margin-top:8px;transition:transform .15s, box-shadow .2s;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(201,168,76,0.25)}
+  .btn:disabled{opacity:.5;cursor:default;transform:none;box-shadow:none}
+  .priv{
+    text-align:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.5px;
+    color:var(--texto-sec);margin-top:13px;
+  }
+  .error{color:var(--alerta);font-size:13px;text-align:center;margin-top:10px;display:none}
+  .spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(11,17,49,.25);border-top-color:var(--negro);border-radius:50%;animation:s .7s linear infinite;vertical-align:middle;margin-right:6px}
+  @keyframes s{to{transform:rotate(360deg)}}
+
+  @media(max-width:780px){
+    .grid{grid-template-columns:1fr}
+    .form-side{border-left:none;border-top:1px solid var(--borde-oro)}
+    .pitch{padding:36px 28px 24px}
+    .form-side{padding:30px 28px 34px}
+  }
+</style>
+</head>
+<body>
+  <div class="grid">
+
+    <!-- IZQUIERDA -->
+    <div class="pitch">
+      <div class="wordmark">INTRADER</div>
+      <div class="wordmark-sub">EDUCACIÓN FINANCIERA</div>
+
+      <div class="badge-free">Descarga gratuita</div>
+      <h1>Las <em>reglas invisibles</em> del juego del dinero</h1>
+      <p class="lead">El ebook que explica por qué el 95% pierde dinero por malas decisiones, y qué hace distinto el 5% que sí entiende cómo funciona el sistema.</p>
+
+      <div class="ebook-mock">
+        <!-- Reemplaza este bloque por: <img src="URL_PORTADA" alt="Ebook INTRADER" style="width:84px;border-radius:6px;border:1px solid var(--borde-oro)"> -->
+        <div class="ebook-cover">
+          <div class="ec-w">INTRADER</div>
+          <div class="ec-line"></div>
+          <div class="ec-t">Las reglas del juego del dinero</div>
+        </div>
+        <div class="ebook-info">
+          <div class="ei-t">Ebook gratuito · PDF</div>
+          <div class="ei-s">Lectura de 20 minutos que puede cambiar cómo decides con tu dinero para siempre.</div>
+        </div>
+      </div>
+
+      <div class="bullets">
+        <div class="bullet"><span class="b-ar">→</span><span>Por qué el dinero <b>no se gana por suerte ni esfuerzo, sino por criterio</b></span></div>
+        <div class="bullet"><span class="b-ar">→</span><span>El error mental que repite el 95% <b>antes de cada decisión financiera</b></span></div>
+        <div class="bullet"><span class="b-ar">→</span><span>Las 3 reglas que separan al que gana <b>del que solo lo intenta</b></span></div>
+      </div>
+    </div>
+
+    <!-- DERECHA: FORMULARIO -->
+    <div class="form-side">
+      <h2>Recibe tu ebook ahora</h2>
+      <p class="fs-sub">Déjanos dónde enviártelo. Es gratis y llega a tu correo.</p>
+
+      <div class="row2">
+        <div class="campo"><label>Nombre</label><input id="f-nombre" placeholder="Tu nombre"></div>
+        <div class="campo"><label>Apellido</label><input id="f-apellido" placeholder="Tu apellido"></div>
+      </div>
+
+      <div class="campo"><label>Correo electrónico</label><input id="f-email" type="email" placeholder="tucorreo@ejemplo.com"></div>
+
+      <div class="campo">
+        <label>Teléfono (WhatsApp)</label>
+        <div class="tel-row">
+          <div class="tel-select"><select id="f-pais"></select></div>
+          <input id="f-telefono" placeholder="300 000 0000" inputmode="tel">
+        </div>
+      </div>
+
+      <button class="btn" id="btn" onclick="enviar()">Descargar mi ebook gratis</button>
+      <div class="error" id="error"></div>
+      <div class="priv">🔒 Sin spam. Tus datos están protegidos.</div>
+    </div>
+
+  </div>
+
+  <script>
+    var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK6XSxi1T4I2hCSZeEScJy7pKhFGs2S1OVtxSmAfc2oFjK1UonFmIGFjGEmJAdTymQ8g/exec';
+    // A dónde redirigir tras registrar el lead (el checkout que construimos):
+    var REDIRECT_CHECKOUT = 'intrader_checkout.html';
+    // Si quieres pasarle al checkout una fecha de cierre del contador, ej: '?cierre=2026-06-18'
+    var REDIRECT_QUERY = '';
+
+    var PAISES = [
+      {c:'CO', n:'Colombia', d:'+57', f:'🇨🇴'},
+      {c:'MX', n:'México', d:'+52', f:'🇲🇽'},
+      {c:'AR', n:'Argentina', d:'+54', f:'🇦🇷'},
+      {c:'CL', n:'Chile', d:'+56', f:'🇨🇱'},
+      {c:'PE', n:'Perú', d:'+51', f:'🇵🇪'},
+      {c:'EC', n:'Ecuador', d:'+593', f:'🇪🇨'},
+      {c:'VE', n:'Venezuela', d:'+58', f:'🇻🇪'},
+      {c:'BO', n:'Bolivia', d:'+591', f:'🇧🇴'},
+      {c:'PY', n:'Paraguay', d:'+595', f:'🇵🇾'},
+      {c:'UY', n:'Uruguay', d:'+598', f:'🇺🇾'},
+      {c:'BR', n:'Brasil', d:'+55', f:'🇧🇷'},
+      {c:'CR', n:'Costa Rica', d:'+506', f:'🇨🇷'},
+      {c:'PA', n:'Panamá', d:'+507', f:'🇵🇦'},
+      {c:'GT', n:'Guatemala', d:'+502', f:'🇬🇹'},
+      {c:'HN', n:'Honduras', d:'+504', f:'🇭🇳'},
+      {c:'SV', n:'El Salvador', d:'+503', f:'🇸🇻'},
+      {c:'NI', n:'Nicaragua', d:'+505', f:'🇳🇮'},
+      {c:'DO', n:'Rep. Dominicana', d:'+1', f:'🇩🇴'},
+      {c:'PR', n:'Puerto Rico', d:'+1', f:'🇵🇷'},
+      {c:'US', n:'Estados Unidos', d:'+1', f:'🇺🇸'},
+      {c:'CA', n:'Canadá', d:'+1', f:'🇨🇦'},
+      {c:'ES', n:'España', d:'+34', f:'🇪🇸'},
+      {c:'OT', n:'Otro país', d:'+', f:'🌎'}
+    ];
+    (function llenarPaises(){
+      var sel = document.getElementById('f-pais');
+      PAISES.forEach(function(p){
+        var o = document.createElement('option');
+        o.value = p.d; o.setAttribute('data-c', p.c);
+        o.textContent = p.f + '  ' + p.d; o.title = p.n;
+        sel.appendChild(o);
+      });
+      sel.value = '+57';
+    })();
+    function setPaisPorCodigo(cc){
+      var m = PAISES.filter(function(p){ return p.c === cc; })[0];
+      if (m){ document.getElementById('f-pais').value = m.d; }
+    }
+    // Detectar país por IP para pre-seleccionar indicativo
+    fetch('https://ipapi.co/json/').then(function(r){return r.json();})
+      .then(function(geo){ if(geo.country_code) setPaisPorCodigo(geo.country_code); })
+      .catch(function(){});
+
+    function $(id){ return document.getElementById(id); }
+    function mostrarError(m){ var e=$('error'); e.textContent=m; e.style.display='block'; }
+
+    function enviar(){
+      var nombre = $('f-nombre').value.trim();
+      var apellido = $('f-apellido').value.trim();
+      var email = $('f-email').value.trim();
+      var indicativo = $('f-pais').value;
+      var telefono = $('f-telefono').value.trim();
+      var paisCC = $('f-pais').options[$('f-pais').selectedIndex].getAttribute('data-c') || '';
+
+      if (!nombre || !email){ mostrarError('Completa tu nombre y correo.'); return; }
+      if (email.indexOf('@') < 1){ mostrarError('Ingresa un correo válido.'); return; }
+
+      var btn = $('btn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spin"></span> Enviando tu ebook...';
+      $('error').style.display = 'none';
+
+      var payload = {
+        action: 'lead_ebook',
+        fuente: 'landing_money_magnet',
+        nombre: nombre, apellido: apellido, email: email,
+        pais: paisCC, indicativo: indicativo,
+        telefono: telefono ? (indicativo + ' ' + telefono) : '',
+        producto: 'intrader'
+      };
+
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      })
+      .then(function(r){ return r.json().catch(function(){ return {ok:true}; }); })
+      .then(function(){
+        // Guardamos el lead localmente para precargar el checkout
+        try{
+          var lead = { nombre: nombre + (apellido ? ' ' + apellido : ''), email: email,
+                       telefono: telefono, indicativo: indicativo, pais: paisCC };
+          sessionStorage.setItem('intrader_lead', JSON.stringify(lead));
+        }catch(e){}
+        window.location.href = REDIRECT_CHECKOUT + REDIRECT_QUERY;
+      })
+      .catch(function(){
+        // Aunque falle el registro, no bloqueamos al usuario: lo mandamos al checkout igual
+        window.location.href = REDIRECT_CHECKOUT + REDIRECT_QUERY;
+      });
+    }
+
+    // Permitir Enter para enviar
+    document.addEventListener('keydown', function(e){ if(e.key === 'Enter') enviar(); });
+  </script>
+</body>
+</html>
