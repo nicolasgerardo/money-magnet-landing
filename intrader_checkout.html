@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INTRADER · Asegura tu cupo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+  :root{
+    --negro:#0A0A0A;
+    --sup-oscura:#161616;
+    --sup-media:#1E1E1E;
+    --oro:#C9A84C;
+    --oro-oscuro:#8B6B2A;
+    --blanco:#FAF8F4;
+    --texto-sec:#9A9489;
+    --exito:#4C9C6C;
+    --alerta:#C94C4C;
+    --borde-oro:rgba(201,168,76,0.30);
+  }
+
+  body{
+    font-family:'DM Sans',sans-serif;
+    background:var(--negro);
+    color:var(--blanco);
+    min-height:100vh;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- HEADER ---------- */
+  .header{
+    background:linear-gradient(180deg, #0A0A0A 0%, #111 100%);
+    border-bottom:1px solid var(--borde-oro);
+    padding:38px 24px 46px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .header::before{
+    content:'';
+    position:absolute;inset:0;
+    background:radial-gradient(circle at 50% 0%, rgba(201,168,76,0.10), transparent 60%);
+    pointer-events:none;
+  }
+  .wordmark{
+    font-family:'Playfair Display',serif;
+    font-weight:900;
+    font-size:30px;
+    letter-spacing:6px;
+    color:var(--blanco);
+    position:relative;
+  }
+  .wordmark-sub{
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:5px;
+    color:var(--oro);
+    margin-top:4px;
+    position:relative;
+  }
+  .header h1{
+    font-family:'Playfair Display',serif;
+    font-weight:700;
+    font-size:clamp(20px,3.4vw,30px);
+    line-height:1.25;
+    max-width:760px;
+    margin:24px auto 0;
+    position:relative;
+  }
+  .header h1 em{color:var(--oro);font-style:normal}
+  .header .tagline{
+    color:var(--texto-sec);
+    font-size:14px;
+    margin-top:12px;
+    font-weight:300;
+    position:relative;
+  }
+  .oro-rule{
+    width:54px;height:2px;background:var(--oro);
+    margin:20px auto 0;position:relative;
+  }
+
+  /* ---------- CONTADOR ---------- */
+  .countdown{
+    background:linear-gradient(90deg, rgba(201,168,76,0.10), rgba(201,168,76,0.04));
+    border-top:1px solid var(--borde-oro);
+    border-bottom:1px solid var(--borde-oro);
+    text-align:center;
+    padding:14px 20px;
+  }
+  .countdown .cd-label{
+    font-family:'DM Mono',monospace;
+    font-size:10.5px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--texto-sec);margin-bottom:6px;
+  }
+  .countdown .cd-label b{color:var(--oro);font-weight:500}
+  .cd-clock{
+    display:inline-flex;gap:10px;align-items:flex-end;justify-content:center;
+  }
+  .cd-unit{display:flex;flex-direction:column;align-items:center}
+  .cd-num{
+    font-family:'Playfair Display',serif;font-weight:900;
+    font-size:30px;color:var(--oro);line-height:1;
+    min-width:46px;
+  }
+  .cd-sep{
+    font-family:'Playfair Display',serif;font-weight:900;
+    font-size:26px;color:var(--oro-oscuro);line-height:1;padding-bottom:14px;
+  }
+  .cd-tag{
+    font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;
+    text-transform:uppercase;color:var(--texto-sec);margin-top:5px;
+  }
+
+  /* ---------- LAYOUT ---------- */
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding:46px 24px 30px;
+    display:grid;
+    grid-template-columns:1fr 408px;
+    gap:36px;
+    align-items:start;
+  }
+
+  /* ---------- COLUMNA OFERTA ---------- */
+  .oferta-head{
+    font-family:'Playfair Display',serif;
+    font-weight:700;
+    font-size:26px;
+    line-height:1.3;
+    margin-bottom:6px;
+  }
+  .oferta-head em{color:var(--oro);font-style:normal}
+  .oferta-lead{
+    color:var(--texto-sec);
+    font-size:14px;
+    font-weight:300;
+    margin-bottom:24px;
+  }
+
+  /* Gancho ebook */
+  .ebook-hook{
+    border:1px solid var(--borde-oro);
+    border-radius:14px;
+    background:linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.02));
+    padding:18px 22px;
+    margin-bottom:28px;
+    display:flex;gap:16px;align-items:center;
+  }
+  .ebook-hook .eb-ic{font-size:26px;flex-shrink:0}
+  .ebook-hook .eb-t{font-family:'Playfair Display',serif;font-weight:700;font-size:16px}
+  .ebook-hook .eb-t em{color:var(--oro);font-style:normal}
+  .ebook-hook .eb-s{font-size:13px;color:var(--texto-sec);font-weight:300;margin-top:2px}
+
+  /* Imagen del programa */
+  .programa-img{
+    width:100%;
+    border:1px solid var(--borde-oro);
+    border-radius:14px;
+    background:linear-gradient(180deg, var(--sup-oscura), var(--negro));
+    margin-bottom:30px;
+    overflow:hidden;
+  }
+  .programa-img img{display:block;width:100%;height:auto}
+  .programa-img .ph{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:60px 24px;gap:8px;
+    border:1px dashed var(--borde-oro);margin:14px;border-radius:10px;
+  }
+  .programa-img .ph .ph-icon{font-size:30px;opacity:.5}
+  .programa-img .ph .ph-t{
+    font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;
+    text-transform:uppercase;color:var(--oro);
+  }
+  .programa-img .ph .ph-s{font-size:12.5px;color:var(--texto-sec);font-weight:300;max-width:320px}
+
+  .seccion-label{
+    font-family:'DM Mono',monospace;
+    font-size:11px;
+    letter-spacing:3px;
+    color:var(--oro);
+    text-transform:uppercase;
+    margin:30px 0 14px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .seccion-label::after{content:'';flex:1;height:1px;background:var(--borde-oro)}
+
+  .item{
+    display:flex;
+    gap:16px;
+    padding:18px 0;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .item-num{
+    font-family:'Playfair Display',serif;
+    font-weight:900;
+    font-size:24px;
+    color:var(--oro);
+    line-height:1;
+    flex-shrink:0;
+    width:34px;
+    text-align:center;
+  }
+  .item-body{flex:1}
+  .item-title{
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:.2px;
+  }
+  .item-title .tm{color:var(--oro);font-size:11px;vertical-align:super}
+  .item-val{
+    font-family:'DM Mono',monospace;
+    font-size:12px;
+    color:var(--oro);
+    margin-left:8px;
+    font-weight:500;
+    white-space:nowrap;
+  }
+  .item-desc{
+    color:var(--texto-sec);
+    font-size:13.5px;
+    font-weight:300;
+    margin-top:6px;
+  }
+  .item-desc b{color:var(--blanco);font-weight:500}
+
+  .bono .item-num{color:var(--exito)}
+  .bono-tag{
+    display:inline-block;
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:1.5px;
+    color:var(--exito);
+    border:1px solid rgba(76,156,108,0.4);
+    background:rgba(76,156,108,0.08);
+    padding:2px 8px;
+    border-radius:4px;
+    margin-bottom:6px;
+    text-transform:uppercase;
+  }
+
+  /* Etiquetas de inclusión por plan */
+  .plan-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+  .ptag{
+    font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.8px;text-transform:uppercase;
+    padding:2px 7px;border-radius:4px;border:1px solid;white-space:nowrap;
+  }
+  .ptag.all{color:var(--texto-sec);border-color:rgba(154,148,137,0.35);background:rgba(154,148,137,0.06)}
+  .ptag.gold{color:var(--oro);border-color:var(--borde-oro);background:rgba(201,168,76,0.07)}
+  .ptag.green{color:var(--exito);border-color:rgba(76,156,108,0.4);background:rgba(76,156,108,0.07)}
+
+  /* Resumen detallado */
+  .resumen{
+    margin-top:30px;
+    border:1px solid var(--borde-oro);
+    border-radius:14px;
+    background:linear-gradient(180deg, var(--sup-oscura), var(--negro));
+    padding:26px 26px 22px;
+  }
+  .resumen h3{
+    font-family:'Playfair Display',serif;font-weight:700;font-size:19px;
+    margin-bottom:4px;
+  }
+  .resumen .r-sub{font-size:12.5px;color:var(--texto-sec);font-weight:300;margin-bottom:18px}
+  .r-group{margin-bottom:16px}
+  .r-group-h{
+    font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:1.5px;
+    text-transform:uppercase;color:var(--oro);margin-bottom:8px;
+    display:flex;justify-content:space-between;align-items:baseline;
+  }
+  .r-group-h span:last-child{color:var(--texto-sec)}
+  .r-line{
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding:5px 0;font-size:13px;color:var(--texto-sec);font-weight:300;
+    border-bottom:1px dotted rgba(255,255,255,0.06);
+  }
+  .r-line .r-name{flex:1;padding-right:12px}
+  .r-line .r-name b{color:var(--blanco);font-weight:500}
+  .r-line .r-val{font-family:'DM Mono',monospace;color:var(--blanco);white-space:nowrap}
+  .r-total{
+    margin-top:18px;padding-top:16px;border-top:1px solid var(--borde-oro);
+    display:flex;justify-content:space-between;align-items:baseline;
+  }
+  .r-total .lbl{font-family:'Playfair Display',serif;font-size:18px;font-weight:700}
+  .r-total .num{font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:var(--oro)}
+  .r-pay{
+    margin-top:14px;text-align:center;
+    font-family:'DM Mono',monospace;font-size:12px;color:var(--texto-sec);letter-spacing:.5px;
+  }
+  .r-pay b{color:var(--exito);font-weight:500}
+
+  /* Comparativa de planes */
+  .comparativa{margin-top:22px;padding-top:20px;border-top:1px solid var(--borde-oro)}
+  .comp-h{
+    font-family:'Playfair Display',serif;font-weight:700;font-size:16px;margin-bottom:14px;
+  }
+  .comp-tabla{width:100%;border-collapse:collapse;font-size:12.5px}
+  .comp-tabla th, .comp-tabla td{padding:8px 6px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .comp-tabla th:first-child, .comp-tabla td:first-child{text-align:left;color:var(--texto-sec);font-weight:300}
+  .comp-tabla thead th{
+    font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.5px;text-transform:uppercase;
+    color:var(--texto-sec);font-weight:500;
+  }
+  .comp-tabla thead th.best{color:var(--oro)}
+  .comp-tabla td.best{color:var(--exito);font-weight:600;background:rgba(76,156,108,0.06)}
+  .comp-tabla th.best{background:rgba(201,168,76,0.07);border-radius:6px 6px 0 0}
+  .comp-tabla td.no{color:#5c574e}
+  .comp-tabla .comp-valor td{
+    font-family:'DM Mono',monospace;font-weight:500;color:var(--blanco);
+    border-top:1px solid var(--borde-oro);border-bottom:none;padding-top:11px;
+  }
+  .comp-tabla .comp-valor td:first-child{font-family:'DM Sans',sans-serif;color:var(--texto-sec)}
+  .comp-tabla .comp-valor td.best{color:var(--oro)}
+  .comp-nota{font-size:12px;color:var(--texto-sec);font-weight:300;margin-top:12px;text-align:center}
+
+  /* ---------- TARJETA CHECKOUT ---------- */
+  .checkout{
+    position:sticky;top:24px;
+    background:linear-gradient(180deg, var(--sup-media), var(--sup-oscura));
+    border:1px solid var(--borde-oro);
+    border-radius:20px;
+    padding:30px 28px;
+    box-shadow:0 30px 80px rgba(0,0,0,0.6);
+  }
+  .checkout-title{
+    font-family:'Playfair Display',serif;
+    font-size:22px;font-weight:700;
+    text-align:center;margin-bottom:4px;
+  }
+  .checkout-title em{color:var(--oro);font-style:normal}
+  .checkout-sub{
+    text-align:center;color:var(--texto-sec);
+    font-size:12.5px;font-weight:300;margin-bottom:20px;
+  }
+
+  .cd-mini{
+    text-align:center;margin-bottom:18px;
+    border:1px solid var(--borde-oro);border-radius:10px;
+    padding:12px;background:rgba(201,168,76,0.05);
+  }
+  .cd-mini .m-lbl{
+    font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:1.5px;
+    text-transform:uppercase;color:var(--texto-sec);margin-bottom:5px;
+  }
+  .cd-mini .m-clock{
+    font-family:'Playfair Display',serif;font-weight:900;font-size:24px;color:var(--oro);
+    letter-spacing:1px;
+  }
+
+  /* Selector de plan */
+  .planes{margin-bottom:18px}
+  .planes-lbl{
+    font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:1.5px;
+    text-transform:uppercase;color:var(--texto-sec);margin-bottom:8px;
+  }
+  .plan{
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:12px;
+    padding:14px 16px;
+    margin-bottom:10px;
+    cursor:pointer;
+    transition:border-color .2s, background .2s;
+    position:relative;
+  }
+  .plan:hover{border-color:var(--borde-oro)}
+  .plan.activo{border-color:var(--oro);background:rgba(201,168,76,0.06)}
+  .plan-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .plan-name{font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px}
+  .plan-radio{
+    width:16px;height:16px;border-radius:50%;border:2px solid var(--texto-sec);
+    flex-shrink:0;position:relative;transition:border-color .2s;
+  }
+  .plan.activo .plan-radio{border-color:var(--oro)}
+  .plan.activo .plan-radio::after{
+    content:'';position:absolute;inset:3px;border-radius:50%;background:var(--oro);
+  }
+  .plan-price{font-family:'DM Mono',monospace;font-size:14px;color:var(--oro);font-weight:500;white-space:nowrap}
+  .plan-badge{
+    font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:1px;text-transform:uppercase;
+    color:var(--negro);background:var(--oro);padding:2px 7px;border-radius:4px;font-weight:600;
+  }
+  .plan-detail{font-size:12px;color:var(--texto-sec);font-weight:300;margin-top:7px;padding-left:24px}
+  .plan-detail .ok{color:var(--exito)}
+  .plan-detail .warn{color:var(--oro)}
+
+  .precio-box{
+    text-align:center;
+    border:1px solid var(--borde-oro);
+    border-radius:14px;
+    padding:20px;
+    margin-bottom:18px;
+    background:radial-gradient(circle at 50% 0%, rgba(201,168,76,0.07), transparent 70%);
+  }
+  .ancla{
+    font-family:'DM Mono',monospace;
+    color:var(--texto-sec);
+    font-size:15px;text-decoration:line-through;
+  }
+  .precio{
+    font-family:'Playfair Display',serif;
+    font-size:44px;font-weight:900;color:var(--oro);line-height:1;margin-top:2px;
+  }
+  .precio small{font-family:'DM Mono',monospace;font-size:15px;color:var(--texto-sec);vertical-align:super;margin-left:4px}
+  .precio .spin{font-size:20px}
+  .moneda{font-family:'DM Mono',monospace;color:var(--texto-sec);font-size:11px;letter-spacing:2px;margin-top:6px;text-transform:uppercase}
+  .ahorro{
+    display:none;
+    margin-top:12px;
+    font-family:'DM Mono',monospace;
+    font-size:11px;font-weight:500;letter-spacing:1px;
+    color:var(--exito);
+    border:1px solid rgba(76,156,108,0.4);
+    background:rgba(76,156,108,0.08);
+    padding:5px 12px;border-radius:100px;
+  }
+
+  .region-tag{
+    text-align:center;font-family:'DM Mono',monospace;
+    font-size:10.5px;letter-spacing:1.5px;color:var(--texto-sec);
+    text-transform:uppercase;margin-bottom:18px;
+  }
+
+  .campo{margin-bottom:13px}
+  .campo label{
+    display:block;font-family:'DM Mono',monospace;
+    font-size:10.5px;letter-spacing:1.5px;color:var(--texto-sec);
+    text-transform:uppercase;margin-bottom:6px;
+  }
+  input{
+    width:100%;padding:13px 14px;
+    border-radius:9px;
+    border:1px solid rgba(255,255,255,0.12);
+    background:rgba(255,255,255,0.04);
+    color:var(--blanco);font-size:14px;font-family:'DM Sans',sans-serif;
+    transition:border-color .2s;
+  }
+  input:focus{outline:none;border-color:var(--oro)}
+  input::placeholder{color:#5c574e}
+
+  /* Teléfono con selector de país */
+  .tel-row{display:flex;gap:8px}
+  .tel-select{
+    position:relative;flex-shrink:0;
+  }
+  .tel-select select{
+    appearance:none;-webkit-appearance:none;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:9px;
+    color:var(--blanco);
+    padding:13px 30px 13px 12px;
+    font-size:14px;font-family:'DM Sans',sans-serif;
+    cursor:pointer;height:100%;
+  }
+  .tel-select select:focus{outline:none;border-color:var(--oro)}
+  .tel-select::after{
+    content:'▾';position:absolute;right:11px;top:50%;transform:translateY(-50%);
+    color:var(--texto-sec);font-size:12px;pointer-events:none;
+  }
+  .tel-select select option{background:var(--sup-media);color:var(--blanco)}
+  .tel-row input{flex:1}
+
+  .codigo-row{display:flex;gap:8px}
+  .codigo-row input{flex:1;text-transform:uppercase}
+  .codigo-row button{
+    background:rgba(201,168,76,0.12);
+    color:var(--oro);
+    border:1px solid var(--borde-oro);
+    padding:0 18px;border-radius:9px;cursor:pointer;
+    font-family:'DM Mono',monospace;font-weight:500;font-size:12px;letter-spacing:1px;
+    text-transform:uppercase;white-space:nowrap;transition:background .2s;
+  }
+  .codigo-row button:hover{background:rgba(201,168,76,0.22)}
+  .codigo-msg{font-family:'DM Mono',monospace;font-size:11px;margin-top:7px;min-height:15px;letter-spacing:.5px}
+
+  .btn-pagar{
+    width:100%;
+    background:var(--oro);
+    color:var(--negro);
+    border:none;
+    padding:17px;border-radius:11px;
+    font-family:'DM Sans',sans-serif;font-weight:700;font-size:15px;letter-spacing:.3px;
+    cursor:pointer;margin-top:16px;
+    transition:transform .15s, box-shadow .2s;
+  }
+  .btn-pagar:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(201,168,76,0.25)}
+  .btn-pagar:disabled{opacity:.5;cursor:default;transform:none;box-shadow:none}
+
+  .secure{
+    text-align:center;font-family:'DM Mono',monospace;
+    font-size:10.5px;letter-spacing:1px;color:var(--texto-sec);margin-top:16px;
+  }
+  .error{color:var(--alerta);font-size:13px;text-align:center;margin-top:12px;display:none}
+
+  .spin{
+    display:inline-block;width:16px;height:16px;
+    border:2px solid rgba(201,168,76,.25);border-top-color:var(--oro);
+    border-radius:50%;animation:s .7s linear infinite;vertical-align:middle;
+  }
+  @keyframes s{to{transform:rotate(360deg)}}
+
+  /* ---------- CTA INFERIOR ---------- */
+  .cta-bottom{
+    text-align:center;
+    padding:14px 24px 56px;
+  }
+  .cta-bottom .frase{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--texto-sec);
+    font-size:15px;
+    max-width:560px;margin:0 auto 22px;
+  }
+  .cta-bottom .frase-grande{
+    display:block;
+    font-style:normal;
+    font-weight:900;
+    font-size:clamp(40px,7vw,68px);
+    color:var(--oro);
+    line-height:1.05;
+    margin-top:8px;
+    letter-spacing:1px;
+  }
+  .btn-ancho{
+    display:inline-block;
+    background:var(--oro);color:var(--negro);
+    border:none;border-radius:12px;
+    padding:18px 48px;
+    font-family:'DM Sans',sans-serif;font-weight:700;font-size:17px;letter-spacing:.3px;
+    cursor:pointer;transition:transform .15s, box-shadow .2s;
+  }
+  .btn-ancho:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(201,168,76,0.3)}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:880px){
+    .wrap{grid-template-columns:1fr;gap:32px;padding:34px 18px 24px}
+    .checkout{position:static;order:-1}
+  }
+</style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="wordmark">INTRADER</div>
+    <div class="wordmark-sub">EDUCACIÓN FINANCIERA</div>
+    <h1>Deja de perder dinero por malas decisiones. <em>Conviértete en un Intrader.</em></h1>
+    <p class="tagline">Gana el juego del dinero entendiendo sus reglas.</p>
+    <div class="oro-rule"></div>
+  </header>
+
+  <!-- CONTADOR -->
+  <div class="countdown">
+    <div class="cd-label" id="cd-label">Esta oferta especial <b>termina a la medianoche</b></div>
+    <div class="cd-clock" id="cd-clock"></div>
+  </div>
+
+  <!-- LAYOUT PRINCIPAL -->
+  <div class="wrap">
+
+    <!-- COLUMNA IZQUIERDA: OFERTA -->
+    <section>
+
+      <!-- GANCHO EBOOK -->
+      <div class="ebook-hook">
+        <div class="eb-ic">📘</div>
+        <div>
+          <div class="eb-t">Recibiste tu <em>ebook gratuito</em>. Ahora da el siguiente paso.</div>
+          <div class="eb-s">El ebook te mostró las reglas. INTRADER te convierte en quien sabe jugarlas.</div>
+        </div>
+      </div>
+
+      <h2 class="oferta-head">Esto es lo que recibes en <em>6 meses de transformación</em></h2>
+      <p class="oferta-lead">No es un curso de trading. Es un sistema completo para pensar, decidir y actuar con criterio profesional sobre tu dinero.</p>
+
+      <!-- ESPACIO PARA IMAGEN DEL PROGRAMA -->
+      <div class="programa-img" id="programa-img">
+        <!-- Cuando tengas el enlace, reemplaza este bloque por:
+             <img src="URL_DE_TU_IMAGEN" alt="Programa INTRADER"> -->
+        <div class="ph">
+          <div class="ph-icon">🖼️</div>
+          <div class="ph-t">Imagen del programa</div>
+          <div class="ph-s">Aquí va la imagen de tu programa INTRADER. Pásame el enlace y la conecto en este espacio.</div>
+        </div>
+      </div>
+
+      <!-- PROGRAMA CENTRAL -->
+      <div class="seccion-label">El sistema · 6 módulos</div>
+
+      <div class="item">
+        <div class="item-num">1</div>
+        <div class="item-body">
+          <div class="item-title">INTRADER AWAKENING<span class="tm">™</span><span class="item-val">$497</span></div>
+          <div class="item-desc">Vas a descubrir las reglas invisibles que separan al 5% que gana del 95% que pierde, y por primera vez vas a entender cómo funciona realmente el dinero, no como te lo contaron. El mes en que dejas de jugar a ciegas.</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">2</div>
+        <div class="item-body">
+          <div class="item-title">CAPITAL INTELLIGENCE<span class="tm">™</span> + NAVIGATION LAB<span class="tm">™</span><span class="item-val">$1,394</span></div>
+          <div class="item-desc">Instalarás el protocolo mental del Intrader: la Tríada que combina psicología, riesgo y análisis para que evalúes cualquier oportunidad con lógica fría y nunca más decidas por miedo, codicia o FOMO.</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">3</div>
+        <div class="item-body">
+          <div class="item-title">ANALYSIS FRAMEWORK<span class="tm">™</span><span class="item-val">$697</span></div>
+          <div class="item-desc">Aprenderás a leer el mercado con Ondas de Elliott y Fibonacci, el mismo método con el que proyecté Bitcoin. El gráfico deja de ser ruido aleatorio y empieza a decirte hacia dónde se mueve el dinero.</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">4</div>
+        <div class="item-body">
+          <div class="item-title">RISK COMMAND<span class="tm">™</span><span class="item-val">$597</span></div>
+          <div class="item-desc">Dominarás el sistema de Risk Score que protege tu capital antes de buscar la ganancia, para que nunca más arriesgues sin saber exactamente cuánto puedes perder ni cómo salir si todo se voltea.</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">5</div>
+        <div class="item-body">
+          <div class="item-title">EXECUTION SYSTEM<span class="tm">™</span><span class="item-val">$697</span></div>
+          <div class="item-desc">Convertirás el análisis en acción con un protocolo de ejecución que mata la parálisis y la duda. Ejecutas con confianza, repites el proceso y construyes la consistencia que separa al que sabe del que solo opina.</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">6</div>
+        <div class="item-body">
+          <div class="item-title">MENTAL REPROGRAMMING<span class="item-val">$497</span></div>
+          <div class="item-desc">Un reto de 21 días donde conviertes el conocimiento en identidad permanente. Dejas de "saber" para empezar a "ser": las buenas decisiones financieras se vuelven tu reflejo natural.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
+        </div>
+      </div>
+
+      <!-- ACOMPAÑAMIENTO -->
+      <div class="seccion-label">Acompañamiento en vivo</div>
+
+      <div class="item">
+        <div class="item-num">7</div>
+        <div class="item-body">
+          <div class="item-title">INTRADER WEEKLY LIVE CALLS<span class="item-val">$2,328</span></div>
+          <div class="item-desc">Sesiones semanales en vivo (cada martes) donde analizamos el mercado en tiempo real durante los 6 meses. Nunca estás solo: cada error se corrige antes de que te cueste dinero.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">8</div>
+        <div class="item-body">
+          <div class="item-title">OPPORTUNITY SCAN<span class="tm">™</span> + ASSET REVIEW<span class="tm">™</span><span class="item-val">$1,394</span></div>
+          <div class="item-desc">Una sesión adicional (cada jueves) para revisar lo que vimos el martes, auditar tus decisiones ejecutadas y hacer correcciones con feedback directo. Aquí el criterio deja de ser teoría y se vuelve un reflejo entrenado.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">9</div>
+        <div class="item-body">
+          <div class="item-title">LIVE MARKET EXPERIENCE<span class="tm">™</span><span class="item-val">$497</span></div>
+          <div class="item-desc">Una sesión al mes dentro de la mente de un Intrader profesional: ves en primera persona cómo se analiza, se mide el riesgo y se decide bajo presión real. La diferencia entre saber la teoría y verla ejecutada.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">10</div>
+        <div class="item-body">
+          <div class="item-title">INTRADER COMMUNITY<span class="item-val">$297</span></div>
+          <div class="item-desc">Acceso de por vida al círculo privado de Intraders certificados. Análisis compartidos, networking y un entorno donde evolucionas rodeado de personas que juegan el mismo juego con la misma seriedad.</div>
+          <div class="plan-tags"><span class="ptag gold">★ Solo pago completo</span></div>
+        </div>
+      </div>
+
+      <!-- HERRAMIENTAS -->
+      <div class="seccion-label">6 herramientas de soporte</div>
+
+      <div class="item">
+        <div class="item-num">11</div>
+        <div class="item-body">
+          <div class="item-title">Decision Map · Visual Market · Journal · Execution Checklist · Strategic Playbook · Identity<span class="item-val">$752</span></div>
+          <div class="item-desc">El sistema documentado y repetible del Intrader: mapas de decisión, frameworks visuales, checklists y playbooks que estructuran tu proceso completo para que nunca vuelvas a improvisar con tu dinero.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
+        </div>
+      </div>
+
+      <!-- BONOS -->
+      <div class="seccion-label">Bonos</div>
+
+      <div class="item bono">
+        <div class="item-num">12</div>
+        <div class="item-body">
+          <span class="bono-tag">Bono · solo pago completo</span>
+          <div class="item-title">INTRADER VIP ACCESS<span class="item-val">$1,497</span></div>
+          <div class="item-desc">Una mentoría privada 1:1 de 60 minutos donde reviso tu situación financiera específica, te muestro exactamente dónde estás perdiendo dinero y construimos juntos tu estrategia personalizada para los 6 meses.</div>
+          <div class="plan-tags"><span class="ptag gold">★ Solo pago completo</span></div>
+        </div>
+      </div>
+
+      <div class="item bono">
+        <div class="item-num">13</div>
+        <div class="item-body">
+          <span class="bono-tag">Bono · completo y apartado</span>
+          <div class="item-title">CERTIFIED INTRADER<span class="item-val">$697</span></div>
+          <div class="item-desc">La certificación oficial que acredita tu dominio del sistema, con evaluación teórica y práctica. El sello que te distingue como un Intrader real y te permite decir, con propiedad, "Soy un Intrader".</div>
+          <div class="plan-tags"><span class="ptag green">Pago completo + Apartado</span></div>
+        </div>
+      </div>
+
+      <div class="item bono">
+        <div class="item-num">14</div>
+        <div class="item-body">
+          <span class="bono-tag">Bono · completo y apartado</span>
+          <div class="item-title">ADVANCED STRATEGIES<span class="item-val">$997</span></div>
+          <div class="item-desc">El módulo de estrategias avanzadas de alto nivel, el conocimiento que normalmente solo se entrega después de dominar lo fundamental. <b style="color:var(--oro)">No se incluye si pagas en 3 cuotas.</b></div>
+          <div class="plan-tags"><span class="ptag green">Pago completo + Apartado</span></div>
+        </div>
+      </div>
+
+      <div class="item bono">
+        <div class="item-num">15</div>
+        <div class="item-body">
+          <span class="bono-tag">Bono</span>
+          <div class="item-title">RISK SHIELD + MARKET INTEL REPORTS<span class="item-val">$1,294</span></div>
+          <div class="item-desc">Tu escudo de protección de capital reforzado más los reportes periódicos de inteligencia de mercado. Decides siempre con contexto y con tu exposición máxima definida antes de cada movimiento.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
+        </div>
+      </div>
+
+      <!-- RESUMEN DETALLADO -->
+      <div class="resumen">
+        <h3>Todo lo que recibes hoy, desglosado</h3>
+        <p class="r-sub">Cada componente con su valor real de mercado. Esto es lo que estás llevando.</p>
+
+        <div class="r-group">
+          <div class="r-group-h"><span>El sistema · 6 módulos</span><span>$4,379</span></div>
+          <div class="r-line"><span class="r-name"><b>1.</b> INTRADER AWAKENING™</span><span class="r-val">$497</span></div>
+          <div class="r-line"><span class="r-name"><b>2.</b> Capital Intelligence™ + Navigation Lab™</span><span class="r-val">$1,394</span></div>
+          <div class="r-line"><span class="r-name"><b>3.</b> Analysis Framework™</span><span class="r-val">$697</span></div>
+          <div class="r-line"><span class="r-name"><b>4.</b> Risk Command™</span><span class="r-val">$597</span></div>
+          <div class="r-line"><span class="r-name"><b>5.</b> Execution System™</span><span class="r-val">$697</span></div>
+          <div class="r-line"><span class="r-name"><b>6.</b> Mental Reprogramming (reto 21 días)</span><span class="r-val">$497</span></div>
+        </div>
+
+        <div class="r-group">
+          <div class="r-group-h"><span>Acompañamiento en vivo</span><span>$4,516</span></div>
+          <div class="r-line"><span class="r-name"><b>7.</b> Weekly Live Calls (sesiones de los martes)</span><span class="r-val">$2,328</span></div>
+          <div class="r-line"><span class="r-name"><b>8.</b> Opportunity Scan™ + Asset Review™ (jueves)</span><span class="r-val">$1,394</span></div>
+          <div class="r-line"><span class="r-name"><b>9.</b> Live Market Experience™ (mensual)</span><span class="r-val">$497</span></div>
+          <div class="r-line"><span class="r-name"><b>10.</b> Intrader Community <em style="color:var(--oro);font-style:normal;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.5px">· SOLO COMPLETO</em></span><span class="r-val">$297</span></div>
+        </div>
+
+        <div class="r-group">
+          <div class="r-group-h"><span>Herramientas de soporte</span><span>$752</span></div>
+          <div class="r-line"><span class="r-name"><b>11.</b> 6 herramientas (Decision Map, Journal, Playbook…)</span><span class="r-val">$752</span></div>
+        </div>
+
+        <div class="r-group">
+          <div class="r-group-h"><span>Bonos</span><span>$4,485</span></div>
+          <div class="r-line"><span class="r-name"><b>12.</b> VIP Access · mentoría 1:1 <em style="color:var(--oro);font-style:normal;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.5px">· SOLO COMPLETO</em></span><span class="r-val">$1,497</span></div>
+          <div class="r-line"><span class="r-name"><b>13.</b> Certified Intrader <em style="color:var(--exito);font-style:normal;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.5px">· COMPLETO + APARTADO</em></span><span class="r-val">$697</span></div>
+          <div class="r-line"><span class="r-name"><b>14.</b> Advanced Strategies <em style="color:var(--exito);font-style:normal;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.5px">· COMPLETO + APARTADO</em></span><span class="r-val">$997</span></div>
+          <div class="r-line"><span class="r-name"><b>15.</b> Risk Shield + Market Intel Reports</span><span class="r-val">$1,294</span></div>
+        </div>
+
+        <div class="r-total">
+          <span class="lbl">Valor total</span>
+          <span class="num" id="r-num-total">$14,132 <span style="font-family:'DM Mono',monospace;font-size:13px;color:var(--texto-sec)">USD</span></span>
+        </div>
+        <div class="r-pay" id="r-pay-nota">Con <b style="color:var(--exito)">pago completo</b> te llevas el valor total: los 15 componentes, incluidos VIP Access, Community, Certificado y Advanced Strategies.</div>
+
+        <!-- COMPARATIVA DE PLANES -->
+        <div class="comparativa">
+          <div class="comp-h">Qué incluye cada plan</div>
+          <table class="comp-tabla">
+            <thead>
+              <tr><th></th><th class="best">Completo</th><th>Apartado</th><th>3 cuotas</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Los 6 módulos del sistema</td><td class="best">✓</td><td>✓</td><td>✓</td></tr>
+              <tr><td>Sesiones en vivo (martes + jueves)</td><td class="best">✓</td><td>✓</td><td>✓</td></tr>
+              <tr><td>Live Market Experience (mensual)</td><td class="best">✓</td><td>✓</td><td>✓</td></tr>
+              <tr><td>6 herramientas de soporte</td><td class="best">✓</td><td>✓</td><td>✓</td></tr>
+              <tr><td>Risk Shield + Market Intel</td><td class="best">✓</td><td>✓</td><td>✓</td></tr>
+              <tr><td>Certificación oficial</td><td class="best">✓</td><td>✓</td><td class="no">—</td></tr>
+              <tr><td>Advanced Strategies</td><td class="best">✓</td><td>✓</td><td class="no">—</td></tr>
+              <tr><td>Community de por vida</td><td class="best">✓</td><td class="no">—</td><td class="no">—</td></tr>
+              <tr><td>VIP Access · mentoría 1:1</td><td class="best">✓</td><td class="no">—</td><td class="no">—</td></tr>
+              <tr class="comp-valor"><td>Valor que recibes</td><td class="best">$14,132</td><td>$12,338</td><td>$10,644</td></tr>
+            </tbody>
+          </table>
+          <div class="comp-nota">El <b style="color:var(--exito)">pago completo</b> es el único que se lleva los 15 componentes, al precio más bajo y en un solo pago.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLUMNA DERECHA: CHECKOUT -->
+    <aside class="checkout">
+      <div class="checkout-title">Asegura tu cupo en <em>INTRADER</em></div>
+      <div class="checkout-sub">6 meses · mentoría en vivo · certificación oficial</div>
+
+      <div class="cd-mini">
+        <div class="m-lbl">Tu precio de hoy termina en</div>
+        <div class="m-clock" id="cd-mini-clock">00:00:00</div>
+      </div>
+
+      <!-- SELECTOR DE PLAN -->
+      <div class="planes">
+        <div class="planes-lbl">Elige tu plan</div>
+
+        <div class="plan activo" id="plan-completo" onclick="seleccionarPlan('completo')">
+          <div class="plan-top">
+            <div class="plan-name"><span class="plan-radio"></span> Pago completo</div>
+            <div class="plan-badge">Máximo valor</div>
+          </div>
+          <div class="plan-detail">
+            <span class="ok">✓</span> Te llevas <b style="color:var(--blanco)">los 15 componentes</b>. Exclusivos de este plan:<br>
+            <span class="ok">✓</span> <b style="color:var(--oro)">VIP Access</b> · mentoría 1:1 ($1,497)<br>
+            <span class="ok">✓</span> <b style="color:var(--oro)">Community</b> de por vida + <b style="color:var(--oro)">Certificado</b> + <b style="color:var(--oro)">Advanced Strategies</b><br>
+            <span class="ok">✓</span> Un solo pago · el precio más bajo de los 3 planes
+          </div>
+        </div>
+
+        <div class="plan" id="plan-apartado" onclick="seleccionarPlan('apartado')">
+          <div class="plan-top">
+            <div class="plan-name"><span class="plan-radio"></span> Apartado + 30 días</div>
+          </div>
+          <div class="plan-detail">
+            <span class="ok">✓</span> Reservas tu cupo hoy y <b style="color:var(--blanco)">congelas el precio</b><br>
+            <span class="ok">✓</span> Pagas el resto en los próximos 30 días<br>
+            <span class="ok">✓</span> Incluye <b style="color:var(--oro)">Certificado</b> y <b style="color:var(--oro)">Advanced Strategies</b><br>
+            <span class="warn">⚠</span> No incluye VIP Access ni Community
+          </div>
+        </div>
+
+        <div class="plan" id="plan-cuotas" onclick="seleccionarPlan('cuotas')">
+          <div class="plan-top">
+            <div class="plan-name"><span class="plan-radio"></span> 3 pagos mensuales</div>
+          </div>
+          <div class="plan-detail">
+            <span class="ok">✓</span> Máxima facilidad: distribuido en 3 cuotas<br>
+            <span class="warn">⚠</span> No incluye Certificado, Advanced Strategies, VIP Access ni Community
+          </div>
+        </div>
+      </div>
+
+      <div class="precio-box">
+        <div class="ancla" id="ancla">$1997 USD</div>
+        <div class="precio" id="precio"><span class="spin"></span></div>
+        <div class="moneda" id="moneda">USD · pago único</div>
+        <div class="ahorro" id="ahorro"></div>
+      </div>
+
+      <div class="region-tag" id="region-tag">Detectando tu región…</div>
+
+      <div class="campo"><label>Nombre completo</label><input id="f-nombre" placeholder="Tu nombre"></div>
+      <div class="campo"><label>Correo electrónico</label><input id="f-email" type="email" placeholder="tucorreo@ejemplo.com"></div>
+
+      <div class="campo">
+        <label>Teléfono (WhatsApp)</label>
+        <div class="tel-row">
+          <div class="tel-select">
+            <select id="f-pais"></select>
+          </div>
+          <input id="f-telefono" placeholder="300 000 0000" inputmode="tel">
+        </div>
+      </div>
+
+      <div class="campo">
+        <label>¿Tienes un código de descuento?</label>
+        <div class="codigo-row">
+          <input id="f-codigo" placeholder="Código de descuento">
+          <button onclick="aplicarCodigo()">Aplicar</button>
+        </div>
+        <div class="codigo-msg" id="codigo-msg"></div>
+      </div>
+
+      <label class="terminos">
+        <input type="checkbox" id="f-terminos">
+        <span>Acepto los <a href="#" target="_blank" rel="noopener">términos y condiciones</a> y la política de privacidad.</span>
+      </label>
+
+      <button class="btn-pagar" id="btn-pagar" onclick="pagar()">Asegurar mi cupo ahora</button>
+      <div class="error" id="error"></div>
+      <div class="secure">🔒 Pago seguro procesado por PayU</div>
+    </aside>
+
+  </div>
+
+  <!-- CTA INFERIOR -->
+  <div class="cta-bottom">
+    <p class="frase">"Cuando cambias la forma en que decides… cambia todo lo demás. Tú no eres un principiante.<span class="frase-grande">Eres un Intrader.</span>"</p>
+    <button class="btn-ancho" onclick="document.getElementById('f-nombre').scrollIntoView({behavior:'smooth',block:'center'}); document.getElementById('f-nombre').focus();">Sí, quiero convertirme en Intrader</button>
+  </div>
+
+  <script>
+    var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK6XSxi1T4I2hCSZeEScJy7pKhFGs2S1OVtxSmAfc2oFjK1UonFmIGFjGEmJAdTymQ8g/exec';
+
+    /* ---------- LISTA DE PAÍSES (bandera + indicativo) ---------- */
+    var PAISES = [
+      {c:'CO', n:'Colombia', d:'+57', f:'🇨🇴'},
+      {c:'MX', n:'México', d:'+52', f:'🇲🇽'},
+      {c:'AR', n:'Argentina', d:'+54', f:'🇦🇷'},
+      {c:'CL', n:'Chile', d:'+56', f:'🇨🇱'},
+      {c:'PE', n:'Perú', d:'+51', f:'🇵🇪'},
+      {c:'EC', n:'Ecuador', d:'+593', f:'🇪🇨'},
+      {c:'VE', n:'Venezuela', d:'+58', f:'🇻🇪'},
+      {c:'BO', n:'Bolivia', d:'+591', f:'🇧🇴'},
+      {c:'PY', n:'Paraguay', d:'+595', f:'🇵🇾'},
+      {c:'UY', n:'Uruguay', d:'+598', f:'🇺🇾'},
+      {c:'BR', n:'Brasil', d:'+55', f:'🇧🇷'},
+      {c:'CR', n:'Costa Rica', d:'+506', f:'🇨🇷'},
+      {c:'PA', n:'Panamá', d:'+507', f:'🇵🇦'},
+      {c:'GT', n:'Guatemala', d:'+502', f:'🇬🇹'},
+      {c:'HN', n:'Honduras', d:'+504', f:'🇭🇳'},
+      {c:'SV', n:'El Salvador', d:'+503', f:'🇸🇻'},
+      {c:'NI', n:'Nicaragua', d:'+505', f:'🇳🇮'},
+      {c:'DO', n:'Rep. Dominicana', d:'+1', f:'🇩🇴'},
+      {c:'PR', n:'Puerto Rico', d:'+1', f:'🇵🇷'},
+      {c:'US', n:'Estados Unidos', d:'+1', f:'🇺🇸'},
+      {c:'CA', n:'Canadá', d:'+1', f:'🇨🇦'},
+      {c:'ES', n:'España', d:'+34', f:'🇪🇸'},
+      {c:'OT', n:'Otro país', d:'+', f:'🌎'}
+    ];
+    (function llenarPaises(){
+      var sel = document.getElementById('f-pais');
+      PAISES.forEach(function(p){
+        var o = document.createElement('option');
+        o.value = p.d; o.setAttribute('data-c', p.c);
+        o.textContent = p.f + '  ' + p.d;
+        o.title = p.n;
+        sel.appendChild(o);
+      });
+      sel.value = '+57'; // por defecto Colombia
+    })();
+    function setPaisPorCodigo(cc){
+      var match = PAISES.filter(function(p){ return p.c === cc; })[0];
+      if (match){ document.getElementById('f-pais').value = match.d; }
+    }
+
+    /* ---------- CONTADOR: termina a la medianoche de la fecha de cierre ----------
+       Por defecto cuenta hasta el final del día del visitante (medianoche local).
+       Para fijar una fecha concreta (ej. cierre del webinar) pásala por URL:
+         ?cierre=2026-06-18   ->  termina el 18 de junio de 2026 a las 23:59:59
+       O edita FECHA_CIERRE_FIJA abajo (formato 'YYYY-MM-DD' o null para "fin del día").
+       Si no hay URL ni fecha fija, usa la fecha del EVENTO según el país (IP). */
+    var FECHA_CIERRE_FIJA = null; // ej: '2026-06-18' | '2026-06-19' | '2026-06-20'
+
+    /* Grupos de eventos por país (mismos del webinar) — editables.
+       grupo_18: Latam económicamente más accesible
+       grupo_19: alto poder adquisitivo / internacional
+       grupo_20: día extra (ajusta los países que quieras aquí) */
+    var EVENTOS = {
+      '2026-06-18': ['CO','MX','PE','BO','VE','AR','PY','HN','NI','SV','GT','CU','DO','HT','BR'],
+      '2026-06-19': ['EC','CL','UY','CR','PA','PR','US','CA','ES','PT','IT','FR','DE','GB','NL','BE','CH','AT','SE','NO','DK','FI','IE'],
+      '2026-06-20': []  // añade aquí los países del 20 si aplica
+    };
+    var FECHA_EVENTO_DEFAULT = '2026-06-18';
+    var fechaCierrePais = null; // se setea al detectar la IP
+
+    function fechaEventoPorPais(cc){
+      for (var fecha in EVENTOS){
+        if (EVENTOS[fecha].indexOf(cc) >= 0) return fecha;
+      }
+      return FECHA_EVENTO_DEFAULT;
+    }
+    function strToFinDeDia(s){
+      var partes = s.split('-');
+      if (partes.length === 3) return new Date(+partes[0], (+partes[1]) - 1, +partes[2], 23, 59, 59, 999);
+      return null;
+    }
+
+    function getFechaCierre(){
+      var p = new URLSearchParams(window.location.search).get('cierre');
+      var fuente = p || FECHA_CIERRE_FIJA;
+      if (fuente){ var f = strToFinDeDia(fuente); if (f) return f; }
+      if (fechaCierrePais){ var f2 = strToFinDeDia(fechaCierrePais); if (f2) return f2; }
+      var ahora = new Date();
+      return new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate(), 23, 59, 59, 999);
+    }
+
+    function tickCountdown(){
+      var diff = getFechaCierre() - new Date(); if (diff < 0) diff = 0;
+      var totalH = Math.floor(diff / 3600000);
+      var m = Math.floor((diff % 3600000) / 60000);
+      var s = Math.floor((diff % 60000) / 1000);
+      var p = function(n){ return n < 10 ? '0' + n : '' + n; };
+      // Barra superior: si faltan más de 24h, mostramos días
+      var dias = Math.floor(totalH / 24);
+      var h = totalH % 24;
+      var barra = $('cd-clock');
+      if (barra){
+        var unidades = '';
+        if (dias > 0){
+          unidades += '<div class="cd-unit"><div class="cd-num">'+p(dias)+'</div><div class="cd-tag">Días</div></div><div class="cd-sep">:</div>';
+        }
+        unidades += '<div class="cd-unit"><div class="cd-num">'+p(h)+'</div><div class="cd-tag">Horas</div></div>'
+                  + '<div class="cd-sep">:</div>'
+                  + '<div class="cd-unit"><div class="cd-num">'+p(m)+'</div><div class="cd-tag">Min</div></div>'
+                  + '<div class="cd-sep">:</div>'
+                  + '<div class="cd-unit"><div class="cd-num">'+p(s)+'</div><div class="cd-tag">Seg</div></div>';
+        barra.innerHTML = unidades;
+      }
+      // Mini reloj del checkout (siempre HH:MM:SS, sumando días a horas)
+      if ($('cd-mini-clock')) $('cd-mini-clock').textContent = p(totalH)+':'+p(m)+':'+p(s);
+      // Label con la fecha de cierre legible
+      var lbl = $('cd-label');
+      if (lbl){
+        var fc = getFechaCierre();
+        var meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+        lbl.innerHTML = 'Esta oferta especial <b>termina el ' + fc.getDate() + ' de ' + meses[fc.getMonth()] + ' a la medianoche</b>';
+      }
+    }
+    setInterval(tickCountdown, 1000); tickCountdown();
+
+    /* ---------- SELECTOR DE PLAN ----------
+       Estrategia de precios (anclaje descendente para empujar al PAGO COMPLETO):
+       - precioFinal = precio de contado (el más bajo). Se lleva TODO + 2 bonos exclusivos.
+       - Apartado: total con recargo. Reserva inicial = 40% del total del apartado.
+                   Su total queda ARRIBA del contado pero DEBAJO de las 3 cuotas.
+       - 3 cuotas: el total más alto (máxima facilidad => mayor costo).
+       Valores de bonos exclusivos del pago completo: VIP Access $1,497 + Advanced Strategies $997. */
+    var RECARGO_APARTADO = 0.12;  // +12% sobre contado
+    var RECARGO_CUOTAS   = 0.22;  // +22% sobre contado (el más caro)
+    var RESERVA_APARTADO = 0.40;  // 40% inicial para arrancar el apartado
+
+    var planActivo = 'completo';
+    window.seleccionarPlan = function(plan){
+      planActivo = plan;
+      $('plan-completo').classList.toggle('activo', plan === 'completo');
+      $('plan-apartado').classList.toggle('activo', plan === 'apartado');
+      $('plan-cuotas').classList.toggle('activo', plan === 'cuotas');
+      renderPrecioPlan();
+    };
+
+    function fmt(n){ return '$' + Number(Math.round(n)).toLocaleString('en-US'); }
+    function usdTag(txt){
+      return txt + ' <span style="font-family:\'DM Mono\',monospace;font-size:13px;color:var(--texto-sec)">USD</span>';
+    }
+
+    function renderPrecioPlan(){
+      // --- Valor recibido según plan ---
+      // Completo: $14,132 (todo). Apartado: sin VIP Access ($1,497) ni Community ($297) = $12,338.
+      // 3 cuotas: sin VIP, Community, Certificado ($697) ni Advanced Strategies ($997) = $10,644.
+      if (planActivo === 'completo'){
+        if ($('r-num-total')) $('r-num-total').innerHTML = usdTag('$14,132');
+        if ($('r-pay-nota')) $('r-pay-nota').innerHTML = 'Estás eligiendo <b style="color:var(--exito)">pago completo</b>: te llevas <b>los 15 componentes</b>, incluidos VIP Access, Community, Certificado y Advanced Strategies. Máximo valor y el precio más bajo.';
+      } else if (planActivo === 'apartado'){
+        if ($('r-num-total')) $('r-num-total').innerHTML = usdTag('$12,338');
+        if ($('r-pay-nota')) $('r-pay-nota').innerHTML = 'Estás eligiendo <b style="color:var(--oro)">apartado</b>: incluye Certificado y Advanced Strategies, pero <b>no incluye VIP Access ni Community</b> (esos son solo de pago completo).';
+      } else {
+        if ($('r-num-total')) $('r-num-total').innerHTML = usdTag('$10,644');
+        if ($('r-pay-nota')) $('r-pay-nota').innerHTML = 'Estás eligiendo <b style="color:var(--oro)">3 cuotas</b>: máxima facilidad. <b>No incluye Certificado, Advanced Strategies, VIP Access ni Community.</b> El pago completo se lleva $3,488 más de valor.';
+      }
+
+      if (estado.precioFinal == null) return;
+      var base = estado.precioFinal;                 // contado
+      var totApartado = base * (1 + RECARGO_APARTADO);
+      var totCuotas   = base * (1 + RECARGO_CUOTAS);
+
+      if (planActivo === 'completo'){
+        $('precio').innerHTML = fmt(base) + '<small>USD</small>';
+        $('moneda').textContent = 'USD · pago único · máximo valor';
+      } else if (planActivo === 'apartado'){
+        var reserva = totApartado * RESERVA_APARTADO;
+        var resto = totApartado - reserva;
+        $('precio').innerHTML = fmt(reserva) + '<small>USD hoy</small>';
+        $('moneda').textContent = '+ ' + fmt(resto) + ' en 30 días · total ' + fmt(totApartado);
+      } else {
+        var cuota = totCuotas / 3;
+        $('precio').innerHTML = '3 × ' + fmt(cuota) + '<small>USD</small>';
+        $('moneda').textContent = 'USD · total ' + fmt(totCuotas) + ' en 3 meses';
+      }
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var estado = {
+      region: params.get('region') || params.get('grupo') || '',
+      codigo: '',
+      precioFinal: null,
+      precioBase: null
+    };
+
+    function detectarRegion(){
+      if (estado.region) { cargarPrecio(); mostrarRegion(estado.region); return; }
+      fetch('https://ipapi.co/json/')
+        .then(function(r){ return r.json(); })
+        .then(function(geo){
+          estado.region = regionDesdePais(geo.country_code, geo.continent_code);
+          mostrarRegion(estado.region, geo.country_name);
+          if (geo.country_code){
+            if (!leadTienePais) setPaisPorCodigo(geo.country_code);
+            fechaCierrePais = fechaEventoPorPais(geo.country_code);
+            tickCountdown();
+          }
+          cargarPrecio();
+        })
+        .catch(function(){
+          estado.region = 'latam_alto';
+          mostrarRegion('latam_alto');
+          cargarPrecio();
+        });
+    }
+
+    function regionDesdePais(pais, continente){
+      var latamBajo = ['CO','VE','BO','EC','PE','PY','NI','HN','GT','SV'];
+      var latamAlto = ['MX','CL','AR','UY','CR','PA','BR','DO'];
+      if (latamBajo.indexOf(pais) >= 0) return 'latam_bajo';
+      if (latamAlto.indexOf(pais) >= 0) return 'latam_alto';
+      if (continente === 'EU' || pais === 'US' || pais === 'CA' || pais === 'ES') return 'europa';
+      return 'latam_alto';
+    }
+
+    function mostrarRegion(region, paisNombre){
+      $('region-tag').textContent = 'Precio para tu región' + (paisNombre ? ' · ' + paisNombre : '');
+    }
+
+    function cargarPrecio(){
+      var url = APPS_SCRIPT_URL + '?action=intrader_precio&region=' + encodeURIComponent(estado.region) +
+                (estado.codigo ? '&codigo=' + encodeURIComponent(estado.codigo) : '');
+      fetch(url)
+        .then(function(r){ return r.json(); })
+        .then(function(res){
+          if (!res.ok) throw new Error(res.error||'');
+          estado.precioFinal = res.final;
+          estado.precioBase = res.base;
+          $('ancla').textContent = '$' + res.ancla + ' USD';
+          renderPrecioPlan();
+          var ahorro = res.ancla - res.final;
+          if (ahorro > 0){
+            $('ahorro').style.display = 'inline-block';
+            $('ahorro').textContent = 'Ahorras $' + Math.round(ahorro) + ' USD';
+          }
+        })
+        .catch(function(){
+          estado.precioFinal = 997;
+          renderPrecioPlan();
+        });
+    }
+
+    window.aplicarCodigo = function(){
+      var cod = $('f-codigo').value.trim().toUpperCase();
+      if (!cod){ return; }
+      estado.codigo = cod;
+      var url = APPS_SCRIPT_URL + '?action=intrader_precio&region=' + encodeURIComponent(estado.region) + '&codigo=' + encodeURIComponent(cod);
+      var msg = $('codigo-msg');
+      msg.style.color = 'var(--texto-sec)'; msg.textContent = 'Validando...';
+      fetch(url).then(function(r){ return r.json(); }).then(function(res){
+        if (res.ok && res.codigo_aplicado){
+          estado.precioFinal = res.final;
+          renderPrecioPlan();
+          var ahorro = res.ancla - res.final;
+          $('ahorro').style.display = 'inline-block';
+          $('ahorro').textContent = 'Ahorras $' + Math.round(ahorro) + ' USD';
+          msg.style.color = 'var(--exito)'; msg.textContent = '✓ Código aplicado';
+        } else {
+          estado.codigo = '';
+          msg.style.color = 'var(--alerta)'; msg.textContent = 'Código no válido';
+        }
+      }).catch(function(){
+        msg.style.color = 'var(--alerta)'; msg.textContent = 'Error al validar';
+      });
+    };
+
+    window.pagar = function(){
+      var nombre = $('f-nombre').value.trim();
+      var email = $('f-email').value.trim();
+      var indicativo = $('f-pais').value;
+      var telefono = $('f-telefono').value.trim();
+      var telCompleto = telefono ? (indicativo + ' ' + telefono) : '';
+      if (!nombre || !email){ mostrarError('Completa tu nombre y correo.'); return; }
+
+      var btn = $('btn-pagar');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spin"></span> Redirigiendo a pago seguro...';
+
+      fetch(APPS_SCRIPT_URL + '?action=intrader_iniciar_checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          action: 'intrader_iniciar_checkout',
+          region: estado.region,
+          codigo: estado.codigo,
+          plan: planActivo,
+          nombre: nombre, email: email, telefono: telCompleto
+        })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        if (!res.ok || !res.data) throw new Error(res.error || 'No se pudo iniciar el pago');
+        enviarFormPayU(res.data);
+      })
+      .catch(function(err){
+        btn.disabled = false;
+        btn.textContent = 'Asegurar mi cupo ahora';
+        mostrarError('Error: ' + (err.message||err));
+      });
+    };
+
+    function enviarFormPayU(d){
+      var form = document.createElement('form');
+      form.method = 'POST';
+      form.action = d.actionURL;
+      var campos = {
+        merchantId: d.merchantId, accountId: d.accountId, description: d.description,
+        referenceCode: d.referenceCode, amount: d.amount, tax: d.tax,
+        taxReturnBase: d.taxReturnBase, currency: d.currency, signature: d.signature,
+        test: d.test, buyerEmail: d.buyerEmail, buyerFullName: d.buyerFullName,
+        responseUrl: d.responseUrl, confirmationUrl: d.confirmationUrl
+      };
+      for (var k in campos){
+        var inp = document.createElement('input');
+        inp.type='hidden'; inp.name=k; inp.value = campos[k]==null?'':campos[k];
+        form.appendChild(inp);
+      }
+      document.body.appendChild(form);
+      form.submit();
+    }
+
+    function mostrarError(m){ var e=$('error'); e.textContent=m; e.style.display='block'; }
+    function $(id){ return document.getElementById(id); }
+
+    var leadTienePais = false;
+    /* ---------- PRECARGA DEL LEAD (viene de la landing del ebook) ---------- */
+    (function precargarLead(){
+      try{
+        var raw = sessionStorage.getItem('intrader_lead');
+        if (!raw) return;
+        var lead = JSON.parse(raw);
+        if (lead.nombre && $('f-nombre')) $('f-nombre').value = lead.nombre;
+        if (lead.email && $('f-email')) $('f-email').value = lead.email;
+        if (lead.telefono && $('f-telefono')) $('f-telefono').value = lead.telefono;
+        if (lead.indicativo && $('f-pais')){ $('f-pais').value = lead.indicativo; leadTienePais = true; }
+      }catch(e){}
+    })();
+
+    detectarRegion();
+  </script>
+</body>
+</html>
