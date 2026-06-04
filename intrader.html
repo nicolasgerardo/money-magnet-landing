@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programa Intrader · Academia Intrade</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600&display=swap');
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{ --oro:#F5B800; --azul:#0B1131; --azul-prof:#050010; }
+    body{font-family:'Inter',sans-serif;background:radial-gradient(circle at 50% -10%,#0B1131,#050010 60%);color:#fff;min-height:100vh;padding:24px 16px;display:flex;align-items:center;justify-content:center}
+    .card{background:rgba(255,255,255,0.035);border:1px solid rgba(245,184,0,0.22);border-radius:24px;padding:40px 30px;max-width:480px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,0.5)}
+    .logo{font-family:'Montserrat';font-weight:800;font-size:14px;color:var(--oro);letter-spacing:3px;text-align:center;margin-bottom:6px}
+    h1{font-family:'Montserrat';font-size:30px;font-weight:900;text-align:center;line-height:1.15;margin-bottom:8px}
+    .sub{color:#9CA3AF;font-size:14px;text-align:center;margin-bottom:26px;line-height:1.5}
+    .precio-box{background:linear-gradient(135deg,rgba(245,184,0,0.1),rgba(245,184,0,0.02));border:1px solid rgba(245,184,0,0.3);border-radius:16px;padding:24px;text-align:center;margin-bottom:22px}
+    .ancla{color:#6B7280;font-size:18px;text-decoration:line-through;margin-bottom:2px}
+    .precio{font-family:'Montserrat';font-size:48px;font-weight:900;color:var(--oro);line-height:1}
+    .precio small{font-size:20px;vertical-align:top}
+    .moneda{color:#9CA3AF;font-size:13px;margin-top:4px}
+    .ahorro{display:inline-block;background:rgba(52,211,153,0.15);color:#34d399;font-size:12px;font-weight:700;padding:4px 12px;border-radius:100px;margin-top:10px}
+    .campo{margin-bottom:12px}
+    .campo label{display:block;font-size:12px;color:#9CA3AF;margin-bottom:5px}
+    input{width:100%;padding:13px;border-radius:10px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#fff;font-size:14px}
+    input::placeholder{color:#6B7280}
+    .codigo-row{display:flex;gap:8px}
+    .codigo-row input{flex:1}
+    .codigo-row button{background:rgba(245,184,0,0.15);color:var(--oro);border:1px solid rgba(245,184,0,0.4);padding:0 18px;border-radius:10px;cursor:pointer;font-weight:700;font-size:13px;white-space:nowrap}
+    .codigo-msg{font-size:12px;margin-top:6px;min-height:16px}
+    .btn-pagar{width:100%;background:var(--oro);color:var(--azul);border:none;padding:17px;border-radius:12px;font-family:'Montserrat';font-weight:800;font-size:17px;cursor:pointer;margin-top:14px;transition:transform .15s}
+    .btn-pagar:hover{transform:translateY(-2px)}
+    .btn-pagar:disabled{opacity:.5;cursor:default;transform:none}
+    .secure{color:#6B7280;font-size:12px;text-align:center;margin-top:16px}
+    .region-tag{text-align:center;font-size:11px;color:#6B7280;margin-bottom:18px}
+    .spin{display:inline-block;width:16px;height:16px;border:2px solid rgba(11,17,49,.3);border-top-color:var(--azul);border-radius:50%;animation:s .7s linear infinite;vertical-align:middle;margin-right:6px}
+    @keyframes s{to{transform:rotate(360deg)}}
+    .error{color:#f87171;font-size:13px;text-align:center;margin-top:12px;display:none}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">ACADEMIA INTRADE</div>
+    <h1>Programa <span style="color:var(--oro)">Intrader</span></h1>
+    <p class="sub">6 meses de mentoría para multiplicar tu capital con acompañamiento en vivo, material y comunidad.</p>
+
+    <div class="precio-box">
+      <div class="ancla" id="ancla">$1997 USD</div>
+      <div class="precio" id="precio"><span class="spin"></span></div>
+      <div class="moneda">USD · pago único</div>
+      <div class="ahorro" id="ahorro" style="display:none;"></div>
+    </div>
+
+    <div class="region-tag" id="region-tag">Detectando tu región&hellip;</div>
+
+    <div class="campo"><label>Nombre completo</label><input id="f-nombre" placeholder="Tu nombre"></div>
+    <div class="campo"><label>Correo electrónico</label><input id="f-email" type="email" placeholder="tucorreo@ejemplo.com"></div>
+    <div class="campo"><label>Teléfono (WhatsApp)</label><input id="f-telefono" placeholder="+57 300 000 0000"></div>
+
+    <div class="campo">
+      <label>¿Tienes un código de descuento?</label>
+      <div class="codigo-row">
+        <input id="f-codigo" placeholder="Código del webinar" style="text-transform:uppercase;">
+        <button onclick="aplicarCodigo()">Aplicar</button>
+      </div>
+      <div class="codigo-msg" id="codigo-msg"></div>
+    </div>
+
+    <button class="btn-pagar" id="btn-pagar" onclick="pagar()">Asegurar mi cupo ahora</button>
+    <div class="error" id="error"></div>
+    <div class="secure">🔒 Pago seguro procesado por PayU</div>
+  </div>
+
+  <script>
+    var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK6XSxi1T4I2hCSZeEScJy7pKhFGs2S1OVtxSmAfc2oFjK1UonFmIGFjGEmJAdTymQ8g/exec';
+
+    var params = new URLSearchParams(window.location.search);
+    var estado = {
+      region: params.get('region') || params.get('grupo') || '',  // si viene del CRM, úsalo
+      codigo: '',
+      precioFinal: null,
+      precioBase: null
+    };
+
+    // 1) Determinar región: si no vino por parámetro, detectar por IP
+    function detectarRegion(){
+      if (estado.region) { cargarPrecio(); mostrarRegion(estado.region); return; }
+      fetch('https://ipapi.co/json/')
+        .then(function(r){ return r.json(); })
+        .then(function(geo){
+          estado.region = regionDesdePais(geo.country_code, geo.continent_code);
+          mostrarRegion(estado.region, geo.country_name);
+          cargarPrecio();
+        })
+        .catch(function(){
+          // Si falla la detección, usar el precio mayor por seguridad
+          estado.region = 'latam_alto';
+          mostrarRegion('latam_alto');
+          cargarPrecio();
+        });
+    }
+
+    // Mapea país/continente a tu esquema de grupos
+    function regionDesdePais(pais, continente){
+      var latamBajo = ['CO','VE','BO','EC','PE','PY','NI','HN','GT','SV'];
+      var latamAlto = ['MX','CL','AR','UY','CR','PA','BR','DO'];
+      if (latamBajo.indexOf(pais) >= 0) return 'latam_bajo';
+      if (latamAlto.indexOf(pais) >= 0) return 'latam_alto';
+      if (continente === 'EU' || pais === 'US' || pais === 'CA' || pais === 'ES') return 'europa';
+      return 'latam_alto';  // default intermedio
+    }
+
+    function mostrarRegion(region, paisNombre){
+      var nombres = { latam_bajo:'Latinoamérica', latam_alto:'Latinoamérica', europa:'Internacional' };
+      $('region-tag').textContent = 'Precio para tu región' + (paisNombre ? ' (' + paisNombre + ')' : '');
+    }
+
+    // 2) Pedir el precio al backend (la VERDAD del precio está en el servidor)
+    function cargarPrecio(){
+      var url = APPS_SCRIPT_URL + '?action=intrader_precio&region=' + encodeURIComponent(estado.region) +
+                (estado.codigo ? '&codigo=' + encodeURIComponent(estado.codigo) : '');
+      fetch(url)
+        .then(function(r){ return r.json(); })
+        .then(function(res){
+          if (!res.ok) throw new Error(res.error||'');
+          estado.precioFinal = res.final;
+          estado.precioBase = res.base;
+          $('ancla').textContent = '$' + res.ancla + ' USD';
+          $('precio').innerHTML = '$' + Math.round(res.final) + '<small>USD</small>';
+          var ahorro = res.ancla - res.final;
+          if (ahorro > 0){
+            $('ahorro').style.display = 'inline-block';
+            $('ahorro').textContent = 'Ahorras $' + Math.round(ahorro) + ' USD';
+          }
+        })
+        .catch(function(){
+          $('precio').innerHTML = '$997<small>USD</small>';
+        });
+    }
+
+    window.aplicarCodigo = function(){
+      var cod = $('f-codigo').value.trim().toUpperCase();
+      if (!cod){ return; }
+      estado.codigo = cod;
+      var url = APPS_SCRIPT_URL + '?action=intrader_precio&region=' + encodeURIComponent(estado.region) + '&codigo=' + encodeURIComponent(cod);
+      var msg = $('codigo-msg');
+      msg.style.color = '#9CA3AF'; msg.textContent = 'Validando...';
+      fetch(url).then(function(r){ return r.json(); }).then(function(res){
+        if (res.ok && res.codigo_aplicado){
+          estado.precioFinal = res.final;
+          $('precio').innerHTML = '$' + Math.round(res.final) + '<small>USD</small>';
+          var ahorro = res.ancla - res.final;
+          $('ahorro').style.display = 'inline-block';
+          $('ahorro').textContent = 'Ahorras $' + Math.round(ahorro) + ' USD';
+          msg.style.color = '#34d399'; msg.textContent = '✓ Código aplicado';
+        } else {
+          estado.codigo = '';
+          msg.style.color = '#f87171'; msg.textContent = 'Código no válido';
+        }
+      }).catch(function(){
+        msg.style.color = '#f87171'; msg.textContent = 'Error al validar';
+      });
+    };
+
+    window.pagar = function(){
+      var nombre = $('f-nombre').value.trim();
+      var email = $('f-email').value.trim();
+      var telefono = $('f-telefono').value.trim();
+      if (!nombre || !email){ mostrarError('Completa tu nombre y correo.'); return; }
+
+      var btn = $('btn-pagar');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spin"></span>Redirigiendo a pago seguro...';
+
+      fetch(APPS_SCRIPT_URL + '?action=intrader_iniciar_checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          action: 'intrader_iniciar_checkout',
+          region: estado.region,
+          codigo: estado.codigo,
+          nombre: nombre, email: email, telefono: telefono
+        })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        if (!res.ok || !res.data) throw new Error(res.error || 'No se pudo iniciar el pago');
+        enviarFormPayU(res.data);
+      })
+      .catch(function(err){
+        btn.disabled = false;
+        btn.textContent = 'Asegurar mi cupo ahora';
+        mostrarError('Error: ' + (err.message||err));
+      });
+    };
+
+    function enviarFormPayU(d){
+      var form = document.createElement('form');
+      form.method = 'POST';
+      form.action = d.actionURL;
+      var campos = {
+        merchantId: d.merchantId, accountId: d.accountId, description: d.description,
+        referenceCode: d.referenceCode, amount: d.amount, tax: d.tax,
+        taxReturnBase: d.taxReturnBase, currency: d.currency, signature: d.signature,
+        test: d.test, buyerEmail: d.buyerEmail, buyerFullName: d.buyerFullName,
+        responseUrl: d.responseUrl, confirmationUrl: d.confirmationUrl
+      };
+      for (var k in campos){
+        var inp = document.createElement('input');
+        inp.type='hidden'; inp.name=k; inp.value = campos[k]==null?'':campos[k];
+        form.appendChild(inp);
+      }
+      document.body.appendChild(form);
+      form.submit();
+    }
+
+    function mostrarError(m){ var e=$('error'); e.textContent=m; e.style.display='block'; }
+    function $(id){ return document.getElementById(id); }
+
+    detectarRegion();
+  </script>
+</body>
+</html>
