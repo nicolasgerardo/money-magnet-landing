@@ -4,6 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>&iexcl;Est&aacute;s dentro! - Money Magnet | Academia Intrade</title>
+  <meta name="robots" content="noindex, follow">
+
+  <!-- ===== OPEN GRAPH ===== -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Academia Intrade">
+  <meta property="og:title" content="¡Estás dentro! · Money Magnet">
+  <meta property="og:description" content="Tu lugar al webinar Money Magnet está confirmado. Prepárate para reprogramar tu relación con el dinero.">
+  <meta property="og:image" content="https://magnet.academiaintrade.com/og-money-magnet.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
   <link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=1KYfPPwVrYSYUyquzRUh0b5Kfd-wrPBay&sz=w120">
   <link rel="apple-touch-icon" href="https://drive.google.com/thumbnail?id=1KYfPPwVrYSYUyquzRUh0b5Kfd-wrPBay&sz=w180">
 </head>
@@ -13,715 +24,203 @@
 
   .gm-app * { box-sizing: border-box; margin: 0; padding: 0; }
   .gm-app {
-    --dorado: #F5B800;
-    --dorado-claro: #FFD24D;
-    --dorado-oscuro: #B8860B;
-    --azul-marino: #0B1131;
-    --azul-marino-2: #1A1F3D;
-    --azul-marino-3: #2A2F4C;
-    --blanco: #FFFFFF;
-    --verde-wp: #25D366;
-    --telegram: #229ED9;
-
-    font-family: 'Inter', sans-serif;
-    color: var(--blanco);
-    min-height: 100vh;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
+    --dorado: #F5B800; --dorado-claro: #FFD24D; --dorado-oscuro: #B8860B;
+    --azul-marino: #0B1131; --azul-marino-2: #1A1F3D; --azul-marino-3: #2A2F4C;
+    --azul-profundo: #050010;
+    --blanco: #FFFFFF; --verde-wp: #25D366; --telegram: #229ED9;
+    font-family: 'Inter', sans-serif; color: var(--blanco); min-height: 100vh;
+    overflow-x: hidden; -webkit-font-smoothing: antialiased;
     background: linear-gradient(135deg, #050010 0%, #0B1131 25%, #1A1F3D 50%, #0d1b3e 75%, #050010 100%);
     position: relative;
   }
-
   @keyframes shimmer { 0%{background-position:-200% center;} 100%{background-position:200% center;} }
   @keyframes fade-up { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
   @keyframes float-particle { 0%,100%{transform:translateY(0) rotate(0deg); opacity:.3;} 50%{transform:translateY(-80vh) rotate(180deg); opacity:.8;} }
   @keyframes pulse-soft { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
   @keyframes scaleIn { 0%{transform:scale(0); opacity:0;} 50%{transform:scale(1.1);} 100%{transform:scale(1); opacity:1;} }
+  @keyframes pulse-strong { 0%,100%{box-shadow:0 8px 32px rgba(245,184,0,0.4); transform:scale(1);} 50%{box-shadow:0 8px 44px rgba(245,184,0,0.6); transform:scale(1.05);} }
+  @keyframes vip-glow { 0%,100%{box-shadow:0 0 0 1px rgba(245,184,0,0.25),0 12px 50px rgba(245,184,0,0.20),inset 0 1px 0 rgba(255,255,255,0.08);} 50%{box-shadow:0 0 0 1px rgba(245,184,0,0.45),0 16px 64px rgba(245,184,0,0.38),inset 0 1px 0 rgba(255,255,255,0.12);} }
+  @keyframes gm-spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
 
-  /* Particles de fondo */
-  .gm-app .gm-particles {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-  }
-  .gm-app .gm-particle {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(245, 184, 0, 0.15);
-  }
+  .gm-app .gm-particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .gm-app .gm-particle { position: absolute; border-radius: 50%; background: rgba(245, 184, 0, 0.15); }
+  .gm-app .gm-glow { position: absolute; width: 600px; height: 600px; top: -40px; left: 50%; transform: translateX(-50%); border-radius: 50%; opacity: 0.1; background: radial-gradient(circle, var(--dorado) 0%, transparent 70%); pointer-events: none; }
 
-  .gm-app .gm-glow {
-    position: absolute;
-    width: 600px; height: 600px;
-    top: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 50%;
-    opacity: 0.1;
-    background: radial-gradient(circle, var(--dorado) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  /* ============ NAV ============ */
-  .gm-app .gm-nav {
-    position: relative;
-    z-index: 10;
-    padding: 20px 24px;
-  }
-  .gm-app .gm-nav-inner {
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .gm-app .gm-nav-logo {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    font-weight: 900;
-    letter-spacing: 2px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .gm-app .gm-nav-logo img {
-    width: 34px;
-    height: 34px;
-    border-radius: 7px;
-    object-fit: cover;
-    box-shadow: 0 2px 8px rgba(245, 184, 0, 0.3);
-  }
+  /* NAV */
+  .gm-app .gm-nav { position: relative; z-index: 10; padding: 20px 24px; }
+  .gm-app .gm-nav-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+  .gm-app .gm-nav-logo { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 900; letter-spacing: 2px; display: inline-flex; align-items: center; gap: 10px; }
+  .gm-app .gm-nav-logo img { width: 34px; height: 34px; border-radius: 7px; object-fit: cover; box-shadow: 0 2px 8px rgba(245, 184, 0, 0.3); }
   .gm-app .gm-nav-logo .gold { color: var(--dorado); }
 
-  /* ============ MAIN ============ */
-  .gm-app .gm-main {
-    position: relative;
-    z-index: 10;
-    padding: 24px 20px 48px;
-  }
-  .gm-app .gm-inner {
-    max-width: 720px;
-    margin: 0 auto;
-  }
+  /* MAIN */
+  .gm-app .gm-main { position: relative; z-index: 10; padding: 24px 20px 48px; }
+  .gm-app .gm-inner { max-width: 720px; margin: 0 auto; }
   .gm-app .gm-inner > * + * { margin-top: 18px; }
-
-  /* === Una sola columna centrada === */
-  .gm-app .gm-row { display: block; }
   .gm-app .gm-hero-grid { display: block; }
 
-  /* Redes en 2 columnas, VIP full ancho destacado abajo === */
-  .gm-app .gm-bento {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    align-items: stretch;
-  }
-  .gm-app .gm-bento .gm-vip-card { grid-column: 1 / span 2; }
-  .gm-app .gm-bento > * { margin-top: 0; }
-  .gm-app .gm-bento .gm-wp-card {
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
-  }
-  .gm-app .gm-bento .gm-wp-card .gm-wp-sub { margin-bottom: 22px; }
-
-  /* En móvil cae a 1 columna */
-  @media (max-width: 860px) {
-    .gm-app .gm-bento { grid-template-columns: 1fr; }
-    .gm-app .gm-bento .gm-vip-card { grid-column: 1; }
-    .gm-app .gm-teams-grid { grid-template-columns: 1fr !important; }
-    .gm-app .gm-aprender-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
-  }
-
-  /* === VSL placeholder (video de bienvenida) === */
-  .gm-app .gm-vsl-wrap {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid rgba(245, 184, 0, 0.25);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
-    background: #0B1131;
-    margin-bottom: 22px;
-    cursor: pointer;
-  }
-  .gm-app .gm-vsl-placeholder {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 14px;
-    background:
-      radial-gradient(circle at center, rgba(245, 184, 0, 0.15) 0%, transparent 60%),
-      linear-gradient(135deg, #0B1131 0%, #1A1F3D 100%);
-    transition: all 0.3s;
-  }
+  /* VSL */
+  .gm-app .gm-vsl-wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(245, 184, 0, 0.25); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55); background: #0B1131; margin-bottom: 22px; cursor: pointer; }
+  .gm-app .gm-vsl-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: radial-gradient(circle at center, rgba(245, 184, 0, 0.15) 0%, transparent 60%), linear-gradient(135deg, #0B1131 0%, #1A1F3D 100%); transition: all 0.3s; }
   .gm-app .gm-vsl-placeholder:hover { background-color: rgba(245, 184, 0, 0.05); }
-  .gm-app .gm-vsl-play {
-    width: 72px; height: 72px;
-    border-radius: 50%;
-    background: var(--dorado);
-    display: flex; align-items: center; justify-content: center;
-    color: #0B1131;
-    box-shadow: 0 8px 32px rgba(245, 184, 0, 0.4);
-    animation: pulse-strong 2.5s infinite;
-  }
+  .gm-app .gm-vsl-play { width: 72px; height: 72px; border-radius: 50%; background: var(--dorado); display: flex; align-items: center; justify-content: center; color: #0B1131; box-shadow: 0 8px 32px rgba(245, 184, 0, 0.4); animation: pulse-strong 2.5s infinite; }
   .gm-app .gm-vsl-play svg { margin-left: 4px; }
-  .gm-app .gm-vsl-text {
-    color: rgba(255,255,255,0.95);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px; font-weight: 700;
-    letter-spacing: 1px; text-transform: uppercase;
-  }
+  .gm-app .gm-vsl-text { color: rgba(255,255,255,0.95); font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
   .gm-app .gm-vsl-sub { color: rgba(255,255,255,0.5); font-size: 12px; }
-  @keyframes pulse-strong {
-    0%, 100% { box-shadow: 0 8px 32px rgba(245,184,0,0.4); transform: scale(1); }
-    50% { box-shadow: 0 8px 44px rgba(245,184,0,0.6); transform: scale(1.05); }
-  }
 
-  /* ============ HEADER GRACIAS ============ */
-  .gm-app .gm-header {
-    text-align: center;
-    animation: fade-up 0.6s ease-out;
-  }
-  .gm-app .gm-emoji-success {
-    font-size: 56px;
-    animation: scaleIn 0.7s ease-out;
-    margin-bottom: 6px;
-  }
-  .gm-app .gm-saludo {
-    font-family: 'Montserrat', sans-serif;
-    font-size: clamp(26px, 3.4vw, 38px);
-    font-weight: 900;
-    line-height: 1.05;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-    letter-spacing: -0.5px;
-  }
-  .gm-app .gm-saludo .gold {
-    background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 50%, var(--dorado) 100%);
-    background-size: 200%;
-    animation: shimmer 3s linear infinite;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .gm-app .gm-saludo-sub {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 15px;
-    line-height: 1.65;
-    margin: 0 auto;
-  }
+  /* HEADER */
+  .gm-app .gm-header { text-align: center; animation: fade-up 0.6s ease-out; }
+  .gm-app .gm-saludo { font-family: 'Montserrat', sans-serif; font-size: clamp(26px, 3.4vw, 38px); font-weight: 900; line-height: 1.05; text-transform: uppercase; margin-bottom: 14px; letter-spacing: -0.5px; }
+  .gm-app .gm-saludo .gold { background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 50%, var(--dorado) 100%); background-size: 200%; animation: shimmer 3s linear infinite; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .gm-app .gm-saludo-sub { color: rgba(255, 255, 255, 0.6); font-size: 15px; line-height: 1.65; margin: 0 auto; }
 
+  /* CARD BASE */
+  .gm-app .gm-card { background: rgba(0, 0, 0, 0.35); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 24px; animation: fade-up 0.8s ease-out; }
+  .gm-app .gm-card.gold { border-color: rgba(245, 184, 0, 0.3); background: linear-gradient(180deg, rgba(245, 184, 0, 0.06) 0%, rgba(245, 184, 0, 0.02) 100%); }
+  .gm-app .gm-card.wp { border-color: rgba(37, 211, 102, 0.3); background: rgba(37, 211, 102, 0.04); }
+  .gm-app .gm-card.tg { border-color: rgba(34, 158, 217, 0.3); background: rgba(34, 158, 217, 0.04); }
 
-  /* ============ CARD BASE ============ */
-  .gm-app .gm-card {
-    background: rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 18px;
-    padding: 24px;
-    animation: fade-up 0.8s ease-out;
-  }
-  .gm-app .gm-card.gold {
-    border-color: rgba(245, 184, 0, 0.3);
-    background: linear-gradient(180deg, rgba(245, 184, 0, 0.06) 0%, rgba(245, 184, 0, 0.02) 100%);
-  }
-  .gm-app .gm-card.wp {
-    border-color: rgba(37, 211, 102, 0.3);
-    background: rgba(37, 211, 102, 0.04);
-  }
-  .gm-app .gm-card.tg {
-    border-color: rgba(34, 158, 217, 0.3);
-    background: rgba(34, 158, 217, 0.04);
-  }
-
-  /* ============ EVENTO INFO ============ */
-  .gm-app .gm-evento-card {
-    padding: 22px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.3s;
-  }
-  .gm-app .gm-evento-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: rgba(245, 184, 0, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-  }
+  /* EVENTO */
+  .gm-app .gm-evento-card { padding: 22px; display: flex; align-items: center; gap: 18px; text-decoration: none; color: inherit; transition: all 0.3s; }
+  .gm-app .gm-evento-icon { width: 48px; height: 48px; border-radius: 50%; background: rgba(245, 184, 0, 0.2); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
   .gm-app .gm-evento-info { flex: 1; }
-  .gm-app .gm-evento-lbl {
-    color: var(--dorado);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-  .gm-app .gm-evento-fecha {
-    color: rgba(255, 255, 255, 0.95);
-    font-size: 15px;
-    font-weight: 700;
-    margin-top: 2px;
-  }
-  .gm-app .gm-evento-hora {
-    color: rgba(255, 255, 255, 0.55);
-    font-size: 12px;
-    margin-top: 4px;
-  }
+  .gm-app .gm-evento-lbl { color: var(--dorado); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+  .gm-app .gm-evento-fecha { color: rgba(255, 255, 255, 0.95); font-size: 15px; font-weight: 700; margin-top: 2px; }
+  .gm-app .gm-evento-hora { color: rgba(255, 255, 255, 0.55); font-size: 12px; margin-top: 4px; }
   .gm-app .gm-evento-hora strong { color: var(--dorado); }
 
-  /* ============ TICKET con QR ============ */
-  .gm-app .gm-ticket-section {
-    padding: 28px 22px;
-    text-align: center;
+  /* ====== COMUNIDADES (ARRIBA DEL QR) ====== */
+  .gm-app .gm-comunidades {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
   }
-  .gm-app .gm-ticket-lbl {
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 16px;
+  .gm-app .gm-comunidad-card {
+    text-align: center; padding: 24px 18px;
+    display: flex; flex-direction: column; align-items: center;
   }
-  .gm-app .gm-ticket {
-    background: linear-gradient(135deg, #0B1131 0%, #1A1F3D 100%);
-    border: 2px solid var(--dorado);
-    border-radius: 16px;
-    padding: 24px 20px;
-    position: relative;
-    max-width: 340px;
-    margin: 0 auto;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  .gm-app .gm-comunidad-lbl { font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 6px; }
+  .gm-app .gm-comunidad-h { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 900; text-transform: uppercase; margin-bottom: 8px; }
+  .gm-app .gm-comunidad-sub { color: rgba(255, 255, 255, 0.5); font-size: 12.5px; line-height: 1.5; margin-bottom: 18px; flex: 1; }
+  .gm-app .gm-comunidad-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; color: var(--blanco); padding: 14px 16px; border-radius: 12px;
+    text-decoration: none; font-size: 14px; font-weight: 800; letter-spacing: 0.5px;
+    text-transform: uppercase; transition: all 0.3s;
   }
-  .gm-app .gm-ticket-header {
-    text-align: left;
-    padding-bottom: 16px;
-    border-bottom: 1px dashed rgba(245, 184, 0, 0.3);
-    margin-bottom: 16px;
-  }
-  .gm-app .gm-ticket-brand {
-    font-family: 'Montserrat', sans-serif;
-    color: var(--dorado);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-  .gm-app .gm-ticket-evento {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 22px;
-    font-weight: 900;
-    line-height: 1;
-    margin-top: 4px;
-    text-transform: uppercase;
-    color: var(--blanco);
-  }
-  .gm-app .gm-ticket-evento .gold {
-    background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%);
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .gm-app .gm-ticket-body {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-  .gm-app .gm-ticket-data {
-    flex: 1;
-    text-align: left;
-    font-size: 11px;
-  }
-  .gm-app .gm-ticket-data .row {
-    margin-bottom: 8px;
-  }
-  .gm-app .gm-ticket-data .row .lbl {
-    color: rgba(245, 184, 0, 0.7);
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-weight: 700;
-  }
-  .gm-app .gm-ticket-data .row .val {
-    color: var(--blanco);
-    font-weight: 600;
-    font-size: 13px;
-    margin-top: 2px;
-  }
-  .gm-app .gm-ticket-qr {
-    background: var(--blanco);
-    padding: 8px;
-    border-radius: 8px;
-    width: 110px;
-    height: 110px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .gm-app .gm-ticket-qr canvas, .gm-app .gm-ticket-qr img {
-    width: 100% !important;
-    height: 100% !important;
-  }
-  .gm-app .gm-ticket-tipo {
-    background: rgba(245, 184, 0, 0.15);
-    color: var(--dorado);
-    padding: 8px 0;
-    border-radius: 8px;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    text-align: center;
-    text-transform: uppercase;
-  }
-  .gm-app .gm-ticket-tipo.vip {
-    background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%);
-    color: var(--azul-marino);
-  }
-  .gm-app .gm-ticket-id {
-    color: rgba(245, 184, 0, 0.8);
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    margin-top: 14px;
-    font-style: italic;
-    font-weight: 500;
-  }
-  .gm-app .gm-ticket-actions {
-    margin-top: 18px;
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .gm-app .gm-btn-download {
-    background: rgba(245, 184, 0, 0.12);
-    color: var(--dorado);
-    border: 1px solid rgba(245, 184, 0, 0.3);
-    padding: 10px 18px;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-family: inherit;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.3s;
-  }
-  .gm-app .gm-btn-download:hover {
-    background: rgba(245, 184, 0, 0.2);
-    transform: translateY(-2px);
-  }
-  .gm-app .gm-ticket-sub {
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 11px;
-    margin-top: 12px;
-  }
+  .gm-app .gm-comunidad-btn svg { flex-shrink: 0; }
+  .gm-app .gm-comunidad-btn.wp { background: var(--verde-wp); box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3); }
+  .gm-app .gm-comunidad-btn.wp:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(37, 211, 102, 0.45); }
+  .gm-app .gm-comunidad-btn.tg { background: var(--telegram); box-shadow: 0 8px 24px rgba(34, 158, 217, 0.3); }
+  .gm-app .gm-comunidad-btn.tg:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(34, 158, 217, 0.45); }
 
-  /* ============ WHATSAPP CARD ============ */
-  .gm-app .gm-wp-card {
-    text-align: center;
-    padding: 32px 24px;
-  }
-  .gm-app .gm-wp-lbl {
-    color: var(--verde-wp);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .gm-app .gm-wp-h {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 22px;
-    font-weight: 900;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .gm-app .gm-wp-sub {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 13.5px;
-    max-width: 400px;
-    margin: 0 auto 20px;
-    line-height: 1.6;
-  }
-  .gm-app .gm-wp-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--verde-wp);
-    color: var(--blanco);
-    padding: 16px 32px;
-    border-radius: 12px;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    transition: all 0.3s;
-    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
-  }
-  .gm-app .gm-wp-btn:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 12px 36px rgba(37, 211, 102, 0.45);
-  }
+  /* TICKET */
+  .gm-app .gm-ticket-section { padding: 28px 22px; text-align: center; }
+  .gm-app .gm-ticket-lbl { color: rgba(255, 255, 255, 0.4); font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .gm-app .gm-ticket { background: linear-gradient(135deg, #0B1131 0%, #1A1F3D 100%); border: 2px solid var(--dorado); border-radius: 16px; padding: 24px 20px; position: relative; max-width: 340px; margin: 0 auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); }
+  .gm-app .gm-ticket-header { text-align: left; padding-bottom: 16px; border-bottom: 1px dashed rgba(245, 184, 0, 0.3); margin-bottom: 16px; }
+  .gm-app .gm-ticket-brand { font-family: 'Montserrat', sans-serif; color: var(--dorado); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+  .gm-app .gm-ticket-evento { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 900; line-height: 1; margin-top: 4px; text-transform: uppercase; color: var(--blanco); }
+  .gm-app .gm-ticket-evento .gold { background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .gm-app .gm-ticket-body { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; }
+  .gm-app .gm-ticket-data { flex: 1; text-align: left; font-size: 11px; }
+  .gm-app .gm-ticket-data .row { margin-bottom: 8px; }
+  .gm-app .gm-ticket-data .row .lbl { color: rgba(245, 184, 0, 0.7); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; }
+  .gm-app .gm-ticket-data .row .val { color: var(--blanco); font-weight: 600; font-size: 13px; margin-top: 2px; }
+  .gm-app .gm-ticket-qr { background: var(--blanco); padding: 8px; border-radius: 8px; width: 110px; height: 110px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .gm-app .gm-ticket-qr canvas, .gm-app .gm-ticket-qr img { width: 100% !important; height: 100% !important; }
+  .gm-app .gm-ticket-tipo { background: rgba(245, 184, 0, 0.15); color: var(--dorado); padding: 8px 0; border-radius: 8px; font-size: 11px; font-weight: 800; letter-spacing: 2px; text-align: center; text-transform: uppercase; }
+  .gm-app .gm-ticket-tipo.vip { background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%); color: var(--azul-marino); }
+  .gm-app .gm-ticket-id { color: rgba(245, 184, 0, 0.8); font-size: 12px; letter-spacing: 0.5px; margin-top: 14px; font-style: italic; font-weight: 500; }
+  .gm-app .gm-ticket-actions { margin-top: 18px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .gm-app .gm-btn-download { background: rgba(245, 184, 0, 0.12); color: var(--dorado); border: 1px solid rgba(245, 184, 0, 0.3); padding: 10px 18px; border-radius: 10px; font-size: 12px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.3s; }
+  .gm-app .gm-btn-download:hover { background: rgba(245, 184, 0, 0.2); transform: translateY(-2px); }
+  .gm-app .gm-ticket-sub { color: rgba(255, 255, 255, 0.3); font-size: 11px; margin-top: 12px; }
 
-  /* Tag personalizado segun grupo */
-  .gm-app .gm-tg-btn {
-    background: var(--telegram);
-    box-shadow: 0 8px 24px rgba(34, 158, 217, 0.3);
-  }
-  .gm-app .gm-tg-btn:hover {
-    box-shadow: 0 12px 36px rgba(34, 158, 217, 0.45);
-  }
+  /* SECCIÓN CARENCIAS (en thank you, recordatorio del porqué) */
+  .gm-app .gm-carencias { padding: 26px 24px; }
+  .gm-app .gm-carencias.tono-claro { background: linear-gradient(180deg, rgba(26,31,61,0.5) 0%, rgba(17,22,46,0.4) 100%); border-color: rgba(245,184,0,0.15); }
+  .gm-app .gm-carencias-h { font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 6px; }
+  .gm-app .gm-carencias-lbl { text-align: center; color: var(--dorado); font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+  .gm-app .gm-carencias-sub { text-align:center; color: rgba(255,255,255,0.55); font-size: 13.5px; line-height: 1.6; max-width: 520px; margin: 0 auto 20px; }
+  .gm-app .gm-carencias-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+  .gm-app .gm-carencias-list li { display: flex; gap: 12px; align-items: flex-start; color: rgba(255,255,255,0.82); font-size: 14px; line-height: 1.55; }
+  .gm-app .gm-carencias-list .ic { color: var(--dorado); flex-shrink: 0; margin-top: 2px; }
+  .gm-app .gm-carencias-list strong { color: #fff; font-weight: 600; }
 
-  /* ============ VIP UPSELL ============ */
-  .gm-app .gm-vip-card {
-    padding: 36px 28px 30px;
-    position: relative;
-    overflow: visible;
-    background:
-      radial-gradient(circle at 50% 0%, rgba(245, 184, 0, 0.18) 0%, transparent 55%),
-      linear-gradient(160deg, rgba(245, 184, 0, 0.10) 0%, rgba(11, 17, 49, 0.6) 60%);
-    border: 2px solid var(--dorado);
-    border-radius: 20px;
-    box-shadow:
-      0 0 0 1px rgba(245, 184, 0, 0.25),
-      0 12px 50px rgba(245, 184, 0, 0.22),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    animation: vip-glow 3s ease-in-out infinite;
-  }
-  @keyframes vip-glow {
-    0%, 100% { box-shadow: 0 0 0 1px rgba(245,184,0,0.25), 0 12px 50px rgba(245,184,0,0.20), inset 0 1px 0 rgba(255,255,255,0.08); }
-    50% { box-shadow: 0 0 0 1px rgba(245,184,0,0.45), 0 16px 64px rgba(245,184,0,0.38), inset 0 1px 0 rgba(255,255,255,0.12); }
-  }
-  /* Badge "RECOMENDADO" flotante arriba del VIP */
-  .gm-app .gm-vip-card::before {
-    content: "\2728  RECOMENDADO  \2728";
-    position: absolute;
-    top: -13px; left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, var(--dorado), var(--dorado-claro));
-    color: #0B1131;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
-    font-weight: 900;
-    letter-spacing: 2px;
-    padding: 6px 18px;
-    border-radius: 100px;
-    white-space: nowrap;
-    box-shadow: 0 6px 20px rgba(245, 184, 0, 0.5);
-  }
+  /* VIP UPSELL */
+  .gm-app .gm-vip-card { padding: 36px 28px 30px; position: relative; overflow: visible; background: radial-gradient(circle at 50% 0%, rgba(245, 184, 0, 0.18) 0%, transparent 55%), linear-gradient(160deg, rgba(245, 184, 0, 0.10) 0%, rgba(11, 17, 49, 0.6) 60%); border: 2px solid var(--dorado); border-radius: 20px; box-shadow: 0 0 0 1px rgba(245, 184, 0, 0.25), 0 12px 50px rgba(245, 184, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.08); animation: vip-glow 3s ease-in-out infinite; }
+  .gm-app .gm-vip-card::before { content: "\2728  RECOMENDADO  \2728"; position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--dorado), var(--dorado-claro)); color: #0B1131; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 900; letter-spacing: 2px; padding: 6px 18px; border-radius: 100px; white-space: nowrap; box-shadow: 0 6px 20px rgba(245, 184, 0, 0.5); }
   .gm-app .gm-vip-head { text-align: center; margin-bottom: 24px; }
-  .gm-app .gm-vip-lbl {
-    color: var(--dorado);
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .gm-app .gm-vip-h {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 26px;
-    font-weight: 900;
-    text-transform: uppercase;
-    line-height: 1.12;
-    margin-bottom: 8px;
-    background: linear-gradient(135deg, #fff 0%, var(--dorado-claro) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .gm-app .gm-vip-sub {
-    color: rgba(255, 255, 255, 0.55);
-    font-size: 13.5px;
-    line-height: 1.6;
-    max-width: 460px;
-    margin: 0 auto 8px;
-  }
-  .gm-app .gm-vip-benefits {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 24px;
-  }
-  .gm-app .gm-vip-benefits li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 14px;
-    padding: 8px 0;
-  }
-  .gm-app .gm-vip-benefits .gm-vip-check {
-    color: var(--dorado);
-    font-size: 14px;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-  .gm-app .gm-vip-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  @media (max-width: 480px) {
-    .gm-app .gm-vip-buttons { grid-template-columns: 1fr; }
-  }
-  .gm-app .gm-vip-btn {
-    background: rgba(245, 184, 0, 0.1);
-    border: 1px solid rgba(245, 184, 0, 0.35);
-    color: var(--dorado);
-    padding: 16px 12px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-family: inherit;
-    transition: all 0.3s;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    align-items: center;
-  }
-  .gm-app .gm-vip-btn:hover {
-    transform: scale(1.02);
-    background: rgba(245, 184, 0, 0.15);
-  }
-  .gm-app .gm-vip-btn.featured {
-    background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%);
-    color: var(--azul-marino);
-    border-color: transparent;
-  }
+  .gm-app .gm-vip-lbl { color: var(--dorado); font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+  .gm-app .gm-vip-h { font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 900; text-transform: uppercase; line-height: 1.12; margin-bottom: 8px; background: linear-gradient(135deg, #fff 0%, var(--dorado-claro) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .gm-app .gm-vip-sub { color: rgba(255, 255, 255, 0.55); font-size: 13.5px; line-height: 1.6; max-width: 460px; margin: 0 auto 8px; }
+  .gm-app .gm-vip-benefits { list-style: none; padding: 0; margin-bottom: 24px; }
+  .gm-app .gm-vip-benefits li { display: flex; align-items: flex-start; gap: 10px; color: rgba(255, 255, 255, 0.75); font-size: 14px; padding: 8px 0; }
+  .gm-app .gm-vip-benefits .gm-vip-check { color: var(--dorado); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+  .gm-app .gm-vip-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .gm-app .gm-vip-btn { background: rgba(245, 184, 0, 0.1); border: 1px solid rgba(245, 184, 0, 0.35); color: var(--dorado); padding: 16px 12px; border-radius: 12px; cursor: pointer; font-family: inherit; transition: all 0.3s; display: flex; flex-direction: column; gap: 4px; align-items: center; }
+  .gm-app .gm-vip-btn:hover { transform: scale(1.02); background: rgba(245, 184, 0, 0.15); }
+  .gm-app .gm-vip-btn.featured { background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%); color: var(--azul-marino); border-color: transparent; }
   .gm-app .gm-vip-btn.featured:hover { box-shadow: 0 12px 32px rgba(245, 184, 0, 0.4); }
-  .gm-app .gm-vip-btn .qty {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-  .gm-app .gm-vip-btn .price {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    font-weight: 900;
-  }
-  .gm-app .gm-vip-btn .popular {
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: rgba(11, 17, 49, 0.7);
-    margin-top: 2px;
-  }
+  .gm-app .gm-vip-btn .qty { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+  .gm-app .gm-vip-btn .price { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 900; }
+  .gm-app .gm-vip-btn .popular { font-size: 9px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(11, 17, 49, 0.7); margin-top: 2px; }
 
-  /* ============ VSL placeholder ============ */
-  .gm-app .gm-vsl-grac {
-    aspect-ratio: 16/9;
-    background:
-      radial-gradient(circle at center, rgba(245, 184, 0, 0.15) 0%, transparent 60%),
-      linear-gradient(135deg, var(--azul-marino) 0%, var(--azul-marino-2) 100%);
-    border-radius: 16px;
-    border: 1px solid rgba(245, 184, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  .gm-app .gm-vsl-grac:hover { border-color: var(--dorado); }
-  .gm-app .gm-vsl-grac .play {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: var(--dorado);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--azul-marino);
-    box-shadow: 0 8px 24px rgba(245, 184, 0, 0.4);
-  }
-  .gm-app .gm-vsl-grac .play svg { margin-left: 3px; }
+  /* DUDAS */
+  .gm-app .gm-dudas { display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap; text-align:center; }
+  .gm-app .gm-dudas-txt { flex:1; min-width:200px; }
+  .gm-app .gm-dudas-btn { display:inline-flex; align-items:center; gap:8px; background:rgba(245,184,0,0.12); color:#F5B800; border:1px solid rgba(245,184,0,0.35); padding:13px 26px; border-radius:10px; font-weight:700; text-decoration:none; font-size:13px; letter-spacing:0.5px; text-transform:uppercase; white-space:nowrap; transition: all 0.3s; }
+  .gm-app .gm-dudas-btn:hover { background:rgba(245,184,0,0.2); transform: translateY(-2px); }
 
-  /* ============ FOOTER ============ */
-  .gm-app .gm-footer {
-    text-align: center;
-    padding: 30px 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
-    color: rgba(255, 255, 255, 0.2);
-    font-size: 11px;
-    position: relative;
-    z-index: 10;
-  }
+  /* TEAMS */
+  .gm-app .gm-teams-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:18px; text-align:left; }
+  .gm-app .gm-wp-lbl { font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+  .gm-app .gm-wp-h { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 900; text-transform: uppercase; margin-bottom: 12px; }
+  .gm-app .gm-wp-sub { color: rgba(255, 255, 255, 0.5); font-size: 13.5px; max-width: 400px; margin: 0 auto 20px; line-height: 1.6; }
 
-  /* ============ MENSAJE ACCESO DIRECTO ============ */
-  .gm-app .gm-no-acceso {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    text-align: center;
+  /* FOOTER */
+  .gm-app .gm-footer { text-align: center; padding: 30px 20px; border-top: 1px solid rgba(255, 255, 255, 0.04); color: rgba(255, 255, 255, 0.2); font-size: 11px; position: relative; z-index: 10; }
+  .gm-app .gm-footer a { color: rgba(245,184,0,0.6); text-decoration: none; }
+
+  /* NO ACCESO */
+  .gm-app .gm-no-acceso { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; text-align: center; }
+  .gm-app .gm-no-acceso-card { max-width: 480px; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(245, 184, 0, 0.25); border-radius: 20px; padding: 48px 32px; }
+  .gm-app .gm-no-acceso-icon { font-size: 48px; margin-bottom: 16px; }
+  .gm-app .gm-no-acceso h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 900; text-transform: uppercase; margin-bottom: 12px; }
+  .gm-app .gm-no-acceso p { color: rgba(255, 255, 255, 0.55); margin-bottom: 24px; line-height: 1.6; }
+  .gm-app .gm-no-acceso a { display: inline-block; background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%); color: var(--azul-marino); padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; font-size: 13px; transition: all 0.3s; }
+  .gm-app .gm-no-acceso a:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(245, 184, 0, 0.4); }
+
+  /* ====== MÓVIL: arreglo de botones que se salían ====== */
+  @media (max-width: 860px) {
+    .gm-app .gm-teams-grid { grid-template-columns: 1fr !important; }
   }
-  .gm-app .gm-no-acceso-card {
-    max-width: 480px;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(245, 184, 0, 0.25);
-    border-radius: 20px;
-    padding: 48px 32px;
-  }
-  .gm-app .gm-no-acceso-icon {
-    font-size: 48px;
-    margin-bottom: 16px;
-  }
-  .gm-app .gm-no-acceso h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 24px;
-    font-weight: 900;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .gm-app .gm-no-acceso p {
-    color: rgba(255, 255, 255, 0.55);
-    margin-bottom: 24px;
-    line-height: 1.6;
-  }
-  .gm-app .gm-no-acceso a {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%);
-    color: var(--azul-marino);
-    padding: 14px 32px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: 900;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-size: 13px;
-    transition: all 0.3s;
-  }
-  .gm-app .gm-no-acceso a:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(245, 184, 0, 0.4);
+  @media (max-width: 600px) {
+    .gm-app .gm-main { padding: 18px 14px 40px; }
+    /* Comunidades en una columna y botones a ancho completo */
+    .gm-app .gm-comunidades { grid-template-columns: 1fr; gap: 12px; }
+    .gm-app .gm-comunidad-card { padding: 22px 16px; }
+    .gm-app .gm-comunidad-btn { width: 100%; font-size: 14px; padding: 15px 12px; }
+    /* VIP botones a una columna */
+    .gm-app .gm-vip-buttons { grid-template-columns: 1fr; }
+    .gm-app .gm-vip-card { padding: 32px 18px 26px; }
+    .gm-app .gm-vip-h { font-size: 22px; }
+    /* Dudas: apilar y botón a ancho completo (ya no se sale) */
+    .gm-app .gm-dudas { flex-direction: column; gap: 14px; }
+    .gm-app .gm-dudas-btn { width: 100%; justify-content: center; white-space: normal; }
+    /* Ticket QR no se desborda */
+    .gm-app .gm-ticket { max-width: 100%; }
+    .gm-app .gm-ticket-body { flex-direction: column; align-items: stretch; }
+    .gm-app .gm-ticket-qr { width: 140px; height: 140px; margin: 0 auto; }
+    .gm-app .gm-ticket-data { text-align: center; }
+    .gm-app .gm-card { padding: 20px 16px; }
   }
 </style>
 
 <div class="gm-app">
-
-  <!-- Particles de fondo -->
   <div class="gm-particles" id="gm-particles"></div>
   <div class="gm-glow"></div>
 
-  <!-- ============ CONTENIDO VALIDO (se muestra solo si hay datos del registro) ============ -->
   <div id="gm-contenido" style="display:none;">
-
     <nav class="gm-nav">
       <div class="gm-nav-inner">
         <div class="gm-nav-logo">
@@ -734,157 +233,104 @@
     <main class="gm-main">
       <div class="gm-inner">
 
-        <!-- ============ HERO: VSL + saludo + sesión + aprenderás (centrado) ============ -->
-        <div class="gm-hero-grid">
-          <div class="gm-header" style="text-align:center;">
-            <h1 class="gm-saludo" id="gm-saludo">
-              <span id="gm-saludo-prefix">Bienvenido</span>, <span class="gold" id="gm-nombre"></span><br>
-              YA EST&Aacute;S <span class="gold">DENTRO</span>
-            </h1>
-
-            <!-- VSL Placeholder (video de bienvenida) -->
-            <div class="gm-vsl-wrap" id="gm-vsl-wrap" onclick="gmReproducirVSL(this)" style="margin-left:auto;margin-right:auto;">
-              <div class="gm-vsl-placeholder">
-                <div class="gm-vsl-play">
-                  <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-                <div class="gm-vsl-text">Un mensaje para ti</div>
-                <div class="gm-vsl-sub">Toca para reproducir</div>
-              </div>
-            </div>
-
-            <p class="gm-saludo-sub">
-              Te diste el regalo m&aacute;s importante: <strong style="color:#F5B800;">decidir actuar</strong>.
-              Hoy diste el primer paso para cambiar tu relaci&oacute;n con el dinero.
-              Tu lugar al webinar <strong style="color:#F5B800;">Money Magnet</strong>
-              est&aacute; confirmado y tu boleto va en camino a tu correo.
-            </p>
-
-            <!-- EVENTO -->
-            <div class="gm-card gold gm-evento-card" style="margin-top:22px;">
-              <div class="gm-evento-icon">&#x1F4C5;</div>
-              <div class="gm-evento-info">
-                <div class="gm-evento-lbl">TU SESI&Oacute;N</div>
-                <div class="gm-evento-fecha" id="gm-fecha-display">Cargando&hellip;</div>
-                <div class="gm-evento-hora" id="gm-hora-display">8:00 PM &middot; 2 horas en vivo</div>
-              </div>
-            </div>
-
-            <!-- LO QUE VAS A APRENDER (debajo de la sesión) -->
-            <div class="gm-card" style="background:rgba(245,184,0,0.04);border-color:rgba(245,184,0,0.2);margin-top:18px;">
-              <div class="gm-wp-lbl" style="color:#F5B800;">RECUERDA POR QU&Eacute; TE INSCRIBISTE</div>
-              <h2 class="gm-wp-h" style="font-size:22px;margin-bottom:4px;">Lo que vas a aprender</h2>
-              <ul style="list-style:none;padding:0;margin:18px 0 0 0;display:flex;flex-direction:column;gap:14px;">
-                <li style="display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.55;">
-                  <span style="color:#F5B800;font-weight:900;font-size:18px;flex-shrink:0;line-height:1;">1.</span>
-                  <span><strong style="color:#fff;">A sanar tu relaci&oacute;n con el dinero.</strong> Vas a identificar las creencias que heredaste y que hoy te bloquean para tener m&aacute;s.</span>
-                </li>
-                <li style="display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.55;">
-                  <span style="color:#F5B800;font-weight:900;font-size:18px;flex-shrink:0;line-height:1;">2.</span>
-                  <span><strong style="color:#fff;">C&oacute;mo hacer que tu dinero trabaje para ti</strong>, disponible 24/7 desde cualquier parte del mundo, sin tener que estar pendiente todo el d&iacute;a.</span>
-                </li>
-                <li style="display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.55;">
-                  <span style="color:#F5B800;font-weight:900;font-size:18px;flex-shrink:0;line-height:1;">3.</span>
-                  <span><strong style="color:#fff;">C&oacute;mo multiplicar tu capital sin ser un experto</strong> en finanzas y sin necesitar mucho dinero para empezar.</span>
-                </li>
-                <li style="display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.55;">
-                  <span style="color:#F5B800;font-weight:900;font-size:18px;flex-shrink:0;line-height:1;">4.</span>
-                  <span><strong style="color:#fff;">El sistema probado</strong> que usan quienes s&iacute; generan resultados consistentes, para que tu dinero crezca con un m&eacute;todo, no con suerte.</span>
-                </li>
-                <li style="display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.55;">
-                  <span style="color:#F5B800;font-weight:900;font-size:18px;flex-shrink:0;line-height:1;">5.</span>
-                  <span><strong style="color:#fff;">C&oacute;mo identificar oportunidades con alta precisi&oacute;n</strong> y dejar que un sistema trabaje por ti, en lugar de adivinar o seguir noticias.</span>
-                </li>
-                <li style="display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,0.85);font-size:14px;line-height:1.55;">
-                  <span style="color:#F5B800;font-weight:900;font-size:18px;flex-shrink:0;line-height:1;">6.</span>
-                  <span><strong style="color:#fff;">Un mapa claro de qu&eacute; hacer la pr&oacute;xima semana</strong> para empezar a construir patrimonio y libertad, sin quedarte solo en la teor&iacute;a.</span>
-                </li>
-              </ul>
+        <!-- HERO -->
+        <div class="gm-header" style="text-align:center;">
+          <h1 class="gm-saludo" id="gm-saludo">
+            <span id="gm-saludo-prefix">Bienvenido</span>, <span class="gold" id="gm-nombre"></span><br>
+            YA EST&Aacute;S <span class="gold">DENTRO</span>
+          </h1>
+          <div class="gm-vsl-wrap" id="gm-vsl-wrap" onclick="gmReproducirVSL(this)" style="margin-left:auto;margin-right:auto;">
+            <div class="gm-vsl-placeholder">
+              <div class="gm-vsl-play"><svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+              <div class="gm-vsl-text">Un mensaje para ti</div>
+              <div class="gm-vsl-sub">Toca para reproducir</div>
             </div>
           </div>
-
-          <!-- TICKET CON QR (centrado, debajo del hero) -->
-          <div class="gm-card gm-ticket-section" style="max-width:420px;margin:18px auto 0;">
-            <div class="gm-ticket-lbl">TU BOLETO</div>
-            <div class="gm-ticket" id="gm-ticket">
-              <div class="gm-ticket-header">
-                <div class="gm-ticket-brand">ACADEMIA INTRADE &middot; WEBINAR</div>
-                <div class="gm-ticket-evento">MONEY <span class="gold">MAGNET</span></div>
-              </div>
-              <div class="gm-ticket-body">
-                <div class="gm-ticket-data">
-                  <div class="row">
-                    <div class="lbl">Asistente</div>
-                    <div class="val" id="gm-ticket-nombre">-</div>
-                  </div>
-                  <div class="row">
-                    <div class="lbl">Fecha</div>
-                    <div class="val" id="gm-ticket-fecha">-</div>
-                  </div>
-                  <div class="row">
-                    <div class="lbl">Hora</div>
-                    <div class="val">8:00 PM</div>
-                  </div>
-                </div>
-                <div class="gm-ticket-qr" id="gm-qr-container"></div>
-              </div>
-              <div class="gm-ticket-tipo" id="gm-ticket-tipo">ACCESO GENERAL</div>
-              <div class="gm-ticket-id" id="gm-ticket-id">MM-XXXX-XXXX</div>
+          <p class="gm-saludo-sub">
+            Te diste el regalo m&aacute;s importante: <strong style="color:#F5B800;">decidir actuar</strong>.
+            Hoy diste el primer paso para cambiar tu relaci&oacute;n con el dinero.
+            Tu lugar al webinar <strong style="color:#F5B800;">Money Magnet</strong>
+            est&aacute; confirmado y tu boleto va en camino a tu correo.
+          </p>
+          <div class="gm-card gold gm-evento-card" style="margin-top:22px;">
+            <div class="gm-evento-icon">&#x1F4C5;</div>
+            <div class="gm-evento-info">
+              <div class="gm-evento-lbl">TU SESI&Oacute;N</div>
+              <div class="gm-evento-fecha" id="gm-fecha-display">Cargando&hellip;</div>
+              <div class="gm-evento-hora" id="gm-hora-display">8:00 PM &middot; 2 horas en vivo</div>
             </div>
-            <div class="gm-ticket-actions">
-              <button class="gm-btn-download" onclick="gmDescargarBoleto()">
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Descargar
-              </button>
-            </div>
-            <div class="gm-ticket-sub">Tambi&eacute;n lo enviamos a tu correo</div>
           </div>
         </div>
 
-        <!-- ============ MOSAICO BENTO: WhatsApp + Telegram + Dudas (tiles) | VIP (XL) ============ -->
-        <div class="gm-bento">
-          <!-- WHATSAPP -->
-          <div class="gm-card wp gm-wp-card" style="text-align:center;">
-            <div class="gm-wp-lbl">COMUNIDAD</div>
-            <h2 class="gm-wp-h" style="font-size:20px;">&Uacute;nete al grupo</h2>
-            <p class="gm-wp-sub" style="font-size:13px;margin-left:auto;margin-right:auto;">
-              Recordatorios, recursos y contenido antes del evento.
-            </p>
-            <a href="#" id="gm-btn-wp" target="_blank" rel="noopener" class="gm-wp-btn">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-              </svg>
-              UNIRSE
-            </a>
-          </div>
-
-          <!-- TELEGRAM -->
-          <div class="gm-card tg gm-wp-card" style="text-align:center;">
-            <div class="gm-wp-lbl" style="color:#229ED9;">CANAL</div>
-            <h2 class="gm-wp-h" style="font-size:20px;">Telegram oficial</h2>
-            <p class="gm-wp-sub" style="font-size:13px;margin-left:auto;margin-right:auto;">
-              Notificaciones y material extra que ir&eacute; publicando.
-            </p>
-            <a href="#" id="gm-btn-tg" target="_blank" rel="noopener" class="gm-wp-btn gm-tg-btn">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.508.508 0 01.171.325c.016.093.036.306.02.473-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-              </svg>
+        <!-- ====== COMUNIDADES: WHATSAPP + TELEGRAM (ARRIBA DEL QR) ====== -->
+        <div class="gm-comunidades">
+          <div class="gm-card wp gm-comunidad-card">
+            <div class="gm-comunidad-lbl" style="color:var(--verde-wp);">COMUNIDAD</div>
+            <div class="gm-comunidad-h">Grupo de WhatsApp</div>
+            <p class="gm-comunidad-sub">Recordatorios, recursos y contenido antes del evento.</p>
+            <a href="#" id="gm-btn-wp" target="_blank" rel="noopener" class="gm-comunidad-btn wp">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
               UNIRME
             </a>
           </div>
-
-          <!-- VIP (tile XL, ocupa columna 3, 2 filas de alto) -->
-          <div class="gm-card gm-vip-card">
-            <div class="gm-vip-head">
-              <div class="gm-vip-lbl">&#9733; EXPERIENCIA VIP &#9733;</div>
-              <h2 class="gm-vip-h">Lleva tu experiencia<br>al siguiente nivel</h2>
-              <p class="gm-vip-sub">
-                Beneficios exclusivos para quienes quieren ir m&aacute;s profundo despu&eacute;s del webinar.
-            </p>
+          <div class="gm-card tg gm-comunidad-card">
+            <div class="gm-comunidad-lbl" style="color:#229ED9;">CANAL</div>
+            <div class="gm-comunidad-h">Telegram oficial</div>
+            <p class="gm-comunidad-sub">Notificaciones y material extra que ir&eacute; publicando.</p>
+            <a href="#" id="gm-btn-tg" target="_blank" rel="noopener" class="gm-comunidad-btn tg">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.508.508 0 01.171.325c.016.093.036.306.02.473-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+              UNIRME
+            </a>
           </div>
+        </div>
 
+        <!-- TICKET CON QR (debajo de las comunidades) -->
+        <div class="gm-card gm-ticket-section" style="max-width:420px;margin:18px auto 0;">
+          <div class="gm-ticket-lbl">TU BOLETO</div>
+          <div class="gm-ticket" id="gm-ticket">
+            <div class="gm-ticket-header">
+              <div class="gm-ticket-brand">ACADEMIA INTRADE &middot; WEBINAR</div>
+              <div class="gm-ticket-evento">MONEY <span class="gold">MAGNET</span></div>
+            </div>
+            <div class="gm-ticket-body">
+              <div class="gm-ticket-data">
+                <div class="row"><div class="lbl">Asistente</div><div class="val" id="gm-ticket-nombre">-</div></div>
+                <div class="row"><div class="lbl">Fecha</div><div class="val" id="gm-ticket-fecha">-</div></div>
+                <div class="row"><div class="lbl">Hora</div><div class="val">8:00 PM</div></div>
+              </div>
+              <div class="gm-ticket-qr" id="gm-qr-container"></div>
+            </div>
+            <div class="gm-ticket-tipo" id="gm-ticket-tipo">ACCESO GENERAL</div>
+            <div class="gm-ticket-id" id="gm-ticket-id">MM-XXXX-XXXX</div>
+          </div>
+          <div class="gm-ticket-actions">
+            <button class="gm-btn-download" onclick="gmDescargarBoleto()">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Descargar
+            </button>
+          </div>
+          <div class="gm-ticket-sub">Tambi&eacute;n lo enviamos a tu correo</div>
+        </div>
+
+        <!-- ====== RECORDATORIO: CARENCIAS (dinero + inversiones) ====== -->
+        <div class="gm-card gm-carencias tono-claro">
+          <div class="gm-carencias-lbl">RECUERDA POR QU&Eacute; TE INSCRIBISTE</div>
+          <h2 class="gm-carencias-h">Esto cambia en el webinar</h2>
+          <p class="gm-carencias-sub">No viniste por casualidad. Estas son las dos cosas que vamos a trabajar el d&iacute;a del evento.</p>
+          <ul class="gm-carencias-list">
+            <li><span class="ic">&#10003;</span><span><strong>Tu relaci&oacute;n con el dinero.</strong> Las creencias heredadas que te hacen sentir que el dinero llega y se va, y c&oacute;mo reemplazarlas para recibir y retener sin culpa.</span></li>
+            <li><span class="ic">&#10003;</span><span><strong>Tu forma de invertir.</strong> Por qu&eacute; perdiste antes con cripto, acciones o tips sueltos, y el m&eacute;todo paso a paso (mentalidad + estrategia + ejecuci&oacute;n) para multiplicar tu capital con criterio.</span></li>
+            <li><span class="ic">&#10003;</span><span><strong>Un plan claro para empezar ya.</strong> Sales con pasos concretos para aplicar desde esa misma semana, sin necesitar mucho capital ni ser un experto.</span></li>
+          </ul>
+        </div>
+
+        <!-- VIP -->
+        <div class="gm-card gm-vip-card">
+          <div class="gm-vip-head">
+            <div class="gm-vip-lbl">&#9733; EXPERIENCIA VIP &#9733;</div>
+            <h2 class="gm-vip-h">Lleva tu experiencia<br>al siguiente nivel</h2>
+            <p class="gm-vip-sub">Beneficios exclusivos para quienes quieren ir m&aacute;s profundo despu&eacute;s del webinar.</p>
+          </div>
           <ul class="gm-vip-benefits">
             <li><span class="gm-vip-check">OK</span> <strong>Acceso a la grabaci&oacute;n permanente</strong> del webinar</li>
             <li><span class="gm-vip-check">OK</span> Sesi&oacute;n privada de Q&amp;A por <strong>Microsoft Teams</strong> despu&eacute;s del webinar</li>
@@ -893,7 +339,6 @@
             <li><span class="gm-vip-check">OK</span> Libro sorpresa seleccionado por Nicol&aacute;s</li>
             <li><span class="gm-vip-check">OK</span> <strong>Certificado de asistencia</strong> personalizado</li>
           </ul>
-
           <div class="gm-vip-buttons">
             <button class="gm-vip-btn" onclick="gmIniciarPagoVIP('vip_1', this)">
               <div class="qty">1 VIP</div>
@@ -906,82 +351,47 @@
               <div class="popular">La m&aacute;s popular</div>
             </button>
           </div>
-
           <div id="gm-vip-loading" style="display:none;text-align:center;margin-top:14px;color:rgba(245,184,0,0.9);font-size:13px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:6px;animation:gm-spin 1s linear infinite;">
-              <circle cx="12" cy="12" r="10" stroke-opacity="0.3"/>
-              <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
-            </svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:6px;animation:gm-spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.3"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/></svg>
             Procesando pago seguro&hellip;
           </div>
-
           <div id="gm-vip-error" style="display:none;text-align:center;margin-top:14px;color:#FF6B6B;font-size:13px;background:rgba(255,107,107,0.1);padding:10px;border-radius:8px;border:1px solid rgba(255,107,107,0.3);"></div>
-
-          <p style="text-align:center;color:rgba(255,255,255,0.4);font-size:11px;margin-top:16px;">
-            Pago seguro con PayU &middot; Tu email del registro ser&aacute; usado para confirmar
-          </p>
-          <p style="text-align:center;color:rgba(255,255,255,0.3);font-size:10px;margin-top:6px;">
-            <img src="https://flagcdn.com/16x12/co.png" style="vertical-align:middle;margin-right:4px;border-radius:2px;"> Acepta tarjetas de cr&eacute;dito, d&eacute;bito, PSE, Nequi, Bancolombia, Daviplata y m&aacute;s
-          </p>
-          </div>
-          <!-- FIN VIP -->
-
-          <!-- TILE: ¿DUDAS? (completa el bento debajo de WhatsApp/Telegram) -->
-          <div class="gm-card" style="grid-column: 1 / span 2; display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap; text-align:center;">
-            <div style="flex:1; min-width:200px;">
-              <div class="gm-wp-lbl" style="color:#F5B800;">&iquest;TIENES DUDAS?</div>
-              <h3 style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;margin:4px 0 6px;">Habla directo con Nicol&aacute;s</h3>
-              <p style="color:rgba(255,255,255,0.55);font-size:13px;margin:0;">Te respondo personalmente por WhatsApp.</p>
-            </div>
-            <a href="#" id="gm-btn-asesor" target="_blank" rel="noopener"
-               style="display:inline-flex;align-items:center;gap:8px;background:rgba(245,184,0,0.12);color:#F5B800;border:1px solid rgba(245,184,0,0.35);padding:13px 26px;border-radius:10px;font-weight:700;text-decoration:none;font-size:13px;letter-spacing:0.5px;text-transform:uppercase;white-space:nowrap;">
-              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
-              Hablar con Nicol&aacute;s
-            </a>
-          </div>
+          <p style="text-align:center;color:rgba(255,255,255,0.4);font-size:11px;margin-top:16px;">Pago seguro con PayU &middot; Tu email del registro ser&aacute; usado para confirmar</p>
+          <p style="text-align:center;color:rgba(255,255,255,0.3);font-size:10px;margin-top:6px;"><img src="https://flagcdn.com/16x12/co.png" style="vertical-align:middle;margin-right:4px;border-radius:2px;"> Acepta tarjetas de cr&eacute;dito, d&eacute;bito, PSE, Nequi, Bancolombia, Daviplata y m&aacute;s</p>
         </div>
-        <!-- FIN MOSAICO BENTO -->
 
-        <!-- ============ FILA: TEAMS (full) ============ -->
+        <!-- DUDAS -->
+        <div class="gm-card gm-dudas">
+          <div class="gm-dudas-txt">
+            <div class="gm-comunidad-lbl" style="color:#F5B800;">&iquest;TIENES DUDAS?</div>
+            <h3 style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;margin:4px 0 6px;">Habla directo con Nicol&aacute;s</h3>
+            <p style="color:rgba(255,255,255,0.55);font-size:13px;margin:0;">Te respondo personalmente por WhatsApp.</p>
+          </div>
+          <a href="#" id="gm-btn-asesor" target="_blank" rel="noopener" class="gm-dudas-btn">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+            Hablar con Nicol&aacute;s
+          </a>
+        </div>
+
+        <!-- TEAMS -->
         <div class="gm-card" style="background:linear-gradient(135deg, rgba(70,80,255,0.08), rgba(70,80,255,0.02));border-color:rgba(70,80,255,0.3);text-align:center;">
           <div class="gm-wp-lbl" style="color:#6B7BFF;">PREP&Aacute;RATE PARA EL EVENTO</div>
           <h2 class="gm-wp-h">Descarga Microsoft Teams</h2>
-          <p class="gm-wp-sub" style="margin-left:auto;margin-right:auto;">
-            El webinar ser&aacute; por Microsoft Teams. Descarga la app en tu dispositivo
-            con anticipaci&oacute;n para evitar problemas el d&iacute;a del evento.
-          </p>
-          <div class="gm-teams-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px;text-align:left;">
-            <a href="https://www.microsoft.com/es-co/microsoft-teams/download-app" target="_blank" rel="noopener"
-               style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(107,123,255,0.3);border-radius:12px;color:#fff;text-decoration:none;transition:background 0.2s ease;"
-               onmouseover="this.style.background='rgba(107,123,255,0.15)'"
-               onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+          <p class="gm-wp-sub" style="margin-left:auto;margin-right:auto;">El webinar ser&aacute; por Microsoft Teams. Descarga la app con anticipaci&oacute;n para evitar problemas el d&iacute;a del evento.</p>
+          <div class="gm-teams-grid">
+            <a href="https://www.microsoft.com/es-co/microsoft-teams/download-app" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(107,123,255,0.3);border-radius:12px;color:#fff;text-decoration:none;">
               <svg width="28" height="28" fill="#6B7BFF" viewBox="0 0 24 24"><path d="M19.5 8.25h-3V6c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h11.5c.55 0 1-.45 1-1v-2.25h3c.55 0 1-.45 1-1v-6.5c0-.55-.45-1-1-1zM9.5 16h-2v-5h-2V9.5h6V11h-2v5z"/></svg>
-              <div style="flex:1;">
-                <div style="font-weight:700;font-size:14px;">PC / Mac</div>
-                <div style="font-size:12px;color:rgba(255,255,255,0.55);">Windows, macOS</div>
-              </div>
+              <div style="flex:1;"><div style="font-weight:700;font-size:14px;">PC / Mac</div><div style="font-size:12px;color:rgba(255,255,255,0.55);">Windows, macOS</div></div>
               <span style="color:#6B7BFF;font-size:18px;">&rarr;</span>
             </a>
-            <a href="https://play.google.com/store/apps/details?id=com.microsoft.teams" target="_blank" rel="noopener"
-               style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(107,123,255,0.3);border-radius:12px;color:#fff;text-decoration:none;transition:background 0.2s ease;"
-               onmouseover="this.style.background='rgba(107,123,255,0.15)'"
-               onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+            <a href="https://play.google.com/store/apps/details?id=com.microsoft.teams" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(107,123,255,0.3);border-radius:12px;color:#fff;text-decoration:none;">
               <svg width="28" height="28" fill="#34A853" viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734c0-.4.244-.747.609-.92zm10.89 10.893l2.302 2.302-10.937 6.149 8.635-8.451zm3.93-3.926a.999.999 0 010 1.731l-2.732 1.537-2.62-2.62 2.62-2.621 2.732 1.973zM5.864 2.658l10.937 6.149-2.302 2.302-8.635-8.451z"/></svg>
-              <div style="flex:1;">
-                <div style="font-weight:700;font-size:14px;">Android</div>
-                <div style="font-size:12px;color:rgba(255,255,255,0.55);">Google Play</div>
-              </div>
+              <div style="flex:1;"><div style="font-weight:700;font-size:14px;">Android</div><div style="font-size:12px;color:rgba(255,255,255,0.55);">Google Play</div></div>
               <span style="color:#6B7BFF;font-size:18px;">&rarr;</span>
             </a>
-            <a href="https://apps.apple.com/app/microsoft-teams/id1113153706" target="_blank" rel="noopener"
-               style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(107,123,255,0.3);border-radius:12px;color:#fff;text-decoration:none;transition:background 0.2s ease;"
-               onmouseover="this.style.background='rgba(107,123,255,0.15)'"
-               onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+            <a href="https://apps.apple.com/app/microsoft-teams/id1113153706" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(107,123,255,0.3);border-radius:12px;color:#fff;text-decoration:none;">
               <svg width="28" height="28" fill="#fff" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09z"/></svg>
-              <div style="flex:1;">
-                <div style="font-weight:700;font-size:14px;">iPhone / iPad</div>
-                <div style="font-size:12px;color:rgba(255,255,255,0.55);">App Store</div>
-              </div>
+              <div style="flex:1;"><div style="font-weight:700;font-size:14px;">iPhone / iPad</div><div style="font-size:12px;color:rgba(255,255,255,0.55);">App Store</div></div>
               <span style="color:#6B7BFF;font-size:18px;">&rarr;</span>
             </a>
           </div>
@@ -992,360 +402,153 @@
 
     <footer class="gm-footer">
       <div>ACADEMIA INTRADE</div>
-      <div style="margin-top:4px;">admin@academiaintrade.com &middot; Colombia</div>
+      <div style="margin-top:4px;"><a href="mailto:admin@academiaintrade.com">admin@academiaintrade.com</a> &middot; Colombia</div>
+      <div style="margin-top:8px;"><a href="/legal">Informaci&oacute;n legal</a></div>
       <div style="margin-top:8px;opacity:0.7;">&copy; 2026 Academia Intrade</div>
     </footer>
   </div>
 
-  <!-- ============ MENSAJE NO ACCESO ============ -->
   <div id="gm-sin-registro" style="display:none;">
     <div class="gm-no-acceso">
       <div class="gm-no-acceso-card">
         <div class="gm-no-acceso-icon">&#9888;</div>
         <h2>Acceso restringido</h2>
-        <p>
-          Esta p&aacute;gina es solo para quienes ya est&aacute;n registrados al webinar.
-          Si quieres asegurar tu lugar, regresa a la p&aacute;gina de registro y
-          completa el formulario gratis.
-        </p>
+        <p>Esta p&aacute;gina es solo para quienes ya est&aacute;n registrados al webinar. Si quieres asegurar tu lugar, regresa a la p&aacute;gina de registro y completa el formulario gratis.</p>
         <a href="#" id="gm-link-registro">Ir al registro</a>
       </div>
     </div>
   </div>
-
 </div>
 
-<!-- Libreria QR (CDN ligero, ~6KB) -->
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
-
 <script>
 (function() {
   'use strict';
-
-  // URL de retorno si no hay registro valido
   var URL_REGISTRO = '/';
-
-  // URL del backend (Apps Script) para procesar pagos VIP
   var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK6XSxi1T4I2hCSZeEScJy7pKhFGs2S1OVtxSmAfc2oFjK1UonFmIGFjGEmJAdTymQ8g/exec';
 
-  // Cargar precios VIP dinámicos desde el CRM (evento activo).
   (function gmCargarPrecios() {
     try {
-      fetch(APPS_SCRIPT_URL + '?action=evento_activo')
-        .then(function(r){ return r.json(); })
-        .then(function(res){
-          if (!res || !res.ok || !res.sectores) return;
-          var s = res.sectores.latam_bajo || res.sectores.latam_alto || {};
-          if (s.precio_vip1 != null) {
-            var e1 = document.getElementById('gm-precio-vip1');
-            if (e1) e1.textContent = s.precio_vip1;
-          }
-          if (s.precio_vip2 != null) {
-            var e2 = document.getElementById('gm-precio-vip2');
-            if (e2) e2.textContent = s.precio_vip2;
-          }
-        })
-        .catch(function(){});
+      fetch(APPS_SCRIPT_URL + '?action=evento_activo').then(function(r){ return r.json(); }).then(function(res){
+        if (!res || !res.ok || !res.sectores) return;
+        var s = res.sectores.latam_bajo || res.sectores.latam_alto || {};
+        if (s.precio_vip1 != null) { var e1 = document.getElementById('gm-precio-vip1'); if (e1) e1.textContent = s.precio_vip1; }
+        if (s.precio_vip2 != null) { var e2 = document.getElementById('gm-precio-vip2'); if (e2) e2.textContent = s.precio_vip2; }
+      }).catch(function(){});
     } catch (e) {}
   })();
 
-
-  // ============ LEER DATOS DEL USUARIO DESDE LA URL ============
-  // El registro paso los datos como parametro ?d=BASE64
   var userData = null;
-
-  // LOGS DE DEBUG
-  console.log('[GRACIAS] URL:', window.location.href);
-
-  // Leer datos del parametro ?d=BASE64 en la URL
   try {
     var params = new URLSearchParams(window.location.search);
     var dataParam = params.get('d');
     if (dataParam) {
-      var decodedRaw = decodeURIComponent(escape(atob(dataParam)));
-      var decoded = JSON.parse(decodedRaw);
-      console.log('[GRACIAS] Datos decodificados OK');
-      userData = {
-        nombre: decoded.n, apellido: decoded.a, email: decoded.e,
-        sexo: decoded.s, pais: decoded.p, pais_codigo: decoded.pc,
-        grupo: decoded.g, fecha_evento: decoded.fe, hora_evento: decoded.he,
-        whatsapp_url: decoded.wp, telegram_url: decoded.tg,
-        telefono: decoded.tel, ticket_id: decoded.t
-      };
+      var decoded = JSON.parse(decodeURIComponent(escape(atob(dataParam))));
+      userData = { nombre: decoded.n, apellido: decoded.a, email: decoded.e, sexo: decoded.s, pais: decoded.p, pais_codigo: decoded.pc, grupo: decoded.g, fecha_evento: decoded.fe, hora_evento: decoded.he, whatsapp_url: decoded.wp, telegram_url: decoded.tg, telefono: decoded.tel, ticket_id: decoded.t };
     }
-  } catch(e) {
-    console.error('[GRACIAS] Error decodificando datos:', e.message);
-  }
+  } catch(e) { console.error('[GRACIAS] Error decodificando:', e.message); }
 
-  // ===== VALIDACION DE ACCESO =====
   if (!userData || !userData.email || !userData.ticket_id) {
-    console.warn('[GRACIAS] Sin datos validos. Mostrando acceso restringido.');
-    var link = document.getElementById('gm-link-registro');
-    if (link) link.href = '/';
+    var link = document.getElementById('gm-link-registro'); if (link) link.href = '/';
     document.getElementById('gm-sin-registro').style.display = 'block';
     document.getElementById('gm-contenido').style.display = 'none';
     return;
   }
-
-  // ============ Mostrar contenido ============
   document.getElementById('gm-contenido').style.display = 'block';
 
-  // ============ GENERAR PARTICLES DE FONDO ============
   function generarParticles() {
     var cont = document.getElementById('gm-particles');
     for (var i = 0; i < 18; i++) {
-      var p = document.createElement('div');
-      p.className = 'gm-particle';
+      var p = document.createElement('div'); p.className = 'gm-particle';
       var size = Math.random() * 3 + 1;
-      p.style.width = size + 'px';
-      p.style.height = size + 'px';
-      p.style.left = (Math.random() * 100) + '%';
-      p.style.top = (Math.random() * 100) + '%';
+      p.style.width = size + 'px'; p.style.height = size + 'px';
+      p.style.left = (Math.random() * 100) + '%'; p.style.top = (Math.random() * 100) + '%';
       p.style.animation = 'float-particle ' + (Math.random() * 20 + 15) + 's linear ' + (-Math.random() * 20) + 's infinite';
       cont.appendChild(p);
     }
   }
   generarParticles();
 
-  // ============ PERSONALIZAR SALUDO ============
-  function personalizarSaludo() {
-    var prefix = document.getElementById('gm-saludo-prefix');
-    var nombreEl = document.getElementById('gm-nombre');
+  (function personalizarSaludo() {
+    var prefix = document.getElementById('gm-saludo-prefix'); var nombreEl = document.getElementById('gm-nombre');
     if (userData.sexo === 'M') prefix.textContent = 'Bienvenido';
     else if (userData.sexo === 'F') prefix.textContent = 'Bienvenida';
     else prefix.textContent = 'Hola';
     nombreEl.textContent = userData.nombre.toUpperCase();
-  }
-  personalizarSaludo();
+  })();
 
-  // ============ INFO DEL EVENTO ============
   document.getElementById('gm-fecha-display').textContent = userData.fecha_evento || 'Proximo webinar';
-  document.getElementById('gm-hora-display').innerHTML =
-    (userData.hora_evento || '8:00 PM') + ' &middot; 2 horas en vivo';
+  document.getElementById('gm-hora-display').innerHTML = (userData.hora_evento || '8:00 PM') + ' &middot; 2 horas en vivo';
 
-  // ============ BOTONES DE COMUNIDAD ============
-  var btnWp = document.getElementById('gm-btn-wp');
-  var btnTg = document.getElementById('gm-btn-tg');
-  var btnAsesor = document.getElementById('gm-btn-asesor');
-
+  var btnWp = document.getElementById('gm-btn-wp'); var btnTg = document.getElementById('gm-btn-tg'); var btnAsesor = document.getElementById('gm-btn-asesor');
   btnWp.href = userData.whatsapp_url || 'https://chat.whatsapp.com/EjbCRtt9gr98iciCjJwrFD';
   btnTg.href = userData.telegram_url || 'https://t.me/+h6kz_j2FyHxhZmIx';
-
-  // Boton asesoria con mensaje
-  var msgAsesoria = 'Hola Nicolas, soy ' + userData.nombre +
-    ' y me registre al webinar Money Magnet (' + (userData.fecha_evento || '') +
-    '). Necesito ayuda en ___';
+  var msgAsesoria = 'Hola Nicolas, soy ' + userData.nombre + ' y me registre al webinar Money Magnet (' + (userData.fecha_evento || '') + '). Necesito ayuda en ___';
   btnAsesor.href = 'https://wa.me/573052460919?text=' + encodeURIComponent(msgAsesoria);
 
-  // ============ TICKET ============
-  document.getElementById('gm-ticket-nombre').textContent =
-    (userData.nombre + ' ' + (userData.apellido || '')).trim().toUpperCase();
+  document.getElementById('gm-ticket-nombre').textContent = (userData.nombre + ' ' + (userData.apellido || '')).trim().toUpperCase();
   document.getElementById('gm-ticket-fecha').textContent = userData.fecha_evento || '-';
-  // Mostrar mensaje de bienvenida en lugar del ID tecnico
   var msgBienvenida;
   if (userData.sexo === 'M') msgBienvenida = 'Bienvenido a Money Magnet, ' + userData.nombre;
   else if (userData.sexo === 'F') msgBienvenida = 'Bienvenida a Money Magnet, ' + userData.nombre;
   else msgBienvenida = userData.nombre + ', te damos la bienvenida a Money Magnet';
   document.getElementById('gm-ticket-id').textContent = msgBienvenida;
 
-  // Generar QR como IMG con data URL (en vez de canvas)
-  // Las imágenes se exportan bien con html2canvas, los canvas a veces salen en blanco
-  var qrData = JSON.stringify({
-    id: userData.ticket_id,
-    email: userData.email,
-    evento: userData.fecha_evento,
-    tipo: 'GENERAL'
-  });
-
+  var qrData = JSON.stringify({ id: userData.ticket_id, email: userData.email, evento: userData.fecha_evento, tipo: 'GENERAL' });
   function renderQR() {
-    var container = document.getElementById('gm-qr-container');
-    container.innerHTML = ''; // limpiar por si acaso
-
+    var container = document.getElementById('gm-qr-container'); container.innerHTML = '';
     if (typeof QRCode !== 'undefined') {
-      // Generar como data URL (imagen) en vez de canvas
-      QRCode.toDataURL(qrData, {
-        width: 220,
-        margin: 1,
-        errorCorrectionLevel: 'M',
-        color: { dark: '#0B1131', light: '#FFFFFF' }
-      }, function(err, url) {
-        if (!err && url) {
-          var img = document.createElement('img');
-          img.src = url;
-          img.alt = 'QR de tu boleto';
-          img.crossOrigin = 'anonymous';
-          img.style.cssText = 'width:100%;height:100%;display:block;border-radius:6px;';
-          container.appendChild(img);
-        } else {
-          // Si falla, fallback a API externa
-          fallbackQR();
-        }
+      QRCode.toDataURL(qrData, { width: 220, margin: 1, errorCorrectionLevel: 'M', color: { dark: '#0B1131', light: '#FFFFFF' } }, function(err, url) {
+        if (!err && url) { var img = document.createElement('img'); img.src = url; img.alt = 'QR de tu boleto'; img.crossOrigin = 'anonymous'; img.style.cssText = 'width:100%;height:100%;display:block;border-radius:6px;'; container.appendChild(img); }
+        else { fallbackQR(); }
       });
-    } else {
-      fallbackQR();
-    }
+    } else { fallbackQR(); }
   }
-
   function fallbackQR() {
     var container = document.getElementById('gm-qr-container');
     var img = document.createElement('img');
     img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&color=0B1131&bgcolor=FFFFFF&data=' + encodeURIComponent(qrData);
-    img.alt = 'QR de tu boleto';
-    img.crossOrigin = 'anonymous';
-    img.style.cssText = 'width:100%;height:100%;display:block;border-radius:6px;';
+    img.alt = 'QR de tu boleto'; img.crossOrigin = 'anonymous'; img.style.cssText = 'width:100%;height:100%;display:block;border-radius:6px;';
     container.appendChild(img);
   }
-
   renderQR();
 
-  // ============ VSL (video de bienvenida) ============
-  // Placeholder por ahora. Cuando tengas el video, reemplaza el contenido
-  // de esta función por el embed (YouTube/Vimeo) igual que en la landing.
-  window.gmReproducirVSL = function(wrap) {
-    // EJEMPLO para activar con YouTube (descomenta y pon tu ID):
-    // wrap.innerHTML = '<iframe src="https://www.youtube.com/embed/TU_VIDEO_ID?autoplay=1" ' +
-    //   'style="position:absolute;inset:0;width:100%;height:100%;border:none;" ' +
-    //   'allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-    alert('Aqui ira tu video de bienvenida. Para activarlo, sube tu video a YouTube o Vimeo y reemplaza el placeholder en la funcion gmReproducirVSL del codigo.');
-  };
+  window.gmReproducirVSL = function(wrap) { alert('Aqui ira tu video de bienvenida. Para activarlo, sube tu video a YouTube o Vimeo y reemplaza el placeholder en la funcion gmReproducirVSL del codigo.'); };
 
-  // ============ DESCARGAR BOLETO ============
   window.gmDescargarBoleto = function() {
     var ticket = document.getElementById('gm-ticket');
     function ejecutarCaptura() {
-      // useCORS:true permite capturar imágenes externas
-      // allowTaint:true es fallback adicional
-      // Esperar 500ms extra para asegurar que QR esté renderizado
       setTimeout(function(){
-        html2canvas(ticket, {
-          backgroundColor: '#0B1131',
-          scale: 2,
-          useCORS: true,
-          allowTaint: true,
-          logging: false
-        }).then(function(canvas) {
-          var link = document.createElement('a');
-          link.download = 'boleto-money-magnet-' + userData.ticket_id + '.png';
-          link.href = canvas.toDataURL('image/png');
-          link.click();
-        }).catch(function(err){
-          console.error('Error al exportar:', err);
-          alert('No se pudo descargar. Por favor toma una captura de pantalla.');
-        });
+        html2canvas(ticket, { backgroundColor: '#0B1131', scale: 2, useCORS: true, allowTaint: true, logging: false }).then(function(canvas) {
+          var link = document.createElement('a'); link.download = 'boleto-money-magnet-' + userData.ticket_id + '.png'; link.href = canvas.toDataURL('image/png'); link.click();
+        }).catch(function(err){ alert('No se pudo descargar. Por favor toma una captura de pantalla.'); });
       }, 500);
     }
-
-    if (typeof html2canvas !== 'undefined') {
-      ejecutarCaptura();
-    } else {
-      var script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
-      script.onload = ejecutarCaptura;
-      script.onerror = function() {
-        alert('No se pudo cargar la herramienta de descarga. Toma captura de pantalla.');
-      };
-      document.body.appendChild(script);
-    }
+    if (typeof html2canvas !== 'undefined') { ejecutarCaptura(); }
+    else { var script = document.createElement('script'); script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js'; script.onload = ejecutarCaptura; script.onerror = function() { alert('No se pudo cargar la herramienta de descarga. Toma captura de pantalla.'); }; document.body.appendChild(script); }
   };
 
-  // ============ ASIVO VIP ============
-  // ============ PAGO VIP CON PAYU ============
-  // Llama al backend para obtener los datos del checkout
-  // y luego construye/envía el formulario a PayU
   window.gmIniciarPagoVIP = function(plan, btn) {
-    var loadingEl = document.getElementById('gm-vip-loading');
-    var errorEl = document.getElementById('gm-vip-error');
-    if (errorEl) errorEl.style.display = 'none';
-    if (loadingEl) loadingEl.style.display = 'block';
-
-    // Deshabilitar ambos botones
-    var botones = document.querySelectorAll('.gm-vip-btn');
-    botones.forEach(function(b){ b.disabled = true; b.style.opacity = '0.5'; });
-
-    // Construir payload
-    var payload = {
-      plan: plan,
-      email: userData.email,
-      nombre: userData.nombre,
-      apellido: userData.apellido,
-      telefono: userData.telefono,
-      ticket_id: userData.ticket_id
-    };
-
-    console.log('[VIP] Iniciando pago:', plan, userData.email);
-
-    // Pedir al backend los datos del checkout (incluyendo signature)
-    fetch(APPS_SCRIPT_URL + '?action=payu_iniciar_checkout', {
-      method: 'POST',
-      body: JSON.stringify(payload)
-    })
+    var loadingEl = document.getElementById('gm-vip-loading'); var errorEl = document.getElementById('gm-vip-error');
+    if (errorEl) errorEl.style.display = 'none'; if (loadingEl) loadingEl.style.display = 'block';
+    var botones = document.querySelectorAll('.gm-vip-btn'); botones.forEach(function(b){ b.disabled = true; b.style.opacity = '0.5'; });
+    var payload = { plan: plan, email: userData.email, nombre: userData.nombre, apellido: userData.apellido, telefono: userData.telefono, ticket_id: userData.ticket_id };
+    fetch(APPS_SCRIPT_URL + '?action=payu_iniciar_checkout', { method: 'POST', body: JSON.stringify(payload) })
     .then(function(r){ return r.json(); })
     .then(function(res){
-      console.log('[VIP] Respuesta backend:', res);
-      if (!res.ok || !res.data) {
-        throw new Error(res.error || 'Error generando checkout');
-      }
-
-      // Construir el formulario dinámicamente
-      var form = document.createElement('form');
-      form.method = 'POST';
-      form.action = res.data.actionURL;
-      form.style.display = 'none';
-
-      // Campos requeridos por PayU
-      var campos = {
-        merchantId: res.data.merchantId,
-        accountId: res.data.accountId,
-        description: res.data.description,
-        referenceCode: res.data.referenceCode,
-        amount: res.data.amount,
-        tax: res.data.tax,
-        taxReturnBase: res.data.taxReturnBase,
-        currency: res.data.currency,
-        signature: res.data.signature,
-        test: res.data.test,
-        buyerEmail: res.data.buyerEmail,
-        buyerFullName: res.data.buyerFullName,
-        responseUrl: res.data.responseUrl,
-        confirmationUrl: res.data.confirmationUrl
-      };
-
-      Object.keys(campos).forEach(function(k){
-        var input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = k;
-        input.value = campos[k];
-        form.appendChild(input);
-      });
-
-      document.body.appendChild(form);
-      console.log('[VIP] Enviando a PayU con ref:', campos.referenceCode);
-      form.submit();
+      if (!res.ok || !res.data) throw new Error(res.error || 'Error generando checkout');
+      var form = document.createElement('form'); form.method = 'POST'; form.action = res.data.actionURL; form.style.display = 'none';
+      var campos = { merchantId: res.data.merchantId, accountId: res.data.accountId, description: res.data.description, referenceCode: res.data.referenceCode, amount: res.data.amount, tax: res.data.tax, taxReturnBase: res.data.taxReturnBase, currency: res.data.currency, signature: res.data.signature, test: res.data.test, buyerEmail: res.data.buyerEmail, buyerFullName: res.data.buyerFullName, responseUrl: res.data.responseUrl, confirmationUrl: res.data.confirmationUrl };
+      Object.keys(campos).forEach(function(k){ var input = document.createElement('input'); input.type = 'hidden'; input.name = k; input.value = campos[k]; form.appendChild(input); });
+      document.body.appendChild(form); form.submit();
     })
     .catch(function(err){
-      console.error('[VIP] Error:', err);
       if (loadingEl) loadingEl.style.display = 'none';
-      if (errorEl) {
-        errorEl.style.display = 'block';
-        errorEl.textContent = 'No se pudo iniciar el pago: ' + (err.message || 'error desconocido') + '. Intenta nuevamente o escríbenos al WhatsApp.';
-      }
+      if (errorEl) { errorEl.style.display = 'block'; errorEl.textContent = 'No se pudo iniciar el pago: ' + (err.message || 'error desconocido') + '. Intenta nuevamente o escríbenos al WhatsApp.'; }
       botones.forEach(function(b){ b.disabled = false; b.style.opacity = '1'; });
     });
   };
-
-  // Mantener gmAvisoVIP por compatibilidad (no se usa, pero por si acaso)
-  window.gmAvisoVIP = function() {
-    var msg = 'Hola Nicolas, soy ' + userData.nombre +
-      ' y quiero acceder al plan VIP del webinar Money Magnet.';
-    window.open('https://wa.me/573052460919?text=' + encodeURIComponent(msg), '_blank');
-  };
-
 })();
-
-// Animación del spinner del loading
-var spinCSS = document.createElement('style');
-spinCSS.textContent = '@keyframes gm-spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }';
-document.head.appendChild(spinCSS);
 </script>
 </body>
 </html>
