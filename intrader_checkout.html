@@ -502,6 +502,40 @@
   .tel-select select option{background:var(--sup-media);color:var(--blanco)}
   .tel-row input{flex:1}
 
+  /* Selector custom de país con banderas (imágenes, no emojis) */
+  .cs{position:relative;width:118px;flex-shrink:0}
+  .cs-trigger{
+    display:flex;align-items:center;gap:6px;
+    background:var(--sup-oscura);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:9px;
+    padding:13px 26px 13px 12px;
+    color:var(--blanco);font-size:14px;font-family:'DM Sans',sans-serif;
+    cursor:pointer;height:100%;position:relative;white-space:nowrap;
+  }
+  .cs-trigger:after{
+    content:'▾';position:absolute;right:10px;top:50%;transform:translateY(-50%);
+    color:var(--texto-sec);font-size:12px;
+  }
+  .cs-trigger.open{border-color:var(--oro)}
+  .cs-trigger img{width:20px;height:15px;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,0.1);flex-shrink:0}
+  .cs-dropdown{
+    display:none;position:absolute;top:calc(100% + 4px);left:0;z-index:50;
+    width:260px;max-height:260px;overflow-y:auto;
+    background:var(--sup-media);
+    border:1px solid var(--borde-oro);border-radius:10px;
+    box-shadow:0 16px 40px rgba(0,0,0,0.5);
+  }
+  .cs-dropdown.open{display:block}
+  .cs-option{
+    display:flex;align-items:center;gap:9px;
+    padding:9px 12px;cursor:pointer;font-size:13.5px;color:var(--texto-cuerpo);
+    transition:background .15s;
+  }
+  .cs-option:hover{background:rgba(201,168,76,0.1)}
+  .cs-option.selected{background:rgba(201,168,76,0.16);color:var(--blanco)}
+  .cs-option img{width:22px;height:16px;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,0.1);flex-shrink:0}
+
   .codigo-row{display:flex;gap:8px}
   .codigo-row input{flex:1;text-transform:uppercase}
   .codigo-row button{
@@ -1053,8 +1087,10 @@
       <div class="campo">
         <label>Teléfono (WhatsApp)</label>
         <div class="tel-row">
-          <div class="tel-select">
-            <select id="f-pais"></select>
+          <div class="cs" id="cs-pais">
+            <input type="hidden" id="f-pais" value="+57">
+            <div class="cs-trigger" id="cs-trigger"><img src="https://flagcdn.com/24x18/co.png" alt="CO"><span>+57</span></div>
+            <div class="cs-dropdown" id="cs-dropdown"></div>
           </div>
           <input id="f-telefono" placeholder="300 000 0000" inputmode="tel">
         </div>
@@ -1143,20 +1179,64 @@
       {c:'ES', n:'España', d:'+34', f:'🇪🇸'},
       {c:'OT', n:'Otro país', d:'+', f:'🌎'}
     ];
-    (function llenarPaises(){
-      var sel = document.getElementById('f-pais');
+    function flagURL(code){ return 'https://flagcdn.com/24x18/' + String(code).toLowerCase() + '.png'; }
+
+    (function construirSelectorPais(){
+      var dropdown = document.getElementById('cs-dropdown');
+      var trigger = document.getElementById('cs-trigger');
+      var hidden = document.getElementById('f-pais');
+      if (!dropdown || !trigger) return;
+
       PAISES.forEach(function(p){
-        var o = document.createElement('option');
-        o.value = p.d; o.setAttribute('data-c', p.c);
-        o.textContent = p.f + '  ' + p.d;
-        o.title = p.n;
-        sel.appendChild(o);
+        if (p.c === 'OT') return; // sin bandera para "otro"
+        var opt = document.createElement('div');
+        opt.className = 'cs-option';
+        opt.setAttribute('data-c', p.c);
+        opt.setAttribute('data-d', p.d);
+        var img = document.createElement('img');
+        img.src = flagURL(p.c); img.alt = p.c; img.loading = 'lazy';
+        opt.appendChild(img);
+        var span = document.createElement('span');
+        span.textContent = p.d + '  ' + p.n;
+        opt.appendChild(span);
+        opt.addEventListener('click', function(){
+          seleccionarPaisCS(p);
+          dropdown.classList.remove('open');
+          trigger.classList.remove('open');
+        });
+        dropdown.appendChild(opt);
       });
-      sel.value = '+57'; // por defecto Colombia
+
+      trigger.addEventListener('click', function(e){
+        e.stopPropagation();
+        dropdown.classList.toggle('open');
+        trigger.classList.toggle('open');
+      });
+      document.addEventListener('click', function(){
+        dropdown.classList.remove('open');
+        trigger.classList.remove('open');
+      });
     })();
+
+    function seleccionarPaisCS(p){
+      var trigger = document.getElementById('cs-trigger');
+      var hidden = document.getElementById('f-pais');
+      if (!trigger || !hidden) return;
+      hidden.value = p.d;
+      hidden.setAttribute('data-c', p.c);
+      trigger.innerHTML = '';
+      var img = document.createElement('img'); img.src = flagURL(p.c); img.alt = p.c;
+      trigger.appendChild(img);
+      var span = document.createElement('span'); span.textContent = p.d;
+      trigger.appendChild(span);
+      document.querySelectorAll('#cs-dropdown .cs-option').forEach(function(o){
+        o.classList.toggle('selected', o.getAttribute('data-c') === p.c);
+      });
+    }
+
     function setPaisPorCodigo(cc){
       var match = PAISES.filter(function(p){ return p.c === cc; })[0];
-      if (match){ document.getElementById('f-pais').value = match.d; }
+      if (match){ seleccionarPaisCS(match); }
     }
 
     /* ---------- CONTADOR: termina a la MEDIANOCHE local del visitante ----------
@@ -1490,7 +1570,11 @@
         if (lead.nombre && $('f-nombre')) $('f-nombre').value = lead.nombre;
         if (lead.email && $('f-email')) $('f-email').value = lead.email;
         if (lead.telefono && $('f-telefono')) $('f-telefono').value = lead.telefono;
-        if (lead.indicativo && $('f-pais')){ $('f-pais').value = lead.indicativo; leadTienePais = true; }
+        if (lead.indicativo && $('f-pais')){
+          var pIni = PAISES.filter(function(p){ return p.d === lead.indicativo; })[0];
+          if (pIni){ seleccionarPaisCS(pIni); } else { $('f-pais').value = lead.indicativo; }
+          leadTienePais = true;
+        }
       }catch(e){}
     })();
 
