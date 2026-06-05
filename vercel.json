@@ -1,7 +1,10 @@
 {
   "rewrites": [
     { "source": "/gracias", "destination": "/gracias.html" },
-    { "source": "/pago-exitoso", "destination": "/pago-exitoso.html" }
+    { "source": "/pago-exitoso", "destination": "/pago-exitoso.html" },
+    { "source": "/ebook", "destination": "/intrader_ebook.html" },
+    { "source": "/programa", "destination": "/intrader_checkout.html" },
+    { "source": "/legal", "destination": "/legal_intrade.html" }
   ],
   "headers": [
     {
