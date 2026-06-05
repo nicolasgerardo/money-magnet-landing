@@ -2,6 +2,7 @@
   "rewrites": [
     { "source": "/gracias", "destination": "/gracias.html" },
     { "source": "/pago-exitoso", "destination": "/pago-exitoso.html" },
+    { "source": "/intrader-pago-exitoso", "destination": "/intrader_pago_exitoso.html" },
     { "source": "/ebook", "destination": "/intrader_ebook.html" },
     { "source": "/programa", "destination": "/intrader_checkout.html" },
     { "source": "/legal", "destination": "/legal_intrade.html" }
@@ -11,7 +12,8 @@
       "source": "/(.*)",
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" }
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
       ]
     }
   ]
