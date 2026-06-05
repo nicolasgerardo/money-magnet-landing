@@ -1371,17 +1371,9 @@
         pintarAhorro(anclaRegion, totCuotas);
       }
 
-      // Si el visitante es de Colombia, mostrar el aproximado en COP (se cobra en pesos)
-      if (estado.paisCodigo === 'CO' && estado.trm) {
-        var hoyUSD;
-        if (planActivo === 'apartado') hoyUSD = (base * (1 + RECARGO_APARTADO)) * RESERVA_APARTADO;
-        else if (planActivo === 'cuotas') hoyUSD = (base * (1 + RECARGO_CUOTAS)) / 3;
-        else hoyUSD = base;
-        var cop = Math.round(hoyUSD * estado.trm);
-        var copTxt = '$' + cop.toLocaleString('es-CO') + ' COP';
-        var n = $('moneda');
-        if (n) n.innerHTML = n.textContent + '<br><span style="color:var(--oro-claro)">Se cobra ≈ ' + copTxt + ' (TRM del día)</span>';
-      }
+      // Aviso: PayU procesa el cobro en pesos colombianos (muestra el USD como referencia)
+      var n = $('moneda');
+      if (n) n.innerHTML = n.textContent + '<br><span style="color:var(--texto-sec);font-size:10px">El cobro se procesa en COP a la tasa del día</span>';
     }
 
     var params = new URLSearchParams(window.location.search);
