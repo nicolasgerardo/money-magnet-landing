@@ -1151,21 +1151,29 @@
       if (match){ document.getElementById('f-pais').value = match.d; }
     }
 
-    /* ---------- CONTADOR: cuenta atrás de 24h por visita ----------
-       Da urgencia sin depender de fechas de evento (evita el bug de "337 días").
-       Se reinicia en cada visita: arranca en 24:00:00 y baja. Nunca muestra días,
-       así que es imposible que "se pase de año". Cuando llega a 0 se mantiene en 0. */
-    var CONTADOR_HORAS = 24;                       // duración de la oferta visible
-    var finOferta = new Date().getTime() + CONTADOR_HORAS * 3600000;
+    /* ---------- CONTADOR: termina a la MEDIANOCHE local del visitante ----------
+       Usa los métodos locales del navegador (getDate/getMonth/getFullYear), así que
+       siempre toma la medianoche del día actual en la zona horaria de quien mira la página.
+       Cuando llega a 00:00:00, recalcula automáticamente la medianoche del día siguiente.
+       Solo muestra HH:MM:SS (las horas que faltan hasta medianoche, máximo 23). */
+    function finMedianocheLocal(){
+      var ahora = new Date();
+      // 00:00:00 del día SIGUIENTE en hora local = medianoche de hoy del visitante
+      return new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate() + 1, 0, 0, 0, 0).getTime();
+    }
+    var finOferta = finMedianocheLocal();
 
     function tickCountdown(){
-      var diff = finOferta - new Date().getTime(); if (diff < 0) diff = 0;
+      var diff = finOferta - new Date().getTime();
+      // Si ya pasó la medianoche, recalcular para la próxima
+      if (diff <= 0){ finOferta = finMedianocheLocal(); diff = finOferta - new Date().getTime(); }
+      if (diff < 0) diff = 0;
       var totalH = Math.floor(diff / 3600000);
       var m = Math.floor((diff % 3600000) / 60000);
       var s = Math.floor((diff % 60000) / 1000);
       var p = function(n){ return n < 10 ? '0' + n : '' + n; };
 
-      // Barra superior (HH : MM : SS) — sin días, nunca se pasa de año
+      // Barra superior (HH : MM : SS)
       var barra = $('cd-clock');
       if (barra){
         barra.innerHTML =
@@ -1179,7 +1187,7 @@
       if ($('cd-mini-clock')) $('cd-mini-clock').textContent = p(totalH)+':'+p(m)+':'+p(s);
       // Label fijo
       var lbl = $('cd-label');
-      if (lbl){ lbl.innerHTML = 'Este precio especial <b>se cierra cuando termine el contador</b>'; }
+      if (lbl){ lbl.innerHTML = 'Este precio especial <b>termina hoy a la medianoche</b>'; }
     }
     setInterval(tickCountdown, 1000); tickCountdown();
 
@@ -1208,11 +1216,11 @@
       return txt + ' <span style="font-family:\'DM Mono\',monospace;font-size:13px;color:var(--texto-sec)">USD</span>';
     }
 
-    // Valor total (ancla) que recibe cada plan, según la oferta
+    // Valor total del stacking que recibe cada plan (para el RESUMEN detallado)
     var VALOR_PLAN = { completo: 17523, apartado: 13032, cuotas: 11341 };
 
     function renderPrecioPlan(){
-      // --- Valor recibido y nota según plan ---
+      // --- Valor del stacking (resumen detallado de la derecha) ---
       var anclaPlan = VALOR_PLAN[planActivo] || VALOR_PLAN.completo;
       if ($('r-num-total')) $('r-num-total').innerHTML = usdTag('$' + anclaPlan.toLocaleString('en-US'));
 
@@ -1238,7 +1246,9 @@
         if (val){ val.style.textDecoration = incluido ? 'none' : 'line-through'; }
       });
 
-      if (estado.precioFinal == null) { pintarAhorro(anclaPlan, estado.precioFinal || anclaPlan); return; }
+      // --- Precio-box (caja de pago): ancla y ahorro segun REGIÓN, no segun plan ---
+      var anclaRegion = estado.ancla != null ? estado.ancla : (PRECIOS[estado.region] ? PRECIOS[estado.region].ancla : 3997);
+      if (estado.precioFinal == null) { pintarAhorro(anclaRegion, anclaRegion); return; }
       var base = estado.precioFinal;                 // precio de contado (por región/código)
       var totApartado = base * (1 + RECARGO_APARTADO);
       var totCuotas   = base * (1 + RECARGO_CUOTAS);
@@ -1246,18 +1256,18 @@
       if (planActivo === 'completo'){
         $('precio').innerHTML = fmt(base) + '<small>USD</small>';
         $('moneda').textContent = 'USD · pago único · máximo valor';
-        pintarAhorro(anclaPlan, base);
+        pintarAhorro(anclaRegion, base);
       } else if (planActivo === 'apartado'){
         var reserva = totApartado * RESERVA_APARTADO;
         var resto = totApartado - reserva;
         $('precio').innerHTML = fmt(reserva) + '<small>USD hoy</small>';
         $('moneda').textContent = '+ ' + fmt(resto) + ' en 30 días · total ' + fmt(totApartado);
-        pintarAhorro(anclaPlan, totApartado);
+        pintarAhorro(anclaRegion, totApartado);
       } else {
         var cuota = totCuotas / 3;
         $('precio').innerHTML = '3 × ' + fmt(cuota) + '<small>USD</small>';
         $('moneda').textContent = 'USD · total ' + fmt(totCuotas) + ' en 3 meses';
-        pintarAhorro(anclaPlan, totCuotas);
+        pintarAhorro(anclaRegion, totCuotas);
       }
     }
 
@@ -1283,37 +1293,40 @@
           cargarPrecio();
         })
         .catch(function(){
-          estado.region = 'latam_alto';
-          mostrarRegion('latam_alto');
+          estado.region = 'resto';
+          mostrarRegion('resto');
           cargarPrecio();
         });
     }
 
     function regionDesdePais(pais, continente){
-      var latamBajo = ['CO','VE','BO','EC','PE','PY','NI','HN','GT','SV'];
-      var latamAlto = ['MX','CL','AR','UY','CR','PA','BR','DO'];
-      if (latamBajo.indexOf(pais) >= 0) return 'latam_bajo';
-      if (latamAlto.indexOf(pais) >= 0) return 'latam_alto';
-      if (continente === 'EU' || pais === 'US' || pais === 'CA' || pais === 'ES') return 'europa';
-      return 'latam_alto';
+      // Todos los países de Latinoamérica -> 'latam'. El resto del mundo -> 'resto'.
+      var latam = ['CO','VE','BO','EC','PE','PY','NI','HN','GT','SV','MX','CL','AR',
+                   'UY','CR','PA','BR','DO','CU','PR','HT'];
+      if (latam.indexOf(pais) >= 0) return 'latam';
+      return 'resto';
     }
 
     /* ---------- TABLA DE PRECIOS (respaldo local) ----------
        IMPORTANTE: el precio REAL que se cobra lo decide y FIRMA el backend (Apps Script).
        Esta tabla es solo un respaldo para MOSTRAR el precio si el backend no responde.
-       El ANCLA (valor tachado) la pone renderPrecioPlan según el plan elegido
-       (Completo $17,523 · Apartado $13,032 · 3 cuotas $11,341).
-       Precio por defecto: $1,997. Alto poder adquisitivo / Europa: $997.
-       Código CODINTRADER: solo en latam_bajo, deja el pago en $497. */
-    var ANCLA_USD = 3997; // respaldo si renderPrecioPlan aún no corre
-    var PRECIOS_REGION = { latam_bajo: 1997, latam_alto: 997, europa: 997 };
+
+       Latinoamérica:  ancla $1,997 · precio $997 · con CODINTRADER -> $497
+       Resto del mundo: ancla $3,997 · precio $1,997 · con SOYINTRADER -> $997
+
+       El ANCLA (valor tachado) depende de la REGIÓN (no del plan). */
+    var PRECIOS = {
+      latam: { ancla: 1997, precio: 997,  codigo: 'CODINTRADER', precioCodigo: 497 },
+      resto: { ancla: 3997, precio: 1997, codigo: 'SOYINTRADER', precioCodigo: 997 }
+    };
     function precioLocal(region, codigo){
-      var base = PRECIOS_REGION[region] != null ? PRECIOS_REGION[region] : 1997;
+      var cfg = PRECIOS[region] || PRECIOS.resto;
+      var base = cfg.precio;
       var aplicado = false;
-      if ((codigo||'').toUpperCase() === 'CODINTRADER' && region === 'latam_bajo'){
-        base = 497; aplicado = true;
+      if ((codigo||'').toUpperCase() === cfg.codigo){
+        base = cfg.precioCodigo; aplicado = true;
       }
-      return { ancla: ANCLA_USD, final: base, base: base, codigo_aplicado: aplicado };
+      return { ancla: cfg.ancla, final: base, base: base, codigo_aplicado: aplicado };
     }
 
     function mostrarRegion(region, paisNombre){
@@ -1337,21 +1350,24 @@
 
     function cargarPrecio(){
       var fb = precioLocal(estado.region, estado.codigo); // respaldo inmediato
+      estado.ancla = fb.ancla; // ancla por región (la usa el precio-box)
       var url = APPS_SCRIPT_URL + '?action=intrader_precio&region=' + encodeURIComponent(estado.region) +
                 (estado.codigo ? '&codigo=' + encodeURIComponent(estado.codigo) : '');
       fetch(url)
         .then(function(r){ return r.json(); })
         .then(function(res){
           if (!res || !res.ok) throw new Error(res && res.error || '');
-          // El backend manda la verdad sobre el PRECIO. El ancla la pone renderPrecioPlan según el plan.
+          // El backend manda la verdad sobre el PRECIO. El ancla del precio-box es la de región.
           estado.precioFinal = res.final;
           estado.precioBase = res.base != null ? res.base : res.final;
+          if (res.ancla != null) estado.ancla = res.ancla;
           renderPrecioPlan();
         })
         .catch(function(){
           // Backend no disponible: respaldo local (el cobro real se firma en backend al pagar)
           estado.precioFinal = fb.final;
           estado.precioBase = fb.base;
+          estado.ancla = fb.ancla;
           renderPrecioPlan();
         });
     }
@@ -1370,7 +1386,7 @@
           renderPrecioPlan();
           msg.style.color = 'var(--exito)'; msg.textContent = '✓ Código aplicado';
         } else if (fb.codigo_aplicado){
-          // Respaldo local: CODINTRADER válido en latam_bajo aunque el backend no responda como esperado
+          // Respaldo local: el código corresponde a la región del visitante
           estado.precioFinal = fb.final;
           renderPrecioPlan();
           msg.style.color = 'var(--exito)'; msg.textContent = '✓ Código aplicado';
