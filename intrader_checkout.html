@@ -1224,6 +1224,7 @@
       if (!trigger || !hidden) return;
       hidden.value = p.d;
       hidden.setAttribute('data-c', p.c);
+      estado.paisCodigo = p.c;
       trigger.innerHTML = '';
       var img = document.createElement('img'); img.src = flagURL(p.c); img.alt = p.c;
       trigger.appendChild(img);
@@ -1232,6 +1233,8 @@
       document.querySelectorAll('#cs-dropdown .cs-option').forEach(function(o){
         o.classList.toggle('selected', o.getAttribute('data-c') === p.c);
       });
+      // Si cambia a/desde Colombia, refrescar el precio mostrado (COP vs USD)
+      if (typeof renderPrecioPlan === 'function' && estado.precioFinal != null) renderPrecioPlan();
     }
 
     function setPaisPorCodigo(cc){
@@ -1367,6 +1370,18 @@
         $('moneda').textContent = 'USD · total ' + fmt(totCuotas) + ' en 3 meses';
         pintarAhorro(anclaRegion, totCuotas);
       }
+
+      // Si el visitante es de Colombia, mostrar el aproximado en COP (se cobra en pesos)
+      if (estado.paisCodigo === 'CO' && estado.trm) {
+        var hoyUSD;
+        if (planActivo === 'apartado') hoyUSD = (base * (1 + RECARGO_APARTADO)) * RESERVA_APARTADO;
+        else if (planActivo === 'cuotas') hoyUSD = (base * (1 + RECARGO_CUOTAS)) / 3;
+        else hoyUSD = base;
+        var cop = Math.round(hoyUSD * estado.trm);
+        var copTxt = '$' + cop.toLocaleString('es-CO') + ' COP';
+        var n = $('moneda');
+        if (n) n.innerHTML = n.textContent + '<br><span style="color:var(--oro-claro)">Se cobra ≈ ' + copTxt + ' (TRM del día)</span>';
+      }
     }
 
     var params = new URLSearchParams(window.location.search);
@@ -1375,7 +1390,9 @@
       codigo: '',
       precioFinal: null,
       precioBase: null,
-      ancla: null
+      ancla: null,
+      trm: null,
+      paisCodigo: ''
     };
 
     function detectarRegion(){
@@ -1460,6 +1477,7 @@
           estado.precioFinal = res.final;
           estado.precioBase = res.base != null ? res.base : res.final;
           if (res.ancla != null) estado.ancla = res.ancla;
+          if (res.trm != null) estado.trm = res.trm;
           renderPrecioPlan();
         })
         .catch(function(){
@@ -1520,6 +1538,8 @@
           region: estado.region,
           codigo: estado.codigo,
           plan: planActivo,
+          pais: estado.paisCodigo || '',
+          indicativo: ($('f-pais') ? $('f-pais').value : ''),
           acepta_terminos: true,
           acepta_terminos_ts: new Date().toISOString(),
           nombre: nombre, email: email, telefono: telCompleto
