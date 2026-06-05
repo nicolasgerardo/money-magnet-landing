@@ -385,6 +385,14 @@
   .plan.activo{border-color:var(--oro);background:rgba(201,168,76,0.06)}
   .plan-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
   .plan-name{font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px}
+  /* En planes minimizados, un botoncito "Cambiar" deja claro que se pueden reabrir */
+  .plan:not(.activo) .plan-top::after{
+    content:'Cambiar';
+    font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;
+    color:var(--oro-claro);border:1px solid var(--borde-oro);border-radius:100px;
+    padding:3px 10px;white-space:nowrap;transition:all .2s;
+  }
+  .plan:not(.activo):hover .plan-top::after{background:var(--oro);color:var(--negro);border-color:var(--oro)}
   .plan-radio{
     width:16px;height:16px;border-radius:50%;border:2px solid var(--texto-sec);
     flex-shrink:0;position:relative;transition:border-color .2s;
@@ -725,7 +733,7 @@
         <div class="item-num">8</div>
         <div class="item-body">
           <div class="item-title">WEALTH ARCHITECT<span class="tm">™</span><span class="item-val">$597</span></div>
-          <div class="item-desc">10–12 de noviembre. De inversiones aisladas a arquitectura patrimonial: construcción de portafolio, diversificación, gestión de liquidez y distribución estratégica para construir patrimonio.</div>
+          <div class="item-desc">10–12 de noviembre. De inversiones aisladas a arquitectura patrimonial: construcción de portafolio, diversificación y distribución estratégica para construir patrimonio.</div>
           <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
         </div>
       </div>
@@ -1029,7 +1037,7 @@
         </div>
       </div>
 
-      <div class="precio-box">
+      <div class="precio-box" id="precio-box">
         <div class="precio-valor-total">Valor total <span class="ancla" id="ancla">$3,997 USD</span></div>
         <div class="precio-tu-inversion">Tu inversión hoy</div>
         <div class="precio" id="precio"><span class="spin"></span></div>
@@ -1209,6 +1217,16 @@
       $('plan-apartado').classList.toggle('activo', plan === 'apartado');
       $('plan-cuotas').classList.toggle('activo', plan === 'cuotas');
       renderPrecioPlan();
+      // Lleva la vista al precio para que se vea de inmediato (clave en móvil)
+      var box = $('precio-box');
+      if (box){
+        var r = box.getBoundingClientRect();
+        var alto = (window.innerHeight || document.documentElement.clientHeight);
+        var visible = r.top >= 0 && r.bottom <= alto;
+        if (!visible){
+          setTimeout(function(){ box.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 120);
+        }
+      }
     };
 
     function fmt(n){ return '$' + Number(Math.round(n)).toLocaleString('en-US'); }
@@ -1311,12 +1329,13 @@
        IMPORTANTE: el precio REAL que se cobra lo decide y FIRMA el backend (Apps Script).
        Esta tabla es solo un respaldo para MOSTRAR el precio si el backend no responde.
 
-       Latinoamérica:  ancla $1,997 · precio $997 · con CODINTRADER -> $497
-       Resto del mundo: ancla $3,997 · precio $1,997 · con SOYINTRADER -> $997
+       Para TODOS:      ancla $3,997 · precio $1,997
+       Latinoamérica:   con CODINTRADER -> $497
+       Resto del mundo: con SOYINTRADER -> $997
 
        El ANCLA (valor tachado) depende de la REGIÓN (no del plan). */
     var PRECIOS = {
-      latam: { ancla: 1997, precio: 997,  codigo: 'CODINTRADER', precioCodigo: 497 },
+      latam: { ancla: 3997, precio: 1997, codigo: 'CODINTRADER', precioCodigo: 497 },
       resto: { ancla: 3997, precio: 1997, codigo: 'SOYINTRADER', precioCodigo: 997 }
     };
     function precioLocal(region, codigo){
@@ -1375,36 +1394,24 @@
     window.aplicarCodigo = function(){
       var cod = $('f-codigo').value.trim().toUpperCase();
       if (!cod){ return; }
-      estado.codigo = cod;
       var msg = $('codigo-msg');
-      msg.style.color = 'var(--texto-sec)'; msg.textContent = 'Validando...';
+      // Cálculo LOCAL inmediato (la verdad para mostrar; el cobro real lo firma el backend al pagar)
       var fb = precioLocal(estado.region, cod);
-      var url = APPS_SCRIPT_URL + '?action=intrader_precio&region=' + encodeURIComponent(estado.region) + '&codigo=' + encodeURIComponent(cod);
-      fetch(url).then(function(r){ return r.json(); }).then(function(res){
-        if (res && res.ok && res.codigo_aplicado){
-          estado.precioFinal = res.final;
-          renderPrecioPlan();
-          msg.style.color = 'var(--exito)'; msg.textContent = '✓ Código aplicado';
-        } else if (fb.codigo_aplicado){
-          // Respaldo local: el código corresponde a la región del visitante
-          estado.precioFinal = fb.final;
-          renderPrecioPlan();
-          msg.style.color = 'var(--exito)'; msg.textContent = '✓ Código aplicado';
-        } else {
-          estado.codigo = '';
-          msg.style.color = 'var(--alerta)'; msg.textContent = 'Código no válido para tu región';
-        }
-      }).catch(function(){
-        // Sin backend: validamos con respaldo local
-        if (fb.codigo_aplicado){
-          estado.precioFinal = fb.final;
-          renderPrecioPlan();
-          msg.style.color = 'var(--exito)'; msg.textContent = '✓ Código aplicado';
-        } else {
-          estado.codigo = '';
-          msg.style.color = 'var(--alerta)'; msg.textContent = 'Código no válido para tu región';
-        }
-      });
+      if (fb.codigo_aplicado){
+        estado.codigo = cod;
+        estado.precioFinal = fb.final;
+        estado.ancla = fb.ancla;
+        renderPrecioPlan();
+        msg.style.color = 'var(--exito)'; msg.textContent = '✓ Código aplicado';
+      } else {
+        // El código no corresponde a la región del visitante
+        estado.codigo = '';
+        var cfg = PRECIOS[estado.region] || PRECIOS.resto;
+        estado.precioFinal = cfg.precio;   // vuelve al precio sin descuento
+        estado.ancla = cfg.ancla;
+        renderPrecioPlan();
+        msg.style.color = 'var(--alerta)'; msg.textContent = 'Ese código no es válido para tu región';
+      }
     };
 
     window.pagar = function(){
