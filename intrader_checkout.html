@@ -14,10 +14,12 @@
     --sup-oscura:#161616;
     --sup-media:#1E1E1E;
     --oro:#C9A84C;
+    --oro-claro:#E0C77A;
     --oro-oscuro:#8B6B2A;
     --blanco:#FAF8F4;
-    --texto-sec:#9A9489;
-    --exito:#4C9C6C;
+    --texto-sec:#B8B2A6;
+    --texto-cuerpo:#D8D3C8;
+    --exito:#5FB585;
     --alerta:#C94C4C;
     --borde-oro:rgba(201,168,76,0.30);
   }
@@ -137,9 +139,10 @@
   }
   .oferta-head em{color:var(--oro);font-style:normal}
   .oferta-lead{
-    color:var(--texto-sec);
-    font-size:14px;
-    font-weight:300;
+    color:var(--texto-cuerpo);
+    font-size:14.5px;
+    font-weight:400;
+    line-height:1.6;
     margin-bottom:24px;
   }
 
@@ -181,11 +184,11 @@
 
   .seccion-label{
     font-family:'DM Mono',monospace;
-    font-size:11px;
-    letter-spacing:3px;
-    color:var(--oro);
+    font-size:11.5px;
+    letter-spacing:2.5px;
+    color:var(--oro-claro);
     text-transform:uppercase;
-    margin:30px 0 14px;
+    margin:34px 0 16px;
     display:flex;align-items:center;gap:12px;
   }
   .seccion-label::after{content:'';flex:1;height:1px;background:var(--borde-oro)}
@@ -199,35 +202,38 @@
   .item-num{
     font-family:'Playfair Display',serif;
     font-weight:900;
-    font-size:24px;
+    font-size:22px;
     color:var(--oro);
     line-height:1;
     flex-shrink:0;
-    width:34px;
+    width:40px;
     text-align:center;
   }
   .item-body{flex:1}
   .item-title{
     font-weight:600;
-    font-size:15px;
+    font-size:15.5px;
     letter-spacing:.2px;
+    color:var(--blanco);
+    line-height:1.35;
   }
   .item-title .tm{color:var(--oro);font-size:11px;vertical-align:super}
   .item-val{
     font-family:'DM Mono',monospace;
-    font-size:12px;
-    color:var(--oro);
+    font-size:12.5px;
+    color:var(--oro-claro);
     margin-left:8px;
     font-weight:500;
     white-space:nowrap;
   }
   .item-desc{
-    color:var(--texto-sec);
-    font-size:13.5px;
-    font-weight:300;
-    margin-top:6px;
+    color:var(--texto-cuerpo);
+    font-size:14px;
+    font-weight:400;
+    line-height:1.6;
+    margin-top:7px;
   }
-  .item-desc b{color:var(--blanco);font-weight:500}
+  .item-desc b{color:#fff;font-weight:600}
 
   .bono .item-num{color:var(--exito)}
   .bono-tag{
@@ -242,6 +248,11 @@
     border-radius:4px;
     margin-bottom:6px;
     text-transform:uppercase;
+  }
+  .bono-nota{
+    font-size:13px;color:var(--texto-cuerpo);font-weight:400;font-style:italic;
+    margin-top:16px;padding:13px 16px;border:1px solid var(--borde-oro);border-radius:10px;
+    background:rgba(201,168,76,0.05);line-height:1.55;
   }
 
   /* Etiquetas de inclusión por plan */
@@ -266,22 +277,25 @@
     font-family:'Playfair Display',serif;font-weight:700;font-size:19px;
     margin-bottom:4px;
   }
-  .resumen .r-sub{font-size:12.5px;color:var(--texto-sec);font-weight:300;margin-bottom:18px}
+  .resumen .r-sub{font-size:13px;color:var(--texto-cuerpo);font-weight:400;margin-bottom:18px}
   .r-group{margin-bottom:16px}
   .r-group-h{
     font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:1.5px;
-    text-transform:uppercase;color:var(--oro);margin-bottom:8px;
+    text-transform:uppercase;color:var(--oro-claro);margin-bottom:8px;
     display:flex;justify-content:space-between;align-items:baseline;
   }
   .r-group-h span:last-child{color:var(--texto-sec)}
   .r-line{
     display:flex;justify-content:space-between;align-items:baseline;
-    padding:5px 0;font-size:13px;color:var(--texto-sec);font-weight:300;
-    border-bottom:1px dotted rgba(255,255,255,0.06);
+    padding:6px 0;font-size:13.5px;color:var(--texto-cuerpo);font-weight:400;
+    border-bottom:1px dotted rgba(255,255,255,0.08);
   }
   .r-line .r-name{flex:1;padding-right:12px}
-  .r-line .r-name b{color:var(--blanco);font-weight:500}
-  .r-line .r-val{font-family:'DM Mono',monospace;color:var(--blanco);white-space:nowrap}
+  .r-line .r-name b{color:var(--oro-claro);font-weight:600}
+  .r-line .r-val{font-family:'DM Mono',monospace;color:#fff;white-space:nowrap}
+  .r-line .solo-completo{color:var(--oro);font-style:normal;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.5px}
+  .r-line .comp-apartado{color:var(--exito);font-style:normal;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.5px}
+  #r-grupo-bonos .r-line{transition:opacity .25s ease}
   .r-total{
     margin-top:18px;padding-top:16px;border-top:1px solid var(--borde-oro);
     display:flex;justify-content:space-between;align-items:baseline;
@@ -301,7 +315,7 @@
   }
   .comp-tabla{width:100%;border-collapse:collapse;font-size:12.5px}
   .comp-tabla th, .comp-tabla td{padding:8px 6px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06)}
-  .comp-tabla th:first-child, .comp-tabla td:first-child{text-align:left;color:var(--texto-sec);font-weight:300}
+  .comp-tabla th:first-child, .comp-tabla td:first-child{text-align:left;color:var(--texto-cuerpo);font-weight:400}
   .comp-tabla thead th{
     font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.5px;text-transform:uppercase;
     color:var(--texto-sec);font-weight:500;
@@ -316,7 +330,7 @@
   }
   .comp-tabla .comp-valor td:first-child{font-family:'DM Sans',sans-serif;color:var(--texto-sec)}
   .comp-tabla .comp-valor td.best{color:var(--oro)}
-  .comp-nota{font-size:12px;color:var(--texto-sec);font-weight:300;margin-top:12px;text-align:center}
+  .comp-nota{font-size:12.5px;color:var(--texto-cuerpo);font-weight:400;margin-top:12px;text-align:center;line-height:1.5}
 
   /* ---------- TARJETA CHECKOUT ---------- */
   .checkout{
@@ -384,9 +398,16 @@
     font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:1px;text-transform:uppercase;
     color:var(--negro);background:var(--oro);padding:2px 7px;border-radius:4px;font-weight:600;
   }
-  .plan-detail{font-size:12px;color:var(--texto-sec);font-weight:300;margin-top:7px;padding-left:24px}
+  .plan-detail{font-size:12.5px;color:var(--texto-cuerpo);font-weight:400;margin-top:7px;padding-left:24px;line-height:1.55;
+    overflow:hidden;max-height:300px;opacity:1;transition:max-height .35s ease, opacity .25s ease, margin-top .35s ease;}
+  /* Plan NO activo: se colapsa el detalle para que el checkout no quede tan largo */
+  .plan:not(.activo) .plan-detail{max-height:0;opacity:0;margin-top:0;}
   .plan-detail .ok{color:var(--exito)}
-  .plan-detail .warn{color:var(--oro)}
+  .plan-detail .warn{color:var(--oro-claro)}
+  /* Resumen breve que se muestra en el plan colapsado (1 línea) */
+  .plan-mini{font-size:12px;color:var(--texto-sec);font-weight:400;margin-top:5px;padding-left:24px;
+    max-height:0;opacity:0;overflow:hidden;transition:max-height .3s ease, opacity .25s ease, margin-top .3s ease;}
+  .plan:not(.activo) .plan-mini{max-height:40px;opacity:1;margin-top:5px;}
 
   .precio-box{
     text-align:center;
@@ -396,10 +417,18 @@
     margin-bottom:18px;
     background:radial-gradient(circle at 50% 0%, rgba(201,168,76,0.07), transparent 70%);
   }
+  .precio-valor-total{
+    font-family:'DM Mono',monospace;font-size:12px;letter-spacing:1px;
+    color:var(--texto-sec);text-transform:uppercase;margin-bottom:2px;
+  }
   .ancla{
     font-family:'DM Mono',monospace;
     color:var(--texto-sec);
     font-size:15px;text-decoration:line-through;
+  }
+  .precio-tu-inversion{
+    font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:2px;
+    color:var(--oro);text-transform:uppercase;margin-top:10px;
   }
   .precio{
     font-family:'Playfair Display',serif;
@@ -412,11 +441,11 @@
     display:none;
     margin-top:12px;
     font-family:'DM Mono',monospace;
-    font-size:11px;font-weight:500;letter-spacing:1px;
+    font-size:12px;font-weight:600;letter-spacing:.5px;
     color:var(--exito);
     border:1px solid rgba(76,156,108,0.4);
     background:rgba(76,156,108,0.08);
-    padding:5px 12px;border-radius:100px;
+    padding:6px 14px;border-radius:100px;
   }
 
   .region-tag{
@@ -562,7 +591,7 @@
   .foot-brand .fb-tag{font-family:'Playfair Display',serif;font-style:italic;color:var(--texto-sec);font-size:14px;margin-top:8px;max-width:300px}
   .foot-brand .fb-co{font-size:12px;color:#5A5650;margin-top:14px;line-height:1.6}
   .foot-col h4{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--oro);margin-bottom:12px}
-  .foot-col a{display:block;color:var(--texto-sec);font-size:13px;font-weight:300;text-decoration:none;padding:4px 0;transition:color .2s}
+  .foot-col a{display:block;color:var(--texto-cuerpo);font-size:13px;font-weight:400;text-decoration:none;padding:4px 0;transition:color .2s}
   .foot-col a:hover{color:var(--blanco)}
   .foot-bottom{
     max-width:1080px;margin:30px auto 0;padding-top:20px;
@@ -626,66 +655,68 @@
         </div>
       </div>
 
-      <!-- PROGRAMA CENTRAL -->
-      <div class="seccion-label">El sistema · 6 módulos</div>
+      <!-- ============ PROGRAMA · 10 ETAPAS ============ -->
+      <div class="seccion-label">El programa · 10 etapas</div>
 
       <div class="item">
         <div class="item-num">1</div>
         <div class="item-body">
-          <div class="item-title">INTRADER AWAKENING<span class="tm">™</span><span class="item-val">$497</span></div>
-          <div class="item-desc">Vas a descubrir las reglas invisibles que separan al 5% que gana del 95% que pierde, y por primera vez vas a entender cómo funciona realmente el dinero, no como te lo contaron. El mes en que dejas de jugar a ciegas.</div>
+          <div class="item-title">INTRADER ONBOARDING EXPERIENCE<span class="tm">™</span><span class="item-val">$297</span></div>
+          <div class="item-desc">Del 18 de junio al 13 de julio. Llegas con todo listo: diagnóstico financiero, perfil de riesgo, metas a 6 meses, herramientas configuradas y mentalidad correcta para arrancar sin perder tiempo.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
         </div>
       </div>
 
       <div class="item">
         <div class="item-num">2</div>
         <div class="item-body">
-          <div class="item-title">CAPITAL INTELLIGENCE<span class="tm">™</span> + NAVIGATION LAB<span class="tm">™</span><span class="item-val">$1,394</span></div>
-          <div class="item-desc">Instalarás el protocolo mental del Intrader: la Tríada que combina psicología, riesgo y análisis para que evalúes cualquier oportunidad con lógica fría y nunca más decidas por miedo, codicia o FOMO.</div>
+          <div class="item-title">INTRADER AWAKENING<span class="tm">™</span><span class="item-val">$497</span></div>
+          <div class="item-desc">14–16 de julio. Pasas de la confusión a la claridad absoluta: cómo funciona realmente el dinero, qué es y qué no es el trading, y los 3 pilares (estrategia, psicología, gestión monetaria) sobre los que se construye todo.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
         </div>
       </div>
 
       <div class="item">
         <div class="item-num">3</div>
         <div class="item-body">
-          <div class="item-title">ANALYSIS FRAMEWORK<span class="tm">™</span><span class="item-val">$697</span></div>
-          <div class="item-desc">Aprenderás a leer el mercado con Ondas de Elliott y Fibonacci, el mismo método con el que proyecté Bitcoin. El gráfico deja de ser ruido aleatorio y empieza a decirte hacia dónde se mueve el dinero.</div>
+          <div class="item-title">CAPITAL MASTERY<span class="tm">™</span> + OPPORTUNITY NAVIGATION<span class="tm">™</span><span class="item-val">$797</span></div>
+          <div class="item-desc">28–31 de julio. Cambias la impulsividad por pensamiento estratégico: psicotrading (miedo, codicia, FOMO, sesgos), gestión monetaria, cómo evaluar y descartar oportunidades, y los ciclos del mercado.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
         </div>
       </div>
 
       <div class="item">
         <div class="item-num">4</div>
         <div class="item-body">
-          <div class="item-title">RISK COMMAND<span class="tm">™</span><span class="item-val">$597</span></div>
-          <div class="item-desc">Dominarás el sistema de Risk Score que protege tu capital antes de buscar la ganancia, para que nunca más arriesgues sin saber exactamente cuánto puedes perder ni cómo salir si todo se voltea.</div>
+          <div class="item-title">MARKET DECODING<span class="tm">™</span> INTENSIVE<span class="item-val">$897</span></div>
+          <div class="item-desc">18–21 de agosto. Lectura profesional del mercado: Teoría de Dow, estructura de mercado, soportes y resistencias, dobles techos/pisos, velas japonesas y divergencias, con banco de práctica intensivo.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
         </div>
       </div>
 
       <div class="item">
         <div class="item-num">5</div>
         <div class="item-body">
-          <div class="item-title">EXECUTION SYSTEM<span class="tm">™</span><span class="item-val">$697</span></div>
-          <div class="item-desc">Convertirás el análisis en acción con un protocolo de ejecución que mata la parálisis y la duda. Ejecutas con confianza, repites el proceso y construyes la consistencia que separa al que sabe del que solo opina.</div>
+          <div class="item-title">CAPITAL DEFENSE<span class="tm">™</span> EXPERIENCE<span class="item-val">$697</span></div>
+          <div class="item-desc">8–10 de septiembre. Conviertes las pérdidas evitables en control financiero: Risk Score™, stop loss y take profit bien ubicados, calculadora de riesgo y gestión profesional de capital.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
         </div>
       </div>
 
       <div class="item">
         <div class="item-num">6</div>
         <div class="item-body">
-          <div class="item-title">MENTAL REPROGRAMMING<span class="item-val">$497</span></div>
-          <div class="item-desc">Un reto de 21 días donde conviertes el conocimiento en identidad permanente. Dejas de "saber" para empezar a "ser": las buenas decisiones financieras se vuelven tu reflejo natural.</div>
+          <div class="item-title">PRECISION EXECUTION<span class="tm">™</span> LIVE<span class="item-val">$597</span></div>
+          <div class="item-desc">29 sep – 1 oct. Matas la parálisis por análisis: posiciones largas y cortas, tipos de orden, checklist operativo, protocolos de entrada y salida, y tu plan de trading para ejecutar con consistencia.</div>
           <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
         </div>
       </div>
 
-      <!-- ACOMPAÑAMIENTO -->
-      <div class="seccion-label">Acompañamiento en vivo</div>
-
       <div class="item">
         <div class="item-num">7</div>
         <div class="item-body">
-          <div class="item-title">INTRADER WEEKLY LIVE CALLS<span class="item-val">$2,328</span></div>
-          <div class="item-desc">Sesiones semanales en vivo (cada martes) donde analizamos el mercado en tiempo real durante los 6 meses. Nunca estás solo: cada error se corrige antes de que te cueste dinero.</div>
+          <div class="item-title">INSIDE THE INTRADER MIND<span class="tm">™</span><span class="item-val">$697</span></div>
+          <div class="item-desc">20–22 de octubre. Del conocimiento teórico a la experiencia aplicada: mercado en vivo, análisis en tiempo real, gestión del riesgo y lectura institucional viendo cómo se decide bajo presión real.</div>
           <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
         </div>
       </div>
@@ -693,8 +724,8 @@
       <div class="item">
         <div class="item-num">8</div>
         <div class="item-body">
-          <div class="item-title">OPPORTUNITY SCAN<span class="tm">™</span> + ASSET REVIEW<span class="tm">™</span><span class="item-val">$1,394</span></div>
-          <div class="item-desc">Una sesión adicional (cada jueves) para revisar lo que vimos el martes, auditar tus decisiones ejecutadas y hacer correcciones con feedback directo. Aquí el criterio deja de ser teoría y se vuelve un reflejo entrenado.</div>
+          <div class="item-title">WEALTH ARCHITECT<span class="tm">™</span><span class="item-val">$597</span></div>
+          <div class="item-desc">10–12 de noviembre. De inversiones aisladas a arquitectura patrimonial: construcción de portafolio, diversificación, gestión de liquidez y distribución estratégica para construir patrimonio.</div>
           <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
         </div>
       </div>
@@ -702,8 +733,8 @@
       <div class="item">
         <div class="item-num">9</div>
         <div class="item-body">
-          <div class="item-title">LIVE MARKET EXPERIENCE<span class="tm">™</span><span class="item-val">$497</span></div>
-          <div class="item-desc">Una sesión al mes dentro de la mente de un Intrader profesional: ves en primera persona cómo se analiza, se mide el riesgo y se decide bajo presión real. La diferencia entre saber la teoría y verla ejecutada.</div>
+          <div class="item-title">INTRADER IDENTITY<span class="tm">™</span><span class="item-val">$497</span></div>
+          <div class="item-desc">23 nov – 13 dic. Un reto de 21 días donde tomas tus propias decisiones aplicando toda la metodología en tiempo real. Dejas de "saber" para empezar a "ser": ejecutas, mides y ajustas tú mismo, hasta que decidir como un Intrader se vuelve tu reflejo natural.</div>
           <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
         </div>
       </div>
@@ -711,108 +742,213 @@
       <div class="item">
         <div class="item-num">10</div>
         <div class="item-body">
-          <div class="item-title">INTRADER COMMUNITY<span class="item-val">$297</span></div>
-          <div class="item-desc">Acceso de por vida al círculo privado de Intraders certificados. Análisis compartidos, networking y un entorno donde evolucionas rodeado de personas que juegan el mismo juego con la misma seriedad.</div>
-          <div class="plan-tags"><span class="ptag gold">★ Solo pago completo</span></div>
+          <div class="item-title">CERTIFIED INTRADER<span class="tm">™</span><span class="item-val">$697</span></div>
+          <div class="item-desc">15–17 de diciembre. De alumno a Intrader certificado: evaluación completa y certificación oficial con certificado digital, inclusión en el directorio y badge para LinkedIn.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
         </div>
       </div>
 
-      <!-- HERRAMIENTAS -->
-      <div class="seccion-label">6 herramientas de soporte</div>
+      <!-- ============ EXPERIENCIAS EN VIVO ============ -->
+      <div class="seccion-label">Experiencias en vivo durante 6 meses</div>
 
       <div class="item">
         <div class="item-num">11</div>
         <div class="item-body">
-          <div class="item-title">Decision Map · Visual Market · Journal · Execution Checklist · Strategic Playbook · Identity<span class="item-val">$752</span></div>
-          <div class="item-desc">El sistema documentado y repetible del Intrader: mapas de decisión, frameworks visuales, checklists y playbooks que estructuran tu proceso completo para que nunca vuelvas a improvisar con tu dinero.</div>
+          <div class="item-title">INTRADER WEEKLY LIVE CALLS<span class="item-val">$2,328</span></div>
+          <div class="item-desc">Sesiones grupales en vivo cada semana durante los 6 meses: análisis de mercados en tiempo real, respuestas a tus preguntas, revisión de decisiones y ajustes al sistema según el momento del mercado.</div>
           <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
         </div>
       </div>
 
-      <!-- BONOS -->
-      <div class="seccion-label">Bonos</div>
-
-      <div class="item bono">
+      <div class="item">
         <div class="item-num">12</div>
         <div class="item-body">
-          <span class="bono-tag">Bono · solo pago completo</span>
-          <div class="item-title">INTRADER VIP ACCESS<span class="item-val">$1,497</span></div>
-          <div class="item-desc">Una mentoría privada 1:1 de 60 minutos donde reviso tu situación financiera específica, te muestro exactamente dónde estás perdiendo dinero y construimos juntos tu estrategia personalizada para los 6 meses.</div>
-          <div class="plan-tags"><span class="ptag gold">★ Solo pago completo</span></div>
-        </div>
-      </div>
-
-      <div class="item bono">
-        <div class="item-num">13</div>
-        <div class="item-body">
-          <span class="bono-tag">Bono · completo y apartado</span>
-          <div class="item-title">CERTIFIED INTRADER<span class="item-val">$697</span></div>
-          <div class="item-desc">La certificación oficial que acredita tu dominio del sistema, con evaluación teórica y práctica. El sello que te distingue como un Intrader real y te permite decir, con propiedad, "Soy un Intrader".</div>
-          <div class="plan-tags"><span class="ptag green">Pago completo + Apartado</span></div>
-        </div>
-      </div>
-
-      <div class="item bono">
-        <div class="item-num">14</div>
-        <div class="item-body">
-          <span class="bono-tag">Bono · completo y apartado</span>
-          <div class="item-title">ADVANCED STRATEGIES<span class="item-val">$997</span></div>
-          <div class="item-desc">El módulo de estrategias avanzadas de alto nivel, el conocimiento que normalmente solo se entrega después de dominar lo fundamental. <b style="color:var(--oro)">No se incluye si pagas en 3 cuotas.</b></div>
-          <div class="plan-tags"><span class="ptag green">Pago completo + Apartado</span></div>
-        </div>
-      </div>
-
-      <div class="item bono">
-        <div class="item-num">15</div>
-        <div class="item-body">
-          <span class="bono-tag">Bono</span>
-          <div class="item-title">RISK SHIELD + MARKET INTEL REPORTS<span class="item-val">$1,294</span></div>
-          <div class="item-desc">Tu escudo de protección de capital reforzado más los reportes periódicos de inteligencia de mercado. Decides siempre con contexto y con tu exposición máxima definida antes de cada movimiento.</div>
+          <div class="item-title">INTRADE OPPORTUNITY SCAN<span class="tm">™</span><span class="item-val">$847</span></div>
+          <div class="item-desc">Sesiones quincenales para identificar oportunidades reales del mercado, filtrar las buenas de las malas y aplicar el sistema INTRADER en tiempo real.</div>
           <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
         </div>
       </div>
 
-      <!-- RESUMEN DETALLADO -->
+      <div class="item">
+        <div class="item-num">13</div>
+        <div class="item-body">
+          <div class="item-title">INTRADE ASSET REVIEW<span class="tm">™</span><span class="item-val">$847</span></div>
+          <div class="item-desc">12 sesiones intercaladas para revisar tus decisiones ya ejecutadas, aprender de errores reales y ajustar tu proceso con feedback directo sobre tu evolución.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">14</div>
+        <div class="item-body">
+          <div class="item-title">INTRADER COMMUNITY<span class="item-val">$297</span></div>
+          <div class="item-desc">Acceso de por vida al círculo privado de Intraders: análisis compartidos, discusión de oportunidades, aprendizaje en comunidad y networking con otros certificados.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
+        </div>
+      </div>
+
+      <!-- ============ ELEMENTOS DE SOPORTE ============ -->
+      <div class="seccion-label">Herramientas de soporte</div>
+
+      <div class="item">
+        <div class="item-num">15</div>
+        <div class="item-body">
+          <div class="item-title">INTRADER DECISION MAP<span class="tm">™</span><span class="item-val">$97</span></div>
+          <div class="item-desc">El mapa mental del dinero: el proceso visual completo para evaluar oportunidades paso a paso, sin improvisar.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">16</div>
+        <div class="item-body">
+          <div class="item-title">INTRADER VISUAL MARKET<span class="item-val">$147</span></div>
+          <div class="item-desc">El sistema visual del mercado: framework para reconocer el comportamiento, las tendencias y los ciclos de un vistazo.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">17</div>
+        <div class="item-body">
+          <div class="item-title">INTRADER JOURNAL<span class="item-val">$97</span></div>
+          <div class="item-desc">El sistema de evolución: diario estructurado de decisiones con registro y métricas para medir tu progreso real.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">18</div>
+        <div class="item-body">
+          <div class="item-title">INTRADER EXECUTION CHECKLIST<span class="tm">™</span><span class="item-val">$67</span></div>
+          <div class="item-desc">El protocolo de decisión: checklist obligatorio antes de cualquier operación, tu filtro de riesgo antes de actuar.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">19</div>
+        <div class="item-body">
+          <div class="item-title">INTRADE STRATEGIC PLAYBOOK<span class="tm">™</span><span class="item-val">$197</span></div>
+          <div class="item-desc">El manual del juego del dinero: las reglas reales, las estrategias clave y los errores que destruyen capital.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">20</div>
+        <div class="item-body">
+          <div class="item-title">INTRADER IDENTITY (kit)<span class="item-val">$147</span></div>
+          <div class="item-desc">La construcción del Intrader: principios de identidad, código de comportamiento financiero y mentalidad de crecimiento.</div>
+          <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
+        </div>
+      </div>
+
+      <!-- ============ BONOS EXCLUSIVOS · PAGO COMPLETO ============ -->
+      <div class="seccion-label">Bonos del programa</div>
+
+      <div class="item bono">
+        <div class="item-num">21</div>
+        <div class="item-body">
+          <div class="item-title">INTRADER PRECISION TEMPLATE<span class="tm">™</span><span class="item-val">$1,497</span></div>
+          <div class="item-desc">La plantilla personal de Nicolás para identificar oportunidades en tiempo real: archivos listos para TradingView y MetaTrader, manual de uso, banco de ejercicios prácticos, video de implementación en vivo y sistema de alertas.</div>
+        </div>
+      </div>
+
+      <div class="item bono">
+        <div class="item-num">22</div>
+        <div class="item-body">
+          <div class="item-title">THE INTRADER STRATEGY<span class="tm">™</span><span class="item-val">$1,997</span></div>
+          <div class="item-desc">La estrategia completa paso a paso: manual detallado (setup de entrada, gestión de riesgo y emocional, casos reales documentados y errores fatales), masterclass en video, hoja de seguimiento y banco de ejercicios.</div>
+        </div>
+      </div>
+
+      <div class="item bono">
+        <div class="item-num">23</div>
+        <div class="item-body">
+          <div class="item-title">INTRADER ADVANCED STRATEGIES<span class="tm">™</span><span class="item-val">$997</span></div>
+          <div class="item-desc">Nivel institucional que no está en el programa base: Ondas de Elliott, patrones armónicos (Gartley, Butterfly, Bat, Crab, Shark), ciclos institucionales y casos reales de alto rendimiento. Masterclass grabada.</div>
+        </div>
+      </div>
+
+      <div class="item bono">
+        <div class="item-num">24</div>
+        <div class="item-body">
+          <div class="item-title">INTRADER FAST TRACK<span class="tm">™</span><span class="item-val">$497</span></div>
+          <div class="item-desc">Mentoría grupal en vivo de inicio inmediato: revisamos tu situación, definimos tu plan personalizado e identificamos las decisiones que más rápido moverán la aguja antes de arrancar.</div>
+        </div>
+      </div>
+
+      <div class="item bono">
+        <div class="item-num">25</div>
+        <div class="item-body">
+          <div class="item-title">INTRADER RISK SHIELD<span class="tm">™</span><span class="item-val">$397</span></div>
+          <div class="item-desc">El sistema anti-pérdidas: guía + video con los errores que destruyen la mayor parte del capital, un checklist de control antes de cada decisión y casos reales de pérdidas evitables.</div>
+        </div>
+      </div>
+
+      <div class="item bono">
+        <div class="item-num">26</div>
+        <div class="item-body">
+          <div class="item-title">INTRADER MARKET INTEL REPORTS<span class="tm">™</span><span class="item-val">$797</span></div>
+          <div class="item-desc">Reportes mensuales de inteligencia durante todo el programa: análisis macro del mes, oportunidades específicas, riesgos a evitar y proyecciones para el mes siguiente.</div>
+        </div>
+      </div>
+
+      <p class="bono-nota">La cantidad de bonos que recibes depende de tu opción de pago. Lo verás reflejado en el resumen de la derecha al elegir tu plan.</p>
+
+      <!-- ============ RESUMEN DETALLADO ============ -->
       <div class="resumen">
         <h3>Todo lo que recibes hoy, desglosado</h3>
-        <p class="r-sub">Cada componente con su valor real de mercado. Esto es lo que estás llevando.</p>
+        <p class="r-sub">Cada componente con su valor real. Esto es lo que estás llevando.</p>
 
         <div class="r-group">
-          <div class="r-group-h"><span>El sistema · 6 módulos</span><span>$4,379</span></div>
-          <div class="r-line"><span class="r-name"><b>1.</b> INTRADER AWAKENING™</span><span class="r-val">$497</span></div>
-          <div class="r-line"><span class="r-name"><b>2.</b> Capital Intelligence™ + Navigation Lab™</span><span class="r-val">$1,394</span></div>
-          <div class="r-line"><span class="r-name"><b>3.</b> Analysis Framework™</span><span class="r-val">$697</span></div>
-          <div class="r-line"><span class="r-name"><b>4.</b> Risk Command™</span><span class="r-val">$597</span></div>
-          <div class="r-line"><span class="r-name"><b>5.</b> Execution System™</span><span class="r-val">$697</span></div>
-          <div class="r-line"><span class="r-name"><b>6.</b> Mental Reprogramming (reto 21 días)</span><span class="r-val">$497</span></div>
+          <div class="r-group-h"><span>El programa · 10 etapas</span><span>$6,270</span></div>
+          <div class="r-line"><span class="r-name"><b>1.</b> Onboarding Experience™</span><span class="r-val">$297</span></div>
+          <div class="r-line"><span class="r-name"><b>2.</b> Awakening™</span><span class="r-val">$497</span></div>
+          <div class="r-line"><span class="r-name"><b>3.</b> Capital Mastery™ + Opportunity Navigation™</span><span class="r-val">$797</span></div>
+          <div class="r-line"><span class="r-name"><b>4.</b> Market Decoding™ Intensive</span><span class="r-val">$897</span></div>
+          <div class="r-line"><span class="r-name"><b>5.</b> Capital Defense™ Experience</span><span class="r-val">$697</span></div>
+          <div class="r-line"><span class="r-name"><b>6.</b> Precision Execution™ Live</span><span class="r-val">$597</span></div>
+          <div class="r-line"><span class="r-name"><b>7.</b> Inside the Intrader Mind™</span><span class="r-val">$697</span></div>
+          <div class="r-line"><span class="r-name"><b>8.</b> Wealth Architect™</span><span class="r-val">$597</span></div>
+          <div class="r-line"><span class="r-name"><b>9.</b> Intrader Identity™</span><span class="r-val">$497</span></div>
+          <div class="r-line"><span class="r-name"><b>10.</b> Certified Intrader™</span><span class="r-val">$697</span></div>
         </div>
 
         <div class="r-group">
-          <div class="r-group-h"><span>Acompañamiento en vivo</span><span>$4,516</span></div>
-          <div class="r-line"><span class="r-name"><b>7.</b> Weekly Live Calls (sesiones de los martes)</span><span class="r-val">$2,328</span></div>
-          <div class="r-line"><span class="r-name"><b>8.</b> Opportunity Scan™ + Asset Review™ (jueves)</span><span class="r-val">$1,394</span></div>
-          <div class="r-line"><span class="r-name"><b>9.</b> Live Market Experience™ (mensual)</span><span class="r-val">$497</span></div>
-          <div class="r-line"><span class="r-name"><b>10.</b> Intrader Community <em style="color:var(--oro);font-style:normal;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.5px">· SOLO COMPLETO</em></span><span class="r-val">$297</span></div>
+          <div class="r-group-h"><span>Experiencias en vivo</span><span>$4,319</span></div>
+          <div class="r-line"><span class="r-name"><b>11.</b> Weekly Live Calls (24 sesiones)</span><span class="r-val">$2,328</span></div>
+          <div class="r-line"><span class="r-name"><b>12.</b> Opportunity Scan™ (12 sesiones)</span><span class="r-val">$847</span></div>
+          <div class="r-line"><span class="r-name"><b>13.</b> Asset Review™ (12 sesiones)</span><span class="r-val">$847</span></div>
+          <div class="r-line"><span class="r-name"><b>14.</b> Community (de por vida)</span><span class="r-val">$297</span></div>
         </div>
 
         <div class="r-group">
           <div class="r-group-h"><span>Herramientas de soporte</span><span>$752</span></div>
-          <div class="r-line"><span class="r-name"><b>11.</b> 6 herramientas (Decision Map, Journal, Playbook…)</span><span class="r-val">$752</span></div>
+          <div class="r-line"><span class="r-name"><b>15.</b> Decision Map™</span><span class="r-val">$97</span></div>
+          <div class="r-line"><span class="r-name"><b>16.</b> Visual Market</span><span class="r-val">$147</span></div>
+          <div class="r-line"><span class="r-name"><b>17.</b> Journal</span><span class="r-val">$97</span></div>
+          <div class="r-line"><span class="r-name"><b>18.</b> Execution Checklist™</span><span class="r-val">$67</span></div>
+          <div class="r-line"><span class="r-name"><b>19.</b> Strategic Playbook™</span><span class="r-val">$197</span></div>
+          <div class="r-line"><span class="r-name"><b>20.</b> Identity (kit)</span><span class="r-val">$147</span></div>
         </div>
 
-        <div class="r-group">
-          <div class="r-group-h"><span>Bonos</span><span>$4,485</span></div>
-          <div class="r-line"><span class="r-name"><b>12.</b> VIP Access · mentoría 1:1 <em style="color:var(--oro);font-style:normal;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.5px">· SOLO COMPLETO</em></span><span class="r-val">$1,497</span></div>
-          <div class="r-line"><span class="r-name"><b>13.</b> Certified Intrader <em style="color:var(--exito);font-style:normal;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.5px">· COMPLETO + APARTADO</em></span><span class="r-val">$697</span></div>
-          <div class="r-line"><span class="r-name"><b>14.</b> Advanced Strategies <em style="color:var(--exito);font-style:normal;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.5px">· COMPLETO + APARTADO</em></span><span class="r-val">$997</span></div>
-          <div class="r-line"><span class="r-name"><b>15.</b> Risk Shield + Market Intel Reports</span><span class="r-val">$1,294</span></div>
+        <div class="r-group" id="r-grupo-bonos">
+          <div class="r-group-h"><span>Bonos según tu plan</span><span id="r-bonos-total">$6,182</span></div>
+          <div class="r-line" data-bono="completo"><span class="r-name"><b>21.</b> Precision Template™</span><span class="r-val">$1,497</span></div>
+          <div class="r-line" data-bono="completo"><span class="r-name"><b>22.</b> The Intrader Strategy™</span><span class="r-val">$1,997</span></div>
+          <div class="r-line" data-bono="completo"><span class="r-name"><b>23.</b> Advanced Strategies™</span><span class="r-val">$997</span></div>
+          <div class="r-line" data-bono="apartado"><span class="r-name"><b>24.</b> Fast Track™</span><span class="r-val">$497</span></div>
+          <div class="r-line" data-bono="apartado"><span class="r-name"><b>25.</b> Risk Shield™</span><span class="r-val">$397</span></div>
+          <div class="r-line" data-bono="apartado"><span class="r-name"><b>26.</b> Market Intel Reports™</span><span class="r-val">$797</span></div>
         </div>
 
         <div class="r-total">
           <span class="lbl">Valor total</span>
-          <span class="num" id="r-num-total">$14,132 <span style="font-family:'DM Mono',monospace;font-size:13px;color:var(--texto-sec)">USD</span></span>
+          <span class="num" id="r-num-total">$17,523 <span style="font-family:'DM Mono',monospace;font-size:13px;color:var(--texto-sec)">USD</span></span>
         </div>
-        <div class="r-pay" id="r-pay-nota">Con <b style="color:var(--exito)">pago completo</b> te llevas el valor total: los 15 componentes, incluidos VIP Access, Community, Certificado y Advanced Strategies.</div>
+        <div class="r-pay" id="r-pay-nota">Con <b style="color:var(--exito)">pago completo</b> te llevas el valor total: el programa, las experiencias en vivo, las herramientas y los 6 bonos.</div>
 
         <!-- COMPARATIVA DE PLANES -->
         <div class="comparativa">
@@ -822,19 +958,19 @@
               <tr><th></th><th class="best">Completo</th><th>Apartado</th><th>3 cuotas</th></tr>
             </thead>
             <tbody>
-              <tr><td>Los 6 módulos del sistema</td><td class="best">✓</td><td>✓</td><td>✓</td></tr>
-              <tr><td>Sesiones en vivo (martes + jueves)</td><td class="best">✓</td><td>✓</td><td>✓</td></tr>
-              <tr><td>Live Market Experience (mensual)</td><td class="best">✓</td><td>✓</td><td>✓</td></tr>
-              <tr><td>6 herramientas de soporte</td><td class="best">✓</td><td>✓</td><td>✓</td></tr>
-              <tr><td>Risk Shield + Market Intel</td><td class="best">✓</td><td>✓</td><td>✓</td></tr>
-              <tr><td>Certificación oficial</td><td class="best">✓</td><td>✓</td><td class="no">—</td></tr>
-              <tr><td>Advanced Strategies</td><td class="best">✓</td><td>✓</td><td class="no">—</td></tr>
-              <tr><td>Community de por vida</td><td class="best">✓</td><td class="no">—</td><td class="no">—</td></tr>
-              <tr><td>VIP Access · mentoría 1:1</td><td class="best">✓</td><td class="no">—</td><td class="no">—</td></tr>
-              <tr class="comp-valor"><td>Valor que recibes</td><td class="best">$14,132</td><td>$12,338</td><td>$10,644</td></tr>
+              <tr><td>Las 10 etapas del programa</td><td class="best">✓</td><td>✓</td><td>✓</td></tr>
+              <tr><td>Experiencias en vivo (6 meses)</td><td class="best">✓</td><td>✓</td><td>✓</td></tr>
+              <tr><td>Community de por vida</td><td class="best">✓</td><td>✓</td><td>✓</td></tr>
+              <tr><td>Herramientas de soporte</td><td class="best">✓</td><td>✓</td><td>✓</td></tr>
+              <tr><td>Certificación oficial</td><td class="best">✓</td><td>✓</td><td>✓</td></tr>
+              <tr><td>Fast Track™ + Risk Shield™ + Market Intel™</td><td class="best">✓</td><td>✓</td><td class="no">—</td></tr>
+              <tr><td>Precision Template™</td><td class="best">✓</td><td class="no">—</td><td class="no">—</td></tr>
+              <tr><td>The Intrader Strategy™</td><td class="best">✓</td><td class="no">—</td><td class="no">—</td></tr>
+              <tr><td>Advanced Strategies™</td><td class="best">✓</td><td class="no">—</td><td class="no">—</td></tr>
+              <tr class="comp-valor"><td>Valor que recibes</td><td class="best">$17,523</td><td>$13,032</td><td>$11,341</td></tr>
             </tbody>
           </table>
-          <div class="comp-nota">El <b style="color:var(--exito)">pago completo</b> es el único que se lleva los 15 componentes, al precio más bajo y en un solo pago.</div>
+          <div class="comp-nota">El <b style="color:var(--exito)">pago completo</b> es el único que se lleva los 3 bonos premium (Precision Template, The Intrader Strategy y Advanced Strategies), por un valor de $4,491.</div>
         </div>
       </div>
     </section>
@@ -859,11 +995,12 @@
             <div class="plan-badge">Máximo valor</div>
           </div>
           <div class="plan-detail">
-            <span class="ok">✓</span> Te llevas <b style="color:var(--blanco)">los 15 componentes</b>. Exclusivos de este plan:<br>
-            <span class="ok">✓</span> <b style="color:var(--oro)">VIP Access</b> · mentoría 1:1 ($1,497)<br>
-            <span class="ok">✓</span> <b style="color:var(--oro)">Community</b> de por vida + <b style="color:var(--oro)">Certificado</b> + <b style="color:var(--oro)">Advanced Strategies</b><br>
+            <span class="ok">✓</span> Te llevas <b style="color:var(--blanco)">todo</b>. Exclusivos de este plan:<br>
+            <span class="ok">✓</span> <b style="color:var(--oro)">Precision Template™</b> ($1,497) + <b style="color:var(--oro)">The Intrader Strategy™</b> ($1,997)<br>
+            <span class="ok">✓</span> <b style="color:var(--oro)">Advanced Strategies™</b> ($997) + Fast Track, Risk Shield y Market Intel<br>
             <span class="ok">✓</span> Un solo pago · el precio más bajo de los 3 planes
           </div>
+          <div class="plan-mini">Un solo pago · máximo valor · los 6 bonos</div>
         </div>
 
         <div class="plan" id="plan-apartado" onclick="seleccionarPlan('apartado')">
@@ -873,9 +1010,10 @@
           <div class="plan-detail">
             <span class="ok">✓</span> Reservas tu cupo hoy y <b style="color:var(--blanco)">congelas el precio</b><br>
             <span class="ok">✓</span> Pagas el resto en los próximos 30 días<br>
-            <span class="ok">✓</span> Incluye <b style="color:var(--oro)">Certificado</b> y <b style="color:var(--oro)">Advanced Strategies</b><br>
-            <span class="warn">⚠</span> No incluye VIP Access ni Community
+            <span class="ok">✓</span> Incluye <b style="color:var(--oro)">Fast Track™, Risk Shield™ y Market Intel™</b><br>
+            <span class="warn">⚠</span> No incluye los 3 bonos premium (Precision Template, The Intrader Strategy ni Advanced Strategies)
           </div>
+          <div class="plan-mini">Reservas hoy · pagas el resto en 30 días</div>
         </div>
 
         <div class="plan" id="plan-cuotas" onclick="seleccionarPlan('cuotas')">
@@ -884,13 +1022,16 @@
           </div>
           <div class="plan-detail">
             <span class="ok">✓</span> Máxima facilidad: distribuido en 3 cuotas<br>
-            <span class="warn">⚠</span> No incluye Certificado, Advanced Strategies, VIP Access ni Community
+            <span class="ok">✓</span> Programa completo + experiencias en vivo + certificación + elementos ampliados<br>
+            <span class="warn">⚠</span> No incluye los bonos premium ni los de acción rápida
           </div>
+          <div class="plan-mini">3 cuotas mensuales · máxima facilidad</div>
         </div>
       </div>
 
       <div class="precio-box">
-        <div class="ancla" id="ancla">$1997 USD</div>
+        <div class="precio-valor-total">Valor total <span class="ancla" id="ancla">$3,997 USD</span></div>
+        <div class="precio-tu-inversion">Tu inversión hoy</div>
         <div class="precio" id="precio"><span class="spin"></span></div>
         <div class="moneda" id="moneda">USD · pago único</div>
         <div class="ahorro" id="ahorro"></div>
@@ -914,7 +1055,7 @@
       <div class="campo">
         <label>¿Tienes un código de descuento?</label>
         <div class="codigo-row">
-          <input id="f-codigo" placeholder="Código de descuento">
+          <input id="f-codigo" placeholder="Escribe tu código">
           <button onclick="aplicarCodigo()">Aplicar</button>
         </div>
         <div class="codigo-msg" id="codigo-msg"></div>
@@ -947,17 +1088,16 @@
         <div class="fb-co">Academia Intrade (S.A.S. en constitución)<br>Bogotá D.C., Colombia<br>admin@academiaintrade.com</div>
       </div>
       <div class="foot-col">
-        <h4>El sistema</h4>
-        <a href="https://magnet.academiaintrade.com">Money Magnet™</a>
-        <a href="/ebook">Descarga el ebook</a>
+        <h4>Legal</h4>
         <a href="/legal">Términos y condiciones</a>
         <a href="/legal">Tratamiento de datos</a>
+        <a href="/legal">Aviso de privacidad</a>
+        <a href="/legal">Política de cookies</a>
       </div>
       <div class="foot-col">
         <h4>Contacto</h4>
         <a href="mailto:admin@academiaintrade.com">admin@academiaintrade.com</a>
-        <a href="/legal">Aviso de privacidad</a>
-        <a href="/legal">Política de cookies</a>
+        <a href="https://wa.me/573052460919" target="_blank" rel="noopener">WhatsApp soporte</a>
       </div>
     </div>
     <div class="foot-bottom">
@@ -1011,78 +1151,35 @@
       if (match){ document.getElementById('f-pais').value = match.d; }
     }
 
-    /* ---------- CONTADOR: termina a la medianoche de la fecha de cierre ----------
-       Por defecto cuenta hasta el final del día del visitante (medianoche local).
-       Para fijar una fecha concreta (ej. cierre del webinar) pásala por URL:
-         ?cierre=2026-06-18   ->  termina el 18 de junio de 2026 a las 23:59:59
-       O edita FECHA_CIERRE_FIJA abajo (formato 'YYYY-MM-DD' o null para "fin del día").
-       Si no hay URL ni fecha fija, usa la fecha del EVENTO según el país (IP). */
-    var FECHA_CIERRE_FIJA = null; // ej: '2026-06-18' | '2026-06-19' | '2026-06-20'
-
-    /* Grupos de eventos por país (mismos del webinar) — editables.
-       grupo_18: Latam económicamente más accesible
-       grupo_19: alto poder adquisitivo / internacional
-       grupo_20: día extra (ajusta los países que quieras aquí) */
-    var EVENTOS = {
-      '2026-06-18': ['CO','MX','PE','BO','VE','AR','PY','HN','NI','SV','GT','CU','DO','HT','BR'],
-      '2026-06-19': ['EC','CL','UY','CR','PA','PR','US','CA','ES','PT','IT','FR','DE','GB','NL','BE','CH','AT','SE','NO','DK','FI','IE'],
-      '2026-06-20': []  // añade aquí los países del 20 si aplica
-    };
-    var FECHA_EVENTO_DEFAULT = '2026-06-18';
-    var fechaCierrePais = null; // se setea al detectar la IP
-
-    function fechaEventoPorPais(cc){
-      for (var fecha in EVENTOS){
-        if (EVENTOS[fecha].indexOf(cc) >= 0) return fecha;
-      }
-      return FECHA_EVENTO_DEFAULT;
-    }
-    function strToFinDeDia(s){
-      var partes = s.split('-');
-      if (partes.length === 3) return new Date(+partes[0], (+partes[1]) - 1, +partes[2], 23, 59, 59, 999);
-      return null;
-    }
-
-    function getFechaCierre(){
-      var p = new URLSearchParams(window.location.search).get('cierre');
-      var fuente = p || FECHA_CIERRE_FIJA;
-      if (fuente){ var f = strToFinDeDia(fuente); if (f) return f; }
-      if (fechaCierrePais){ var f2 = strToFinDeDia(fechaCierrePais); if (f2) return f2; }
-      var ahora = new Date();
-      return new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate(), 23, 59, 59, 999);
-    }
+    /* ---------- CONTADOR: cuenta atrás de 24h por visita ----------
+       Da urgencia sin depender de fechas de evento (evita el bug de "337 días").
+       Se reinicia en cada visita: arranca en 24:00:00 y baja. Nunca muestra días,
+       así que es imposible que "se pase de año". Cuando llega a 0 se mantiene en 0. */
+    var CONTADOR_HORAS = 24;                       // duración de la oferta visible
+    var finOferta = new Date().getTime() + CONTADOR_HORAS * 3600000;
 
     function tickCountdown(){
-      var diff = getFechaCierre() - new Date(); if (diff < 0) diff = 0;
+      var diff = finOferta - new Date().getTime(); if (diff < 0) diff = 0;
       var totalH = Math.floor(diff / 3600000);
       var m = Math.floor((diff % 3600000) / 60000);
       var s = Math.floor((diff % 60000) / 1000);
       var p = function(n){ return n < 10 ? '0' + n : '' + n; };
-      // Barra superior: si faltan más de 24h, mostramos días
-      var dias = Math.floor(totalH / 24);
-      var h = totalH % 24;
+
+      // Barra superior (HH : MM : SS) — sin días, nunca se pasa de año
       var barra = $('cd-clock');
       if (barra){
-        var unidades = '';
-        if (dias > 0){
-          unidades += '<div class="cd-unit"><div class="cd-num">'+p(dias)+'</div><div class="cd-tag">Días</div></div><div class="cd-sep">:</div>';
-        }
-        unidades += '<div class="cd-unit"><div class="cd-num">'+p(h)+'</div><div class="cd-tag">Horas</div></div>'
-                  + '<div class="cd-sep">:</div>'
-                  + '<div class="cd-unit"><div class="cd-num">'+p(m)+'</div><div class="cd-tag">Min</div></div>'
-                  + '<div class="cd-sep">:</div>'
-                  + '<div class="cd-unit"><div class="cd-num">'+p(s)+'</div><div class="cd-tag">Seg</div></div>';
-        barra.innerHTML = unidades;
+        barra.innerHTML =
+            '<div class="cd-unit"><div class="cd-num">'+p(totalH)+'</div><div class="cd-tag">Horas</div></div>'
+          + '<div class="cd-sep">:</div>'
+          + '<div class="cd-unit"><div class="cd-num">'+p(m)+'</div><div class="cd-tag">Min</div></div>'
+          + '<div class="cd-sep">:</div>'
+          + '<div class="cd-unit"><div class="cd-num">'+p(s)+'</div><div class="cd-tag">Seg</div></div>';
       }
-      // Mini reloj del checkout (siempre HH:MM:SS, sumando días a horas)
+      // Mini reloj del checkout (HH:MM:SS, idéntico a la barra)
       if ($('cd-mini-clock')) $('cd-mini-clock').textContent = p(totalH)+':'+p(m)+':'+p(s);
-      // Label con la fecha de cierre legible
+      // Label fijo
       var lbl = $('cd-label');
-      if (lbl){
-        var fc = getFechaCierre();
-        var meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-        lbl.innerHTML = 'Esta oferta especial <b>termina el ' + fc.getDate() + ' de ' + meses[fc.getMonth()] + ' a la medianoche</b>';
-      }
+      if (lbl){ lbl.innerHTML = 'Este precio especial <b>se cierra cuando termine el contador</b>'; }
     }
     setInterval(tickCountdown, 1000); tickCountdown();
 
@@ -1092,7 +1189,7 @@
        - Apartado: total con recargo. Reserva inicial = 40% del total del apartado.
                    Su total queda ARRIBA del contado pero DEBAJO de las 3 cuotas.
        - 3 cuotas: el total más alto (máxima facilidad => mayor costo).
-       Valores de bonos exclusivos del pago completo: VIP Access $1,497 + Advanced Strategies $997. */
+       Bonos exclusivos del pago completo: Precision Template $1,497 + The Intrader Strategy $1,997 + Advanced Strategies $997. */
     var RECARGO_APARTADO = 0.12;  // +12% sobre contado
     var RECARGO_CUOTAS   = 0.22;  // +22% sobre contado (el más caro)
     var RESERVA_APARTADO = 0.40;  // 40% inicial para arrancar el apartado
@@ -1111,38 +1208,56 @@
       return txt + ' <span style="font-family:\'DM Mono\',monospace;font-size:13px;color:var(--texto-sec)">USD</span>';
     }
 
+    // Valor total (ancla) que recibe cada plan, según la oferta
+    var VALOR_PLAN = { completo: 17523, apartado: 13032, cuotas: 11341 };
+
     function renderPrecioPlan(){
-      // --- Valor recibido según plan ---
-      // Completo: $14,132 (todo). Apartado: sin VIP Access ($1,497) ni Community ($297) = $12,338.
-      // 3 cuotas: sin VIP, Community, Certificado ($697) ni Advanced Strategies ($997) = $10,644.
+      // --- Valor recibido y nota según plan ---
+      var anclaPlan = VALOR_PLAN[planActivo] || VALOR_PLAN.completo;
+      if ($('r-num-total')) $('r-num-total').innerHTML = usdTag('$' + anclaPlan.toLocaleString('en-US'));
+
       if (planActivo === 'completo'){
-        if ($('r-num-total')) $('r-num-total').innerHTML = usdTag('$14,132');
-        if ($('r-pay-nota')) $('r-pay-nota').innerHTML = 'Estás eligiendo <b style="color:var(--exito)">pago completo</b>: te llevas <b>los 15 componentes</b>, incluidos VIP Access, Community, Certificado y Advanced Strategies. Máximo valor y el precio más bajo.';
+        if ($('r-pay-nota')) $('r-pay-nota').innerHTML = 'Estás eligiendo <b style="color:var(--exito)">pago completo</b>: te llevas <b>todo</b> — programa, experiencias en vivo, herramientas y los <b>6 bonos</b>, incluidos los 3 premium (Precision Template, The Intrader Strategy y Advanced Strategies).';
+        if ($('r-bonos-total')) $('r-bonos-total').textContent = '$6,182';
       } else if (planActivo === 'apartado'){
-        if ($('r-num-total')) $('r-num-total').innerHTML = usdTag('$12,338');
-        if ($('r-pay-nota')) $('r-pay-nota').innerHTML = 'Estás eligiendo <b style="color:var(--oro)">apartado</b>: incluye Certificado y Advanced Strategies, pero <b>no incluye VIP Access ni Community</b> (esos son solo de pago completo).';
+        if ($('r-pay-nota')) $('r-pay-nota').innerHTML = 'Estás eligiendo <b style="color:var(--oro)">apartado</b>: incluye Fast Track, Risk Shield y Market Intel, pero <b>no los 3 bonos premium</b> (Precision Template, The Intrader Strategy ni Advanced Strategies).';
+        if ($('r-bonos-total')) $('r-bonos-total').textContent = '$1,691';
       } else {
-        if ($('r-num-total')) $('r-num-total').innerHTML = usdTag('$10,644');
-        if ($('r-pay-nota')) $('r-pay-nota').innerHTML = 'Estás eligiendo <b style="color:var(--oro)">3 cuotas</b>: máxima facilidad. <b>No incluye Certificado, Advanced Strategies, VIP Access ni Community.</b> El pago completo se lleva $3,488 más de valor.';
+        if ($('r-pay-nota')) $('r-pay-nota').innerHTML = 'Estás eligiendo <b style="color:var(--oro)">3 cuotas</b>: máxima facilidad. Incluye el programa completo, las experiencias en vivo y la certificación, pero <b>no los bonos</b>. El pago completo se lleva $6,182 en bonos.';
+        if ($('r-bonos-total')) $('r-bonos-total').textContent = '$0';
       }
 
-      if (estado.precioFinal == null) return;
-      var base = estado.precioFinal;                 // contado
+      // Atenúa en el resumen las líneas de bonos que tu plan NO recibe
+      var lineas = document.querySelectorAll('#r-grupo-bonos .r-line');
+      lineas.forEach(function(ln){
+        var tipo = ln.getAttribute('data-bono'); // completo | apartado
+        var incluido = (tipo === 'apartado' && (planActivo === 'completo' || planActivo === 'apartado'))
+          || (tipo === 'completo' && planActivo === 'completo');
+        ln.style.opacity = incluido ? '1' : '0.32';
+        var val = ln.querySelector('.r-val');
+        if (val){ val.style.textDecoration = incluido ? 'none' : 'line-through'; }
+      });
+
+      if (estado.precioFinal == null) { pintarAhorro(anclaPlan, estado.precioFinal || anclaPlan); return; }
+      var base = estado.precioFinal;                 // precio de contado (por región/código)
       var totApartado = base * (1 + RECARGO_APARTADO);
       var totCuotas   = base * (1 + RECARGO_CUOTAS);
 
       if (planActivo === 'completo'){
         $('precio').innerHTML = fmt(base) + '<small>USD</small>';
         $('moneda').textContent = 'USD · pago único · máximo valor';
+        pintarAhorro(anclaPlan, base);
       } else if (planActivo === 'apartado'){
         var reserva = totApartado * RESERVA_APARTADO;
         var resto = totApartado - reserva;
         $('precio').innerHTML = fmt(reserva) + '<small>USD hoy</small>';
         $('moneda').textContent = '+ ' + fmt(resto) + ' en 30 días · total ' + fmt(totApartado);
+        pintarAhorro(anclaPlan, totApartado);
       } else {
         var cuota = totCuotas / 3;
         $('precio').innerHTML = '3 × ' + fmt(cuota) + '<small>USD</small>';
         $('moneda').textContent = 'USD · total ' + fmt(totCuotas) + ' en 3 meses';
+        pintarAhorro(anclaPlan, totCuotas);
       }
     }
 
@@ -1151,7 +1266,8 @@
       region: params.get('region') || params.get('grupo') || '',
       codigo: '',
       precioFinal: null,
-      precioBase: null
+      precioBase: null,
+      ancla: null
     };
 
     function detectarRegion(){
@@ -1163,8 +1279,6 @@
           mostrarRegion(estado.region, geo.country_name);
           if (geo.country_code){
             if (!leadTienePais) setPaisPorCodigo(geo.country_code);
-            fechaCierrePais = fechaEventoPorPais(geo.country_code);
-            tickCountdown();
           }
           cargarPrecio();
         })
@@ -1184,29 +1298,60 @@
       return 'latam_alto';
     }
 
+    /* ---------- TABLA DE PRECIOS (respaldo local) ----------
+       IMPORTANTE: el precio REAL que se cobra lo decide y FIRMA el backend (Apps Script).
+       Esta tabla es solo un respaldo para MOSTRAR el precio si el backend no responde.
+       El ANCLA (valor tachado) la pone renderPrecioPlan según el plan elegido
+       (Completo $17,523 · Apartado $13,032 · 3 cuotas $11,341).
+       Precio por defecto: $1,997. Alto poder adquisitivo / Europa: $997.
+       Código CODINTRADER: solo en latam_bajo, deja el pago en $497. */
+    var ANCLA_USD = 3997; // respaldo si renderPrecioPlan aún no corre
+    var PRECIOS_REGION = { latam_bajo: 1997, latam_alto: 997, europa: 997 };
+    function precioLocal(region, codigo){
+      var base = PRECIOS_REGION[region] != null ? PRECIOS_REGION[region] : 1997;
+      var aplicado = false;
+      if ((codigo||'').toUpperCase() === 'CODINTRADER' && region === 'latam_bajo'){
+        base = 497; aplicado = true;
+      }
+      return { ancla: ANCLA_USD, final: base, base: base, codigo_aplicado: aplicado };
+    }
+
     function mostrarRegion(region, paisNombre){
       $('region-tag').textContent = 'Precio para tu región' + (paisNombre ? ' · ' + paisNombre : '');
     }
 
+    // Pinta ancla, ahorro en $ y % de descuento a partir de ancla y precio final
+    function pintarAhorro(ancla, final){
+      if ($('ancla')) $('ancla').textContent = '$' + Number(ancla).toLocaleString('en-US') + ' USD';
+      var ahorro = ancla - final;
+      var pct = ancla > 0 ? Math.round((ahorro / ancla) * 100) : 0;
+      var el = $('ahorro');
+      if (!el) return;
+      if (ahorro > 0){
+        el.style.display = 'inline-block';
+        el.innerHTML = 'Ahorras $' + Number(Math.round(ahorro)).toLocaleString('en-US') + ' USD · ' + pct + '% OFF';
+      } else {
+        el.style.display = 'none';
+      }
+    }
+
     function cargarPrecio(){
+      var fb = precioLocal(estado.region, estado.codigo); // respaldo inmediato
       var url = APPS_SCRIPT_URL + '?action=intrader_precio&region=' + encodeURIComponent(estado.region) +
                 (estado.codigo ? '&codigo=' + encodeURIComponent(estado.codigo) : '');
       fetch(url)
         .then(function(r){ return r.json(); })
         .then(function(res){
-          if (!res.ok) throw new Error(res.error||'');
+          if (!res || !res.ok) throw new Error(res && res.error || '');
+          // El backend manda la verdad sobre el PRECIO. El ancla la pone renderPrecioPlan según el plan.
           estado.precioFinal = res.final;
-          estado.precioBase = res.base;
-          $('ancla').textContent = '$' + res.ancla + ' USD';
+          estado.precioBase = res.base != null ? res.base : res.final;
           renderPrecioPlan();
-          var ahorro = res.ancla - res.final;
-          if (ahorro > 0){
-            $('ahorro').style.display = 'inline-block';
-            $('ahorro').textContent = 'Ahorras $' + Math.round(ahorro) + ' USD';
-          }
         })
         .catch(function(){
-          estado.precioFinal = 997;
+          // Backend no disponible: respaldo local (el cobro real se firma en backend al pagar)
+          estado.precioFinal = fb.final;
+          estado.precioBase = fb.base;
           renderPrecioPlan();
         });
     }
@@ -1215,23 +1360,34 @@
       var cod = $('f-codigo').value.trim().toUpperCase();
       if (!cod){ return; }
       estado.codigo = cod;
-      var url = APPS_SCRIPT_URL + '?action=intrader_precio&region=' + encodeURIComponent(estado.region) + '&codigo=' + encodeURIComponent(cod);
       var msg = $('codigo-msg');
       msg.style.color = 'var(--texto-sec)'; msg.textContent = 'Validando...';
+      var fb = precioLocal(estado.region, cod);
+      var url = APPS_SCRIPT_URL + '?action=intrader_precio&region=' + encodeURIComponent(estado.region) + '&codigo=' + encodeURIComponent(cod);
       fetch(url).then(function(r){ return r.json(); }).then(function(res){
-        if (res.ok && res.codigo_aplicado){
+        if (res && res.ok && res.codigo_aplicado){
           estado.precioFinal = res.final;
           renderPrecioPlan();
-          var ahorro = res.ancla - res.final;
-          $('ahorro').style.display = 'inline-block';
-          $('ahorro').textContent = 'Ahorras $' + Math.round(ahorro) + ' USD';
+          msg.style.color = 'var(--exito)'; msg.textContent = '✓ Código aplicado';
+        } else if (fb.codigo_aplicado){
+          // Respaldo local: CODINTRADER válido en latam_bajo aunque el backend no responda como esperado
+          estado.precioFinal = fb.final;
+          renderPrecioPlan();
           msg.style.color = 'var(--exito)'; msg.textContent = '✓ Código aplicado';
         } else {
           estado.codigo = '';
-          msg.style.color = 'var(--alerta)'; msg.textContent = 'Código no válido';
+          msg.style.color = 'var(--alerta)'; msg.textContent = 'Código no válido para tu región';
         }
       }).catch(function(){
-        msg.style.color = 'var(--alerta)'; msg.textContent = 'Error al validar';
+        // Sin backend: validamos con respaldo local
+        if (fb.codigo_aplicado){
+          estado.precioFinal = fb.final;
+          renderPrecioPlan();
+          msg.style.color = 'var(--exito)'; msg.textContent = '✓ Código aplicado';
+        } else {
+          estado.codigo = '';
+          msg.style.color = 'var(--alerta)'; msg.textContent = 'Código no válido para tu región';
+        }
       });
     };
 
