@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirmación de pago · INTRADER</title>
+<meta name="robots" content="noindex">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+  :root{
+    --negro:#0A0A0A; --sup-oscura:#161616; --sup-media:#1E1E1E;
+    --oro:#C9A84C; --oro-claro:#E0C77A; --blanco:#FAF8F4;
+    --texto-sec:#B8B2A6; --texto-cuerpo:#D8D3C8;
+    --exito:#5FB585; --alerta:#C94C4C; --borde-oro:rgba(201,168,76,0.30);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'DM Sans',sans-serif;background:var(--negro);color:var(--blanco);
+    min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
+    background:radial-gradient(ellipse at top, #181818 0%, var(--negro) 70%);
+    line-height:1.6;
+  }
+  .card{
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--borde-oro);
+    border-radius:20px;padding:48px 36px;max-width:520px;width:100%;text-align:center;
+    box-shadow:0 24px 70px rgba(0,0,0,0.6);
+  }
+  .marca{
+    font-family:'DM Mono',monospace;font-size:11px;letter-spacing:4px;
+    color:var(--oro-claro);text-transform:uppercase;margin-bottom:28px;
+  }
+  .icono{
+    width:84px;height:84px;border-radius:50%;margin:0 auto 24px;
+    display:flex;align-items:center;justify-content:center;font-size:42px;
+  }
+  .icono.ok{background:rgba(95,181,133,0.12);border:2px solid var(--exito);color:var(--exito)}
+  .icono.wait{background:rgba(201,168,76,0.1);border:2px solid var(--oro);color:var(--oro)}
+  .icono.err{background:rgba(201,76,76,0.1);border:2px solid var(--alerta);color:var(--alerta)}
+  h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:900;margin-bottom:14px;line-height:1.2}
+  .msg{color:var(--texto-cuerpo);font-size:15.5px;margin-bottom:28px}
+  .ref{
+    font-family:'DM Mono',monospace;font-size:12px;color:var(--texto-sec);
+    background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+    border-radius:8px;padding:10px 14px;margin-bottom:28px;word-break:break-all;
+  }
+  .pasos{
+    text-align:left;background:rgba(201,168,76,0.05);
+    border:1px solid var(--borde-oro);border-radius:12px;padding:20px 22px;margin-bottom:28px;
+  }
+  .pasos h3{font-size:13px;color:var(--oro-claro);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;font-weight:600}
+  .pasos ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .pasos li{display:flex;gap:10px;font-size:14px;color:var(--texto-cuerpo);align-items:flex-start}
+  .pasos li b{color:var(--blanco)}
+  .pasos .n{color:var(--oro);font-family:'DM Mono',monospace;font-weight:500;flex-shrink:0}
+  .btn{
+    display:inline-block;background:var(--oro);color:var(--negro);
+    text-decoration:none;font-weight:700;font-size:15px;
+    padding:15px 32px;border-radius:100px;transition:transform .15s,box-shadow .15s;
+    font-family:'DM Sans',sans-serif;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(201,168,76,0.3)}
+  .btn-wa{
+    display:inline-flex;align-items:center;gap:8px;background:rgba(37,211,102,0.12);
+    color:#5FD98A;border:1px solid rgba(37,211,102,0.35);text-decoration:none;
+    padding:13px 26px;border-radius:100px;font-weight:600;font-size:14px;margin-top:12px;
+  }
+  .spin{width:42px;height:42px;border:3px solid rgba(201,168,76,0.2);border-top-color:var(--oro);
+    border-radius:50%;animation:gira 0.8s linear infinite;margin:0 auto 24px}
+  @keyframes gira{to{transform:rotate(360deg)}}
+  .sec{font-family:'DM Mono',monospace;font-size:11px;color:var(--texto-sec);letter-spacing:.5px;margin-top:24px}
+</style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="marca">INTRADER<span style="color:var(--oro)">™</span></div>
+    <div class="spin" id="spin"></div>
+    <div id="contenido" style="display:none"></div>
+    <p id="cargando" class="msg">Verificando tu pago…</p>
+  </div>
+
+<script>
+(function(){
+  'use strict';
+  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK6XSxi1T4I2hCSZeEScJy7pKhFGs2S1OVtxSmAfc2oFjK1UonFmIGFjGEmJAdTymQ8g/exec';
+  var WHATSAPP = 'https://wa.me/573052460919';
+
+  function getParams(){
+    var p = {}, q = window.location.search.substring(1).split('&');
+    q.forEach(function(par){
+      var kv = par.split('=');
+      if (kv[0]) p[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || '');
+    });
+    return p;
+  }
+
+  function render(estado, data){
+    document.getElementById('spin').style.display = 'none';
+    document.getElementById('cargando').style.display = 'none';
+    var cont = document.getElementById('contenido');
+    cont.style.display = 'block';
+    var ref = data.referenceCode ? '<div class="ref">Referencia: ' + data.referenceCode + '</div>' : '';
+
+    if (estado === 'aprobado'){
+      cont.innerHTML =
+        '<div class="icono ok">✓</div>' +
+        '<h1>¡Bienvenido, Intrader!</h1>' +
+        '<p class="msg">Tu pago fue procesado con éxito. Ya tienes tu lugar en el programa.</p>' +
+        ref +
+        '<div class="pasos"><h3>Qué sigue ahora</h3><ul>' +
+          '<li><span class="n">1.</span><span>Revisa tu <b>correo</b> en los próximos minutos: ahí llegan tus accesos.</span></li>' +
+          '<li><span class="n">2.</span><span>Si en 15 minutos no ves nada, escríbenos por WhatsApp con tu referencia.</span></li>' +
+          '<li><span class="n">3.</span><span>Guarda esta referencia por si necesitas soporte.</span></li>' +
+        '</ul></div>' +
+        '<a class="btn" href="' + WHATSAPP + '" target="_blank" rel="noopener">Escribir a soporte</a>';
+    } else if (estado === 'pendiente'){
+      cont.innerHTML =
+        '<div class="icono wait">⏳</div>' +
+        '<h1>Tu pago está en proceso</h1>' +
+        '<p class="msg">Algunos métodos (efectivo, transferencia) tardan en confirmarse. Te avisaremos por correo apenas se acredite.</p>' +
+        ref +
+        '<a class="btn-wa" href="' + WHATSAPP + '" target="_blank" rel="noopener">💬 Consultar por WhatsApp</a>';
+    } else if (estado === 'rechazado'){
+      cont.innerHTML =
+        '<div class="icono err">✕</div>' +
+        '<h1>El pago no se completó</h1>' +
+        '<p class="msg">Tu pago fue rechazado o expiró. No se te cobró nada. Puedes intentarlo de nuevo o escribirnos para ayudarte.</p>' +
+        ref +
+        '<a class="btn" href="/programa">Volver a intentar</a>' +
+        '<br><a class="btn-wa" href="' + WHATSAPP + '" target="_blank" rel="noopener">💬 Necesito ayuda</a>';
+    } else {
+      // sin_datos o firma_invalida: no afirmamos nada, derivamos a soporte
+      cont.innerHTML =
+        '<div class="icono wait">?</div>' +
+        '<h1>Estamos verificando</h1>' +
+        '<p class="msg">' + (data.mensaje || 'No pudimos leer el estado del pago desde esta página. Si completaste el pago, revisa tu correo en unos minutos.') + '</p>' +
+        ref +
+        '<a class="btn-wa" href="' + WHATSAPP + '" target="_blank" rel="noopener">💬 Consultar por WhatsApp</a>';
+    }
+  }
+
+  var params = getParams();
+  // El backend valida la firma MD5 que PayU pone en la URL (no confiamos en el navegador)
+  var qs = Object.keys(params).map(function(k){
+    return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+  }).join('&');
+
+  fetch(APPS_SCRIPT_URL + '?action=payu_validar&' + qs)
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      if (!res || !res.ok){ render('desconocido', { mensaje: 'No pudimos verificar el pago.' }); return; }
+      render(res.estado, res);
+    })
+    .catch(function(){
+      render('desconocido', { mensaje: 'Hubo un problema verificando el pago. Revisa tu correo o escríbenos.' });
+    });
+})();
+</script>
+</body>
+</html>
