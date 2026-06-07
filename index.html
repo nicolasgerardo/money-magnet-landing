@@ -64,6 +64,31 @@
 
   /* ============ ANIMACIONES ============ */
   @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+
+  /* Cinta animada superior */
+  @keyframes mm-ticker-move { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .mm-app .mm-ticker {
+    width: 100%; overflow: hidden; white-space: nowrap;
+    background: linear-gradient(90deg, var(--dorado-deep), var(--dorado-oscuro), var(--dorado), var(--dorado-oscuro), var(--dorado-deep));
+    border-bottom: 1px solid rgba(245,184,0,0.4);
+    padding: 8px 0;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 55;
+    height: 34px; box-sizing: border-box;
+  }
+  .mm-app .mm-ticker-track {
+    display: inline-flex; white-space: nowrap;
+    animation: mm-ticker-move 28s linear infinite;
+  }
+  .mm-app .mm-ticker-track span {
+    color: var(--azul-marino); font-weight: 800; font-size: 12px;
+    letter-spacing: 1.5px; text-transform: uppercase; padding-right: 8px;
+  }
+  .mm-app .mm-ticker:hover .mm-ticker-track { animation-play-state: paused; }
+  @media (max-width: 640px) {
+    .mm-app .mm-ticker-track span { font-size: 11px; letter-spacing: 1px; }
+    .mm-app .mm-ticker-track { animation-duration: 20s; }
+  }
+
   @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes pulse-soft { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.3); } }
@@ -80,7 +105,7 @@
 
   /* ============ NAVBAR ============ */
   .mm-app .mm-nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    position: fixed; top: 34px; left: 0; right: 0; z-index: 50;
     background: rgba(5, 0, 16, 0.92);
     backdrop-filter: blur(16px);
     border-bottom: 1px solid rgba(245, 184, 0, 0.1);
@@ -153,7 +178,7 @@
   /* ============ HERO ============ */
   .mm-app .mm-hero {
     position: relative; min-height: 100vh; max-height: 1100px;
-    padding: 80px 0 40px; overflow: hidden;
+    padding: 110px 0 40px; overflow: hidden;
     background: linear-gradient(135deg, #050010 0%, #0B1131 35%, #1A1F3D 60%, #050010 100%);
   }
   .mm-app .mm-hero-bg { position: absolute; inset: 0; overflow: hidden; }
@@ -528,7 +553,7 @@
 
   /* ============ RESPONSIVE MOBILE ============ */
   @media (max-width: 1023px) {
-    .mm-app .mm-hero { min-height: auto; max-height: none; padding: 70px 0 30px; }
+    .mm-app .mm-hero { min-height: auto; max-height: none; padding: 100px 0 30px; }
     .mm-app .mm-hero-inner { padding: 80px 16px 30px; min-height: auto; max-height: none; }
     .mm-app .mm-hero-foto { display: none !important; }
     .mm-app .mm-hero-grid { grid-template-columns: 1fr !important; gap: 28px; }
@@ -569,6 +594,14 @@
 
 <div class="mm-app">
 
+  <!-- ============ CINTA ANIMADA (urgencia) ============ -->
+  <div class="mm-ticker">
+    <div class="mm-ticker-track">
+      <span>&#9889; WEBINAR GRATUITO EN VIVO &nbsp;&bull;&nbsp; CUPOS LIMITADOS &nbsp;&bull;&nbsp; DEJA DE PERSEGUIR EL DINERO, APRENDE A ATRAERLO &nbsp;&bull;&nbsp; REG&Iacute;STRATE AHORA &nbsp;&bull;&nbsp;</span>
+      <span>&#9889; WEBINAR GRATUITO EN VIVO &nbsp;&bull;&nbsp; CUPOS LIMITADOS &nbsp;&bull;&nbsp; DEJA DE PERSEGUIR EL DINERO, APRENDE A ATRAERLO &nbsp;&bull;&nbsp; REG&Iacute;STRATE AHORA &nbsp;&bull;&nbsp;</span>
+    </div>
+  </div>
+
   <!-- ============ NAVBAR ============ -->
   <nav class="mm-nav">
     <div class="mm-nav-inner">
@@ -603,11 +636,11 @@
             <span class="mm-title-magnet">MAGNET</span>
           </h1>
           <div class="mm-subtitle-region" id="mm-subtitle-region">WEBINAR 2026</div>
-          <h2 class="mm-promesa-h2"><span class="mm-acc">2 HORAS</span> PARA REPROGRAMAR</h2>
+          <h2 class="mm-promesa-h2">DEJA DE CORRER DETR&Aacute;S DEL DINERO.<br><span class="mm-acc">APRENDE A ATRAERLO.</span></h2>
           <p class="mm-promesa-sub">
-            TU RELACI&Oacute;N CON EL DINERO Y APRENDER A<br>
-            MULTIPLICAR TU CAPITAL DESDE CUALQUIER<br>
-            PARTE DEL MUNDO
+            En 2 horas en vivo vas a entender por qu&eacute; el dinero que ya<br>
+            ganas nunca llega a multiplicarse &mdash; y las reglas del juego<br>
+            que usan quienes s&iacute; hacen que su capital trabaje por ellos.
           </p>
           <div class="mm-vsl-wrap" id="mm-vsl-wrap" onclick="mmReproducirVSL(this)">
             <div class="mm-vsl-placeholder">
@@ -676,6 +709,23 @@
     <p>EL CAMINO QUE NADIE TE ENSE&Ntilde;&Oacute; PARA MULTIPLICAR TU CAPITAL</p>
   </section>
 
+  <!-- ============ CONCEPTO MONEY MAGNET ============ -->
+  <section class="mm-section tono-oscuro">
+    <div class="mm-section-inner" style="max-width:760px;text-align:center;">
+      <div class="mm-kicker reveal">LA IDEA QUE LO CAMBIA TODO</div>
+      <h2 class="mm-h2 reveal">&iquest;QU&Eacute; ES SER UN <span class="mm-h2-gold">MONEY MAGNET</span>?</h2>
+      <p class="reveal" style="font-size:18px;line-height:1.7;color:var(--blanco);margin:22px 0 16px;font-weight:600;">
+        Un im&aacute;n no persigue el metal. Crea el campo correcto y el metal llega solo.
+      </p>
+      <p class="reveal" style="font-size:16px;line-height:1.8;color:var(--gris-claro);margin:0 auto 14px;max-width:640px;">
+        La mayor&iacute;a pasa la vida entera persiguiendo el dinero: m&aacute;s horas, m&aacute;s esfuerzo, m&aacute;s trabajo. Y aun as&iacute;, nunca alcanza.
+      </p>
+      <p class="reveal" style="font-size:16px;line-height:1.8;color:var(--gris-claro);margin:0 auto;max-width:640px;">
+        Un <strong style="color:var(--dorado);">Money Magnet</strong> hace algo distinto: entiende que el dinero tiene reglas, aprende a jugarlas, y construye el sistema para que el capital llegue a &eacute;l. Eso es exactamente lo que vas a aprender a construir en estas 2 horas.
+      </p>
+    </div>
+  </section>
+
   <!-- COUNTDOWN -->
   <section class="mm-countdown-section">
     <div class="mm-cd-inner">
@@ -699,10 +749,10 @@
     <div class="mm-section-inner">
       <div class="mm-section-head reveal">
         <div class="mm-kicker">QUIZ&Aacute;S TE HA PASADO&hellip;</div>
-        <h2 class="mm-h2">TU RELACI&Oacute;N CON <span class="mm-h2-gold">EL DINERO</span></h2>
+        <h2 class="mm-h2">EL DINERO TIENE <span class="mm-h2-gold">REGLAS</span></h2>
         <p class="mm-section-sub" style="max-width:760px;margin:18px auto 0;font-size:16px;line-height:1.6;">
-          Antes de hablar de inversiones, hay algo m&aacute;s profundo: c&oacute;mo te relacionas con el dinero.
-          Ah&iacute; empieza casi todo lo que despu&eacute;s pasa con tu capital.
+          Nadie te ense&ntilde;&oacute; a jugar el juego del dinero. Y cuando no conoces las reglas,
+          juegas en desventaja sin darte cuenta. Mira si algo de esto te suena.
         </p>
       </div>
       <div class="mm-cards-grid">
@@ -733,29 +783,28 @@
   <section class="mm-section tono-claro">
     <div class="mm-section-inner">
       <div class="mm-section-head reveal">
-        <div class="mm-kicker">Y CUANDO INTENTAS INVERTIR&hellip;</div>
+        <div class="mm-kicker">Y CUANDO INTENTAS HACER ALGO DIFERENTE&hellip;</div>
         <h2 class="mm-h2">DIME SI <span class="mm-h2-gold">TE SUENA</span></h2>
         <p class="mm-section-sub" style="max-width:760px;margin:18px auto 0;font-size:16px;line-height:1.6;">
-          La bolsa, las criptomonedas, las acciones, los &iacute;ndices, las materias primas, el forex, los ETFs&hellip;
-          tantas opciones para multiplicar tu capital, pero pocas personas lo logran de verdad.
-          Y casi nunca es por el mercado.
+          Sabes que trabajar m&aacute;s no es la respuesta. Que tu dinero deber&iacute;a hacer algo,
+          no quedarse quieto perdiendo valor. Pero cada vez que intentas mover ficha&hellip;
         </p>
       </div>
       <div class="mm-cards-grid">
         <div class="mm-card-feat reveal d1">
           <div class="mm-card-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <h3>Se te acelera el coraz&oacute;n al ver a alguien hablando de bolsa o cripto</h3>
-          <p>Sientes curiosidad, ganas y miedo al mismo tiempo, y terminas cerrando la pesta&ntilde;a sin hacer nada. Esa se&ntilde;al es que algo en ti ya entendi&oacute; que est&aacute;s perdiendo tiempo.</p>
+          <h3>Buscas informaci&oacute;n y terminas m&aacute;s confundido que antes</h3>
+          <p>Mil opiniones contradictorias, cada quien jura tener la f&oacute;rmula, todo promete mucho. Tanta opci&oacute;n que la mayor&iacute;a termina sin hacer nada &mdash; o haciendo algo mal.</p>
         </div>
         <div class="mm-card-feat reveal d2">
           <div class="mm-card-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <h3>Ya pusiste plata en algo y terminaste peor que antes</h3>
-          <p>Una cripto que se desplom&oacute;, una acci&oacute;n recomendada, un curso que prometi&oacute; mucho. No fue tu culpa: te dieron piezas sueltas, sin sistema. Invertir no es coleccionar tips, es entender el juego.</p>
+          <h3>Ya intentaste algo, perdiste plata y volviste al punto de partida</h3>
+          <p>Algo que se desplom&oacute;, una recomendaci&oacute;n que no funcion&oacute;, un curso que prometi&oacute; mucho. Y quedaste convencido de que &ldquo;eso no es para ti&rdquo;. No fue tu culpa: te dieron piezas sueltas, sin ning&uacute;n sistema.</p>
         </div>
         <div class="mm-card-feat reveal d3">
           <div class="mm-card-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <h3>No sabes por d&oacute;nde empezar entre tantos mercados</h3>
-          <p>Forex, acciones, ETFs, cripto, &iacute;ndices, materias primas&hellip; Existe un orden l&oacute;gico para construir capital. No es saltar de moda en moda: es un m&eacute;todo de mentalidad + estrategia + ejecuci&oacute;n.</p>
+          <h3>Sientes que falta algo, pero no sabes qu&eacute;</h3>
+          <p>Intuyes que los que s&iacute; lo logran saben algo que t&uacute; no. Tienes raz&oacute;n: el dinero tiene reglas, y existe un orden l&oacute;gico para construir capital. No es saltar de moda en moda &mdash; es un m&eacute;todo.</p>
         </div>
       </div>
       <div class="mm-cta-seccion reveal">
@@ -779,7 +828,7 @@
       </div>
       <div class="mm-aprenderas-grid">
         <div class="mm-aprenderas-item reveal d1"><div class="mm-aprenderas-num">01</div><div class="mm-aprenderas-body"><h3>A reprogramar tu relaci&oacute;n con el dinero</h3><p>Identificar&aacute;s las creencias heredadas que te mantienen donde est&aacute;s y las sustituir&aacute;s por otras que te permitan recibir y multiplicar capital sin culpa ni miedo.</p></div></div>
-        <div class="mm-aprenderas-item reveal d2"><div class="mm-aprenderas-num">02</div><div class="mm-aprenderas-body"><h3>El panorama real de los mercados</h3><p>Bolsa, acciones, ETFs, &iacute;ndices, cripto, forex, materias primas: c&oacute;mo funciona cada uno, qu&eacute; ofrece, qu&eacute; riesgos tiene y por d&oacute;nde tiene sentido empezar seg&uacute;n tu situaci&oacute;n.</p></div></div>
+        <div class="mm-aprenderas-item reveal d2"><div class="mm-aprenderas-num">02</div><div class="mm-aprenderas-body"><h3>D&oacute;nde puede crecer tu dinero (y d&oacute;nde no)</h3><p>El panorama completo de las formas reales de hacer crecer tu capital: c&oacute;mo funcionan, qu&eacute; ofrecen, qu&eacute; riesgos tienen y por d&oacute;nde tiene sentido empezar seg&uacute;n tu situaci&oacute;n. Sin tecnicismos y sin humo.</p></div></div>
         <div class="mm-aprenderas-item reveal d3"><div class="mm-aprenderas-num">03</div><div class="mm-aprenderas-body"><h3>El m&eacute;todo paso a paso</h3><p>No tips sueltos: el sistema completo de mentalidad, an&aacute;lisis, gesti&oacute;n del riesgo y ejecuci&oacute;n que usan quienes s&iacute; generan retornos consistentes.</p></div></div>
         <div class="mm-aprenderas-item reveal d1"><div class="mm-aprenderas-num">04</div><div class="mm-aprenderas-body"><h3>C&oacute;mo empezar con lo que tienes hoy</h3><p>No necesitas miles de d&oacute;lares ni vivir en un pa&iacute;s espec&iacute;fico. Aprender&aacute;s a dar tus primeros pasos desde donde est&aacute;s, con el capital que tengas.</p></div></div>
         <div class="mm-aprenderas-item reveal d2"><div class="mm-aprenderas-num">05</div><div class="mm-aprenderas-body"><h3>Errores que cuestan caro y c&oacute;mo evitarlos</h3><p>Las trampas en las que cae el 95% que invierte solo. Identificarlas a tiempo te ahorra a&ntilde;os de frustraci&oacute;n y mucho dinero perdido.</p></div></div>
@@ -808,7 +857,7 @@
         <div class="mm-kicker">TU MENTOR</div>
         <h2 class="mm-mentor-h">Nicol&aacute;s Cu&eacute;llar</h2>
         <div class="mm-mentor-rol">Trader Profesional &middot; Educador Financiero</div>
-        <p class="mm-mentor-bio">M&aacute;s de 8 a&ntilde;os activo en los mercados financieros. Combina la disciplina del ajedrez de competencia con la precisi&oacute;n t&eacute;cnica de la ingenier&iacute;a para ense&ntilde;ar inversi&oacute;n de forma clara, pr&aacute;ctica y sin humo. Ha formado a cientos de personas en Latinoam&eacute;rica.</p>
+        <p class="mm-mentor-bio">Yo tambi&eacute;n empec&eacute; sin saber nada de mercados. Ten&iacute;a un t&iacute;tulo de ingenier&iacute;a, jugaba ajedrez de competencia, y cre&iacute;a que el dinero se ganaba trabajando m&aacute;s duro. Tard&eacute; a&ntilde;os en entender que el dinero tiene reglas distintas &mdash; y que nadie me las hab&iacute;a ense&ntilde;ado. Hoy llevo m&aacute;s de 8 a&ntilde;os en los mercados y 7 formando personas en Latinoam&eacute;rica para que aprendan esas reglas antes de cometer los errores que yo comet&iacute;.</p>
         <ul class="mm-mentor-creds">
           <li>Ingeniero de Sistemas &mdash; Universidad El Bosque</li>
           <li>Ajedrecista profesional con t&iacute;tulo CM (Candidate Master)</li>
@@ -817,6 +866,10 @@
           <li>Conferencista y educador hace 7 a&ntilde;os</li>
           <li>Fundador de Academia Intrade</li>
         </ul>
+        <div style="margin-top:24px;padding:16px 20px;background:rgba(245,184,0,0.08);border:1px solid rgba(245,184,0,0.25);border-radius:12px;display:flex;align-items:center;gap:14px;">
+          <span style="font-family:inherit;font-size:30px;font-weight:900;color:var(--dorado);line-height:1;flex-shrink:0;">+1.000</span>
+          <span style="font-size:14.5px;color:rgba(255,255,255,0.88);line-height:1.5;">personas ya han recibido sesiones y formaci&oacute;n con Nicol&aacute;s en Latinoam&eacute;rica.</span>
+        </div>
         <div class="mm-cta-seccion" style="text-align:left;margin-top:32px;">
           <button class="mm-cta-seccion-btn" onclick="mmIrAlFormulario()">Aprender con Nicol&aacute;s &uarr;</button>
         </div>
