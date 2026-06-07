@@ -239,12 +239,12 @@
             <span id="gm-saludo-prefix">Bienvenido</span>, <span class="gold" id="gm-nombre"></span><br>
             YA EST&Aacute;S <span class="gold">DENTRO</span>
           </h1>
-          <div class="gm-vsl-wrap" id="gm-vsl-wrap" onclick="gmReproducirVSL(this)" style="margin-left:auto;margin-right:auto;">
-            <div class="gm-vsl-placeholder">
-              <div class="gm-vsl-play"><svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-              <div class="gm-vsl-text">Un mensaje para ti</div>
-              <div class="gm-vsl-sub">Toca para reproducir</div>
-            </div>
+          <div class="gm-vsl-wrap" id="gm-vsl-wrap" style="margin-left:auto;margin-right:auto; max-width:340px; aspect-ratio:auto; cursor:default;">
+            <!-- TEMPORAL: imagen mientras se graba el video, en tamaño reducido.
+                 Cuando esté el video: quitar 'max-width:340px; aspect-ratio:auto; cursor:default'
+                 del style (vuelve a ancho completo 16/9), restaurar el placeholder con
+                 play y volver a poner onclick="gmReproducirVSL(this)" en este div. -->
+            <img src="/MoneyMagnetOnline.png" alt="Money Magnet - Webinar en vivo con Nicolás Cuéllar" style="width:100%;height:auto;display:block;border-radius:inherit;" />
           </div>
           <p class="gm-saludo-sub">
             Te diste el regalo m&aacute;s importante: <strong style="color:#F5B800;">decidir actuar</strong>.
