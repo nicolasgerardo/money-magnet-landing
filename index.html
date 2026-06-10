@@ -642,10 +642,17 @@
             ganas nunca llega a multiplicarse &mdash; y las reglas del juego<br>
             que usan quienes s&iacute; hacen que su capital trabaje por ellos.
           </p>
-          <div class="mm-vsl-wrap" id="mm-vsl-wrap">
-            <video playsinline controls preload="metadata" poster="/MoneyMagnetOnline.png" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;">
+          <div class="mm-vsl-wrap" id="mm-vsl-wrap" onclick="mmReproducirVSL(this)" style="cursor:pointer;">
+            <video id="mm-vsl-video" playsinline preload="metadata" poster="/MoneyMagnetOnline.png" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;">
               <source src="/VSL_MONEY_MAGNET.mp4" type="video/mp4">
             </video>
+            <div class="mm-vsl-placeholder" style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;background:rgba(5,0,16,0.35);border-radius:inherit;">
+              <div class="mm-vsl-play">
+                <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <div class="mm-vsl-text">Conoce el webinar</div>
+              <div class="mm-vsl-sub">Toca para reproducir</div>
+            </div>
           </div>
           <div class="mm-stats">
             <div><div class="mm-stat-val">2 hrs</div><div class="mm-stat-lbl">Duraci&oacute;n</div></div>
@@ -1126,7 +1133,14 @@
     return false;
   };
   window.mmAvisoVIP = function() { window.mmIrAlFormulario(); setTimeout(function(){ alert('Primero registra tu cupo gratis al webinar. El upgrade a VIP estara disponible despues de tu registro.'); }, 700); };
-  window.mmReproducirVSL = function(wrap) { alert('Aqui ira tu video de presentacion del webinar. Para activarlo, sube tu video a Vimeo o YouTube y reemplaza el placeholder en el codigo.'); };
+  window.mmReproducirVSL = function(wrap) {
+    var video = document.getElementById('mm-vsl-video');
+    var overlay = wrap.querySelector('.mm-vsl-placeholder');
+    if (overlay) overlay.style.display = 'none';
+    if (video) { video.controls = true; video.play(); }
+    wrap.style.cursor = 'default';
+    wrap.onclick = null;
+  };
 
   function observeReveal() {
     var els = document.querySelectorAll('.mm-app .reveal');
