@@ -203,13 +203,13 @@
   }
   .mm-app .mm-hero-foto {
     position: absolute; left: 50%; bottom: 0; transform: translateX(-35%);
-    z-index: 3; display: none;
+    height: 88vh; z-index: 3; display: none;
     pointer-events: none; animation: fadeIn 1.2s ease-out;
   }
   @media (min-width: 1024px) { .mm-app .mm-hero-foto { display: block; } }
   .mm-app .mm-hero-foto img {
-    height: 88vh; max-height: 880px; width: auto; object-fit: contain; object-position: bottom;
-    opacity: 0.55; filter: brightness(1.15) contrast(1.05);
+    height: 100%; width: auto; object-fit: contain; object-position: bottom;
+    opacity: 0.60; filter: brightness(1.15) contrast(1.05);
     -webkit-mask-image: linear-gradient(to top, transparent 0%, black 20%, black 85%, transparent 100%);
     mask-image: linear-gradient(to top, transparent 0%, black 20%, black 85%, transparent 100%);
   }
