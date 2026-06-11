@@ -202,16 +202,28 @@
     mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
   }
   .mm-app .mm-hero-foto {
-    position: absolute; inset: 0; z-index: 2;
+    position: absolute; left: 50%; bottom: 0; transform: translateX(-65%);
+    height: 92vh; max-height: 900px; z-index: 3; display: none;
     pointer-events: none; animation: fadeIn 1.5s ease-out;
-    overflow: hidden;
   }
-  @media (max-width: 1023px) { .mm-app .mm-hero-foto { display: none; } }
+  @media (min-width: 1024px) { .mm-app .mm-hero-foto { display: block; } }
   .mm-app .mm-hero-foto img {
-    width: 100%; height: 100%; object-fit: cover; object-position: right center;
-    opacity: 0.25; filter: brightness(1.1) contrast(1.05);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.3) 100%);
-    mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.3) 100%);
+    height: 100%; width: auto; object-fit: contain; object-position: bottom;
+    opacity: 0.45; filter: brightness(1.1) contrast(1.05);
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, black 18%, black 85%, transparent 100%);
+    mask-image: linear-gradient(to top, transparent 0%, black 18%, black 85%, transparent 100%);
+  }
+  /* Fondo de evento presencial (imagenmentor.png) — capa sutil adicional */
+  .mm-app .mm-hero-evento-bg {
+    position: absolute; inset: 0; z-index: 1;
+    pointer-events: none; overflow: hidden;
+  }
+  @media (max-width: 1023px) { .mm-app .mm-hero-evento-bg { display: none; } }
+  .mm-app .mm-hero-evento-bg img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center;
+    opacity: 0.12; filter: brightness(0.9) contrast(1.1);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 25%, rgba(0,0,0,0.5) 75%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 25%, rgba(0,0,0,0.5) 75%, transparent 100%);
   }
   .mm-app .mm-hero-inner {
     position: relative; z-index: 10; max-width: 1600px; margin: 0 auto;
@@ -621,7 +633,10 @@
     <div class="mm-hero-bg"></div>
     <div class="mm-grid-pattern"></div>
     <div class="mm-hero-foto">
-      <img src="/imagenmentor.png" alt="Nicolas Cuellar en evento presencial">
+      <img src="https://drive.google.com/thumbnail?id=1-9zhQ5hMfaj78Se2t7WjQcXwSGocRfaE&sz=w1200" alt="Nicolas Cuellar" referrerpolicy="no-referrer">
+    </div>
+    <div class="mm-hero-evento-bg">
+      <img src="/imagenmentor.png" alt="">
     </div>
     <div class="mm-hero-inner">
       <div class="mm-hero-grid">
