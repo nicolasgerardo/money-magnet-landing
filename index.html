@@ -308,6 +308,13 @@
     cursor: pointer; transition: all 0.3s;
   }
   .mm-app .mm-vsl-placeholder:hover { background-color: rgba(245, 184, 0, 0.05); }
+  /* Ocultar barra de tiempo nativa (solo pause + volumen visibles) */
+  .mm-app video::-webkit-media-controls-timeline { display: none !important; }
+  .mm-app video::-webkit-media-controls-current-time-display { display: none !important; }
+  .mm-app video::-webkit-media-controls-time-remaining-display { display: none !important; }
+  /* Barra de progreso falsa (logarítmica) */
+  .mm-fake-progress { position:absolute; bottom:0; left:0; width:100%; height:4px; z-index:5; background:rgba(255,255,255,0.1); }
+  .mm-fake-progress-bar { height:100%; width:0%; background:linear-gradient(90deg, #F5B800, #FFD24D); border-radius:0 2px 2px 0; transition:width 0.3s linear; }
   .mm-app .mm-vsl-play {
     width: 80px; height: 80px; border-radius: 50%; background: var(--dorado);
     display: flex; align-items: center; justify-content: center; color: var(--azul-marino);
@@ -662,17 +669,27 @@
             ganas nunca llega a multiplicarse &mdash; y las reglas del juego<br>
             que usan quienes s&iacute; hacen que su capital trabaje por ellos.
           </p>
-          <div class="mm-vsl-wrap" id="mm-vsl-wrap" onclick="mmReproducirVSL(this)" style="cursor:pointer;border:2px solid rgba(245,184,0,0.4);box-shadow:0 0 30px rgba(245,184,0,0.15), 0 20px 60px rgba(0,0,0,0.55);">
-            <video id="mm-vsl-video" playsinline preload="metadata" poster="/MoneyMagnetOnline.png" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture oncontextmenu="return false;" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;">
+          <div class="mm-vsl-wrap" id="mm-vsl-wrap" style="border:2px solid rgba(245,184,0,0.4);box-shadow:0 0 30px rgba(245,184,0,0.15), 0 20px 60px rgba(0,0,0,0.55);">
+            <video id="mm-vsl-video" autoplay muted playsinline preload="auto" poster="/MoneyMagnetOnline.png" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture oncontextmenu="return false;" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;">
               <source src="/VSL_MONEY_MAGNET.mp4" type="video/mp4">
             </video>
-            <div class="mm-vsl-placeholder" style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;background:rgba(5,0,16,0.35);border-radius:inherit;">
+            <!-- Overlay: toca para activar sonido -->
+            <div id="mm-vsl-overlay" onclick="mmActivarSonido()" style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;background:rgba(5,0,16,0.25);border-radius:inherit;cursor:pointer;transition:opacity 0.4s;">
               <div class="mm-vsl-play">
-                <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
               </div>
               <div class="mm-vsl-text">Conoce el webinar</div>
-              <div class="mm-vsl-sub">Toca para reproducir</div>
+              <div class="mm-vsl-sub">Toca para activar el sonido</div>
             </div>
+            <!-- Overlay: reproducir otra vez (aparece al terminar) -->
+            <div id="mm-vsl-replay" onclick="mmReplay()" style="position:absolute;top:0;left:0;width:100%;height:100%;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:2;background:rgba(5,0,16,0.55);border-radius:inherit;cursor:pointer;">
+              <div class="mm-vsl-play">
+                <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+              </div>
+              <div class="mm-vsl-text">Reproducir otra vez</div>
+            </div>
+            <!-- Barra de progreso falsa (logarítmica: parece que queda poco) -->
+            <div class="mm-fake-progress"><div class="mm-fake-progress-bar" id="mm-fake-bar"></div></div>
           </div>
           <div class="mm-stats">
             <div><div class="mm-stat-val">2 hrs</div><div class="mm-stat-lbl">Duraci&oacute;n</div></div>
@@ -1153,14 +1170,49 @@
     return false;
   };
   window.mmAvisoVIP = function() { window.mmIrAlFormulario(); setTimeout(function(){ alert('Primero registra tu cupo gratis al webinar. El upgrade a VIP estara disponible despues de tu registro.'); }, 700); };
-  window.mmReproducirVSL = function(wrap) {
+  window.mmReproducirVSL = function() {};
+  window.mmActivarSonido = function() {
     var video = document.getElementById('mm-vsl-video');
-    var overlay = wrap.querySelector('.mm-vsl-placeholder');
-    if (overlay) overlay.style.display = 'none';
-    if (video) { video.controls = true; video.play(); }
-    wrap.style.cursor = 'default';
-    wrap.onclick = null;
+    var overlay = document.getElementById('mm-vsl-overlay');
+    if (video) { video.muted = false; video.controls = true; video.play(); }
+    if (overlay) { overlay.style.opacity = '0'; setTimeout(function(){ overlay.style.display = 'none'; }, 400); }
   };
+  window.mmReplay = function() {
+    var video = document.getElementById('mm-vsl-video');
+    var replay = document.getElementById('mm-vsl-replay');
+    var bar = document.getElementById('mm-fake-bar');
+    if (replay) replay.style.display = 'none';
+    if (bar) bar.style.width = '0%';
+    if (video) { video.currentTime = 0; video.controls = true; video.play(); }
+  };
+  // Anti-seek + barra falsa + replay al terminar
+  (function() {
+    var video = document.getElementById('mm-vsl-video');
+    if (!video) return;
+    var lastTime = 0;
+    // Anti-seek: no permite adelantar, solo retroceder
+    video.addEventListener('timeupdate', function() {
+      if (video.currentTime > lastTime + 1.5) { video.currentTime = lastTime; }
+      else { lastTime = video.currentTime; }
+      // Barra falsa logarítmica (parece que queda poco)
+      var bar = document.getElementById('mm-fake-bar');
+      if (bar && video.duration) {
+        var real = video.currentTime / video.duration;
+        var fake = Math.pow(real, 0.35) * 100; // empieza rápido, se frena al final
+        bar.style.width = Math.min(fake, 100) + '%';
+      }
+    });
+    // Al terminar: poster + replay
+    video.addEventListener('ended', function() {
+      video.controls = false;
+      lastTime = 0;
+      video.load();
+      var replay = document.getElementById('mm-vsl-replay');
+      if (replay) replay.style.display = 'flex';
+      var bar = document.getElementById('mm-fake-bar');
+      if (bar) bar.style.width = '100%';
+    });
+  })();
 
   function observeReveal() {
     var els = document.querySelectorAll('.mm-app .reveal');
