@@ -66,7 +66,7 @@
   @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
 
   /* Cinta animada superior */
-  @keyframes mm-ticker-move { 0% { transform: translateX(0); } 100% { transform: translateX(-60%); } }
+  @keyframes mm-ticker-move { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
   .mm-app .mm-ticker {
     width: 100%; overflow: hidden; white-space: nowrap;
     background: linear-gradient(90deg, var(--dorado-deep), var(--dorado-oscuro), var(--dorado), var(--dorado-oscuro), var(--dorado-deep));
@@ -202,7 +202,7 @@
     mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
   }
   .mm-app .mm-hero-foto {
-    position: absolute; left: 50%; bottom: 0; transform: translateX(-53%);
+    position: absolute; left: 50%; bottom: 0; transform: translateX(-65%);
     height: 88vh; z-index: 3; display: none;
     pointer-events: none; animation: fadeIn 1.2s ease-out;
   }
@@ -223,7 +223,7 @@
   }
   .mm-app .mm-hero-evento-bg::before {
     content: ''; position: absolute; inset: 0; z-index: 1;
-    background: rgba(0,0,0,0.84);
+    background: rgba(0,0,0,0.80);
   }
   .mm-app .mm-hero-evento-bg::after {
     content: ''; position: absolute; inset: 0; z-index: 2;
@@ -662,8 +662,8 @@
             ganas nunca llega a multiplicarse &mdash; y las reglas del juego<br>
             que usan quienes s&iacute; hacen que su capital trabaje por ellos.
           </p>
-          <div class="mm-vsl-wrap" id="mm-vsl-wrap" onclick="mmReproducirVSL(this)" style="cursor:pointer;">
-            <video id="mm-vsl-video" playsinline preload="metadata" poster="/MoneyMagnetOnline.png" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;">
+          <div class="mm-vsl-wrap" id="mm-vsl-wrap" onclick="mmReproducirVSL(this)" style="cursor:pointer;border:2px solid rgba(245,184,0,0.4);box-shadow:0 0 30px rgba(245,184,0,0.15), 0 20px 60px rgba(0,0,0,0.55);">
+            <video id="mm-vsl-video" playsinline preload="metadata" poster="/MoneyMagnetOnline.png" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture oncontextmenu="return false;" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;">
               <source src="/VSL_MONEY_MAGNET.mp4" type="video/mp4">
             </video>
             <div class="mm-vsl-placeholder" style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;background:rgba(5,0,16,0.35);border-radius:inherit;">
