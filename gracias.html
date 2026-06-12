@@ -738,36 +738,53 @@
   setTimeout(function(){ wrap.style.display = 'none'; }, 5000);
 })();
 
-// ====== COUNTDOWN AL EVENTO (usa la fecha del grupo del inscrito) ======
+// ====== COUNTDOWN AL EVENTO (fecha local del grupo del inscrito) ======
 (function gmCountdown() {
-  var grupo = (typeof userData !== 'undefined' && userData.grupo) ? userData.grupo : 'latam_bajo';
-  var fechas = (typeof GM_FECHAS_CAL !== 'undefined') ? GM_FECHAS_CAL : null;
-  if (!fechas) return;
-  var f = fechas[grupo] || fechas.latam_bajo;
-  // GM_FECHAS_CAL tiene formato { ini: '20260619T010000Z', fin: '...' }
-  // Parseamos ini como fecha UTC
-  var iso = f.ini.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z/, '$1-$2-$3T$4:$5:$6Z');
-  var target = new Date(iso);
+  // Fechas UTC de cada grupo (mismas que el calendario)
+  var FECHAS_EVENTO = {
+    latam_bajo: '2026-06-19T01:00:00Z', // 18 jun 8PM COL (UTC-5)
+    latam_alto: '2026-06-20T01:00:00Z', // 19 jun 8PM COL
+    europa:     '2026-06-20T18:00:00Z'  // 20 jun 8PM CET (UTC+2)
+  };
+  var grupo = 'latam_bajo';
+  try { if (userData && userData.grupo) grupo = userData.grupo; } catch(e){}
+  var targetStr = FECHAS_EVENTO[grupo] || FECHAS_EVENTO.latam_bajo;
+  var target = new Date(targetStr);
   if (isNaN(target.getTime())) return;
+
+  // Mostrar la fecha formateada en el idioma local
+  try {
+    var opciones = { weekday:'long', day:'numeric', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit', timeZoneName:'short' };
+    var fechaLocal = target.toLocaleDateString('es', opciones);
+    var elFecha = document.querySelector('#gm-countdown + div');
+    if (!elFecha) {
+      // Insertar la fecha debajo del countdown
+      var cdEl = document.getElementById('gm-countdown');
+      if (cdEl) {
+        var fDiv = document.createElement('div');
+        fDiv.style.cssText = 'text-align:center;font-size:13px;color:rgba(255,255,255,0.5);margin-top:8px;font-weight:500;';
+        fDiv.textContent = fechaLocal.charAt(0).toUpperCase() + fechaLocal.slice(1);
+        cdEl.parentNode.insertBefore(fDiv, cdEl.nextSibling.nextSibling);
+      }
+    }
+  } catch(e){}
 
   function actualizar() {
     var ahora = new Date();
     var diff = target.getTime() - ahora.getTime();
-    if (diff <= 0) {
-      document.getElementById('gm-cd-dias').textContent = '0';
-      document.getElementById('gm-cd-horas').textContent = '0';
-      document.getElementById('gm-cd-min').textContent = '0';
-      document.getElementById('gm-cd-seg').textContent = '0';
-      return;
-    }
+    if (diff <= 0) { diff = 0; }
     var d = Math.floor(diff / 86400000);
     var h = Math.floor((diff % 86400000) / 3600000);
     var m = Math.floor((diff % 3600000) / 60000);
     var s = Math.floor((diff % 60000) / 1000);
-    document.getElementById('gm-cd-dias').textContent = d;
-    document.getElementById('gm-cd-horas').textContent = String(h).padStart(2,'0');
-    document.getElementById('gm-cd-min').textContent = String(m).padStart(2,'0');
-    document.getElementById('gm-cd-seg').textContent = String(s).padStart(2,'0');
+    var ed = document.getElementById('gm-cd-dias');
+    var eh = document.getElementById('gm-cd-horas');
+    var em = document.getElementById('gm-cd-min');
+    var es = document.getElementById('gm-cd-seg');
+    if (ed) ed.textContent = d;
+    if (eh) eh.textContent = String(h).padStart(2,'0');
+    if (em) em.textContent = String(m).padStart(2,'0');
+    if (es) es.textContent = String(s).padStart(2,'0');
   }
   actualizar();
   setInterval(actualizar, 1000);
