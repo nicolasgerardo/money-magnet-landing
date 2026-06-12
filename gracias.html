@@ -38,6 +38,37 @@
   @keyframes float-particle { 0%,100%{transform:translateY(0) rotate(0deg); opacity:.3;} 50%{transform:translateY(-80vh) rotate(180deg); opacity:.8;} }
   @keyframes pulse-soft { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
   @keyframes gm-flechas-pulso { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+  /* Confetti celebración */
+  @keyframes gm-confetti-fall { 0%{transform:translateY(-100vh) rotate(0deg);opacity:1;} 100%{transform:translateY(100vh) rotate(720deg);opacity:0;} }
+  .gm-confetti-wrap { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999; overflow:hidden; }
+  .gm-confetti-piece { position:absolute; width:10px; height:10px; top:-20px; border-radius:2px; animation:gm-confetti-fall linear forwards; }
+
+  /* Cinta animada superior */
+  @keyframes gm-ticker-move { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+  .gm-app .gm-ticker {
+    width:100%; overflow:hidden; white-space:nowrap;
+    background:linear-gradient(90deg, #8B6914, #B8860B, #F5B800, #B8860B, #8B6914);
+    border-bottom:1px solid rgba(245,184,0,0.4);
+    padding:8px 0; position:relative; z-index:40;
+  }
+  .gm-app .gm-ticker-track {
+    display:inline-flex; white-space:nowrap;
+    animation:gm-ticker-move 24s linear infinite;
+  }
+  .gm-app .gm-ticker-track span {
+    color:#0B1131; font-weight:800; font-size:11px;
+    letter-spacing:1.5px; text-transform:uppercase; padding-right:8px;
+  }
+
+  /* Countdown */
+  .gm-countdown { display:flex; justify-content:center; gap:12px; margin:20px 0; }
+  .gm-cd-box {
+    background:rgba(245,184,0,0.06); border:1px solid rgba(245,184,0,0.2);
+    border-radius:12px; padding:12px 16px; text-align:center; min-width:60px;
+  }
+  .gm-cd-num { font-family:inherit; font-size:28px; font-weight:900; color:#F5B800; line-height:1; }
+  .gm-cd-lbl { font-size:9px; color:rgba(255,255,255,0.35); letter-spacing:2px; text-transform:uppercase; margin-top:4px; }
   @keyframes scaleIn { 0%{transform:scale(0); opacity:0;} 50%{transform:scale(1.1);} 100%{transform:scale(1); opacity:1;} }
   @keyframes pulse-strong { 0%,100%{box-shadow:0 8px 32px rgba(245,184,0,0.4); transform:scale(1);} 50%{box-shadow:0 8px 44px rgba(245,184,0,0.6); transform:scale(1.05);} }
   @keyframes vip-glow { 0%,100%{box-shadow:0 0 0 1px rgba(245,184,0,0.25),0 12px 50px rgba(245,184,0,0.20),inset 0 1px 0 rgba(255,255,255,0.08);} 50%{box-shadow:0 0 0 1px rgba(245,184,0,0.45),0 16px 64px rgba(245,184,0,0.38),inset 0 1px 0 rgba(255,255,255,0.12);} }
@@ -222,6 +253,17 @@
   <div class="gm-particles" id="gm-particles"></div>
   <div class="gm-glow"></div>
 
+  <!-- ====== CONFETTI CELEBRACIÓN ====== -->
+  <div class="gm-confetti-wrap" id="gm-confetti"></div>
+
+  <!-- ====== CINTA ANIMADA ====== -->
+  <div class="gm-ticker">
+    <div class="gm-ticker-track">
+      <span>&#x1F389; TU LUGAR EST&Aacute; CONFIRMADO &nbsp;&bull;&nbsp; MONEY MAGNET &nbsp;&bull;&nbsp; PREP&Aacute;RATE PARA CAMBIAR LA FORMA EN QUE JUEGAS EL JUEGO DEL DINERO &nbsp;&bull;&nbsp;</span>
+      <span>&#x1F389; TU LUGAR EST&Aacute; CONFIRMADO &nbsp;&bull;&nbsp; MONEY MAGNET &nbsp;&bull;&nbsp; PREP&Aacute;RATE PARA CAMBIAR LA FORMA EN QUE JUEGAS EL JUEGO DEL DINERO &nbsp;&bull;&nbsp;</span>
+    </div>
+  </div>
+
   <div id="gm-contenido" style="display:none;">
     <nav class="gm-nav">
       <div class="gm-nav-inner">
@@ -257,7 +299,7 @@
               <span style="display:inline-block;background:rgba(245,184,0,0.1);border:1px solid rgba(245,184,0,0.3);border-radius:100px;padding:6px 20px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#F5B800;animation:gm-flechas-pulso 1.5s ease-in-out infinite;">&#x1F50A; ESCUCHA ESTE MENSAJE ANTES DE CONTINUAR</span>
             </div>
             <div class="gm-vsl-wrap" id="gm-vsl-wrap" style="margin-left:auto;margin-right:auto;border:2px solid rgba(245,184,0,0.4);box-shadow:0 0 30px rgba(245,184,0,0.15), 0 20px 60px rgba(0,0,0,0.55);">
-              <video id="gm-vsl-video" autoplay muted playsinline preload="auto" poster="/MoneyMagnetOnline.png" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;">
+              <video id="gm-vsl-video" autoplay muted playsinline preload="auto" poster="/MoneyMagnetOnline.png" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture oncontextmenu="return false;" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;">
                 <source src="/VSL_GRACIAS.mp4" type="video/mp4">
               </video>
               <!-- Overlay: toca para activar sonido (el video ya se reproduce muted) -->
@@ -286,6 +328,18 @@
               <div class="gm-evento-hora" id="gm-hora-display">8:00 PM &middot; 2 horas en vivo</div>
             </div>
           </div>
+        </div>
+
+        <!-- ====== COUNTDOWN AL EVENTO ====== -->
+        <div class="gm-card" style="text-align:center;background:linear-gradient(135deg, rgba(245,184,0,0.04), rgba(245,184,0,0.01));border-color:rgba(245,184,0,0.2);">
+          <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);font-weight:700;margin-bottom:8px;">EL WEBINAR COMIENZA EN</div>
+          <div class="gm-countdown" id="gm-countdown">
+            <div class="gm-cd-box"><div class="gm-cd-num" id="gm-cd-dias">--</div><div class="gm-cd-lbl">D&iacute;as</div></div>
+            <div class="gm-cd-box"><div class="gm-cd-num" id="gm-cd-horas">--</div><div class="gm-cd-lbl">Horas</div></div>
+            <div class="gm-cd-box"><div class="gm-cd-num" id="gm-cd-min">--</div><div class="gm-cd-lbl">Min</div></div>
+            <div class="gm-cd-box"><div class="gm-cd-num" id="gm-cd-seg">--</div><div class="gm-cd-lbl">Seg</div></div>
+          </div>
+          <div style="font-size:12px;color:rgba(245,184,0,0.7);font-weight:600;">&#x26A0;&#xFE0F; En vivo &middot; Sin grabaci&oacute;n en el plan gratuito</div>
         </div>
 
         <!-- ====== COMUNIDADES: WHATSAPP + TELEGRAM (ARRIBA DEL QR) ====== -->
@@ -662,6 +716,61 @@
       botones.forEach(function(b){ b.disabled = false; b.style.opacity = '1'; });
     });
   };
+})();
+
+// ====== CONFETTI CELEBRACIÓN (se autodestruye después de 4s) ======
+(function gmConfetti() {
+  var wrap = document.getElementById('gm-confetti');
+  if (!wrap) return;
+  var colores = ['#F5B800','#FFD24D','#B8860B','#fff','#37CA37','#6B7BFF'];
+  for (var i = 0; i < 80; i++) {
+    var p = document.createElement('div');
+    p.className = 'gm-confetti-piece';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.background = colores[Math.floor(Math.random() * colores.length)];
+    p.style.width = (6 + Math.random() * 8) + 'px';
+    p.style.height = (6 + Math.random() * 8) + 'px';
+    p.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    p.style.animationDuration = (2 + Math.random() * 2) + 's';
+    p.style.animationDelay = (Math.random() * 1.5) + 's';
+    wrap.appendChild(p);
+  }
+  setTimeout(function(){ wrap.style.display = 'none'; }, 5000);
+})();
+
+// ====== COUNTDOWN AL EVENTO (usa la fecha del grupo del inscrito) ======
+(function gmCountdown() {
+  var grupo = (typeof userData !== 'undefined' && userData.grupo) ? userData.grupo : 'latam_bajo';
+  var fechas = (typeof GM_FECHAS_CAL !== 'undefined') ? GM_FECHAS_CAL : null;
+  if (!fechas) return;
+  var f = fechas[grupo] || fechas.latam_bajo;
+  // GM_FECHAS_CAL tiene formato { ini: '20260619T010000Z', fin: '...' }
+  // Parseamos ini como fecha UTC
+  var iso = f.ini.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z/, '$1-$2-$3T$4:$5:$6Z');
+  var target = new Date(iso);
+  if (isNaN(target.getTime())) return;
+
+  function actualizar() {
+    var ahora = new Date();
+    var diff = target.getTime() - ahora.getTime();
+    if (diff <= 0) {
+      document.getElementById('gm-cd-dias').textContent = '0';
+      document.getElementById('gm-cd-horas').textContent = '0';
+      document.getElementById('gm-cd-min').textContent = '0';
+      document.getElementById('gm-cd-seg').textContent = '0';
+      return;
+    }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('gm-cd-dias').textContent = d;
+    document.getElementById('gm-cd-horas').textContent = String(h).padStart(2,'0');
+    document.getElementById('gm-cd-min').textContent = String(m).padStart(2,'0');
+    document.getElementById('gm-cd-seg').textContent = String(s).padStart(2,'0');
+  }
+  actualizar();
+  setInterval(actualizar, 1000);
 })();
 </script>
 </body>
