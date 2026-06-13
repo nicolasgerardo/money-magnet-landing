@@ -312,6 +312,7 @@
   .mm-app video::-webkit-media-controls-timeline { display: none !important; }
   .mm-app video::-webkit-media-controls-current-time-display { display: none !important; }
   .mm-app video::-webkit-media-controls-time-remaining-display { display: none !important; }
+  .mm-app video::-webkit-media-controls-overflow-button { display: none !important; }
   /* Barra de progreso falsa (logarítmica) */
   .mm-fake-progress { position:absolute; bottom:0; left:0; width:100%; height:4px; z-index:5; background:rgba(255,255,255,0.1); }
   .mm-fake-progress-bar { height:100%; width:0%; background:linear-gradient(90deg, #F5B800, #FFD24D); border-radius:0 2px 2px 0; transition:width 0.3s linear; }
@@ -674,7 +675,7 @@
               <source src="/VSL_MONEY_MAGNET.mp4" type="video/mp4">
             </video>
             <!-- Overlay: toca para activar sonido -->
-            <div id="mm-vsl-overlay" onclick="mmActivarSonido()" style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;background:rgba(5,0,16,0.25);border-radius:inherit;cursor:pointer;transition:opacity 0.4s;">
+            <div id="mm-vsl-overlay" onclick="mmActivarSonido()" style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:4;background:rgba(5,0,16,0.65);border-radius:inherit;cursor:pointer;transition:opacity 0.4s;">
               <div class="mm-vsl-play">
                 <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
               </div>
@@ -1190,6 +1191,8 @@
     var video = document.getElementById('mm-vsl-video');
     if (!video) return;
     var lastTime = 0;
+    // Bloquear cambio de velocidad
+    video.addEventListener('ratechange', function() { if (video.playbackRate !== 1) video.playbackRate = 1; });
     // Anti-seek: no permite adelantar, solo retroceder
     video.addEventListener('timeupdate', function() {
       if (video.currentTime > lastTime + 1.5) { video.currentTime = lastTime; }
