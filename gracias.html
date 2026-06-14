@@ -93,11 +93,21 @@
 
   /* VSL */
   .gm-app .gm-vsl-wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(245, 184, 0, 0.25); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55); background: #0B1131; margin-bottom: 22px; cursor: pointer; }
-  /* Ocultar barra de tiempo nativa */
-  .gm-app video::-webkit-media-controls-timeline { display: none !important; }
-  .gm-app video::-webkit-media-controls-current-time-display { display: none !important; }
-  .gm-app video::-webkit-media-controls-time-remaining-display { display: none !important; }
-  .gm-app video::-webkit-media-controls-overflow-button { display: none !important; }
+  .gm-app video::-webkit-media-controls { display: none !important; }
+  .gm-app video::-webkit-media-controls-enclosure { display: none !important; }
+  .gm-vid-controls {
+    position:absolute; bottom:12px; left:12px; z-index:6;
+    display:none; gap:8px; align-items:center;
+  }
+  .gm-vid-btn {
+    width:36px; height:36px; border-radius:50%;
+    background:rgba(0,0,0,0.6); backdrop-filter:blur(6px);
+    border:1px solid rgba(255,255,255,0.2);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; color:#fff; transition:all 0.2s;
+  }
+  .gm-vid-btn:hover { background:rgba(245,184,0,0.3); border-color:rgba(245,184,0,0.5); }
+  .gm-vid-btn svg { width:18px; height:18px; }
   /* Barra de progreso falsa */
   .gm-fake-progress { position:absolute; bottom:0; left:0; width:100%; height:4px; z-index:5; background:rgba(255,255,255,0.1); }
   .gm-fake-progress-bar { height:100%; width:0%; background:linear-gradient(90deg, #F5B800, #FFD24D); border-radius:0 2px 2px 0; transition:width 0.3s linear; }
@@ -315,6 +325,15 @@
                 <div style="display:flex;align-items:center;gap:10px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);border-radius:100px;padding:10px 22px;animation:pulse-soft 2s infinite;">
                   <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
                   <span style="color:#fff;font-size:13px;font-weight:700;">Toca para activar el sonido</span>
+                </div>
+              </div>
+              <!-- Controles custom: play/pausa + volumen -->
+              <div class="gm-vid-controls" id="gm-vid-controls">
+                <div class="gm-vid-btn" onclick="gmTogglePlay()">
+                  <svg id="gm-icon-play" fill="currentColor" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+                </div>
+                <div class="gm-vid-btn" onclick="gmToggleVol()">
+                  <svg id="gm-icon-vol" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
                 </div>
               </div>
               <!-- Barra de progreso falsa (logarítmica) -->
@@ -686,10 +705,27 @@
   window.gmActivarSonido = function() {
     var video = document.getElementById('gm-vsl-video');
     var overlay = document.getElementById('gm-vsl-overlay');
-    if (video) { video.muted = false; video.controls = true; video.play(); }
+    var ctrls = document.getElementById('gm-vid-controls');
+    if (video) { video.muted = false; video.play(); }
     if (overlay) { overlay.style.opacity = '0'; setTimeout(function(){ overlay.style.display = 'none'; }, 400); }
+    if (ctrls) ctrls.style.display = 'flex';
     var flechas = document.querySelectorAll('.gm-flechas-video');
     flechas.forEach(function(f){ f.style.display = 'none'; });
+  };
+  window.gmTogglePlay = function() {
+    var video = document.getElementById('gm-vsl-video');
+    var icon = document.getElementById('gm-icon-play');
+    if (!video) return;
+    if (video.paused) { video.play(); icon.innerHTML = '<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>'; }
+    else { video.pause(); icon.innerHTML = '<path d="M8 5v14l11-7z"/>'; }
+  };
+  window.gmToggleVol = function() {
+    var video = document.getElementById('gm-vsl-video');
+    var icon = document.getElementById('gm-icon-vol');
+    if (!video) return;
+    video.muted = !video.muted;
+    if (video.muted) icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+    else icon.innerHTML = '<path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>';
   };
   // Anti-seek + barra falsa logarítmica
   (function() {
@@ -814,6 +850,75 @@
   }
   actualizar();
   setInterval(actualizar, 1000);
+})();
+</script>
+
+<!-- ====== COOKIE CONSENT + PIXELS ====== -->
+<style>
+.gm-cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(11,17,49,0.97);backdrop-filter:blur(12px);border-top:1px solid rgba(245,184,0,0.2);padding:16px 24px;display:none;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;font-family:inherit;font-size:13px;color:rgba(255,255,255,0.7);}
+.gm-cookie-banner a{color:#F5B800;text-decoration:underline;}
+.gm-cookie-btn{padding:8px 20px;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;border:none;font-family:inherit;text-transform:uppercase;letter-spacing:0.5px;}
+.gm-cookie-accept{background:#F5B800;color:#0B1131;}
+.gm-cookie-reject{background:transparent;color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.2);}
+</style>
+
+<div class="gm-cookie-banner" id="gm-cookie-banner">
+  <span>Usamos cookies para mejorar tu experiencia y medir el rendimiento de nuestros anuncios. <a href="/legal" target="_blank">M&aacute;s info</a></span>
+  <div style="display:flex;gap:8px;">
+    <button class="gm-cookie-btn gm-cookie-accept" onclick="gmCookieConsent(true)">Aceptar todo</button>
+    <button class="gm-cookie-btn gm-cookie-reject" onclick="gmCookieConsent(false)">Solo esenciales</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var CONSENT_KEY = 'mm_cookie_consent';
+  var saved = localStorage.getItem(CONSENT_KEY);
+
+  window.gmCookieConsent = function(acepta) {
+    localStorage.setItem(CONSENT_KEY, acepta ? 'all' : 'essential');
+    document.getElementById('gm-cookie-banner').style.display = 'none';
+    if (acepta) gmLoadPixels();
+  };
+
+  function gmLoadPixels() {
+    // ─── META PIXEL ───
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'TU_META_PIXEL_ID');
+    fbq('track', 'PageView');
+    fbq('track', 'CompleteRegistration', { content_name: 'Money Magnet' });
+
+    // ─── GOOGLE TAG ───
+    var gs = document.createElement('script');
+    gs.async = true; gs.src = 'https://www.googletagmanager.com/gtag/js?id=TU_GOOGLE_TAG_ID';
+    document.head.appendChild(gs);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', 'TU_GOOGLE_TAG_ID');
+    gtag('event', 'conversion', { send_to: 'TU_GOOGLE_TAG_ID/registro' });
+
+    // ─── TIKTOK PIXEL ───
+    !function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=
+    ["page","track","identify","instances","debug","on","off","once","ready","alias",
+    "group","enableCookie","disableCookie"];ttq.setAndDefer=function(t,e){t[e]=function()
+    {t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;
+    i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],
+    n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};ttq.load=function(e,n)
+    {var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{};ttq._i[e]=[];
+    ttq._i[e]._u=i;ttq._t=ttq._t||{};ttq._t[e]=+new Date;ttq._o=ttq._o||{};ttq._o[e]=n||{};
+    var o=d.createElement("script");o.type="text/javascript";o.async=!0;o.src=i+"?sdkid="+e+"&lib="+t;
+    var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+    ttq.load('TU_TIKTOK_PIXEL_ID');ttq.page();ttq.track('CompleteRegistration');}(window,document,'ttq');
+  }
+
+  if (saved === 'all') { gmLoadPixels(); }
+  else if (saved === 'essential') {}
+  else { document.getElementById('gm-cookie-banner').style.display = 'flex'; }
 })();
 </script>
 </body>
