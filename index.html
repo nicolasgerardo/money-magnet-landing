@@ -308,11 +308,22 @@
     cursor: pointer; transition: all 0.3s;
   }
   .mm-app .mm-vsl-placeholder:hover { background-color: rgba(245, 184, 0, 0.05); }
-  /* Ocultar barra de tiempo nativa (solo pause + volumen visibles) */
-  .mm-app video::-webkit-media-controls-timeline { display: none !important; }
-  .mm-app video::-webkit-media-controls-current-time-display { display: none !important; }
-  .mm-app video::-webkit-media-controls-time-remaining-display { display: none !important; }
-  .mm-app video::-webkit-media-controls-overflow-button { display: none !important; }
+  .mm-app video::-webkit-media-controls { display: none !important; }
+  .mm-app video::-webkit-media-controls-enclosure { display: none !important; }
+  /* Controles custom: play/pausa + volumen */
+  .mm-vid-controls {
+    position:absolute; bottom:12px; left:12px; z-index:6;
+    display:none; gap:8px; align-items:center;
+  }
+  .mm-vid-btn {
+    width:36px; height:36px; border-radius:50%;
+    background:rgba(0,0,0,0.6); backdrop-filter:blur(6px);
+    border:1px solid rgba(255,255,255,0.2);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; color:#fff; transition:all 0.2s;
+  }
+  .mm-vid-btn:hover { background:rgba(245,184,0,0.3); border-color:rgba(245,184,0,0.5); }
+  .mm-vid-btn svg { width:18px; height:18px; }
   /* Barra de progreso falsa (logarítmica) */
   .mm-fake-progress { position:absolute; bottom:0; left:0; width:100%; height:4px; z-index:5; background:rgba(255,255,255,0.1); }
   .mm-fake-progress-bar { height:100%; width:0%; background:linear-gradient(90deg, #F5B800, #FFD24D); border-radius:0 2px 2px 0; transition:width 0.3s linear; }
@@ -688,6 +699,15 @@
                 <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
               </div>
               <div class="mm-vsl-text">Reproducir otra vez</div>
+            </div>
+            <!-- Controles custom: play/pausa + volumen -->
+            <div class="mm-vid-controls" id="mm-vid-controls">
+              <div class="mm-vid-btn" id="mm-btn-play" onclick="mmTogglePlay()">
+                <svg id="mm-icon-play" fill="currentColor" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+              </div>
+              <div class="mm-vid-btn" id="mm-btn-vol" onclick="mmToggleVol()">
+                <svg id="mm-icon-vol" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
+              </div>
             </div>
             <!-- Barra de progreso falsa (logarítmica: parece que queda poco) -->
             <div class="mm-fake-progress"><div class="mm-fake-progress-bar" id="mm-fake-bar"></div></div>
@@ -1149,6 +1169,16 @@
     tick(); cdInt = setInterval(tick, 1000);
   }
 
+  // ====== UTM + Tracking ======
+  window.mmGetUTM = function(param) {
+    try { return new URLSearchParams(window.location.search).get(param) || ''; } catch(e){ return ''; }
+  };
+  window.mmFirePixelLead = function(email) {
+    try { if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'Money Magnet' }); } catch(e){}
+    try { if (typeof gtag === 'function') gtag('event', 'generate_lead', { event_category: 'webinar' }); } catch(e){}
+    try { if (typeof ttq !== 'undefined') ttq.track('SubmitForm', { content_name: 'Money Magnet' }); } catch(e){}
+  };
+
   window.mmEnviarFormulario = function(e, source) {
     e.preventDefault();
     var form = e.target;
@@ -1161,11 +1191,12 @@
     if (!email || !nombre || !pais) { if (msg) { msg.className = 'mm-form-msg error'; msg.textContent = 'Completa todos los campos requeridos'; } btn.disabled = false; btn.textContent = source === 'hero' ? 'REGISTRARME GRATIS' : 'QUIERO MI LUGAR GRATIS'; return false; }
     var grupo = GRUPOS_PAIS[pais] || 'latam_bajo'; var ev = EVENTOS[grupo]; var paisObj = PAISES.find(function(p){return p.code===pais;}) || {name:pais};
     var ticketId = 'MM-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2,5).toUpperCase();
-    var payload = { fuente: 'landing_money_magnet', url_origen: window.location.href, email: email, nombre: nombre, apellido: apellido, sexo: sexo, pais: paisObj.name, pais_codigo: pais, telefono: indicativo + telefono, whatsapp: indicativo + telefono, grupo_evento: grupo, fecha_evento: ev.fecha_display, etiquetas: 'evento_' + grupo + ',webinar_money_magnet', ticket_id: ticketId, acepta_terminos: true, acepta_terminos_ts: new Date().toISOString() };
+    var payload = { fuente: 'landing_money_magnet', url_origen: window.location.href, email: email, nombre: nombre, apellido: apellido, sexo: sexo, pais: paisObj.name, pais_codigo: pais, telefono: indicativo + telefono, whatsapp: indicativo + telefono, grupo_evento: grupo, fecha_evento: ev.fecha_display, etiquetas: 'evento_' + grupo + ',webinar_money_magnet', ticket_id: ticketId, acepta_terminos: true, acepta_terminos_ts: new Date().toISOString(), utm_source: mmGetUTM('utm_source'), utm_medium: mmGetUTM('utm_medium'), utm_campaign: mmGetUTM('utm_campaign'), utm_content: mmGetUTM('utm_content'), utm_term: mmGetUTM('utm_term'), referrer: document.referrer || '' };
     function safeBase64(str) { return btoa(unescape(encodeURIComponent(str))); }
     var userData = { n: nombre, a: apellido, e: email, s: sexo, p: paisObj.name, pc: pais, g: grupo, fe: ev.fecha_display, he: ev.hora_origen, wp: ev.whatsapp, tg: ev.telegram, tel: indicativo + telefono, t: ticketId };
     var targetUrl = '/gracias?d=' + encodeURIComponent(safeBase64(JSON.stringify(userData)));
     fetch(APPS_SCRIPT_URL + '?action=registro_landing', { method: 'POST', body: JSON.stringify(payload), mode: 'no-cors' }).then(function() {}).catch(function() {});
+    try { mmFirePixelLead(email); } catch(e) {}
     if (msg) { msg.className = 'mm-form-msg success'; msg.textContent = 'Listo! Redirigiendo a tu boleto...'; }
     setTimeout(function(){ window.location.href = targetUrl; }, 800);
     return false;
@@ -1175,16 +1206,35 @@
   window.mmActivarSonido = function() {
     var video = document.getElementById('mm-vsl-video');
     var overlay = document.getElementById('mm-vsl-overlay');
-    if (video) { video.muted = false; video.controls = true; video.play(); }
+    var ctrls = document.getElementById('mm-vid-controls');
+    if (video) { video.muted = false; video.play(); }
     if (overlay) { overlay.style.opacity = '0'; setTimeout(function(){ overlay.style.display = 'none'; }, 400); }
+    if (ctrls) ctrls.style.display = 'flex';
+  };
+  window.mmTogglePlay = function() {
+    var video = document.getElementById('mm-vsl-video');
+    var icon = document.getElementById('mm-icon-play');
+    if (!video) return;
+    if (video.paused) { video.play(); icon.innerHTML = '<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>'; }
+    else { video.pause(); icon.innerHTML = '<path d="M8 5v14l11-7z"/>'; }
+  };
+  window.mmToggleVol = function() {
+    var video = document.getElementById('mm-vsl-video');
+    var icon = document.getElementById('mm-icon-vol');
+    if (!video) return;
+    video.muted = !video.muted;
+    if (video.muted) icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+    else icon.innerHTML = '<path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>';
   };
   window.mmReplay = function() {
     var video = document.getElementById('mm-vsl-video');
     var replay = document.getElementById('mm-vsl-replay');
     var bar = document.getElementById('mm-fake-bar');
+    var ctrls = document.getElementById('mm-vid-controls');
     if (replay) replay.style.display = 'none';
     if (bar) bar.style.width = '0%';
-    if (video) { video.currentTime = 0; video.controls = true; video.play(); }
+    if (ctrls) ctrls.style.display = 'flex';
+    if (video) { video.currentTime = 0; video.play(); }
   };
   // Anti-seek + barra falsa + replay al terminar
   (function() {
@@ -1207,11 +1257,12 @@
     });
     // Al terminar: poster + replay
     video.addEventListener('ended', function() {
-      video.controls = false;
       lastTime = 0;
       video.load();
       var replay = document.getElementById('mm-vsl-replay');
       if (replay) replay.style.display = 'flex';
+      var ctrls = document.getElementById('mm-vid-controls');
+      if (ctrls) ctrls.style.display = 'none';
       var bar = document.getElementById('mm-fake-bar');
       if (bar) bar.style.width = '100%';
     });
@@ -1224,6 +1275,78 @@
   }
   function init() { poblarSelectores(); detectarPais(); observeReveal(); }
   if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
+})();
+</script>
+
+<!-- ====== COOKIE CONSENT + PIXELS (Meta, Google, TikTok) ====== -->
+<style>
+.mm-cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(11,17,49,0.97);backdrop-filter:blur(12px);border-top:1px solid rgba(245,184,0,0.2);padding:16px 24px;display:none;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;font-family:inherit;font-size:13px;color:rgba(255,255,255,0.7);}
+.mm-cookie-banner a{color:#F5B800;text-decoration:underline;}
+.mm-cookie-btn{padding:8px 20px;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;border:none;font-family:inherit;text-transform:uppercase;letter-spacing:0.5px;}
+.mm-cookie-accept{background:#F5B800;color:#0B1131;}
+.mm-cookie-reject{background:transparent;color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.2);}
+</style>
+
+<div class="mm-cookie-banner" id="mm-cookie-banner">
+  <span>Usamos cookies para mejorar tu experiencia y medir el rendimiento de nuestros anuncios. <a href="/legal" target="_blank">M&aacute;s info</a></span>
+  <div style="display:flex;gap:8px;">
+    <button class="mm-cookie-btn mm-cookie-accept" onclick="mmCookieConsent(true)">Aceptar todo</button>
+    <button class="mm-cookie-btn mm-cookie-reject" onclick="mmCookieConsent(false)">Solo esenciales</button>
+  </div>
+</div>
+
+<script>
+// Cookie consent + pixel loading
+(function(){
+  var CONSENT_KEY = 'mm_cookie_consent';
+  var saved = localStorage.getItem(CONSENT_KEY);
+
+  window.mmCookieConsent = function(acepta) {
+    localStorage.setItem(CONSENT_KEY, acepta ? 'all' : 'essential');
+    document.getElementById('mm-cookie-banner').style.display = 'none';
+    if (acepta) mmLoadPixels();
+  };
+
+  function mmLoadPixels() {
+    // ─── META PIXEL (Facebook/Instagram) ───
+    // Reemplaza TU_META_PIXEL_ID con tu ID real de Meta Business
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'TU_META_PIXEL_ID');
+    fbq('track', 'PageView');
+
+    // ─── GOOGLE TAG (Google Ads / Analytics) ───
+    // Reemplaza TU_GOOGLE_TAG_ID (formato G-XXXXXXX o AW-XXXXXXX)
+    var gs = document.createElement('script');
+    gs.async = true; gs.src = 'https://www.googletagmanager.com/gtag/js?id=TU_GOOGLE_TAG_ID';
+    document.head.appendChild(gs);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', 'TU_GOOGLE_TAG_ID');
+
+    // ─── TIKTOK PIXEL ───
+    // Reemplaza TU_TIKTOK_PIXEL_ID
+    !function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=
+    ["page","track","identify","instances","debug","on","off","once","ready","alias",
+    "group","enableCookie","disableCookie"];ttq.setAndDefer=function(t,e){t[e]=function()
+    {t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;
+    i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],
+    n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};ttq.load=function(e,n)
+    {var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{};ttq._i[e]=[];
+    ttq._i[e]._u=i;ttq._t=ttq._t||{};ttq._t[e]=+new Date;ttq._o=ttq._o||{};ttq._o[e]=n||{};
+    var o=d.createElement("script");o.type="text/javascript";o.async=!0;o.src=i+"?sdkid="+e+"&lib="+t;
+    var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+    ttq.load('TU_TIKTOK_PIXEL_ID');ttq.page();}(window,document,'ttq');
+  }
+
+  // Mostrar banner o cargar pixels según consent previo
+  if (saved === 'all') { mmLoadPixels(); }
+  else if (saved === 'essential') { /* no cargar pixels */ }
+  else { document.getElementById('mm-cookie-banner').style.display = 'flex'; }
 })();
 </script>
 </body>
