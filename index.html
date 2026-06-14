@@ -3,17 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>&iexcl;Est&aacute;s dentro! - Money Magnet | Academia Intrade</title>
-  <meta name="robots" content="noindex, follow">
 
-  <!-- ===== OPEN GRAPH ===== -->
+  <!-- ===== SEO TÉCNICO BÁSICO ===== -->
+  <title>Money Magnet 2026 · Webinar gratuito para multiplicar tu capital | Academia Intrade</title>
+  <meta name="description" content="Webinar gratuito Money Magnet con Nicolás Cuéllar: aprende a ganar el juego del dinero y a multiplicar tu capital con método, desde cualquier parte del mundo. 18, 19 y 20 de junio de 2026.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://magnet.academiaintrade.com/">
+  <meta name="theme-color" content="#0B1131">
+
+  <!-- ===== OPEN GRAPH (vista previa al compartir en WhatsApp / Facebook / etc.) ===== -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Academia Intrade">
-  <meta property="og:title" content="¡Estás dentro! · Money Magnet">
-  <meta property="og:description" content="Tu lugar al webinar Money Magnet está confirmado. Prepárate para aprender a ganar el juego del dinero.">
+  <meta property="og:title" content="Money Magnet · Webinar gratuito para multiplicar tu capital">
+  <meta property="og:description" content="2 horas para aprender las reglas del juego del dinero y multiplicar tu capital con método. Gratis y en vivo con Nicolás Cuéllar.">
+  <meta property="og:url" content="https://magnet.academiaintrade.com/">
+  <!-- IMPORTANTE: sube og-money-magnet.jpg (1200x630) a la raíz de tu repo Vercel -->
   <meta property="og:image" content="https://magnet.academiaintrade.com/og-money-magnet.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="es_LA">
+
+  <!-- ===== TWITTER CARD ===== -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Money Magnet · Webinar gratuito para multiplicar tu capital">
+  <meta name="twitter:description" content="2 horas para aprender las reglas del juego del dinero y multiplicar tu capital con método. Gratis y en vivo.">
+  <meta name="twitter:image" content="https://magnet.academiaintrade.com/og-money-magnet.jpg">
 
   <link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=1CHWmWv6AEysbPzUN0UvHl_-FyzgyhKIp&sz=w120">
   <link rel="apple-touch-icon" href="https://drive.google.com/thumbnail?id=1CHWmWv6AEysbPzUN0UvHl_-FyzgyhKIp&sz=w180">
@@ -22,867 +36,1280 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap');
 
-  .gm-app * { box-sizing: border-box; margin: 0; padding: 0; }
-  .gm-app {
-    --dorado: #F5B800; --dorado-claro: #FFD24D; --dorado-oscuro: #B8860B;
-    --azul-marino: #0B1131; --azul-marino-2: #1A1F3D; --azul-marino-3: #2A2F4C;
+  .mm-app * { box-sizing: border-box; margin: 0; padding: 0; }
+  .mm-app {
+    --dorado: #F5B800;
+    --dorado-claro: #FFD24D;
+    --dorado-oscuro: #B8860B;
+    --dorado-deep: #8B6914;
+    --azul-marino: #0B1131;
+    --azul-marino-2: #1A1F3D;
+    --azul-marino-3: #2A2F4C;
     --azul-profundo: #050010;
-    --blanco: #FFFFFF; --verde-wp: #25D366; --telegram: #229ED9;
-    font-family: 'Inter', sans-serif; color: var(--blanco); min-height: 100vh;
-    overflow-x: hidden; -webkit-font-smoothing: antialiased;
-    background: linear-gradient(135deg, #050010 0%, #0B1131 25%, #1A1F3D 50%, #0d1b3e 75%, #050010 100%);
-    position: relative;
-  }
-  @keyframes shimmer { 0%{background-position:-200% center;} 100%{background-position:200% center;} }
-  @keyframes fade-up { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
-  @keyframes float-particle { 0%,100%{transform:translateY(0) rotate(0deg); opacity:.3;} 50%{transform:translateY(-80vh) rotate(180deg); opacity:.8;} }
-  @keyframes pulse-soft { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
-  @keyframes gm-flechas-pulso { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+    --gris-azulado: #2E3241;
+    --gris-claro: #B5B8C5;
+    --blanco: #FFFFFF;
+    --verde-wp: #25D366;
+    --verde-cta: #37CA37;
+    --rojo: #E74C3C;
 
-  /* Confetti celebración */
-  @keyframes gm-confetti-fall { 0%{transform:translateY(-100vh) rotate(0deg);opacity:1;} 100%{transform:translateY(100vh) rotate(720deg);opacity:0;} }
-  .gm-confetti-wrap { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999; overflow:hidden; }
-  .gm-confetti-piece { position:absolute; width:10px; height:10px; top:-20px; border-radius:2px; animation:gm-confetti-fall linear forwards; }
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #050010;
+    color: var(--blanco);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  /* ============ ANIMACIONES ============ */
+  @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
 
   /* Cinta animada superior */
-  @keyframes gm-ticker-move { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
-  .gm-app .gm-ticker {
-    width:100%; overflow:hidden; white-space:nowrap;
-    background:linear-gradient(90deg, #8B6914, #B8860B, #F5B800, #B8860B, #8B6914);
-    border-bottom:1px solid rgba(245,184,0,0.4);
-    padding:8px 0; position:relative; z-index:40;
+  @keyframes mm-ticker-move { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .mm-app .mm-ticker {
+    width: 100%; overflow: hidden; white-space: nowrap;
+    background: linear-gradient(90deg, var(--dorado-deep), var(--dorado-oscuro), var(--dorado), var(--dorado-oscuro), var(--dorado-deep));
+    border-bottom: 1px solid rgba(245,184,0,0.4);
+    padding: 8px 0;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 55;
+    height: 34px; box-sizing: border-box;
   }
-  .gm-app .gm-ticker-track {
-    display:inline-flex; white-space:nowrap;
-    animation:gm-ticker-move 24s linear infinite;
+  .mm-app .mm-ticker-track {
+    display: inline-flex; white-space: nowrap;
+    animation: mm-ticker-move 28s linear infinite;
   }
-  .gm-app .gm-ticker-track span {
-    color:#0B1131; font-weight:800; font-size:11px;
-    letter-spacing:1.5px; text-transform:uppercase; padding-right:8px;
+  .mm-app .mm-ticker-track span {
+    color: var(--azul-marino); font-weight: 800; font-size: 12px;
+    letter-spacing: 1.5px; text-transform: uppercase; padding-right: 8px;
+  }
+  .mm-app .mm-ticker:hover .mm-ticker-track { animation-play-state: paused; }
+  @media (max-width: 640px) {
+    .mm-app .mm-ticker-track span { font-size: 11px; letter-spacing: 1px; }
+    .mm-app .mm-ticker-track { animation-duration: 20s; }
   }
 
-  /* Countdown */
-  .gm-countdown { display:flex; justify-content:center; gap:12px; margin:20px 0; }
-  .gm-cd-box {
-    background:rgba(245,184,0,0.06); border:1px solid rgba(245,184,0,0.2);
-    border-radius:12px; padding:12px 16px; text-align:center; min-width:60px;
+  @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes pulse-soft { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.3); } }
+  @keyframes pulse-strong {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(245, 184, 0, 0.5); }
+    50% { box-shadow: 0 0 0 12px rgba(245, 184, 0, 0); }
   }
-  .gm-cd-num { font-family:inherit; font-size:28px; font-weight:900; color:#F5B800; line-height:1; }
-  .gm-cd-lbl { font-size:9px; color:rgba(255,255,255,0.35); letter-spacing:2px; text-transform:uppercase; margin-top:4px; }
-  @keyframes scaleIn { 0%{transform:scale(0); opacity:0;} 50%{transform:scale(1.1);} 100%{transform:scale(1); opacity:1;} }
-  @keyframes pulse-strong { 0%,100%{box-shadow:0 8px 32px rgba(245,184,0,0.4); transform:scale(1);} 50%{box-shadow:0 8px 44px rgba(245,184,0,0.6); transform:scale(1.05);} }
-  @keyframes vip-glow { 0%,100%{box-shadow:0 0 0 1px rgba(245,184,0,0.25),0 12px 50px rgba(245,184,0,0.20),inset 0 1px 0 rgba(255,255,255,0.08);} 50%{box-shadow:0 0 0 1px rgba(245,184,0,0.45),0 16px 64px rgba(245,184,0,0.38),inset 0 1px 0 rgba(255,255,255,0.12);} }
-  @keyframes gm-spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+  .mm-app .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+  .mm-app .reveal.visible { opacity: 1; transform: translateY(0); }
+  .mm-app .d1 { transition-delay: 0.1s; }
+  .mm-app .d2 { transition-delay: 0.2s; }
+  .mm-app .d3 { transition-delay: 0.3s; }
+  html { scroll-behavior: smooth; }
 
-  .gm-app .gm-particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-  .gm-app .gm-particle { position: absolute; border-radius: 50%; background: rgba(245, 184, 0, 0.15); }
-  .gm-app .gm-glow { position: absolute; width: 600px; height: 600px; top: -40px; left: 50%; transform: translateX(-50%); border-radius: 50%; opacity: 0.1; background: radial-gradient(circle, var(--dorado) 0%, transparent 70%); pointer-events: none; }
+  /* ============ NAVBAR ============ */
+  .mm-app .mm-nav {
+    position: fixed; top: 34px; left: 0; right: 0; z-index: 50;
+    background: rgba(5, 0, 16, 0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(245, 184, 0, 0.1);
+    padding: 12px 0;
+    transition: all 0.4s;
+  }
+  .mm-app .mm-nav-inner {
+    max-width: 1440px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .mm-app .mm-logo {
+    font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 900;
+    letter-spacing: 1.5px; display: flex; align-items: center; gap: 10px;
+  }
+  .mm-app .mm-logo-img {
+    width: 38px; height: 38px; border-radius: 8px; object-fit: cover;
+    flex-shrink: 0; box-shadow: 0 2px 8px rgba(245, 184, 0, 0.3);
+  }
+  .mm-app .mm-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+  .mm-app .mm-logo small {
+    display: block; font-size: 10px; color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 3px; font-weight: 700; line-height: 1; margin-bottom: 2px;
+  }
+  .mm-app .mm-logo .mm-logo-acc { color: var(--dorado); }
+  .mm-app .mm-nav-cta {
+    background: var(--dorado); color: var(--azul-marino); padding: 9px 18px;
+    border-radius: 8px; font-size: 12px; font-weight: 800; text-decoration: none;
+    letter-spacing: 0.5px; transition: all 0.3s; border: none; cursor: pointer; font-family: inherit;
+  }
+  .mm-app .mm-nav-cta:hover {
+    background: var(--dorado-claro); transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(245, 184, 0, 0.35);
+  }
 
-  /* NAV */
-  .gm-app .gm-nav { position: relative; z-index: 10; padding: 20px 24px; }
-  .gm-app .gm-nav-inner { max-width: 900px; margin: 0 auto; text-align: center; }
-  .gm-app .gm-nav-logo { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 900; letter-spacing: 2px; display: inline-flex; align-items: center; gap: 10px; }
-  .gm-app .gm-nav-logo img { width: 34px; height: 34px; border-radius: 7px; object-fit: cover; box-shadow: 0 2px 8px rgba(245, 184, 0, 0.3); }
-  .gm-app .gm-nav-logo .gold { color: var(--dorado); }
+  /* ============ CTA DE SECCIÓN (sube al formulario) ============ */
+  .mm-app .mm-cta-seccion {
+    text-align: center;
+    margin: 48px auto 0;
+    max-width: 560px;
+  }
+  .mm-app .mm-cta-seccion-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, #2EBD2E 0%, #37CA37 50%, #45D945 100%);
+    color: var(--blanco);
+    padding: 17px 40px; border-radius: 12px; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 900;
+    text-transform: uppercase; letter-spacing: 1px;
+    box-shadow: 0 8px 28px rgba(55, 202, 55, 0.32); transition: all 0.3s;
+  }
+  .mm-app .mm-cta-seccion-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 14px 38px rgba(55, 202, 55, 0.5);
+  }
+  .mm-app .mm-cta-seccion-btn svg { flex-shrink: 0; }
+  .mm-app .mm-cta-seccion-sub {
+    color: rgba(255,255,255,0.45); font-size: 12.5px; margin-top: 12px; letter-spacing: 0.3px;
+  }
 
-  /* MAIN */
-  .gm-app .gm-main { position: relative; z-index: 10; padding: 24px 20px 48px; }
-  .gm-app .gm-inner { max-width: 720px; margin: 0 auto; }
-  .gm-app .gm-inner > * + * { margin-top: 18px; }
-  .gm-app .gm-hero-grid { display: block; }
+  /* ============ BOTÓN FLOTANTE MÓVIL (sube al form) ============ */
+  .mm-app .mm-float-cta {
+    display: none;
+    position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 60;
+    background: linear-gradient(135deg, #2EBD2E 0%, #37CA37 100%);
+    color: #fff; text-align: center; padding: 16px; border-radius: 14px; border: none;
+    font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 15px;
+    text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08);
+  }
 
-  /* VSL */
-  .gm-app .gm-vsl-wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(245, 184, 0, 0.25); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55); background: #0B1131; margin-bottom: 22px; cursor: pointer; }
-  .gm-app video::-webkit-media-controls { display: none !important; }
-  .gm-app video::-webkit-media-controls-enclosure { display: none !important; }
-  .gm-vid-controls {
+  /* ============ HERO ============ */
+  .mm-app .mm-hero {
+    position: relative; min-height: 100vh;
+    padding: 110px 0 40px; overflow: hidden;
+    background: linear-gradient(135deg, #050010 0%, #0B1131 35%, #1A1F3D 60%, #050010 100%);
+  }
+  .mm-app .mm-hero-bg { position: absolute; inset: 0; overflow: hidden; }
+  .mm-app .mm-hero-bg::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(245, 184, 0, 0.18) 0%, transparent 40%),
+      radial-gradient(ellipse at 80% 70%, rgba(245, 184, 0, 0.12) 0%, transparent 50%),
+      radial-gradient(circle at 50% 0%, rgba(245, 184, 0, 0.15) 0%, transparent 60%);
+  }
+  .mm-app .mm-hero-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 100%);
+  }
+  .mm-app .mm-grid-pattern {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(245, 184, 0, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245, 184, 0, 0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+  .mm-app .mm-hero-foto {
+    position: absolute; left: 50%; bottom: 0; transform: translateX(-65%);
+    height: 88vh; z-index: 3; display: none;
+    pointer-events: none; animation: fadeIn 1.2s ease-out;
+  }
+  @media (min-width: 1024px) { .mm-app .mm-hero-foto { display: block; } }
+  .mm-app .mm-hero-foto img {
+    height: 100%; width: auto; object-fit: contain; object-position: bottom;
+    opacity: 0.60; filter: brightness(1.15) contrast(1.05);
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, black 20%, black 85%, transparent 100%);
+    mask-image: linear-gradient(to top, transparent 0%, black 20%, black 85%, transparent 100%);
+  }
+  /* Fondo de evento presencial (imagenmentor.png) — estilo Spencer: full cover + 3 overlays */
+  .mm-app .mm-hero-evento-bg {
+    position: absolute; inset: 0; z-index: 1;
+    pointer-events: none; overflow: hidden;
+  }
+  .mm-app .mm-hero-evento-bg img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center;
+  }
+  .mm-app .mm-hero-evento-bg::before {
+    content: ''; position: absolute; inset: 0; z-index: 1;
+    background: rgba(0,0,0,0.80);
+  }
+  .mm-app .mm-hero-evento-bg::after {
+    content: ''; position: absolute; inset: 0; z-index: 2;
+    background: linear-gradient(to top, #050010 0%, rgba(5,0,16,0.2) 40%, transparent 100%);
+  }
+  @media (max-width: 1023px) { .mm-app .mm-hero-evento-bg { display: none; } }
+  .mm-app .mm-hero-inner {
+    position: relative; z-index: 10; max-width: 1280px; margin: 0 auto;
+    padding: 130px 24px 60px; min-height: 100vh;
+    display: flex; align-items: center;
+  }
+  .mm-app .mm-hero-grid {
+    display: grid; grid-template-columns: 1fr; gap: 40px; width: 100%; align-items: center;
+  }
+  @media (min-width: 1024px) {
+    .mm-app .mm-hero-grid { grid-template-columns: 1.1fr 0.9fr; gap: 48px; }
+  }
+  .mm-app .mm-hero-left { animation: slideUp 0.8s ease-out; }
+  .mm-app .mm-badges-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+  .mm-app .mm-badge {
+    display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px;
+    border-radius: 100px; border: 1px solid rgba(245, 184, 0, 0.3);
+    background: rgba(245, 184, 0, 0.08); backdrop-filter: blur(8px);
+    font-size: 11px; color: rgba(255, 255, 255, 0.9); font-weight: 600;
+    letter-spacing: 0.5px; text-transform: uppercase;
+  }
+  .mm-app .mm-badge.live::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--verde-cta); animation: pulse-soft 2s infinite;
+  }
+  .mm-app .mm-badge.gold {
+    border-color: rgba(245, 184, 0, 0.5); background: rgba(245, 184, 0, 0.15); color: var(--dorado);
+  }
+  .mm-app .mm-brand-row {
+    font-family: 'Montserrat', sans-serif; color: rgba(255, 255, 255, 0.3);
+    font-size: 11px; letter-spacing: 4px; font-weight: 700; margin-bottom: 8px;
+  }
+  .mm-app .mm-title {
+    font-family: 'Montserrat', sans-serif; font-size: clamp(42px, 8vw, 96px);
+    font-weight: 900; line-height: 0.95; letter-spacing: -2px; font-style: italic;
+    text-transform: uppercase; margin-bottom: 4px; padding-right: 0.15em; word-break: keep-all;
+  }
+  .mm-app .mm-title-money { color: var(--blanco); display: inline-block; padding-right: 0.1em; }
+  .mm-app .mm-title-magnet {
+    color: var(--dorado); display: inline-block; padding-right: 0.15em;
+    text-shadow: 0 2px 24px rgba(245, 184, 0, 0.35);
+  }
+  .mm-app .mm-subtitle-region {
+    font-family: 'Montserrat', sans-serif; color: rgba(255, 255, 255, 0.4);
+    font-size: clamp(14px, 1.5vw, 18px); font-weight: 700; letter-spacing: 4px;
+    margin-top: 4px; margin-bottom: 24px;
+  }
+  .mm-app .mm-promesa-h2 {
+    font-family: 'Montserrat', sans-serif; font-size: clamp(28px, 4.5vw, 44px);
+    font-weight: 900; line-height: 1.05; text-transform: uppercase; margin-bottom: 6px; color: var(--blanco);
+  }
+  .mm-app .mm-promesa-h2 .mm-acc { color: var(--dorado); }
+  .mm-app .mm-promesa-sub {
+    font-family: 'Montserrat', sans-serif; font-size: clamp(14px, 1.8vw, 18px);
+    font-weight: 700; line-height: 1.4; color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 28px; max-width: 580px;
+  }
+  .mm-app .mm-hero-image {
+    position: relative; width: 100%; max-width: 600px; margin: 24px 0 28px;
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(245, 184, 0, 0.2);
+    transition: transform 0.35s ease;
+  }
+  .mm-app .mm-hero-image:hover { transform: translateY(-4px); }
+  .mm-app .mm-hero-image img { width: 100%; height: auto; display: block; border-radius: 16px; }
+  .mm-app .mm-vsl-wrap {
+    position: relative; max-width: 520px; aspect-ratio: 16 / 9; border-radius: 16px;
+    overflow: hidden; border: 1px solid rgba(245, 184, 0, 0.25);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6); background: var(--azul-marino-2); margin-bottom: 24px;
+  }
+  .mm-app .mm-vsl-placeholder {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 16px;
+    background:
+      radial-gradient(circle at center, rgba(245, 184, 0, 0.15) 0%, transparent 60%),
+      linear-gradient(135deg, var(--azul-marino) 0%, var(--azul-marino-2) 100%);
+    cursor: pointer; transition: all 0.3s;
+  }
+  .mm-app .mm-vsl-placeholder:hover { background-color: rgba(245, 184, 0, 0.05); }
+  .mm-app video::-webkit-media-controls { display: none !important; }
+  .mm-app video::-webkit-media-controls-enclosure { display: none !important; }
+  /* Controles custom: play/pausa + volumen */
+  .mm-vid-controls {
     position:absolute; bottom:12px; left:12px; z-index:6;
     display:none; gap:8px; align-items:center;
   }
-  .gm-vid-btn {
+  .mm-vid-btn {
     width:36px; height:36px; border-radius:50%;
     background:rgba(0,0,0,0.6); backdrop-filter:blur(6px);
     border:1px solid rgba(255,255,255,0.2);
     display:flex; align-items:center; justify-content:center;
     cursor:pointer; color:#fff; transition:all 0.2s;
   }
-  .gm-vid-btn:hover { background:rgba(245,184,0,0.3); border-color:rgba(245,184,0,0.5); }
-  .gm-vid-btn svg { width:18px; height:18px; }
-  /* Barra de progreso falsa */
-  .gm-fake-progress { position:absolute; bottom:0; left:0; width:100%; height:4px; z-index:5; background:rgba(255,255,255,0.1); }
-  .gm-fake-progress-bar { height:100%; width:0%; background:linear-gradient(90deg, #F5B800, #FFD24D); border-radius:0 2px 2px 0; transition:width 0.3s linear; }
-  .gm-app .gm-vsl-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: radial-gradient(circle at center, rgba(245, 184, 0, 0.15) 0%, transparent 60%), linear-gradient(135deg, #0B1131 0%, #1A1F3D 100%); transition: all 0.3s; }
-  .gm-app .gm-vsl-placeholder:hover { background-color: rgba(245, 184, 0, 0.05); }
-  .gm-app .gm-vsl-play { width: 72px; height: 72px; border-radius: 50%; background: var(--dorado); display: flex; align-items: center; justify-content: center; color: #0B1131; box-shadow: 0 8px 32px rgba(245, 184, 0, 0.4); animation: pulse-strong 2.5s infinite; }
-  .gm-app .gm-vsl-play svg { margin-left: 4px; }
-  .gm-app .gm-vsl-text { color: rgba(255,255,255,0.95); font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
-  .gm-app .gm-vsl-sub { color: rgba(255,255,255,0.5); font-size: 12px; }
-
-  /* HEADER */
-  .gm-app .gm-header { text-align: center; animation: fade-up 0.6s ease-out; }
-  .gm-app .gm-saludo { font-family: 'Montserrat', sans-serif; font-size: clamp(26px, 3.4vw, 38px); font-weight: 900; line-height: 1.05; text-transform: uppercase; margin-bottom: 14px; letter-spacing: -0.5px; }
-  .gm-app .gm-saludo .gold { background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 50%, var(--dorado) 100%); background-size: 200%; animation: shimmer 3s linear infinite; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-  .gm-app .gm-saludo-sub { color: rgba(255, 255, 255, 0.6); font-size: 15px; line-height: 1.65; margin: 0 auto; }
-
-  /* CARD BASE */
-  .gm-app .gm-card { background: rgba(0, 0, 0, 0.35); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 24px; animation: fade-up 0.8s ease-out; }
-  .gm-app .gm-card.gold { border-color: rgba(245, 184, 0, 0.3); background: linear-gradient(180deg, rgba(245, 184, 0, 0.06) 0%, rgba(245, 184, 0, 0.02) 100%); }
-  .gm-app .gm-card.wp { border-color: rgba(37, 211, 102, 0.3); background: rgba(37, 211, 102, 0.04); }
-  .gm-app .gm-card.tg { border-color: rgba(34, 158, 217, 0.3); background: rgba(34, 158, 217, 0.04); }
-
-  /* EVENTO */
-  .gm-app .gm-evento-card { padding: 22px; display: flex; align-items: center; gap: 18px; text-decoration: none; color: inherit; transition: all 0.3s; }
-  .gm-app .gm-evento-icon { width: 48px; height: 48px; border-radius: 50%; background: rgba(245, 184, 0, 0.2); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-  .gm-app .gm-evento-info { flex: 1; }
-  .gm-app .gm-evento-lbl { color: var(--dorado); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
-  .gm-app .gm-evento-fecha { color: rgba(255, 255, 255, 0.95); font-size: 15px; font-weight: 700; margin-top: 2px; }
-  .gm-app .gm-evento-hora { color: rgba(255, 255, 255, 0.55); font-size: 12px; margin-top: 4px; }
-  .gm-app .gm-evento-hora strong { color: var(--dorado); }
-
-  /* ====== COMUNIDADES (ARRIBA DEL QR) ====== */
-  .gm-app .gm-comunidades {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  .mm-vid-btn:hover { background:rgba(245,184,0,0.3); border-color:rgba(245,184,0,0.5); }
+  .mm-vid-btn svg { width:18px; height:18px; }
+  /* Barra de progreso falsa (logarítmica) */
+  .mm-fake-progress { position:absolute; bottom:0; left:0; width:100%; height:4px; z-index:5; background:rgba(255,255,255,0.1); }
+  .mm-fake-progress-bar { height:100%; width:0%; background:linear-gradient(90deg, #F5B800, #FFD24D); border-radius:0 2px 2px 0; transition:width 0.3s linear; }
+  .mm-app .mm-vsl-play {
+    width: 80px; height: 80px; border-radius: 50%; background: var(--dorado);
+    display: flex; align-items: center; justify-content: center; color: var(--azul-marino);
+    box-shadow: 0 8px 32px rgba(245, 184, 0, 0.4); animation: pulse-strong 2.5s infinite;
   }
-  .gm-app .gm-comunidad-card {
-    text-align: center; padding: 24px 18px;
-    display: flex; flex-direction: column; align-items: center;
+  .mm-app .mm-vsl-play svg { margin-left: 4px; }
+  .mm-app .mm-vsl-text {
+    color: rgba(255, 255, 255, 0.95); font-family: 'Montserrat', sans-serif;
+    font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
   }
-  .gm-app .gm-comunidad-lbl { font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 6px; }
-  .gm-app .gm-comunidad-h { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 900; text-transform: uppercase; margin-bottom: 8px; }
-  .gm-app .gm-comunidad-sub { color: rgba(255, 255, 255, 0.5); font-size: 12.5px; line-height: 1.5; margin-bottom: 18px; flex: 1; }
-  .gm-app .gm-comunidad-btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-    width: 100%; color: var(--blanco); padding: 14px 16px; border-radius: 12px;
-    text-decoration: none; font-size: 14px; font-weight: 800; letter-spacing: 0.5px;
-    text-transform: uppercase; transition: all 0.3s;
+  .mm-app .mm-vsl-sub { color: rgba(255, 255, 255, 0.5); font-size: 12px; }
+  .mm-app .mm-stats { display: flex; gap: 36px; padding-top: 8px; flex-wrap: wrap; }
+  .mm-app .mm-stat-val {
+    font-family: 'Montserrat', sans-serif; font-size: clamp(20px, 2.5vw, 26px);
+    font-weight: 900; color: var(--blanco); line-height: 1;
   }
-  .gm-app .gm-comunidad-btn svg { flex-shrink: 0; }
-  .gm-app .gm-comunidad-btn.wp { background: var(--verde-wp); box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3); }
-  .gm-app .gm-comunidad-btn.wp:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(37, 211, 102, 0.45); }
-  .gm-app .gm-comunidad-btn.tg { background: var(--telegram); box-shadow: 0 8px 24px rgba(34, 158, 217, 0.3); }
-  .gm-app .gm-comunidad-btn.tg:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(34, 158, 217, 0.45); }
-
-  /* TICKET */
-  .gm-app .gm-ticket-section { padding: 28px 22px; text-align: center; }
-  .gm-app .gm-ticket-lbl { color: rgba(255, 255, 255, 0.4); font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
-  .gm-app .gm-ticket { background: linear-gradient(135deg, #0B1131 0%, #1A1F3D 100%); border: 2px solid var(--dorado); border-radius: 16px; padding: 24px 20px; position: relative; max-width: 340px; margin: 0 auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); }
-  .gm-app .gm-ticket-header { text-align: left; padding-bottom: 16px; border-bottom: 1px dashed rgba(245, 184, 0, 0.3); margin-bottom: 16px; }
-  .gm-app .gm-ticket-brand { font-family: 'Montserrat', sans-serif; color: var(--dorado); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
-  .gm-app .gm-ticket-evento { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 900; line-height: 1; margin-top: 4px; text-transform: uppercase; color: var(--blanco); }
-  .gm-app .gm-ticket-evento .gold { background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-  .gm-app .gm-ticket-body { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; }
-  .gm-app .gm-ticket-data { flex: 1; text-align: left; font-size: 11px; }
-  .gm-app .gm-ticket-data .row { margin-bottom: 8px; }
-  .gm-app .gm-ticket-data .row .lbl { color: rgba(245, 184, 0, 0.7); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; }
-  .gm-app .gm-ticket-data .row .val { color: var(--blanco); font-weight: 600; font-size: 13px; margin-top: 2px; }
-  .gm-app .gm-ticket-qr { background: var(--blanco); padding: 8px; border-radius: 8px; width: 110px; height: 110px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-  .gm-app .gm-ticket-qr canvas, .gm-app .gm-ticket-qr img { width: 100% !important; height: 100% !important; }
-  .gm-app .gm-ticket-tipo { background: rgba(245, 184, 0, 0.15); color: var(--dorado); padding: 8px 0; border-radius: 8px; font-size: 11px; font-weight: 800; letter-spacing: 2px; text-align: center; text-transform: uppercase; }
-  .gm-app .gm-ticket-tipo.vip { background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%); color: var(--azul-marino); }
-  .gm-app .gm-ticket-id { color: rgba(245, 184, 0, 0.8); font-size: 12px; letter-spacing: 0.5px; margin-top: 14px; font-style: italic; font-weight: 500; }
-  .gm-app .gm-ticket-actions { margin-top: 18px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-  .gm-app .gm-btn-download { background: rgba(245, 184, 0, 0.12); color: var(--dorado); border: 1px solid rgba(245, 184, 0, 0.3); padding: 10px 18px; border-radius: 10px; font-size: 12px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.3s; }
-  .gm-app .gm-btn-download:hover { background: rgba(245, 184, 0, 0.2); transform: translateY(-2px); }
-  .gm-app .gm-ticket-sub { color: rgba(255, 255, 255, 0.3); font-size: 11px; margin-top: 12px; }
-
-  /* SECCIÓN CARENCIAS (en thank you, recordatorio del porqué) */
-  .gm-app .gm-carencias { padding: 26px 24px; }
-  .gm-app .gm-carencias.tono-claro { background: linear-gradient(180deg, rgba(26,31,61,0.5) 0%, rgba(17,22,46,0.4) 100%); border-color: rgba(245,184,0,0.15); }
-  .gm-app .gm-carencias-h { font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 6px; }
-  .gm-app .gm-carencias-lbl { text-align: center; color: var(--dorado); font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
-  .gm-app .gm-carencias-sub { text-align:center; color: rgba(255,255,255,0.55); font-size: 13.5px; line-height: 1.6; max-width: 520px; margin: 0 auto 20px; }
-  .gm-app .gm-carencias-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
-  .gm-app .gm-carencias-list li { display: flex; gap: 12px; align-items: flex-start; color: rgba(255,255,255,0.82); font-size: 14px; line-height: 1.55; }
-  .gm-app .gm-carencias-list .ic { color: var(--dorado); flex-shrink: 0; margin-top: 2px; }
-  .gm-app .gm-carencias-list strong { color: #fff; font-weight: 600; }
-
-  /* VIP UPSELL */
-  .gm-app .gm-vip-card { padding: 36px 28px 30px; position: relative; overflow: visible; background: radial-gradient(circle at 50% 0%, rgba(245, 184, 0, 0.18) 0%, transparent 55%), linear-gradient(160deg, rgba(245, 184, 0, 0.10) 0%, rgba(11, 17, 49, 0.6) 60%); border: 2px solid var(--dorado); border-radius: 20px; box-shadow: 0 0 0 1px rgba(245, 184, 0, 0.25), 0 12px 50px rgba(245, 184, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.08); animation: vip-glow 3s ease-in-out infinite; }
-  .gm-app .gm-vip-card::before { content: "\2728  RECOMENDADO  \2728"; position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--dorado), var(--dorado-claro)); color: #0B1131; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 900; letter-spacing: 2px; padding: 6px 18px; border-radius: 100px; white-space: nowrap; box-shadow: 0 6px 20px rgba(245, 184, 0, 0.5); }
-  .gm-app .gm-vip-head { text-align: center; margin-bottom: 24px; }
-  .gm-app .gm-vip-lbl { color: var(--dorado); font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
-  .gm-app .gm-vip-h { font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 900; text-transform: uppercase; line-height: 1.12; margin-bottom: 8px; background: linear-gradient(135deg, #fff 0%, var(--dorado-claro) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-  .gm-app .gm-vip-sub { color: rgba(255, 255, 255, 0.55); font-size: 13.5px; line-height: 1.6; max-width: 460px; margin: 0 auto 8px; }
-  .gm-app .gm-vip-benefits { list-style: none; padding: 0; margin-bottom: 24px; }
-  .gm-app .gm-vip-benefits li { display: flex; align-items: flex-start; gap: 10px; color: rgba(255, 255, 255, 0.75); font-size: 14px; padding: 8px 0; }
-  .gm-app .gm-vip-benefits .gm-vip-check { color: var(--dorado); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
-  .gm-app .gm-vip-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .gm-app .gm-vip-btn { background: rgba(245, 184, 0, 0.1); border: 1px solid rgba(245, 184, 0, 0.35); color: var(--dorado); padding: 16px 12px; border-radius: 12px; cursor: pointer; font-family: inherit; transition: all 0.3s; display: flex; flex-direction: column; gap: 4px; align-items: center; }
-  .gm-app .gm-vip-btn:hover { transform: scale(1.02); background: rgba(245, 184, 0, 0.15); }
-  .gm-app .gm-vip-btn.featured { background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%); color: var(--azul-marino); border-color: transparent; }
-  .gm-app .gm-vip-btn.featured:hover { box-shadow: 0 12px 32px rgba(245, 184, 0, 0.4); }
-  .gm-app .gm-vip-btn .qty { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
-  .gm-app .gm-vip-btn .price { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 900; }
-  .gm-app .gm-vip-btn .popular { font-size: 9px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(11, 17, 49, 0.7); margin-top: 2px; }
-
-  /* DUDAS */
-  .gm-app .gm-dudas { display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap; text-align:center; }
-  .gm-app .gm-dudas-txt { flex:1; min-width:200px; }
-  .gm-app .gm-dudas-btn { display:inline-flex; align-items:center; gap:8px; background:rgba(245,184,0,0.12); color:#F5B800; border:1px solid rgba(245,184,0,0.35); padding:13px 26px; border-radius:10px; font-weight:700; text-decoration:none; font-size:13px; letter-spacing:0.5px; text-transform:uppercase; white-space:nowrap; transition: all 0.3s; }
-  .gm-app .gm-dudas-btn:hover { background:rgba(245,184,0,0.2); transform: translateY(-2px); }
-
-  /* TEAMS */
-  .gm-app .gm-teams-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:18px; text-align:left; }
-  .gm-app .gm-wp-lbl { font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
-  .gm-app .gm-wp-h { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 900; text-transform: uppercase; margin-bottom: 12px; }
-  .gm-app .gm-wp-sub { color: rgba(255, 255, 255, 0.5); font-size: 13.5px; max-width: 400px; margin: 0 auto 20px; line-height: 1.6; }
-
-  /* FOOTER */
-  .gm-app .gm-footer { text-align: center; padding: 30px 20px; border-top: 1px solid rgba(255, 255, 255, 0.04); color: rgba(255, 255, 255, 0.2); font-size: 11px; position: relative; z-index: 10; }
-  .gm-app .gm-footer a { color: rgba(245,184,0,0.6); text-decoration: none; }
-
-  /* NO ACCESO */
-  .gm-app .gm-no-acceso { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; text-align: center; }
-  .gm-app .gm-no-acceso-card { max-width: 480px; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(245, 184, 0, 0.25); border-radius: 20px; padding: 48px 32px; }
-  .gm-app .gm-no-acceso-icon { font-size: 48px; margin-bottom: 16px; }
-  .gm-app .gm-no-acceso h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 900; text-transform: uppercase; margin-bottom: 12px; }
-  .gm-app .gm-no-acceso p { color: rgba(255, 255, 255, 0.55); margin-bottom: 24px; line-height: 1.6; }
-  .gm-app .gm-no-acceso a { display: inline-block; background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%); color: var(--azul-marino); padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; font-size: 13px; transition: all 0.3s; }
-  .gm-app .gm-no-acceso a:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(245, 184, 0, 0.4); }
-
-  /* ====== MÓVIL: arreglo de botones que se salían ====== */
-  @media (max-width: 860px) {
-    .gm-app .gm-teams-grid { grid-template-columns: 1fr !important; }
+  .mm-app .mm-stat-lbl {
+    font-size: 10px; color: rgba(255, 255, 255, 0.4); letter-spacing: 1px;
+    text-transform: uppercase; margin-top: 6px;
   }
-  @media (max-width: 600px) {
-    .gm-app .gm-main { padding: 18px 14px 40px; }
-    /* Comunidades en una columna y botones a ancho completo */
-    .gm-app .gm-comunidades { grid-template-columns: 1fr; gap: 12px; }
-    .gm-app .gm-comunidad-card { padding: 22px 16px; }
-    .gm-app .gm-comunidad-btn { width: 100%; font-size: 14px; padding: 15px 12px; }
-    /* VIP botones a una columna */
-    .gm-app .gm-vip-buttons { grid-template-columns: 1fr; }
-    .gm-app .gm-vip-card { padding: 32px 18px 26px; }
-    .gm-app .gm-vip-h { font-size: 22px; }
-    /* Dudas: apilar y botón a ancho completo (ya no se sale) */
-    .gm-app .gm-dudas { flex-direction: column; gap: 14px; }
-    .gm-app .gm-dudas-btn { width: 100%; justify-content: center; white-space: normal; }
-    /* Ticket QR no se desborda */
-    .gm-app .gm-ticket { max-width: 100%; }
-    .gm-app .gm-ticket-body { flex-direction: column; align-items: stretch; }
-    .gm-app .gm-ticket-qr { width: 140px; height: 140px; margin: 0 auto; }
-    .gm-app .gm-ticket-data { text-align: center; }
-    .gm-app .gm-card { padding: 20px 16px; }
-    .gm-flechas-video { display: none !important; }
+
+  /* ============ FORMULARIO LATERAL ============ */
+  .mm-app .mm-form-card {
+    position: relative; background: rgba(5, 0, 16, 0.7); backdrop-filter: blur(24px);
+    border: 1px solid rgba(245, 184, 0, 0.2); border-radius: 20px; padding: 32px 28px;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6); animation: slideUp 1s ease-out;
+  }
+  .mm-app .mm-form-card::before {
+    content: ''; position: absolute; inset: -1px; border-radius: 20px; padding: 1px;
+    background: linear-gradient(135deg, rgba(245, 184, 0, 0.4), transparent 40%, transparent 60%, rgba(245, 184, 0, 0.2));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+  }
+  .mm-app .mm-form-h3 {
+    font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 900;
+    text-transform: uppercase; letter-spacing: 0.5px; text-align: center; margin-bottom: 4px;
+  }
+  .mm-app .mm-form-sub { color: rgba(255, 255, 255, 0.4); font-size: 12px; text-align: center; margin-bottom: 20px; }
+  .mm-app .mm-form input, .mm-app .mm-form select {
+    width: 100%; background: rgba(5, 0, 16, 0.5); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 10px; padding: 14px 18px;
+    color: var(--blanco); font-size: 14.5px; font-family: inherit; margin-bottom: 10px; transition: all 0.25s;
+  }
+  .mm-app .mm-form input::placeholder { color: rgba(255, 255, 255, 0.45); }
+  .mm-app .mm-form input:focus, .mm-app .mm-form select:focus {
+    outline: none; border-color: rgba(245, 184, 0, 0.6); background: rgba(5, 0, 16, 0.7);
+  }
+  .mm-app .mm-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .mm-app .mm-form-phone { display: grid; grid-template-columns: 124px 1fr; gap: 6px; }
+  .mm-app .mm-form-phone select { padding: 14px 6px; font-size: 13px; }
+
+  /* DROPDOWN CUSTOM CON BANDERAS */
+  .mm-app .mm-custom-select { position: relative; width: 100%; }
+  .mm-app .mm-cs-trigger {
+    width: 100%; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff; padding: 14px 14px; border-radius: 10px; font-family: inherit; font-size: 14px;
+    cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    transition: border-color 0.18s ease, background 0.18s ease; text-align: left;
+  }
+  .mm-app .mm-cs-trigger:hover { background: rgba(255, 255, 255, 0.06); border-color: rgba(245, 184, 0, 0.3); }
+  .mm-app .mm-cs-trigger.open { border-color: var(--dorado); background: rgba(245, 184, 0, 0.04); }
+  .mm-app .mm-cs-label {
+    display: flex; align-items: center; gap: 9px; overflow: hidden; text-overflow: ellipsis;
+    white-space: nowrap; flex: 1; min-width: 0;
+  }
+  .mm-app .mm-cs-label.placeholder { color: rgba(255, 255, 255, 0.45); }
+  .mm-app .mm-cs-label img {
+    width: 22px; height: 16px; object-fit: cover; border-radius: 2px; flex-shrink: 0;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+  .mm-app .mm-cs-caret { color: rgba(255, 255, 255, 0.5); font-size: 12px; flex-shrink: 0; transition: transform 0.2s ease; }
+  .mm-app .mm-cs-trigger.open .mm-cs-caret { transform: rotate(180deg); }
+  .mm-app .mm-cs-dropdown {
+    position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #0B1131;
+    border: 1px solid rgba(245, 184, 0, 0.3); border-radius: 10px; max-height: 280px;
+    overflow-y: auto; overflow-x: hidden; z-index: 100; display: none; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  }
+  .mm-app .mm-cs-dropdown.open { display: block; }
+  .mm-app .mm-cs-option {
+    padding: 10px 14px; display: flex; align-items: center; gap: 10px; cursor: pointer;
+    color: #fff; font-size: 14px; transition: background 0.15s ease; border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+  .mm-app .mm-cs-option:last-child { border-bottom: none; }
+  .mm-app .mm-cs-option:hover { background: rgba(245, 184, 0, 0.08); }
+  .mm-app .mm-cs-option.selected { background: rgba(245, 184, 0, 0.15); color: var(--dorado); }
+  .mm-app .mm-cs-option img {
+    width: 22px; height: 16px; object-fit: cover; border-radius: 2px; flex-shrink: 0;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+  .mm-app .mm-cs-dropdown::-webkit-scrollbar { width: 6px; }
+  .mm-app .mm-cs-dropdown::-webkit-scrollbar-track { background: transparent; }
+  .mm-app .mm-cs-dropdown::-webkit-scrollbar-thumb { background: rgba(245, 184, 0, 0.4); border-radius: 3px; }
+  .mm-app .mm-form-submit {
+    width: 100%; background: linear-gradient(135deg, #2EBD2E 0%, #37CA37 50%, #45D945 100%);
+    color: var(--blanco); padding: 16px; font-family: 'Montserrat', sans-serif; font-size: 15px;
+    font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; border: none;
+    border-radius: 10px; cursor: pointer; margin-top: 8px; transition: all 0.3s;
+    box-shadow: 0 8px 24px rgba(55, 202, 55, 0.3);
+  }
+  .mm-app .mm-form-submit:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 12px 36px rgba(55, 202, 55, 0.45); }
+  .mm-app .mm-form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .mm-app .mm-form-msg { margin-top: 12px; padding: 10px 12px; border-radius: 8px; font-size: 13px; display: none; }
+  .mm-app .mm-form-msg.error { background: rgba(231, 76, 60, 0.15); color: #FFB3AC; border: 1px solid rgba(231, 76, 60, 0.3); display: block; }
+  .mm-app .mm-form-msg.success { background: rgba(43, 190, 102, 0.15); color: #8FFBB3; border: 1px solid rgba(43, 190, 102, 0.3); display: block; }
+  .mm-app .mm-form-terminos {
+    display:flex; gap:9px; align-items:flex-start; margin-top:12px; cursor:pointer;
+    font-size:11.5px; color:rgba(255,255,255,0.5); line-height:1.5;
+  }
+  .mm-app .mm-form-terminos input { width:16px; height:16px; flex-shrink:0; margin-top:1px; accent-color:var(--dorado); }
+  .mm-app .mm-form-terminos a { color:var(--dorado); text-decoration:underline; }
+
+  /* ============ BARRA PRESTIGIO ============ */
+  .mm-app .mm-prestige {
+    padding: 22px 24px;
+    background: linear-gradient(90deg, rgba(245, 184, 0, 0.05) 0%, rgba(245, 184, 0, 0.12) 50%, rgba(245, 184, 0, 0.05) 100%);
+    border-top: 1px solid rgba(245, 184, 0, 0.08); border-bottom: 1px solid rgba(245, 184, 0, 0.08); text-align: center;
+  }
+  .mm-app .mm-prestige p {
+    font-family: 'Montserrat', sans-serif; font-size: clamp(13px, 1.6vw, 18px); font-weight: 800;
+    text-transform: uppercase; letter-spacing: 2px;
+    background: linear-gradient(90deg, var(--dorado) 0%, var(--dorado-claro) 50%, var(--dorado) 100%);
+    background-size: 200%; animation: shimmer 3s linear infinite;
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  /* ============ COUNTDOWN ============ */
+  .mm-app .mm-countdown-section {
+    padding: 50px 24px;
+    background: linear-gradient(180deg, #050010 0%, #0B1131 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+  .mm-app .mm-cd-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+  .mm-app .mm-cd-lbl { color: rgba(255, 255, 255, 0.4); font-size: 11px; font-weight: 800; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 8px; }
+  .mm-app .mm-cd-date { color: var(--dorado); font-family: 'Playfair Display', serif; font-size: clamp(20px, 3vw, 28px); font-weight: 700; margin-bottom: 24px; }
+  .mm-app .mm-cd-grid { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .mm-app .mm-cd-box {
+    width: clamp(64px, 14vw, 100px); height: clamp(64px, 14vw, 100px); border-radius: 20px;
+    background: rgba(245, 184, 0, 0.05); border: 1px solid rgba(245, 184, 0, 0.15);
+    display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif;
+    font-size: clamp(26px, 4vw, 44px); font-weight: 900; color: var(--blanco); font-variant-numeric: tabular-nums;
+  }
+  .mm-app .mm-cd-unit { display: block; text-align: center; color: rgba(255, 255, 255, 0.4); font-size: 10px; letter-spacing: 2px; margin-top: 8px; text-transform: uppercase; }
+
+  /* ============ SECCIONES (degradados alternados) ============ */
+  .mm-app .mm-section { padding: 90px 24px; }
+  /* Oscura */
+  .mm-app .mm-section.tono-oscuro { background: linear-gradient(180deg, #0B1131 0%, #050010 100%); }
+  /* Clara (azul un poco más claro de la misma paleta) */
+  .mm-app .mm-section.tono-claro { background: linear-gradient(180deg, #1A1F3D 0%, #11162e 100%); }
+  /* Transición intermedia */
+  .mm-app .mm-section.tono-medio { background: linear-gradient(180deg, #050010 0%, #0B1131 60%, #1A1F3D 100%); }
+  .mm-app .mm-section-inner { max-width: 1200px; margin: 0 auto; }
+  .mm-app .mm-section-head { text-align: center; margin-bottom: 60px; }
+  .mm-app .mm-kicker { color: var(--dorado); font-size: 11px; font-weight: 800; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 14px; }
+  .mm-app .mm-h2 { font-family: 'Montserrat', sans-serif; font-size: clamp(34px, 5.5vw, 56px); font-weight: 900; line-height: 1.05; text-transform: uppercase; }
+  .mm-app .mm-h2-gold { background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .mm-app .mm-section-sub { color: rgba(255,255,255,0.65); }
+  .mm-app .mm-cards-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+  @media (min-width: 768px) { .mm-app .mm-cards-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .mm-app .mm-cards-grid { grid-template-columns: 1fr 1fr 1fr; } }
+  .mm-app .mm-card-feat {
+    background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 18px; padding: 30px 28px; transition: all 0.5s;
+  }
+  .mm-app .mm-card-feat:hover { transform: translateY(-4px); border-color: rgba(245, 184, 0, 0.3); background: rgba(245, 184, 0, 0.03); }
+  .mm-app .mm-card-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: linear-gradient(135deg, rgba(245, 184, 0, 0.2) 0%, rgba(184, 134, 11, 0.08) 100%);
+    display: flex; align-items: center; justify-content: center; color: var(--dorado); margin-bottom: 20px; transition: transform 0.4s;
+  }
+  .mm-app .mm-card-feat:hover .mm-card-icon { transform: scale(1.1); }
+  .mm-app .mm-card-feat h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+  .mm-app .mm-card-feat p { color: rgba(255, 255, 255, 0.5); font-size: 14px; line-height: 1.6; }
+
+  /* ============ APRENDERAS ============ */
+  .mm-app .mm-aprenderas-grid { display: grid; grid-template-columns: 1fr; gap: 18px; max-width: 920px; margin: 40px auto 0; }
+  @media (min-width: 768px) { .mm-app .mm-aprenderas-grid { grid-template-columns: 1fr 1fr; } }
+  .mm-app .mm-aprenderas-item {
+    display: flex; gap: 20px; align-items: flex-start; background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 14px; padding: 22px 22px;
+    transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+  }
+  .mm-app .mm-aprenderas-item:hover { border-color: rgba(245, 184, 0, 0.3); background: rgba(245, 184, 0, 0.04); transform: translateY(-2px); }
+  .mm-app .mm-aprenderas-num { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 900; color: var(--dorado); line-height: 1; flex-shrink: 0; opacity: 0.85; min-width: 50px; }
+  .mm-app .mm-aprenderas-body h3 { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; color: #fff; margin: 0 0 8px; line-height: 1.3; }
+  .mm-app .mm-aprenderas-body p { font-size: 13.5px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); margin: 0; }
+
+  /* ============ MENTOR ============ */
+  .mm-app .mm-mentor-section {
+    padding: 90px 24px; position: relative; overflow: hidden;
+    background: radial-gradient(ellipse at top, rgba(245, 184, 0, 0.08) 0%, transparent 60%), linear-gradient(180deg, #11162e 0%, var(--azul-marino) 100%);
+  }
+  .mm-app .mm-mentor-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 50px; align-items: center; }
+  @media (min-width: 768px) { .mm-app .mm-mentor-grid { grid-template-columns: 1fr 1.5fr; gap: 70px; } }
+  .mm-app .mm-mentor-img {
+    aspect-ratio: 4/5; background: linear-gradient(135deg, var(--azul-marino-2) 0%, var(--azul-marino-3) 100%);
+    border-radius: 20px; border: 2px solid var(--dorado); display: flex; align-items: center; justify-content: center;
+    overflow: hidden; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4); position: relative;
+  }
+  .mm-app .mm-mentor-img::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 20%, rgba(245, 184, 0, 0.1), transparent 60%); pointer-events: none; }
+  .mm-app .mm-mentor-foto-real { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mm-app .mm-ig-btn {
+    display: flex; align-items: center; gap: 14px; margin-top: 22px; padding: 14px 20px;
+    background: linear-gradient(135deg, #833AB4 0%, #E1306C 50%, #FCAF45 100%); color: white; text-decoration: none;
+    border-radius: 14px; transition: transform 0.25s ease, box-shadow 0.25s ease; box-shadow: 0 8px 24px rgba(225, 48, 108, 0.25); font-family: 'Inter', sans-serif;
+  }
+  .mm-app .mm-ig-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(225, 48, 108, 0.4); }
+  .mm-app .mm-ig-btn-text { display: flex; flex-direction: column; line-height: 1.25; }
+  .mm-app .mm-ig-handle { font-weight: 800; font-size: 15px; letter-spacing: 0.2px; }
+  .mm-app .mm-ig-followers { font-size: 12px; opacity: 0.92; font-weight: 500; margin-top: 2px; }
+  .mm-app .mm-mentor-h { font-family: 'Montserrat', sans-serif; font-size: clamp(32px, 4.5vw, 48px); font-weight: 900; line-height: 1.05; text-transform: uppercase; margin-bottom: 8px; }
+  .mm-app .mm-mentor-rol { color: var(--dorado); font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 24px; }
+  .mm-app .mm-mentor-bio { color: rgba(255, 255, 255, 0.65); font-size: 16px; line-height: 1.75; margin-bottom: 24px; }
+  .mm-app .mm-mentor-creds { list-style: none; padding: 0; }
+  .mm-app .mm-mentor-creds li { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; color: rgba(255, 255, 255, 0.85); font-size: 14.5px; border-bottom: 1px solid rgba(245, 184, 0, 0.1); }
+  .mm-app .mm-mentor-creds li::before { content: '*'; color: var(--dorado); font-size: 11px; margin-top: 4px; flex-shrink: 0; }
+
+  /* ============ VIP ============ */
+  .mm-app .mm-vip-section {
+    padding: 90px 24px; position: relative; overflow: hidden;
+    background: linear-gradient(180deg, var(--azul-marino) 0%, #100a20 50%, #050010 100%);
+  }
+  .mm-app .mm-vip-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(245, 184, 0, 0.12) 0%, transparent 60%); }
+  .mm-app .mm-vip-inner { max-width: 1140px; margin: 0 auto; position: relative; z-index: 2; }
+  .mm-app .mm-vip-grid { display: grid; grid-template-columns: 1fr; gap: 24px; max-width: 1100px; margin: 50px auto 0; align-items: start; }
+  @media (min-width: 768px) { .mm-app .mm-vip-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .mm-app .mm-vip-grid.mm-vip-grid-3 { grid-template-columns: 1fr 1fr 1fr; } }
+  .mm-app .mm-vip-card { background: linear-gradient(180deg, rgba(245, 184, 0, 0.03) 0%, transparent 100%); border: 1px solid rgba(245, 184, 0, 0.2); border-radius: 24px; padding: 36px 32px; position: relative; transition: all 0.4s; }
+  .mm-app .mm-vip-card.featured { border-width: 2px; border-color: var(--dorado); background: linear-gradient(180deg, rgba(245, 184, 0, 0.12) 0%, transparent 100%); box-shadow: 0 16px 50px rgba(245, 184, 0, 0.18); }
+  @media (min-width: 1024px) { .mm-app .mm-vip-card.featured { transform: scale(1.04); } .mm-app .mm-vip-card.featured:hover { transform: scale(1.04) translateY(-6px); } }
+  .mm-app .mm-vip-card:hover { transform: translateY(-6px); border-color: var(--dorado); box-shadow: 0 20px 60px rgba(245, 184, 0, 0.15); }
+  .mm-app .mm-vip-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%); color: var(--azul-marino); padding: 6px 18px; border-radius: 100px; font-size: 10px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; box-shadow: 0 8px 20px rgba(245, 184, 0, 0.35); }
+  .mm-app .mm-vip-tipo { color: var(--dorado); font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+  .mm-app .mm-vip-precio { font-family: 'Montserrat', sans-serif; font-size: 52px; font-weight: 900; line-height: 1; color: var(--blanco); margin-bottom: 4px; }
+  .mm-app .mm-vip-precio .mm-vip-cur { color: rgba(255, 255, 255, 0.4); font-size: 16px; font-weight: 600; margin-left: 4px; }
+  .mm-app .mm-vip-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(245, 184, 0, 0.25), transparent); margin: 24px 0; }
+  .mm-app .mm-vip-list { list-style: none; padding: 0; }
+  .mm-app .mm-vip-list li { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; color: rgba(255, 255, 255, 0.7); font-size: 14px; line-height: 1.5; }
+  .mm-app .mm-vip-list li > span:not(.mm-vip-check) { flex: 1; min-width: 0; }
+  .mm-app .mm-vip-list li strong { font-weight: 700; color: rgba(255,255,255,0.95); }
+  .mm-app .mm-vip-check { width: 20px; height: 20px; border-radius: 50%; background: rgba(245, 184, 0, 0.15); color: var(--dorado); font-size: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .mm-app .mm-vip-cta { width: 100%; background: rgba(245, 184, 0, 0.12); color: var(--dorado); border: 1px solid rgba(245, 184, 0, 0.4); padding: 14px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; border-radius: 12px; cursor: pointer; margin-top: 24px; transition: all 0.3s; }
+  .mm-app .mm-vip-card.featured .mm-vip-cta { background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%); color: var(--azul-marino); border-color: transparent; }
+  .mm-app .mm-vip-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(245, 184, 0, 0.3); }
+
+  /* ============ FORMULARIO FINAL ============ */
+  .mm-app .mm-final-section {
+    padding: 100px 24px; position: relative; overflow: hidden;
+    background: radial-gradient(ellipse at center, rgba(245, 184, 0, 0.15) 0%, transparent 60%), linear-gradient(180deg, #050010 0%, var(--azul-marino) 50%, #050010 100%);
+  }
+  .mm-app .mm-final-inner { max-width: 540px; margin: 0 auto; text-align: center; position: relative; z-index: 2; }
+  .mm-app .mm-final-h { font-family: 'Montserrat', sans-serif; font-size: clamp(36px, 5.5vw, 56px); font-weight: 900; line-height: 1.05; text-transform: uppercase; margin-bottom: 40px; }
+  .mm-app .mm-final-card { background: rgba(5, 0, 16, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(245, 184, 0, 0.2); border-radius: 20px; padding: 36px 32px; }
+
+  /* ============ FOOTER ============ */
+  .mm-app .mm-footer { padding: 40px 24px; background: #050010; border-top: 1px solid rgba(255, 255, 255, 0.04); text-align: center; font-size: 12px; color: rgba(255, 255, 255, 0.2); }
+  .mm-app .mm-footer-brand { color: rgba(245, 184, 0, 0.7); font-weight: 700; letter-spacing: 2px; font-family: 'Montserrat', sans-serif; margin-bottom: 6px; }
+  .mm-app .mm-footer a { color: rgba(245,184,0,0.6); text-decoration: none; }
+  .mm-app .mm-footer a:hover { color: var(--dorado); }
+
+  /* ============ RESPONSIVE MOBILE ============ */
+  @media (max-width: 1023px) {
+    .mm-app .mm-hero { min-height: auto; max-height: none; padding: 100px 0 30px; }
+    .mm-app .mm-hero-inner { padding: 80px 16px 30px; min-height: auto; max-height: none; }
+    .mm-app .mm-hero-foto { display: none !important; }
+    .mm-app .mm-hero-grid { grid-template-columns: 1fr !important; gap: 28px; }
+    .mm-app .mm-title { font-size: clamp(40px, 11vw, 64px); line-height: 1; }
+    .mm-app .mm-subtitle-region { font-size: 12px; letter-spacing: 2px; margin-bottom: 18px; }
+    .mm-app .mm-brand-row { font-size: 10px; letter-spacing: 3px; }
+    .mm-app .mm-form-card { padding: 24px 18px; margin: 0; max-width: 100%; }
+    .mm-app .mm-form-row { grid-template-columns: 1fr !important; gap: 10px; }
+    .mm-app .mm-form-phone { grid-template-columns: 92px 1fr !important; gap: 8px; }
+    .mm-app .mm-form-phone select { font-size: 13px; padding: 12px 4px; }
+    .mm-app .mm-form input, .mm-app .mm-form select { font-size: 16px; padding: 12px 14px; }
+    .mm-app .mm-form-submit { font-size: 15px; padding: 16px 20px; }
+    .mm-app .mm-badge { font-size: 10px; padding: 6px 10px; }
+    .mm-app .mm-stats { gap: 18px; flex-wrap: wrap; justify-content: flex-start; }
+    .mm-app .mm-section { padding: 60px 16px; }
+    .mm-app .mm-cards-grid { grid-template-columns: 1fr !important; gap: 16px; }
+    .mm-app .mm-vip-grid { grid-template-columns: 1fr !important; gap: 18px; }
+    .mm-app .mm-mentor-grid { grid-template-columns: 1fr !important; gap: 24px; text-align: center; }
+    .mm-app .mm-mentor-img { width: 220px; height: 220px; aspect-ratio: 1; margin: 0 auto; }
+    .mm-app .mm-cd-grid { gap: 6px; }
+    .mm-app .mm-nav { padding: 12px 16px; }
+    .mm-app .mm-logo { font-size: 13px; }
+    .mm-app .mm-logo small { font-size: 9px; }
+    .mm-app .mm-nav-cta { font-size: 11px; padding: 8px 14px; }
+    /* CTA de sección a ancho casi completo en móvil */
+    .mm-app .mm-cta-seccion-btn { width: 100%; justify-content: center; padding: 16px 20px; }
+    /* Botón flotante visible en móvil */
+    .mm-app .mm-float-cta { display: block; }
+    /* Dar espacio inferior para que el flotante no tape contenido */
+    .mm-app .mm-footer { padding-bottom: 90px; }
+  }
+  @media (max-width: 480px) {
+    .mm-app .mm-section { padding: 50px 14px; }
+    .mm-app .mm-hero-inner { padding: 75px 14px 25px; }
+    .mm-app .mm-form-card { padding: 20px 14px; }
   }
 </style>
 
-<div class="gm-app">
-  <div class="gm-particles" id="gm-particles"></div>
-  <div class="gm-glow"></div>
+<div class="mm-app">
 
-  <!-- ====== CONFETTI CELEBRACIÓN ====== -->
-  <div class="gm-confetti-wrap" id="gm-confetti"></div>
-
-  <!-- ====== CINTA ANIMADA ====== -->
-  <div class="gm-ticker">
-    <div class="gm-ticker-track">
-      <span>&#x1F389; TU LUGAR EST&Aacute; CONFIRMADO &nbsp;&bull;&nbsp; MONEY MAGNET &nbsp;&bull;&nbsp; PREP&Aacute;RATE PARA CAMBIAR LA FORMA EN QUE JUEGAS EL JUEGO DEL DINERO &nbsp;&bull;&nbsp;</span>
-      <span>&#x1F389; TU LUGAR EST&Aacute; CONFIRMADO &nbsp;&bull;&nbsp; MONEY MAGNET &nbsp;&bull;&nbsp; PREP&Aacute;RATE PARA CAMBIAR LA FORMA EN QUE JUEGAS EL JUEGO DEL DINERO &nbsp;&bull;&nbsp;</span>
+  <!-- ============ CINTA ANIMADA (urgencia) ============ -->
+  <div class="mm-ticker">
+    <div class="mm-ticker-track">
+      <span>&#9889; WEBINAR GRATUITO EN VIVO &nbsp;&bull;&nbsp; CUPOS LIMITADOS &nbsp;&bull;&nbsp; DEJA DE PERSEGUIR EL DINERO, APRENDE A ATRAERLO &nbsp;&bull;&nbsp; REG&Iacute;STRATE AHORA &nbsp;&bull;&nbsp;</span>
+      <span>&#9889; WEBINAR GRATUITO EN VIVO &nbsp;&bull;&nbsp; CUPOS LIMITADOS &nbsp;&bull;&nbsp; DEJA DE PERSEGUIR EL DINERO, APRENDE A ATRAERLO &nbsp;&bull;&nbsp; REG&Iacute;STRATE AHORA &nbsp;&bull;&nbsp;</span>
     </div>
   </div>
 
-  <div id="gm-contenido" style="display:none;">
-    <nav class="gm-nav">
-      <div class="gm-nav-inner">
-        <div class="gm-nav-logo">
-          <img src="https://drive.google.com/thumbnail?id=1CHWmWv6AEysbPzUN0UvHl_-FyzgyhKIp&sz=w120" alt="Money Magnet" referrerpolicy="no-referrer">
-          MONEY <span class="gold">MAGNET</span>
+  <!-- ============ NAVBAR ============ -->
+  <nav class="mm-nav">
+    <div class="mm-nav-inner">
+      <div class="mm-logo">
+        <img class="mm-logo-img" src="https://drive.google.com/thumbnail?id=1CHWmWv6AEysbPzUN0UvHl_-FyzgyhKIp&sz=w120" alt="Money Magnet" referrerpolicy="no-referrer">
+        <div class="mm-logo-text">
+          <small>ACADEMIA INTRADE</small>
+          <span>MONEY <span class="mm-logo-acc">MAGNET</span></span>
         </div>
       </div>
-    </nav>
+      <button class="mm-nav-cta" onclick="mmIrAlFormulario()">REGISTRO GRATIS</button>
+    </div>
+  </nav>
 
-    <main class="gm-main">
-      <div class="gm-inner">
-
-        <!-- HERO -->
-        <div class="gm-header" style="text-align:center;">
-          <h1 class="gm-saludo" id="gm-saludo">
-            <span id="gm-saludo-prefix">Bienvenido</span>, <span class="gold" id="gm-nombre"></span><br>
-            YA EST&Aacute;S <span class="gold">DENTRO</span>
+  <!-- ============ HERO ============ -->
+  <section class="mm-hero">
+    <div class="mm-hero-bg"></div>
+    <div class="mm-grid-pattern"></div>
+    <div class="mm-hero-foto">
+      <img src="https://drive.google.com/thumbnail?id=1-9zhQ5hMfaj78Se2t7WjQcXwSGocRfaE&sz=w1200" alt="Nicolas Cuellar" referrerpolicy="no-referrer">
+    </div>
+    <div class="mm-hero-evento-bg">
+      <img src="/imagenmentor.png" alt="">
+    </div>
+    <div class="mm-hero-inner">
+      <div class="mm-hero-grid">
+        <div class="mm-hero-left">
+          <div class="mm-badges-row">
+            <div class="mm-badge live"><span id="mm-badge-fecha">Cargando fecha...</span></div>
+            <div class="mm-badge gold">100% Online</div>
+          </div>
+          <div class="mm-brand-row">NICOL&Aacute;S CU&Eacute;LLAR &middot; ACADEMIA INTRADE</div>
+          <h1 class="mm-title">
+            <span class="mm-title-money">MONEY</span><br>
+            <span class="mm-title-magnet">MAGNET</span>
           </h1>
-          <!-- ====== VIDEO CON AUTOPLAY + MARCO DORADO + FLECHAS ====== -->
-          <div style="position:relative;margin-bottom:28px;">
-            <!-- Flechas animadas apuntando al video -->
-            <div class="gm-flechas-video" style="position:absolute;top:50%;left:-48px;transform:translateY(-50%);display:flex;flex-direction:column;gap:6px;animation:gm-flechas-pulso 1.5s ease-in-out infinite;z-index:5;">
-              <span style="color:#F5B800;font-size:28px;line-height:1;">&#9654;</span>
-              <span style="color:#F5B800;font-size:28px;line-height:1;">&#9654;</span>
-            </div>
-            <div class="gm-flechas-video" style="position:absolute;top:50%;right:-48px;transform:translateY(-50%) scaleX(-1);display:flex;flex-direction:column;gap:6px;animation:gm-flechas-pulso 1.5s ease-in-out infinite;z-index:5;">
-              <span style="color:#F5B800;font-size:28px;line-height:1;">&#9654;</span>
-              <span style="color:#F5B800;font-size:28px;line-height:1;">&#9654;</span>
-            </div>
-            <!-- Texto "Escucha esto" arriba del video -->
-            <div style="text-align:center;margin-bottom:12px;">
-              <span style="display:inline-block;background:rgba(245,184,0,0.1);border:1px solid rgba(245,184,0,0.3);border-radius:100px;padding:6px 20px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#F5B800;animation:gm-flechas-pulso 1.5s ease-in-out infinite;">&#x1F50A; ESCUCHA ESTE MENSAJE ANTES DE CONTINUAR</span>
-            </div>
-            <div class="gm-vsl-wrap" id="gm-vsl-wrap" style="margin-left:auto;margin-right:auto;border:2px solid rgba(245,184,0,0.4);box-shadow:0 0 30px rgba(245,184,0,0.15), 0 20px 60px rgba(0,0,0,0.55);">
-              <video id="gm-vsl-video" autoplay muted playsinline preload="auto" poster="/MoneyMagnetOnline.png" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture oncontextmenu="return false;" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;">
-                <source src="/VSL_GRACIAS.mp4" type="video/mp4">
-              </video>
-              <!-- Overlay: toca para activar sonido (el video ya se reproduce muted) -->
-              <div id="gm-vsl-overlay" onclick="gmActivarSonido()" style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:4;background:rgba(5,0,16,0.65);border-radius:inherit;cursor:pointer;transition:opacity 0.4s;">
-                <div style="display:flex;align-items:center;gap:10px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);border-radius:100px;padding:10px 22px;animation:pulse-soft 2s infinite;">
-                  <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
-                  <span style="color:#fff;font-size:13px;font-weight:700;">Toca para activar el sonido</span>
-                </div>
-              </div>
-              <!-- Controles custom: play/pausa + volumen -->
-              <div class="gm-vid-controls" id="gm-vid-controls">
-                <div class="gm-vid-btn" onclick="gmTogglePlay()">
-                  <svg id="gm-icon-play" fill="currentColor" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
-                </div>
-                <div class="gm-vid-btn" onclick="gmToggleVol()">
-                  <svg id="gm-icon-vol" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
-                </div>
-              </div>
-              <!-- Barra de progreso falsa (logarítmica) -->
-              <div class="gm-fake-progress"><div class="gm-fake-progress-bar" id="gm-fake-bar"></div></div>
-            </div>
-          </div>
-          <p class="gm-saludo-sub">
-            Te diste el regalo m&aacute;s importante: <strong style="color:#F5B800;">decidir actuar</strong>.
-            Hoy diste el primer paso para aprender a ganar el juego del dinero.
-            Tu lugar al webinar <strong style="color:#F5B800;">Money Magnet</strong>
-            est&aacute; confirmado y tu boleto va en camino a tu correo.
+          <div class="mm-subtitle-region" id="mm-subtitle-region">WEBINAR 2026</div>
+          <h2 class="mm-promesa-h2">DEJA DE CORRER DETR&Aacute;S DEL DINERO.<br><span class="mm-acc">APRENDE A ATRAERLO.</span></h2>
+          <p class="mm-promesa-sub">
+            En 2 horas en vivo vas a entender por qu&eacute; el dinero que ya<br>
+            ganas nunca llega a multiplicarse &mdash; y las reglas del juego<br>
+            que usan quienes s&iacute; hacen que su capital trabaje por ellos.
           </p>
-          <p class="gm-saludo-sub" style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:10px;">
-            &#9888;&#65039; Si no lo ves en 5 minutos, revisa tu carpeta de <strong>spam</strong> o <strong>promociones</strong>.
-          </p>
-          <div class="gm-card gold gm-evento-card" style="margin-top:22px;">
-            <div class="gm-evento-icon">&#x1F4C5;</div>
-            <div class="gm-evento-info">
-              <div class="gm-evento-lbl">TU SESI&Oacute;N</div>
-              <div class="gm-evento-fecha" id="gm-fecha-display">Cargando&hellip;</div>
-              <div class="gm-evento-hora" id="gm-hora-display">8:00 PM &middot; 2 horas en vivo</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ====== COUNTDOWN AL EVENTO ====== -->
-        <div class="gm-card" style="text-align:center;background:linear-gradient(135deg, rgba(245,184,0,0.04), rgba(245,184,0,0.01));border-color:rgba(245,184,0,0.2);">
-          <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);font-weight:700;margin-bottom:8px;">EL WEBINAR COMIENZA EN</div>
-          <div class="gm-countdown" id="gm-countdown">
-            <div class="gm-cd-box"><div class="gm-cd-num" id="gm-cd-dias">--</div><div class="gm-cd-lbl">D&iacute;as</div></div>
-            <div class="gm-cd-box"><div class="gm-cd-num" id="gm-cd-horas">--</div><div class="gm-cd-lbl">Horas</div></div>
-            <div class="gm-cd-box"><div class="gm-cd-num" id="gm-cd-min">--</div><div class="gm-cd-lbl">Min</div></div>
-            <div class="gm-cd-box"><div class="gm-cd-num" id="gm-cd-seg">--</div><div class="gm-cd-lbl">Seg</div></div>
-          </div>
-          <div style="font-size:12px;color:rgba(245,184,0,0.7);font-weight:600;">&#x26A0;&#xFE0F; En vivo &middot; Sin grabaci&oacute;n en el plan gratuito</div>
-        </div>
-
-        <!-- ====== COMUNIDADES: WHATSAPP + TELEGRAM (ARRIBA DEL QR) ====== -->
-        <div class="gm-comunidades">
-          <div class="gm-card wp gm-comunidad-card">
-            <div class="gm-comunidad-lbl" style="color:var(--verde-wp);">COMUNIDAD</div>
-            <div class="gm-comunidad-h">Grupo de WhatsApp</div>
-            <p class="gm-comunidad-sub">Recordatorios, recursos y contenido antes del evento.</p>
-            <a href="#" id="gm-btn-wp" target="_blank" rel="noopener" class="gm-comunidad-btn wp">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
-              UNIRME
-            </a>
-          </div>
-          <div class="gm-card tg gm-comunidad-card">
-            <div class="gm-comunidad-lbl" style="color:#229ED9;">CANAL</div>
-            <div class="gm-comunidad-h">Telegram oficial</div>
-            <p class="gm-comunidad-sub">Notificaciones y material extra que ir&eacute; publicando.</p>
-            <a href="#" id="gm-btn-tg" target="_blank" rel="noopener" class="gm-comunidad-btn tg">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.508.508 0 01.171.325c.016.093.036.306.02.473-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-              UNIRME
-            </a>
-          </div>
-        </div>
-
-        <!-- TICKET CON QR (debajo de las comunidades) -->
-        <div class="gm-card gm-ticket-section" style="max-width:420px;margin:18px auto 0;">
-          <div class="gm-ticket-lbl">TU BOLETO</div>
-          <div class="gm-ticket" id="gm-ticket">
-            <div class="gm-ticket-header">
-              <div class="gm-ticket-brand">ACADEMIA INTRADE &middot; WEBINAR</div>
-              <div class="gm-ticket-evento">MONEY <span class="gold">MAGNET</span></div>
-            </div>
-            <div class="gm-ticket-body">
-              <div class="gm-ticket-data">
-                <div class="row"><div class="lbl">Asistente</div><div class="val" id="gm-ticket-nombre">-</div></div>
-                <div class="row"><div class="lbl">Fecha</div><div class="val" id="gm-ticket-fecha">-</div></div>
-                <div class="row"><div class="lbl">Hora</div><div class="val">8:00 PM</div></div>
+          <div class="mm-vsl-wrap" id="mm-vsl-wrap" style="border:2px solid rgba(245,184,0,0.4);box-shadow:0 0 30px rgba(245,184,0,0.15), 0 20px 60px rgba(0,0,0,0.55);">
+            <video id="mm-vsl-video" autoplay muted playsinline preload="auto" poster="/MoneyMagnetOnline.png" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture oncontextmenu="return false;" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;">
+              <source src="/VSL_MONEY_MAGNET.mp4" type="video/mp4">
+            </video>
+            <!-- Overlay: toca para activar sonido -->
+            <div id="mm-vsl-overlay" onclick="mmActivarSonido()" style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:4;background:rgba(5,0,16,0.65);border-radius:inherit;cursor:pointer;transition:opacity 0.4s;">
+              <div class="mm-vsl-play">
+                <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
               </div>
-              <div class="gm-ticket-qr" id="gm-qr-container"></div>
+              <div class="mm-vsl-text">Conoce el webinar</div>
+              <div class="mm-vsl-sub">Toca para activar el sonido</div>
             </div>
-            <div class="gm-ticket-tipo" id="gm-ticket-tipo">ACCESO GENERAL</div>
-            <div class="gm-ticket-id" id="gm-ticket-id">MM-XXXX-XXXX</div>
+            <!-- Overlay: reproducir otra vez (aparece al terminar) -->
+            <div id="mm-vsl-replay" onclick="mmReplay()" style="position:absolute;top:0;left:0;width:100%;height:100%;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:2;background:rgba(5,0,16,0.55);border-radius:inherit;cursor:pointer;">
+              <div class="mm-vsl-play">
+                <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+              </div>
+              <div class="mm-vsl-text">Reproducir otra vez</div>
+            </div>
+            <!-- Controles custom: play/pausa + volumen -->
+            <div class="mm-vid-controls" id="mm-vid-controls">
+              <div class="mm-vid-btn" id="mm-btn-play" onclick="mmTogglePlay()">
+                <svg id="mm-icon-play" fill="currentColor" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+              </div>
+              <div class="mm-vid-btn" id="mm-btn-vol" onclick="mmToggleVol()">
+                <svg id="mm-icon-vol" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
+              </div>
+            </div>
+            <!-- Barra de progreso falsa (logarítmica: parece que queda poco) -->
+            <div class="mm-fake-progress"><div class="mm-fake-progress-bar" id="mm-fake-bar"></div></div>
           </div>
-          <div class="gm-ticket-actions">
-            <button class="gm-btn-download" onclick="gmDescargarBoleto()">
-              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Descargar
-            </button>
-          </div>
-          <div class="gm-ticket-sub">Tambi&eacute;n lo enviamos a tu correo</div>
-        </div>
-
-        <!-- ====== RECORDATORIO: CARENCIAS (dinero + inversiones) ====== -->
-        <div class="gm-card gm-carencias tono-claro">
-          <div class="gm-carencias-lbl">RECUERDA POR QU&Eacute; TE INSCRIBISTE</div>
-          <h2 class="gm-carencias-h">Esto cambia en el webinar</h2>
-          <p class="gm-carencias-sub">No viniste por casualidad. Esto es lo que vamos a trabajar el d&iacute;a del evento.</p>
-          <ul class="gm-carencias-list">
-            <li><span class="ic">&#10003;</span><span><strong>Las reglas del juego del dinero.</strong> Por qu&eacute; trabajar m&aacute;s nunca fue la respuesta, y qui&eacute;n es el verdadero villano de tu historia financiera: el dinero quieto que la inflaci&oacute;n devora y un sistema que te ense&ntilde;&oacute; a ganarlo pero nunca a multiplicarlo.</span></li>
-            <li><span class="ic">&#10003;</span><span><strong>El m&eacute;todo para multiplicar tu capital.</strong> Por qu&eacute; lo que intentaste antes no funcion&oacute; (te dieron piezas sueltas, sin sistema) y el m&eacute;todo paso a paso &mdash; mentalidad, estrategia y ejecuci&oacute;n &mdash; para hacer crecer tu dinero con criterio.</span></li>
-            <li><span class="ic">&#10003;</span><span><strong>Un plan claro para empezar ya.</strong> Sales con pasos concretos para aplicar desde esa misma semana, sin necesitar mucho capital ni ser un experto.</span></li>
-          </ul>
-        </div>
-
-        <!-- VIP -->
-        <div class="gm-card gm-vip-card">
-          <div class="gm-vip-head">
-            <div class="gm-vip-lbl">&#9733; EXPERIENCIA VIP &#9733;</div>
-            <h2 class="gm-vip-h">Lleva tu experiencia<br>al siguiente nivel</h2>
-            <p class="gm-vip-sub">Beneficios exclusivos para quienes quieren ir m&aacute;s profundo despu&eacute;s del webinar.</p>
-          </div>
-          <ul class="gm-vip-benefits">
-            <li><span class="gm-vip-check">OK</span> <strong>Sesi&oacute;n privada de preguntas y respuestas en vivo</strong> &mdash; despu&eacute;s del webinar resuelves tus dudas directamente con Nicol&aacute;s, con tu caso sobre la mesa</li>
-            <li><span class="gm-vip-check">OK</span> <strong>Acceso a la grabaci&oacute;n permanente</strong> del webinar</li>
-            <li><span class="gm-vip-check">OK</span> Ebook exclusivo con el sistema completo</li>
-            <li><span class="gm-vip-check">OK</span> Acceso al equipo privado VIP en <strong>WhatsApp</strong></li>
-            <li><span class="gm-vip-check">OK</span> Libro sorpresa seleccionado por Nicol&aacute;s</li>
-            <li><span class="gm-vip-check">OK</span> <strong>Certificado de asistencia</strong> personalizado</li>
-          </ul>
-          <div class="gm-vip-buttons">
-            <button class="gm-vip-btn" onclick="gmIniciarPagoVIP('vip_1', this)">
-              <div class="qty">1 VIP</div>
-              <div class="price">$<span id="gm-precio-vip1">15</span> USD</div>
-              <div style="font-size:9px;color:rgba(245,184,0,0.7);letter-spacing:1px;text-transform:uppercase;font-weight:700;">Para ti</div>
-            </button>
-            <button class="gm-vip-btn featured" onclick="gmIniciarPagoVIP('vip_2', this)">
-              <div class="qty">2 VIPs</div>
-              <div class="price">$<span id="gm-precio-vip2">20</span> USD</div>
-              <div class="popular">La m&aacute;s popular</div>
-            </button>
-          </div>
-          <div id="gm-vip-loading" style="display:none;text-align:center;margin-top:14px;color:rgba(245,184,0,0.9);font-size:13px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:6px;animation:gm-spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.3"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/></svg>
-            Procesando pago seguro&hellip;
-          </div>
-          <div id="gm-vip-error" style="display:none;text-align:center;margin-top:14px;color:#FF6B6B;font-size:13px;background:rgba(255,107,107,0.1);padding:10px;border-radius:8px;border:1px solid rgba(255,107,107,0.3);"></div>
-          <p style="text-align:center;color:rgba(255,255,255,0.4);font-size:11px;margin-top:16px;">Pago seguro con PayU &middot; Tu email del registro ser&aacute; usado para confirmar</p>
-          <p style="text-align:center;color:rgba(255,255,255,0.3);font-size:10px;margin-top:6px;"><img src="https://flagcdn.com/16x12/co.png" style="vertical-align:middle;margin-right:4px;border-radius:2px;"> Acepta tarjetas de cr&eacute;dito, d&eacute;bito, PSE, Nequi, Bancolombia, Daviplata y m&aacute;s</p>
-        </div>
-
-        <!-- DUDAS -->
-        <div class="gm-card gm-dudas">
-          <div class="gm-dudas-txt">
-            <div class="gm-comunidad-lbl" style="color:#F5B800;">&iquest;TIENES DUDAS?</div>
-            <h3 style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;margin:4px 0 6px;">Habla directo con Nicol&aacute;s</h3>
-            <p style="color:rgba(255,255,255,0.55);font-size:13px;margin:0;">Te respondo personalmente por WhatsApp.</p>
-          </div>
-          <a href="#" id="gm-btn-asesor" target="_blank" rel="noopener" class="gm-dudas-btn">
-            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
-            Hablar con Nicol&aacute;s
-          </a>
-        </div>
-
-        <!-- TEAMS -->
-        <div class="gm-card" style="background:linear-gradient(135deg, rgba(70,80,255,0.08), rgba(70,80,255,0.02));border-color:rgba(70,80,255,0.3);text-align:center;">
-          <div class="gm-wp-lbl" style="color:#6B7BFF;">PREP&Aacute;RATE PARA EL EVENTO</div>
-          <h2 class="gm-wp-h">Descarga Microsoft Teams</h2>
-          <p class="gm-wp-sub" style="margin-left:auto;margin-right:auto;">El webinar ser&aacute; por Microsoft Teams. Descarga la app con anticipaci&oacute;n para evitar problemas el d&iacute;a del evento.</p>
-          <div class="gm-teams-grid">
-            <a href="https://www.microsoft.com/es-co/microsoft-teams/download-app" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(107,123,255,0.3);border-radius:12px;color:#fff;text-decoration:none;">
-              <svg width="28" height="28" fill="#6B7BFF" viewBox="0 0 24 24"><path d="M19.5 8.25h-3V6c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h11.5c.55 0 1-.45 1-1v-2.25h3c.55 0 1-.45 1-1v-6.5c0-.55-.45-1-1-1zM9.5 16h-2v-5h-2V9.5h6V11h-2v5z"/></svg>
-              <div style="flex:1;"><div style="font-weight:700;font-size:14px;">PC / Mac</div><div style="font-size:12px;color:rgba(255,255,255,0.55);">Windows, macOS</div></div>
-              <span style="color:#6B7BFF;font-size:18px;">&rarr;</span>
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=com.microsoft.teams" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(107,123,255,0.3);border-radius:12px;color:#fff;text-decoration:none;">
-              <svg width="28" height="28" fill="#34A853" viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734c0-.4.244-.747.609-.92zm10.89 10.893l2.302 2.302-10.937 6.149 8.635-8.451zm3.93-3.926a.999.999 0 010 1.731l-2.732 1.537-2.62-2.62 2.62-2.621 2.732 1.973zM5.864 2.658l10.937 6.149-2.302 2.302-8.635-8.451z"/></svg>
-              <div style="flex:1;"><div style="font-weight:700;font-size:14px;">Android</div><div style="font-size:12px;color:rgba(255,255,255,0.55);">Google Play</div></div>
-              <span style="color:#6B7BFF;font-size:18px;">&rarr;</span>
-            </a>
-            <a href="https://apps.apple.com/app/microsoft-teams/id1113153706" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(107,123,255,0.3);border-radius:12px;color:#fff;text-decoration:none;">
-              <svg width="28" height="28" fill="#fff" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09z"/></svg>
-              <div style="flex:1;"><div style="font-weight:700;font-size:14px;">iPhone / iPad</div><div style="font-size:12px;color:rgba(255,255,255,0.55);">App Store</div></div>
-              <span style="color:#6B7BFF;font-size:18px;">&rarr;</span>
-            </a>
+          <div class="mm-stats">
+            <div><div class="mm-stat-val">2 hrs</div><div class="mm-stat-lbl">Duraci&oacute;n</div></div>
+            <div><div class="mm-stat-val">8 PM</div><div class="mm-stat-lbl">Tu hora local</div></div>
+            <div><div class="mm-stat-val">GRATIS</div><div class="mm-stat-lbl">Inversi&oacute;n</div></div>
+            <div><div class="mm-stat-val">EN VIVO</div><div class="mm-stat-lbl">Sin grabaci&oacute;n</div></div>
           </div>
         </div>
 
-        <!-- ====== AGREGAR AL CALENDARIO ====== -->
-        <div class="gm-card" style="background:linear-gradient(135deg, rgba(245,184,0,0.08), rgba(245,184,0,0.02));border-color:rgba(245,184,0,0.3);text-align:center;">
-          <div class="gm-wp-lbl" style="color:#F5B800;">NO LO OLVIDES</div>
-          <h2 class="gm-wp-h">Agrega el evento a tu calendario</h2>
-          <p class="gm-wp-sub" style="margin-left:auto;margin-right:auto;">Es en vivo y, en el plan gratuito, <strong style="color:#F5B800;">no hay grabaci&oacute;n</strong>. Si no lo agendas, corres el riesgo de olvidarlo.</p>
-          <div style="display:flex;justify-content:center;margin-top:8px;">
-            <a id="gm-cal-google" href="#" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:12px;padding:15px 28px;background:#F5B800;color:#0B1131;border-radius:100px;font-weight:800;font-size:15px;text-decoration:none;">
-              <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 002 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
-              Agregar a mi calendario
-            </a>
+        <!-- FORMULARIO (ancla de los CTA) -->
+        <div id="registro">
+          <div class="mm-form-card">
+            <h3 class="mm-form-h3">REG&Iacute;STRATE GRATIS</h3>
+            <p class="mm-form-sub">Recibe acceso al instante</p>
+            <form class="mm-form" id="mm-form-hero" onsubmit="return mmEnviarFormulario(event, 'hero')">
+              <div class="mm-form-row">
+                <input type="text" name="nombre" placeholder="Nombre*" required>
+                <input type="text" name="apellido" placeholder="Apellido*" required>
+              </div>
+              <input type="email" name="email" placeholder="Tu mejor email*" required>
+              <div class="mm-form-row">
+                <select name="sexo" required>
+                  <option value="">&iquest;C&oacute;mo te identificas?*</option>
+                  <option value="M">Hombre</option>
+                  <option value="F">Mujer</option>
+                  <option value="N">Prefiero no decir</option>
+                </select>
+                <div class="mm-custom-select" data-type="pais">
+                  <input type="hidden" name="pais" class="mm-pais-input" required>
+                  <button type="button" class="mm-cs-trigger" data-placeholder="Pa&iacute;s*"><span class="mm-cs-label">Pa&iacute;s*</span><span class="mm-cs-caret">&#9662;</span></button>
+                  <div class="mm-cs-dropdown"></div>
+                </div>
+              </div>
+              <div class="mm-form-phone">
+                <div class="mm-custom-select mm-cs-narrow" data-type="indicativo">
+                  <input type="hidden" name="indicativo" class="mm-ind-input">
+                  <button type="button" class="mm-cs-trigger" data-placeholder="+"><span class="mm-cs-label">+</span><span class="mm-cs-caret">&#9662;</span></button>
+                  <div class="mm-cs-dropdown"></div>
+                </div>
+                <input type="tel" name="telefono" inputmode="numeric" placeholder="Celular*" required>
+              </div>
+              <label class="mm-form-terminos">
+                <input type="checkbox" name="terminos" required>
+                <span>Acepto los <a href="/legal" target="_blank" rel="noopener">t&eacute;rminos</a> y el tratamiento de mis datos (Ley 1581/2012).</span>
+              </label>
+              <button type="submit" class="mm-form-submit">REGISTRARME GRATIS</button>
+              <div class="mm-form-msg" id="mm-msg-hero"></div>
+            </form>
           </div>
         </div>
-
-        <!-- ====== TRAE A ALGUIEN ====== -->
-        <div class="gm-card" style="text-align:center;">
-          <div class="gm-wp-lbl" style="color:#25D366;">MEJOR ACOMPA&Ntilde;ADO</div>
-          <h2 class="gm-wp-h">&iquest;Conoces a alguien que necesita esto?</h2>
-          <p class="gm-wp-sub" style="margin-left:auto;margin-right:auto;">Si tienes a alguien que tambi&eacute;n merece entender c&oacute;mo funciona el dinero de verdad, comp&aacute;rtelo. El registro es gratis para todos &mdash; y los cambios se sostienen mejor en compa&ntilde;&iacute;a.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:8px;">
-            <a id="gm-share-wa" href="#" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;padding:13px 24px;background:#25D366;color:#fff;border-radius:100px;font-weight:700;font-size:14px;text-decoration:none;">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.978-1.607z"/></svg>
-              Compartir por WhatsApp
-            </a>
-            <button id="gm-share-copy" type="button" style="display:inline-flex;align-items:center;gap:10px;padding:13px 24px;background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:100px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;">
-              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-              <span id="gm-share-copy-txt">Copiar link</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- ====== CIERRE / INSTAGRAM ====== -->
-        <div class="gm-card" style="text-align:center;background:linear-gradient(135deg, rgba(225,48,108,0.06), rgba(131,58,180,0.04));border-color:rgba(225,48,108,0.25);">
-          <p class="gm-wp-sub" style="margin-left:auto;margin-right:auto;margin-bottom:18px;">Mientras llega el d&iacute;a, s&iacute;gueme en Instagram: ah&iacute; comparto an&aacute;lisis, mentalidad financiera y todo lo que no te ense&ntilde;an sobre el dinero. Nos vemos pronto. <strong style="color:#F5B800;">&mdash; Nicol&aacute;s</strong></p>
-          <a href="https://www.instagram.com/nicolasgerardoc" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;padding:13px 26px;background:linear-gradient(135deg,#E1306C,#833AB4);color:#fff;border-radius:100px;font-weight:700;font-size:14px;text-decoration:none;">
-            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            Seguir a @nicolasgerardoc
-          </a>
-        </div>
-
-      </div>
-    </main>
-
-    <footer class="gm-footer">
-      <div>ACADEMIA INTRADE</div>
-      <div style="margin-top:4px;"><a href="mailto:admin@academiaintrade.com">admin@academiaintrade.com</a> &middot; Colombia</div>
-      <div style="margin-top:8px;"><a href="/legal">Informaci&oacute;n legal</a></div>
-      <div style="margin-top:8px;opacity:0.7;">&copy; 2026 Academia Intrade</div>
-    </footer>
-  </div>
-
-  <div id="gm-sin-registro" style="display:none;">
-    <div class="gm-no-acceso">
-      <div class="gm-no-acceso-card">
-        <div class="gm-no-acceso-icon">&#9888;</div>
-        <h2>Acceso restringido</h2>
-        <p>Esta p&aacute;gina es solo para quienes ya est&aacute;n registrados al webinar. Si quieres asegurar tu lugar, regresa a la p&aacute;gina de registro y completa el formulario gratis.</p>
-        <a href="#" id="gm-link-registro">Ir al registro</a>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- BARRA PRESTIGIO -->
+  <section class="mm-prestige">
+    <p>EL CAMINO QUE NADIE TE ENSE&Ntilde;&Oacute; PARA MULTIPLICAR TU CAPITAL</p>
+  </section>
+
+  <!-- ============ CONCEPTO MONEY MAGNET ============ -->
+  <section class="mm-section tono-oscuro">
+    <div class="mm-section-inner" style="max-width:760px;text-align:center;">
+      <div class="mm-kicker reveal">LA IDEA QUE LO CAMBIA TODO</div>
+      <h2 class="mm-h2 reveal">&iquest;QU&Eacute; ES SER UN <span class="mm-h2-gold">MONEY MAGNET</span>?</h2>
+      <p class="reveal" style="font-size:18px;line-height:1.7;color:var(--blanco);margin:22px 0 16px;font-weight:600;">
+        Un im&aacute;n no persigue el metal. Crea el campo correcto y el metal llega solo.
+      </p>
+      <p class="reveal" style="font-size:16px;line-height:1.8;color:var(--gris-claro);margin:0 auto 14px;max-width:640px;">
+        La mayor&iacute;a pasa la vida entera persiguiendo el dinero: m&aacute;s horas, m&aacute;s esfuerzo, m&aacute;s trabajo. Y aun as&iacute;, nunca alcanza. &iquest;El villano de esta historia? Un dinero quieto que la inflaci&oacute;n devora en silencio, y un sistema que te ense&ntilde;&oacute; a ganarlo pero jam&aacute;s a multiplicarlo.
+      </p>
+      <p class="reveal" style="font-size:16px;line-height:1.8;color:var(--gris-claro);margin:0 auto;max-width:640px;">
+        Un <strong style="color:var(--dorado);">Money Magnet</strong> hace algo distinto: entiende que el dinero tiene reglas, aprende a jugarlas, y construye el sistema para que el capital llegue a &eacute;l. Eso es exactamente lo que vas a aprender a construir en estas 2 horas.
+      </p>
+    </div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="mm-countdown-section">
+    <div class="mm-cd-inner">
+      <div class="mm-cd-lbl">EL EVENTO COMIENZA EN</div>
+      <div class="mm-cd-date" id="mm-cd-date">Cargando tu fecha...</div>
+      <div class="mm-cd-grid">
+        <div><div class="mm-cd-box" id="mm-cd-d">00</div><div class="mm-cd-unit">DIAS</div></div>
+        <div><div class="mm-cd-box" id="mm-cd-h">00</div><div class="mm-cd-unit">HORAS</div></div>
+        <div><div class="mm-cd-box" id="mm-cd-m">00</div><div class="mm-cd-unit">MIN</div></div>
+        <div><div class="mm-cd-box" id="mm-cd-s">00</div><div class="mm-cd-unit">SEG</div></div>
+      </div>
+      <div class="mm-cta-seccion">
+        <button class="mm-cta-seccion-btn" onclick="mmIrAlFormulario()">Reservar mi cupo gratis &uarr;</button>
+        <div class="mm-cta-seccion-sub">Cupos limitados por sesi&oacute;n &middot; sin costo</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CARENCIAS CON EL DINERO (tono oscuro) ============ -->
+  <section class="mm-section tono-oscuro">
+    <div class="mm-section-inner">
+      <div class="mm-section-head reveal">
+        <div class="mm-kicker">QUIZ&Aacute;S TE HA PASADO&hellip;</div>
+        <h2 class="mm-h2">EL DINERO TIENE <span class="mm-h2-gold">REGLAS</span></h2>
+        <p class="mm-section-sub" style="max-width:760px;margin:18px auto 0;font-size:16px;line-height:1.6;">
+          Nadie te ense&ntilde;&oacute; a jugar el juego del dinero. Y cuando no conoces las reglas,
+          juegas en desventaja sin darte cuenta. Mira si algo de esto te suena.
+        </p>
+      </div>
+      <div class="mm-cards-grid">
+        <div class="mm-card-feat reveal d1">
+          <div class="mm-card-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Creciste con frases que te programaron para la escasez</h3>
+          <p>&ldquo;El dinero no crece en los &aacute;rboles&rdquo;, &ldquo;la plata es para los vivos&rdquo;, &ldquo;los ricos son malos&rdquo;. Esas creencias siguen ah&iacute;, decidiendo por ti sin que te des cuenta.</p>
+        </div>
+        <div class="mm-card-feat reveal d2">
+          <div class="mm-card-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Cuando llega, se va. Cuando ahorras, terminas gastando</h3>
+          <p>No es un problema de matem&aacute;tica. Es que nadie te explic&oacute; las reglas del juego: c&oacute;mo hacer que el dinero se quede, crezca y trabaje. Sin esas reglas, juegas en desventaja sin saberlo.</p>
+        </div>
+        <div class="mm-card-feat reveal d3">
+          <div class="mm-card-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Trabajas cada vez m&aacute;s, pero tu dinero no rinde</h3>
+          <p>Te ense&ntilde;aron a trabajar por dinero, nunca a que el dinero trabaje para ti. Y mientras tanto, la inflaci&oacute;n se come en silencio lo que tanto te cuesta ganar.</p>
+        </div>
+      </div>
+      <div class="mm-cta-seccion reveal">
+        <button class="mm-cta-seccion-btn" onclick="mmIrAlFormulario()">Quiero cambiar esto &uarr;</button>
+        <div class="mm-cta-seccion-sub">Reg&iacute;strate gratis al webinar</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CARENCIAS CON LA INVERSI\u00d3N (tono claro) ============ -->
+  <section class="mm-section tono-claro">
+    <div class="mm-section-inner">
+      <div class="mm-section-head reveal">
+        <div class="mm-kicker">Y CUANDO INTENTAS HACER ALGO DIFERENTE&hellip;</div>
+        <h2 class="mm-h2">DIME SI <span class="mm-h2-gold">TE SUENA</span></h2>
+        <p class="mm-section-sub" style="max-width:760px;margin:18px auto 0;font-size:16px;line-height:1.6;">
+          Sabes que trabajar m&aacute;s no es la respuesta. Que tu dinero deber&iacute;a hacer algo,
+          no quedarse quieto perdiendo valor. Pero cada vez que intentas mover ficha&hellip;
+        </p>
+      </div>
+      <div class="mm-cards-grid">
+        <div class="mm-card-feat reveal d1">
+          <div class="mm-card-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Buscas informaci&oacute;n y terminas m&aacute;s confundido que antes</h3>
+          <p>Mil opiniones contradictorias, cada quien jura tener la f&oacute;rmula, todo promete mucho. Tanta opci&oacute;n que la mayor&iacute;a termina sin hacer nada &mdash; o haciendo algo mal.</p>
+        </div>
+        <div class="mm-card-feat reveal d2">
+          <div class="mm-card-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Ya intentaste algo, perdiste plata y volviste al punto de partida</h3>
+          <p>Algo que se desplom&oacute;, una recomendaci&oacute;n que no funcion&oacute;, un curso que prometi&oacute; mucho. Y quedaste convencido de que &ldquo;eso no es para ti&rdquo;. No fue tu culpa: te dieron piezas sueltas, sin ning&uacute;n sistema.</p>
+        </div>
+        <div class="mm-card-feat reveal d3">
+          <div class="mm-card-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Sientes que falta algo, pero no sabes qu&eacute;</h3>
+          <p>Intuyes que los que s&iacute; lo logran saben algo que t&uacute; no. Tienes raz&oacute;n: el dinero tiene reglas, y existe un orden l&oacute;gico para construir capital. No es saltar de moda en moda &mdash; es un m&eacute;todo.</p>
+        </div>
+      </div>
+      <div class="mm-cta-seccion reveal">
+        <button class="mm-cta-seccion-btn" onclick="mmIrAlFormulario()">Quiero aprender el m&eacute;todo &uarr;</button>
+        <div class="mm-cta-seccion-sub">Te lo muestro paso a paso en el webinar gratis</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AQUI APRENDERAS (tono medio) ============ -->
+  <section class="mm-section tono-medio">
+    <div class="mm-section-inner">
+      <div class="mm-section-head reveal">
+        <div class="mm-kicker">EN ESTE WEBINAR</div>
+        <h2 class="mm-h2">AQU&Iacute; <span class="mm-h2-gold">APRENDER&Aacute;S</span></h2>
+        <p class="mm-section-sub" style="max-width:780px;margin:18px auto 0;font-size:16px;line-height:1.65;">
+          No es un webinar de promesas vac&iacute;as. Es una sesi&oacute;n pr&aacute;ctica donde sales con claridad real
+          sobre c&oacute;mo atraer dinero a tu vida y construir una herramienta para generar ingresos
+          desde cualquier parte del mundo a trav&eacute;s de las inversiones.
+        </p>
+      </div>
+      <div class="mm-aprenderas-grid">
+        <div class="mm-aprenderas-item reveal d1"><div class="mm-aprenderas-num">01</div><div class="mm-aprenderas-body"><h3>Las reglas ocultas del juego del dinero</h3><p>Vas a ver por qu&eacute; trabajar m&aacute;s nunca fue la respuesta, y qui&eacute;n es el verdadero villano de tu historia financiera: la inflaci&oacute;n que devora tu dinero quieto y un sistema que te ense&ntilde;&oacute; a ganarlo pero nunca a multiplicarlo. Conocer al enemigo es el primer paso para ganarle.</p></div></div>
+        <div class="mm-aprenderas-item reveal d2"><div class="mm-aprenderas-num">02</div><div class="mm-aprenderas-body"><h3>D&oacute;nde puede crecer tu dinero (y d&oacute;nde no)</h3><p>El panorama completo de las formas reales de hacer crecer tu capital: c&oacute;mo funcionan, qu&eacute; ofrecen, qu&eacute; riesgos tienen y por d&oacute;nde tiene sentido empezar seg&uacute;n tu situaci&oacute;n. Sin tecnicismos y sin humo.</p></div></div>
+        <div class="mm-aprenderas-item reveal d3"><div class="mm-aprenderas-num">03</div><div class="mm-aprenderas-body"><h3>El m&eacute;todo paso a paso</h3><p>No tips sueltos: el sistema completo de mentalidad, an&aacute;lisis, gesti&oacute;n del riesgo y ejecuci&oacute;n que usan quienes s&iacute; generan retornos consistentes.</p></div></div>
+        <div class="mm-aprenderas-item reveal d1"><div class="mm-aprenderas-num">04</div><div class="mm-aprenderas-body"><h3>C&oacute;mo empezar con lo que tienes hoy</h3><p>No necesitas miles de d&oacute;lares ni vivir en un pa&iacute;s espec&iacute;fico. Aprender&aacute;s a dar tus primeros pasos desde donde est&aacute;s, con el capital que tengas.</p></div></div>
+        <div class="mm-aprenderas-item reveal d2"><div class="mm-aprenderas-num">05</div><div class="mm-aprenderas-body"><h3>Errores que cuestan caro y c&oacute;mo evitarlos</h3><p>Las trampas en las que cae el 95% que invierte solo. Identificarlas a tiempo te ahorra a&ntilde;os de frustraci&oacute;n y mucho dinero perdido.</p></div></div>
+        <div class="mm-aprenderas-item reveal d3"><div class="mm-aprenderas-num">06</div><div class="mm-aprenderas-body"><h3>Un plan claro para la siguiente semana</h3><p>Sales con pasos concretos para aplicar esa misma noche. No m&aacute;s &ldquo;alg&uacute;n d&iacute;a empiezo&rdquo;: vas a saber exactamente qu&eacute; hacer.</p></div></div>
+      </div>
+      <div class="mm-cta-seccion reveal">
+        <button class="mm-cta-seccion-btn" onclick="mmIrAlFormulario()">Reservar mi cupo gratis &uarr;</button>
+        <div class="mm-cta-seccion-sub">2 horas en vivo que pueden cambiar tu a&ntilde;o</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MENTOR ============ -->
+  <section class="mm-mentor-section">
+    <div class="mm-mentor-grid">
+      <div class="reveal d1">
+        <div class="mm-mentor-img">
+          <img class="mm-mentor-foto-real" src="https://drive.google.com/thumbnail?id=1-9zhQ5hMfaj78Se2t7WjQcXwSGocRfaE&sz=w1200" alt="Nicolas Cuellar" referrerpolicy="no-referrer">
+        </div>
+        <a href="https://www.instagram.com/nicolasgerardoc" target="_blank" rel="noopener" class="mm-ig-btn">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke-linecap="round" stroke-linejoin="round"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="mm-ig-btn-text"><span class="mm-ig-handle">@nicolasgerardoc</span><span class="mm-ig-followers">+4.7k seguidores &middot; S&iacute;gueme en Instagram</span></div>
+        </a>
+      </div>
+      <div class="reveal d2">
+        <div class="mm-kicker">TU MENTOR</div>
+        <h2 class="mm-mentor-h">Nicol&aacute;s Cu&eacute;llar</h2>
+        <div class="mm-mentor-rol">Trader Profesional &middot; Educador Financiero</div>
+        <p class="mm-mentor-bio">Yo tambi&eacute;n empec&eacute; sin saber nada de mercados. Ten&iacute;a un t&iacute;tulo de ingenier&iacute;a, jugaba ajedrez de competencia, y cre&iacute;a que el dinero se ganaba trabajando m&aacute;s duro. Tard&eacute; a&ntilde;os en entender que el dinero tiene reglas distintas &mdash; y que nadie me las hab&iacute;a ense&ntilde;ado. Hoy llevo m&aacute;s de 8 a&ntilde;os en los mercados y 7 formando personas en Latinoam&eacute;rica para que aprendan esas reglas antes de cometer los errores que yo comet&iacute;.</p>
+        <ul class="mm-mentor-creds">
+          <li>Ingeniero de Sistemas &mdash; Universidad El Bosque</li>
+          <li>Ajedrecista profesional con t&iacute;tulo CM (Candidate Master)</li>
+          <li>Trader profesional con m&aacute;s de 8 a&ntilde;os en mercados financieros</li>
+          <li>Autor de libro sobre finanzas e inversi&oacute;n</li>
+          <li>Conferencista y educador hace 7 a&ntilde;os</li>
+          <li>Fundador de Academia Intrade</li>
+        </ul>
+        <div style="margin-top:24px;padding:16px 20px;background:rgba(245,184,0,0.08);border:1px solid rgba(245,184,0,0.25);border-radius:12px;display:flex;align-items:center;gap:14px;">
+          <span style="font-family:inherit;font-size:30px;font-weight:900;color:var(--dorado);line-height:1;flex-shrink:0;">+1.000</span>
+          <span style="font-size:14.5px;color:rgba(255,255,255,0.88);line-height:1.5;">personas ya han recibido sesiones y formaci&oacute;n con Nicol&aacute;s en Latinoam&eacute;rica.</span>
+        </div>
+        <div class="mm-cta-seccion" style="text-align:left;margin-top:32px;">
+          <button class="mm-cta-seccion-btn" onclick="mmIrAlFormulario()">Aprender con Nicol&aacute;s &uarr;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VIP ============ -->
+  <section class="mm-vip-section">
+    <div class="mm-vip-inner">
+      <div class="mm-section-head reveal">
+        <div class="mm-kicker">ELIGE C&Oacute;MO VIVIRLO</div>
+        <h2 class="mm-h2">PLANES <span class="mm-h2-gold">DISPONIBLES</span></h2>
+        <p style="color:rgba(255,255,255,0.55);font-size:15px;max-width:620px;margin:20px auto 0;line-height:1.7;">El webinar es <strong style="color:rgba(255,255,255,0.85);">gratis</strong> y lo vas a aprovechar igual. Pero si quieres vivirlo a otro nivel, el plan VIP es para quienes van en serio. T&uacute; eliges &mdash; sin presi&oacute;n.</p>
+      </div>
+      <div class="mm-vip-grid mm-vip-grid-3">
+        <div class="mm-vip-card reveal">
+          <div class="mm-vip-tipo">GRATIS</div>
+          <div class="mm-vip-precio">$0<span class="mm-vip-cur">USD</span></div>
+          <div class="mm-vip-divider"></div>
+          <ul class="mm-vip-list">
+            <li><span class="mm-vip-check">OK</span> <span>Acceso al <strong>evento en vivo</strong> de 2 horas</span></li>
+            <li><span class="mm-vip-check">OK</span> <span>Acceso al <strong>grupo de WhatsApp y Telegram</strong> pre y post evento</span></li>
+          </ul>
+          <button class="mm-vip-cta" onclick="mmIrAlFormulario()">REGISTRARME GRATIS</button>
+        </div>
+        <div class="mm-vip-card featured reveal d1">
+          <div class="mm-vip-badge">MEJOR VALOR</div>
+          <div class="mm-vip-tipo">VIP &middot; 2 PERSONAS</div>
+          <div class="mm-vip-precio">$<span id="mm-precio-vip2">20</span><span class="mm-vip-cur">USD</span></div>
+          <div class="mm-vip-divider"></div>
+          <ul class="mm-vip-list">
+            <li><span class="mm-vip-check">OK</span> <span><strong>Grabaci&oacute;n permanente</strong> para los dos</span></li>
+            <li><span class="mm-vip-check">OK</span> <span>Q&amp;A <strong>privada por Microsoft Teams</strong> para ambos</span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>Ebook exclusivo</strong> con el sistema completo</span></li>
+            <li><span class="mm-vip-check">OK</span> <span>Equipo privado VIP en <strong>WhatsApp</strong></span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>2 libros sorpresa</strong>, uno para cada persona</span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>2 certificados</strong> personalizados</span></li>
+            <li><span class="mm-vip-check">OK</span> <span>Ahorras <strong><span id="mm-ahorro-vip2">$10 USD</span></strong> vs. comprar 2 por separado</span></li>
+          </ul>
+          <button class="mm-vip-cta" onclick="mmAvisoVIP()">ACCEDER POR $<span id="mm-btn-vip2">20</span></button>
+        </div>
+        <div class="mm-vip-card reveal d2">
+          <div class="mm-vip-tipo">VIP &middot; 1 PERSONA</div>
+          <div class="mm-vip-precio">$<span id="mm-precio-vip1">15</span><span class="mm-vip-cur">USD</span></div>
+          <div class="mm-vip-divider"></div>
+          <ul class="mm-vip-list">
+            <li><span class="mm-vip-check">OK</span> <span>Todo lo del plan gratis</span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>Grabaci&oacute;n permanente</strong> del webinar</span></li>
+            <li><span class="mm-vip-check">OK</span> <span>Q&amp;A <strong>privada por Microsoft Teams</strong></span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>Ebook exclusivo</strong> con el sistema completo</span></li>
+            <li><span class="mm-vip-check">OK</span> <span>Equipo privado VIP en <strong>WhatsApp</strong></span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>Libro sorpresa</strong> seleccionado por Nicol&aacute;s</span></li>
+            <li><span class="mm-vip-check">OK</span> <span><strong>Certificado</strong> personalizado</span></li>
+          </ul>
+          <button class="mm-vip-cta" onclick="mmAvisoVIP()">QUIERO SER VIP</button>
+        </div>
+      </div>
+      <p style="text-align:center;color:rgba(255,255,255,0.3);font-size:12px;margin-top:24px;">Los planes VIP estar&aacute;n disponibles despu&eacute;s de tu registro al webinar gratis.</p>
+    </div>
+  </section>
+
+  <!-- ============ FORMULARIO FINAL ============ -->
+  <section class="mm-final-section">
+    <div class="mm-final-inner">
+      <div class="reveal"><h2 class="mm-final-h">TU LUGAR TE<br><span class="mm-h2-gold">EST&Aacute; ESPERANDO</span></h2></div>
+      <div class="reveal d2 mm-final-card">
+        <form class="mm-form" id="mm-form-final" onsubmit="return mmEnviarFormulario(event, 'final')">
+          <div class="mm-form-row">
+            <input type="text" name="nombre" placeholder="Nombre*" required>
+            <input type="text" name="apellido" placeholder="Apellido*" required>
+          </div>
+          <input type="email" name="email" placeholder="Tu mejor email*" required>
+          <div class="mm-form-row">
+            <select name="sexo" required>
+              <option value="">&iquest;C&oacute;mo te identificas?*</option>
+              <option value="M">Hombre</option>
+              <option value="F">Mujer</option>
+              <option value="N">Prefiero no decir</option>
+            </select>
+            <div class="mm-custom-select" data-type="pais">
+              <input type="hidden" name="pais" class="mm-pais-input" required>
+              <button type="button" class="mm-cs-trigger" data-placeholder="Pa&iacute;s*"><span class="mm-cs-label">Pa&iacute;s*</span><span class="mm-cs-caret">&#9662;</span></button>
+              <div class="mm-cs-dropdown"></div>
+            </div>
+          </div>
+          <div class="mm-form-phone">
+            <div class="mm-custom-select mm-cs-narrow" data-type="indicativo">
+              <input type="hidden" name="indicativo" class="mm-ind-input">
+              <button type="button" class="mm-cs-trigger" data-placeholder="+"><span class="mm-cs-label">+</span><span class="mm-cs-caret">&#9662;</span></button>
+              <div class="mm-cs-dropdown"></div>
+            </div>
+            <input type="tel" name="telefono" inputmode="numeric" placeholder="Celular*" required>
+          </div>
+          <label class="mm-form-terminos">
+            <input type="checkbox" name="terminos" required>
+            <span>Acepto los <a href="/legal" target="_blank" rel="noopener">t&eacute;rminos</a> y el tratamiento de mis datos (Ley 1581/2012).</span>
+          </label>
+          <button type="submit" class="mm-form-submit">QUIERO MI LUGAR GRATIS</button>
+          <div class="mm-form-msg" id="mm-msg-final"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="mm-footer">
+    <div class="mm-footer-brand">ACADEMIA INTRADE</div>
+    <div><a href="mailto:admin@academiaintrade.com">admin@academiaintrade.com</a> &middot; Colombia</div>
+    <div style="margin-top:8px;"><a href="/legal">Informaci&oacute;n legal</a> &middot; <a href="/legal">Tratamiento de datos</a></div>
+    <div style="margin-top:10px;opacity:0.5;max-width:620px;margin-left:auto;margin-right:auto;line-height:1.5;">Contenido de car&aacute;cter educativo. No constituye asesor&iacute;a financiera. Las inversiones conllevan riesgo de p&eacute;rdida de capital.</div>
+    <div style="margin-top:10px;opacity:0.5;">&copy; 2026 Academia Intrade &middot; Todos los derechos reservados</div>
+  </footer>
+
+  <!-- BOTÓN FLOTANTE MÓVIL -->
+  <button class="mm-float-cta" onclick="mmIrAlFormulario()">Reservar mi cupo gratis</button>
+
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 <script>
 (function() {
   'use strict';
-  var URL_REGISTRO = '/';
+  var FUENTE_ID = 'landing_money_magnet';
   var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK6XSxi1T4I2hCSZeEScJy7pKhFGs2S1OVtxSmAfc2oFjK1UonFmIGFjGEmJAdTymQ8g/exec';
 
-  (function gmCargarPrecios() {
+  // CTA universal: sube al formulario del hero y enfoca el primer campo
+  window.mmIrAlFormulario = function(){
+    var dest = document.getElementById('registro');
+    if (dest) {
+      dest.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(function(){
+        var inp = document.querySelector('#mm-form-hero input[name="nombre"]');
+        if (inp) inp.focus({ preventScroll: true });
+      }, 600);
+    }
+  };
+
+  (function cargarPreciosDinamicos() {
     try {
-      fetch(APPS_SCRIPT_URL + '?action=evento_activo').then(function(r){ return r.json(); }).then(function(res){
+      var evParam = new URLSearchParams(window.location.search).get('ev') || '';
+      var url = APPS_SCRIPT_URL + '?action=evento_activo' + (evParam ? '&ev=' + encodeURIComponent(evParam) : '');
+      fetch(url).then(function(r){ return r.json(); }).then(function(res){
         if (!res || !res.ok || !res.sectores) return;
         var s = res.sectores.latam_bajo || res.sectores.latam_alto || {};
-        if (s.precio_vip1 != null) { var e1 = document.getElementById('gm-precio-vip1'); if (e1) e1.textContent = s.precio_vip1; }
-        if (s.precio_vip2 != null) { var e2 = document.getElementById('gm-precio-vip2'); if (e2) e2.textContent = s.precio_vip2; }
+        if (s.precio_vip1 != null) { var e1 = document.getElementById('mm-precio-vip1'); if (e1) e1.textContent = s.precio_vip1; }
+        if (s.precio_vip2 != null) {
+          var e2 = document.getElementById('mm-precio-vip2'); var b2 = document.getElementById('mm-btn-vip2');
+          if (e2) e2.textContent = s.precio_vip2; if (b2) b2.textContent = s.precio_vip2;
+          if (s.precio_vip1 != null) { var ahorro = (s.precio_vip1 * 2) - s.precio_vip2; var ea = document.getElementById('mm-ahorro-vip2'); if (ea && ahorro > 0) ea.textContent = '$' + ahorro + ' ' + (s.moneda || 'USD'); }
+        }
       }).catch(function(){});
     } catch (e) {}
   })();
 
-  var userData = null;
-  try {
-    var params = new URLSearchParams(window.location.search);
-    var dataParam = params.get('d');
-    if (dataParam) {
-      var decoded = JSON.parse(decodeURIComponent(escape(atob(dataParam))));
-      userData = { nombre: decoded.n, apellido: decoded.a, email: decoded.e, sexo: decoded.s, pais: decoded.p, pais_codigo: decoded.pc, grupo: decoded.g, fecha_evento: decoded.fe, hora_evento: decoded.he, whatsapp_url: decoded.wp, telegram_url: decoded.tg, telefono: decoded.tel, ticket_id: decoded.t };
-    }
-  } catch(e) { console.error('[GRACIAS] Error decodificando:', e.message); }
-
-  if (!userData || !userData.email || !userData.ticket_id) {
-    var link = document.getElementById('gm-link-registro'); if (link) link.href = '/';
-    document.getElementById('gm-sin-registro').style.display = 'block';
-    document.getElementById('gm-contenido').style.display = 'none';
-    return;
-  }
-  document.getElementById('gm-contenido').style.display = 'block';
-
-  function generarParticles() {
-    var cont = document.getElementById('gm-particles');
-    for (var i = 0; i < 18; i++) {
-      var p = document.createElement('div'); p.className = 'gm-particle';
-      var size = Math.random() * 3 + 1;
-      p.style.width = size + 'px'; p.style.height = size + 'px';
-      p.style.left = (Math.random() * 100) + '%'; p.style.top = (Math.random() * 100) + '%';
-      p.style.animation = 'float-particle ' + (Math.random() * 20 + 15) + 's linear ' + (-Math.random() * 20) + 's infinite';
-      cont.appendChild(p);
-    }
-  }
-  generarParticles();
-
-  (function personalizarSaludo() {
-    var prefix = document.getElementById('gm-saludo-prefix'); var nombreEl = document.getElementById('gm-nombre');
-    if (userData.sexo === 'M') prefix.textContent = 'Bienvenido';
-    else if (userData.sexo === 'F') prefix.textContent = 'Bienvenida';
-    else prefix.textContent = 'Hola';
-    nombreEl.textContent = userData.nombre.toUpperCase();
-  })();
-
-  document.getElementById('gm-fecha-display').textContent = userData.fecha_evento || 'Proximo webinar';
-  document.getElementById('gm-hora-display').innerHTML = (userData.hora_evento || '8:00 PM') + ' &middot; 2 horas en vivo';
-
-  // ====== AGREGAR AL CALENDARIO (fecha segun grupo del registrado) ======
-  // Fechas oficiales del webinar, 8:00 PM hora Colombia (UTC-5), 2 horas.
-  // Formato Google Calendar en UTC: 18 jun 8PM COL = 19 jun 01:00 UTC.
-  var GM_FECHAS_CAL = {
-    latam_bajo: { ini: '20260619T010000Z', fin: '20260619T030000Z' }, // jue 18 jun 8PM COL
-    latam_alto: { ini: '20260620T010000Z', fin: '20260620T030000Z' }, // vie 19 jun 8PM COL
-    europa:     { ini: '20260620T180000Z', fin: '20260620T200000Z' }  // sab 20 jun 8PM CET (UTC+2)
+  var EVENTOS = {
+    'latam_bajo': { fecha_iso: '2026-06-18T20:00:00-05:00', fecha_display: 'Jueves 18 de junio', hora_origen: '8:00 PM (Hora Colombia)', grupo: 'latam_bajo', whatsapp: 'https://chat.whatsapp.com/EjbCRtt9gr98iciCjJwrFD', telegram: 'https://t.me/+h6kz_j2FyHxhZmIx' },
+    'latam_alto': { fecha_iso: '2026-06-19T20:00:00-05:00', fecha_display: 'Viernes 19 de junio', hora_origen: '8:00 PM (Hora Colombia)', grupo: 'latam_alto', whatsapp: 'https://chat.whatsapp.com/K7OKlvU222FIAa33woJdlB', telegram: 'https://t.me/+4E7N8IwfWXY1YzJh' },
+    'europa': { fecha_iso: '2026-06-20T20:00:00+02:00', fecha_display: 'Sabado 20 de junio', hora_origen: '8:00 PM (Hora Europa Central)', grupo: 'europa', whatsapp: 'https://chat.whatsapp.com/K7OKlvU222FIAa33woJdlB', telegram: 'https://t.me/+4E7N8IwfWXY1YzJh' }
   };
-  (function gmCalendario() {
-    var grupo = userData.grupo || 'latam_bajo';
-    var f = GM_FECHAS_CAL[grupo] || GM_FECHAS_CAL.latam_bajo;
-    var titulo = 'Money Magnet - Webinar en vivo con Nicolas Cuellar';
-    var detalle = 'Tu webinar Money Magnet. ' + (userData.hora_evento || '8:00 PM') +
-                  '. En vivo, sin grabacion en el plan gratuito. Tu ticket: ' + (userData.ticket_id || '') + '.';
-    var gcal = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-      '&text=' + encodeURIComponent(titulo) +
-      '&dates=' + f.ini + '/' + f.fin +
-      '&details=' + encodeURIComponent(detalle);
-    var btnCal = document.getElementById('gm-cal-google');
-    if (btnCal) btnCal.href = gcal;
-  })();
+  var GRUPOS_PAIS = {
+    'CO':'latam_bajo','MX':'latam_bajo','PE':'latam_bajo','BO':'latam_bajo','VE':'latam_bajo','AR':'latam_bajo','PY':'latam_bajo','HN':'latam_bajo','NI':'latam_bajo','SV':'latam_bajo','GT':'latam_bajo','CU':'latam_bajo','DO':'latam_bajo','HT':'latam_bajo','BR':'latam_bajo',
+    'EC':'latam_alto','CL':'latam_alto','UY':'latam_alto','CR':'latam_alto','PA':'latam_alto','PR':'latam_alto','US':'latam_alto','CA':'latam_alto',
+    'ES':'europa','PT':'europa','IT':'europa','FR':'europa','DE':'europa','GB':'europa','NL':'europa','BE':'europa','CH':'europa','AT':'europa','SE':'europa','NO':'europa','DK':'europa','FI':'europa','IE':'europa','PL':'europa','CZ':'europa','GR':'europa','HU':'europa','RO':'europa','LU':'europa','IS':'europa','MT':'europa'
+  };
+  var PAISES = [
+    {code:'CO',name:'Colombia',dial:'+57'},{code:'MX',name:'M\u00e9xico',dial:'+52'},{code:'AR',name:'Argentina',dial:'+54'},{code:'PE',name:'Per\u00fa',dial:'+51'},{code:'CL',name:'Chile',dial:'+56'},{code:'VE',name:'Venezuela',dial:'+58'},{code:'EC',name:'Ecuador',dial:'+593'},{code:'BO',name:'Bolivia',dial:'+591'},{code:'PY',name:'Paraguay',dial:'+595'},{code:'UY',name:'Uruguay',dial:'+598'},{code:'BR',name:'Brasil',dial:'+55'},{code:'CR',name:'Costa Rica',dial:'+506'},{code:'PA',name:'Panam\u00e1',dial:'+507'},{code:'DO',name:'Rep. Dominicana',dial:'+1'},{code:'GT',name:'Guatemala',dial:'+502'},{code:'HN',name:'Honduras',dial:'+504'},{code:'SV',name:'El Salvador',dial:'+503'},{code:'NI',name:'Nicaragua',dial:'+505'},{code:'CU',name:'Cuba',dial:'+53'},{code:'PR',name:'Puerto Rico',dial:'+1'},{code:'HT',name:'Hait\u00ed',dial:'+509'},{code:'US',name:'Estados Unidos',dial:'+1'},{code:'CA',name:'Canad\u00e1',dial:'+1'},{code:'ES',name:'Espa\u00f1a',dial:'+34'},{code:'PT',name:'Portugal',dial:'+351'},{code:'IT',name:'Italia',dial:'+39'},{code:'FR',name:'Francia',dial:'+33'},{code:'DE',name:'Alemania',dial:'+49'},{code:'GB',name:'Reino Unido',dial:'+44'},{code:'NL',name:'Pa\u00edses Bajos',dial:'+31'},{code:'BE',name:'B\u00e9lgica',dial:'+32'},{code:'CH',name:'Suiza',dial:'+41'},{code:'AT',name:'Austria',dial:'+43'},{code:'SE',name:'Suecia',dial:'+46'},{code:'NO',name:'Noruega',dial:'+47'},{code:'DK',name:'Dinamarca',dial:'+45'},{code:'FI',name:'Finlandia',dial:'+358'},{code:'IE',name:'Irlanda',dial:'+353'},{code:'PL',name:'Polonia',dial:'+48'},{code:'CZ',name:'Rep. Checa',dial:'+420'},{code:'GR',name:'Grecia',dial:'+30'},{code:'HU',name:'Hungr\u00eda',dial:'+36'},{code:'RO',name:'Ruman\u00eda',dial:'+40'},{code:'LU',name:'Luxemburgo',dial:'+352'}
+  ];
+  function flagURL(code) { return 'https://flagcdn.com/24x18/' + code.toLowerCase() + '.png'; }
 
-  // ====== COMPARTIR ======
-  (function gmCompartir() {
-    var linkRegistro = 'https://magnet.academiaintrade.com/';
-    var msg = 'Ey, me inscribi a un webinar GRATIS: Money Magnet, con Nicolas Cuellar. ' +
-              'Es sobre como funciona el dinero de verdad y como hacer que trabaje para ti. ' +
-              'En vivo, 2 horas, sin costo. Creo que te puede servir: ' + linkRegistro;
-    var btnWa = document.getElementById('gm-share-wa');
-    if (btnWa) btnWa.href = 'https://wa.me/?text=' + encodeURIComponent(msg);
-    var btnCopy = document.getElementById('gm-share-copy');
-    if (btnCopy) btnCopy.addEventListener('click', function() {
-      var txt = document.getElementById('gm-share-copy-txt');
-      function ok() { if (txt) { var prev = txt.textContent; txt.textContent = 'Copiado!'; setTimeout(function(){ txt.textContent = prev; }, 1800); } }
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(linkRegistro).then(ok).catch(function(){ prompt('Copia el link:', linkRegistro); });
-      } else { prompt('Copia el link:', linkRegistro); }
+  function construirDropdown(container) {
+    var type = container.dataset.type;
+    var trigger = container.querySelector('.mm-cs-trigger');
+    var label = container.querySelector('.mm-cs-label');
+    var dropdown = container.querySelector('.mm-cs-dropdown');
+    label.classList.add('placeholder');
+    dropdown.innerHTML = '';
+    PAISES.forEach(function(p) {
+      var opt = document.createElement('div');
+      opt.className = 'mm-cs-option'; opt.dataset.code = p.code; opt.dataset.dial = p.dial; opt.dataset.name = p.name;
+      var img = document.createElement('img'); img.src = flagURL(p.code); img.alt = p.code; img.loading = 'lazy'; opt.appendChild(img);
+      var span = document.createElement('span'); span.textContent = type === 'indicativo' ? (p.dial + '  ' + p.name) : p.name; opt.appendChild(span);
+      opt.addEventListener('click', function() { seleccionarOpcion(container, p); dropdown.classList.remove('open'); trigger.classList.remove('open'); });
+      dropdown.appendChild(opt);
     });
-  })();
-
-  var btnWp = document.getElementById('gm-btn-wp'); var btnTg = document.getElementById('gm-btn-tg'); var btnAsesor = document.getElementById('gm-btn-asesor');
-  btnWp.href = userData.whatsapp_url || 'https://chat.whatsapp.com/EjbCRtt9gr98iciCjJwrFD';
-  btnTg.href = userData.telegram_url || 'https://t.me/+h6kz_j2FyHxhZmIx';
-  var msgAsesoria = 'Hola Nicolas, soy ' + userData.nombre + ' y me registre al webinar Money Magnet (' + (userData.fecha_evento || '') + '). Necesito ayuda en ___';
-  btnAsesor.href = 'https://wa.me/573052460919?text=' + encodeURIComponent(msgAsesoria);
-
-  document.getElementById('gm-ticket-nombre').textContent = (userData.nombre + ' ' + (userData.apellido || '')).trim().toUpperCase();
-  document.getElementById('gm-ticket-fecha').textContent = userData.fecha_evento || '-';
-  var msgBienvenida;
-  if (userData.sexo === 'M') msgBienvenida = 'Bienvenido a Money Magnet, ' + userData.nombre;
-  else if (userData.sexo === 'F') msgBienvenida = 'Bienvenida a Money Magnet, ' + userData.nombre;
-  else msgBienvenida = userData.nombre + ', te damos la bienvenida a Money Magnet';
-  document.getElementById('gm-ticket-id').textContent = msgBienvenida;
-
-  var qrData = JSON.stringify({ id: userData.ticket_id, email: userData.email, evento: userData.fecha_evento, tipo: 'GENERAL' });
-  function renderQR() {
-    var container = document.getElementById('gm-qr-container'); container.innerHTML = '';
-    if (typeof QRCode !== 'undefined') {
-      QRCode.toDataURL(qrData, { width: 220, margin: 1, errorCorrectionLevel: 'M', color: { dark: '#0B1131', light: '#FFFFFF' } }, function(err, url) {
-        if (!err && url) { var img = document.createElement('img'); img.src = url; img.alt = 'QR de tu boleto'; img.crossOrigin = 'anonymous'; img.style.cssText = 'width:100%;height:100%;display:block;border-radius:6px;'; container.appendChild(img); }
-        else { fallbackQR(); }
-      });
-    } else { fallbackQR(); }
+    trigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      document.querySelectorAll('.mm-cs-dropdown.open').forEach(function(d){ if (d !== dropdown) { d.classList.remove('open'); d.parentElement.querySelector('.mm-cs-trigger').classList.remove('open'); } });
+      dropdown.classList.toggle('open'); trigger.classList.toggle('open');
+    });
   }
-  function fallbackQR() {
-    var container = document.getElementById('gm-qr-container');
-    var img = document.createElement('img');
-    img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&color=0B1131&bgcolor=FFFFFF&data=' + encodeURIComponent(qrData);
-    img.alt = 'QR de tu boleto'; img.crossOrigin = 'anonymous'; img.style.cssText = 'width:100%;height:100%;display:block;border-radius:6px;';
-    container.appendChild(img);
+  function seleccionarOpcion(container, pais) {
+    var type = container.dataset.type;
+    var input = container.querySelector('input[type="hidden"]');
+    var label = container.querySelector('.mm-cs-label');
+    input.value = type === 'indicativo' ? pais.dial : pais.code; input.dataset.code = pais.code;
+    label.classList.remove('placeholder'); label.innerHTML = '';
+    var img = document.createElement('img'); img.src = flagURL(pais.code); img.alt = pais.code; label.appendChild(img);
+    var span = document.createElement('span'); span.textContent = type === 'indicativo' ? pais.dial : pais.name; label.appendChild(span);
+    container.querySelectorAll('.mm-cs-option').forEach(function(o){ o.classList.toggle('selected', o.dataset.code === pais.code); });
+    if (type === 'pais') {
+      var form = container.closest('form');
+      if (form) { var indContainer = form.querySelector('.mm-custom-select[data-type="indicativo"]'); if (indContainer) seleccionarOpcion(indContainer, pais); }
+      mostrarEvento(GRUPOS_PAIS[pais.code] || 'latam_bajo');
+    }
   }
-  renderQR();
+  document.addEventListener('click', function() { document.querySelectorAll('.mm-cs-dropdown.open').forEach(function(d){ d.classList.remove('open'); d.parentElement.querySelector('.mm-cs-trigger').classList.remove('open'); }); });
 
-  window.gmReproducirVSL = function() {};
-  window.gmActivarSonido = function() {
-    var video = document.getElementById('gm-vsl-video');
-    var overlay = document.getElementById('gm-vsl-overlay');
-    var ctrls = document.getElementById('gm-vid-controls');
+  var eventoActual = EVENTOS['latam_bajo'];
+  function poblarSelectores() { document.querySelectorAll('.mm-custom-select').forEach(construirDropdown); }
+  function detectarPais() {
+    fetch('https://ipapi.co/json/').then(function(r){ return r.json(); }).then(function(d){
+      var code = d.country_code || d.country;
+      if (code) { var pais = PAISES.find(function(p){ return p.code === code; }); if (pais) { document.querySelectorAll('.mm-custom-select').forEach(function(c) { seleccionarOpcion(c, pais); }); } mostrarEvento(GRUPOS_PAIS[code] || 'latam_bajo'); } else { mostrarEvento('latam_bajo'); }
+    }).catch(function(){ mostrarEvento('latam_bajo'); });
+  }
+  function mostrarEvento(grupo) {
+    eventoActual = EVENTOS[grupo];
+    var badge = document.getElementById('mm-badge-fecha'); if (badge) badge.textContent = eventoActual.fecha_display.toUpperCase() + ' . ONLINE';
+    var date = document.getElementById('mm-cd-date');
+    if (date) { var horaLoc = new Date(eventoActual.fecha_iso).toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit', hour12: true }); date.innerHTML = eventoActual.fecha_display + ' . <span style="color:#fff;">8:00 PM</span> . <span style="color:#B5B8C5;font-size:0.85em;">Tu hora: ' + horaLoc + '</span>'; }
+    var subRegion = document.getElementById('mm-subtitle-region');
+    if (subRegion) { var labels = { 'latam_bajo': 'LATINOAMERICA . 18 JUNIO 2026', 'latam_alto': 'AMERICA . 19 JUNIO 2026', 'europa': 'EUROPA . 20 JUNIO 2026' }; subRegion.textContent = labels[grupo] || 'WEBINAR 2026'; }
+    actualizarCountdown();
+  }
+  var cdInt = null;
+  function actualizarCountdown() {
+    if (cdInt) clearInterval(cdInt);
+    function tick() {
+      var diff = new Date(eventoActual.fecha_iso).getTime() - new Date().getTime();
+      if (diff <= 0) { ['mm-cd-d','mm-cd-h','mm-cd-m','mm-cd-s'].forEach(function(id){ var el = document.getElementById(id); if (el) el.textContent = '00'; }); clearInterval(cdInt); return; }
+      var d = Math.floor(diff/(1000*60*60*24)), h = Math.floor((diff/(1000*60*60))%24), m = Math.floor((diff/(1000*60))%60), s = Math.floor((diff/1000)%60);
+      function pad(n) { return n < 10 ? '0'+n : ''+n; }
+      var elD=document.getElementById('mm-cd-d'),elH=document.getElementById('mm-cd-h'),elM=document.getElementById('mm-cd-m'),elS=document.getElementById('mm-cd-s');
+      if (elD) elD.textContent = pad(d); if (elH) elH.textContent = pad(h); if (elM) elM.textContent = pad(m); if (elS) elS.textContent = pad(s);
+    }
+    tick(); cdInt = setInterval(tick, 1000);
+  }
+
+  // ====== UTM + Tracking ======
+  window.mmGetUTM = function(param) {
+    try { return new URLSearchParams(window.location.search).get(param) || ''; } catch(e){ return ''; }
+  };
+  window.mmFirePixelLead = function(email) {
+    try { if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'Money Magnet' }); } catch(e){}
+    try { if (typeof gtag === 'function') gtag('event', 'generate_lead', { event_category: 'webinar' }); } catch(e){}
+    try { if (typeof ttq !== 'undefined') ttq.track('SubmitForm', { content_name: 'Money Magnet' }); } catch(e){}
+  };
+
+  window.mmEnviarFormulario = function(e, source) {
+    e.preventDefault();
+    var form = e.target;
+    var btn = form.querySelector('.mm-form-submit');
+    var msg = document.getElementById('mm-msg-' + source);
+    btn.disabled = true; btn.textContent = 'PROCESANDO...';
+    if (msg) { msg.className = 'mm-form-msg'; msg.textContent = ''; }
+    var data = new FormData(form);
+    var nombre = (data.get('nombre')||'').toString().trim(), apellido = (data.get('apellido')||'').toString().trim(), email = (data.get('email')||'').toString().trim(), sexo = (data.get('sexo')||'').toString(), pais = (data.get('pais')||'').toString(), indicativo = (data.get('indicativo')||'').toString(), telefono = (data.get('telefono')||'').toString().trim();
+    if (!email || !nombre || !pais) { if (msg) { msg.className = 'mm-form-msg error'; msg.textContent = 'Completa todos los campos requeridos'; } btn.disabled = false; btn.textContent = source === 'hero' ? 'REGISTRARME GRATIS' : 'QUIERO MI LUGAR GRATIS'; return false; }
+    var grupo = GRUPOS_PAIS[pais] || 'latam_bajo'; var ev = EVENTOS[grupo]; var paisObj = PAISES.find(function(p){return p.code===pais;}) || {name:pais};
+    var ticketId = 'MM-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2,5).toUpperCase();
+    var payload = { fuente: 'landing_money_magnet', url_origen: window.location.href, email: email, nombre: nombre, apellido: apellido, sexo: sexo, pais: paisObj.name, pais_codigo: pais, telefono: indicativo + telefono, whatsapp: indicativo + telefono, grupo_evento: grupo, fecha_evento: ev.fecha_display, etiquetas: 'evento_' + grupo + ',webinar_money_magnet', ticket_id: ticketId, acepta_terminos: true, acepta_terminos_ts: new Date().toISOString(), utm_source: mmGetUTM('utm_source'), utm_medium: mmGetUTM('utm_medium'), utm_campaign: mmGetUTM('utm_campaign'), utm_content: mmGetUTM('utm_content'), utm_term: mmGetUTM('utm_term'), referrer: document.referrer || '' };
+    function safeBase64(str) { return btoa(unescape(encodeURIComponent(str))); }
+    var userData = { n: nombre, a: apellido, e: email, s: sexo, p: paisObj.name, pc: pais, g: grupo, fe: ev.fecha_display, he: ev.hora_origen, wp: ev.whatsapp, tg: ev.telegram, tel: indicativo + telefono, t: ticketId };
+    var targetUrl = '/gracias?d=' + encodeURIComponent(safeBase64(JSON.stringify(userData)));
+    fetch(APPS_SCRIPT_URL + '?action=registro_landing', { method: 'POST', body: JSON.stringify(payload), mode: 'no-cors' }).then(function() {}).catch(function() {});
+    try { mmFirePixelLead(email); } catch(e) {}
+    if (msg) { msg.className = 'mm-form-msg success'; msg.textContent = 'Listo! Redirigiendo a tu boleto...'; }
+    setTimeout(function(){ window.location.href = targetUrl; }, 800);
+    return false;
+  };
+  window.mmAvisoVIP = function() { window.mmIrAlFormulario(); setTimeout(function(){ alert('Primero registra tu cupo gratis al webinar. El upgrade a VIP estara disponible despues de tu registro.'); }, 700); };
+  window.mmReproducirVSL = function() {};
+  window.mmActivarSonido = function() {
+    var video = document.getElementById('mm-vsl-video');
+    var overlay = document.getElementById('mm-vsl-overlay');
+    var ctrls = document.getElementById('mm-vid-controls');
     if (video) { video.muted = false; video.play(); }
     if (overlay) { overlay.style.opacity = '0'; setTimeout(function(){ overlay.style.display = 'none'; }, 400); }
     if (ctrls) ctrls.style.display = 'flex';
-    var flechas = document.querySelectorAll('.gm-flechas-video');
-    flechas.forEach(function(f){ f.style.display = 'none'; });
   };
-  window.gmTogglePlay = function() {
-    var video = document.getElementById('gm-vsl-video');
-    var icon = document.getElementById('gm-icon-play');
+  window.mmTogglePlay = function() {
+    var video = document.getElementById('mm-vsl-video');
+    var icon = document.getElementById('mm-icon-play');
     if (!video) return;
     if (video.paused) { video.play(); icon.innerHTML = '<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>'; }
     else { video.pause(); icon.innerHTML = '<path d="M8 5v14l11-7z"/>'; }
   };
-  window.gmToggleVol = function() {
-    var video = document.getElementById('gm-vsl-video');
-    var icon = document.getElementById('gm-icon-vol');
+  window.mmToggleVol = function() {
+    var video = document.getElementById('mm-vsl-video');
+    var icon = document.getElementById('mm-icon-vol');
     if (!video) return;
     video.muted = !video.muted;
     if (video.muted) icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
     else icon.innerHTML = '<path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>';
   };
-  // Anti-seek + barra falsa logarítmica
+  window.mmReplay = function() {
+    var video = document.getElementById('mm-vsl-video');
+    var replay = document.getElementById('mm-vsl-replay');
+    var bar = document.getElementById('mm-fake-bar');
+    var ctrls = document.getElementById('mm-vid-controls');
+    if (replay) replay.style.display = 'none';
+    if (bar) bar.style.width = '0%';
+    if (ctrls) ctrls.style.display = 'flex';
+    if (video) { video.currentTime = 0; video.play(); }
+  };
+  // Anti-seek + barra falsa + replay al terminar
   (function() {
-    var video = document.getElementById('gm-vsl-video');
+    var video = document.getElementById('mm-vsl-video');
     if (!video) return;
     var lastTime = 0;
+    // Bloquear cambio de velocidad
     video.addEventListener('ratechange', function() { if (video.playbackRate !== 1) video.playbackRate = 1; });
+    // Anti-seek: no permite adelantar, solo retroceder
     video.addEventListener('timeupdate', function() {
       if (video.currentTime > lastTime + 1.5) { video.currentTime = lastTime; }
       else { lastTime = video.currentTime; }
-      var bar = document.getElementById('gm-fake-bar');
+      // Barra falsa logarítmica (parece que queda poco)
+      var bar = document.getElementById('mm-fake-bar');
       if (bar && video.duration) {
         var real = video.currentTime / video.duration;
-        var fake = Math.pow(real, 0.35) * 100;
+        var fake = Math.pow(real, 0.35) * 100; // empieza rápido, se frena al final
         bar.style.width = Math.min(fake, 100) + '%';
       }
     });
+    // Al terminar: poster + replay
+    video.addEventListener('ended', function() {
+      lastTime = 0;
+      video.load();
+      var replay = document.getElementById('mm-vsl-replay');
+      if (replay) replay.style.display = 'flex';
+      var ctrls = document.getElementById('mm-vid-controls');
+      if (ctrls) ctrls.style.display = 'none';
+      var bar = document.getElementById('mm-fake-bar');
+      if (bar) bar.style.width = '100%';
+    });
   })();
 
-  window.gmDescargarBoleto = function() {
-    var ticket = document.getElementById('gm-ticket');
-    function ejecutarCaptura() {
-      setTimeout(function(){
-        html2canvas(ticket, { backgroundColor: '#0B1131', scale: 2, useCORS: true, allowTaint: true, logging: false }).then(function(canvas) {
-          var link = document.createElement('a'); link.download = 'boleto-money-magnet-' + userData.ticket_id + '.png'; link.href = canvas.toDataURL('image/png'); link.click();
-        }).catch(function(err){ alert('No se pudo descargar. Por favor toma una captura de pantalla.'); });
-      }, 500);
-    }
-    if (typeof html2canvas !== 'undefined') { ejecutarCaptura(); }
-    else { var script = document.createElement('script'); script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js'; script.onload = ejecutarCaptura; script.onerror = function() { alert('No se pudo cargar la herramienta de descarga. Toma captura de pantalla.'); }; document.body.appendChild(script); }
-  };
-
-  window.gmIniciarPagoVIP = function(plan, btn) {
-    var loadingEl = document.getElementById('gm-vip-loading'); var errorEl = document.getElementById('gm-vip-error');
-    if (errorEl) errorEl.style.display = 'none'; if (loadingEl) loadingEl.style.display = 'block';
-    var botones = document.querySelectorAll('.gm-vip-btn'); botones.forEach(function(b){ b.disabled = true; b.style.opacity = '0.5'; });
-    var payload = { plan: plan, email: userData.email, nombre: userData.nombre, apellido: userData.apellido, telefono: userData.telefono, ticket_id: userData.ticket_id };
-    fetch(APPS_SCRIPT_URL + '?action=payu_iniciar_checkout', { method: 'POST', body: JSON.stringify(payload) })
-    .then(function(r){ return r.json(); })
-    .then(function(res){
-      if (!res.ok || !res.data) throw new Error(res.error || 'Error generando checkout');
-      var form = document.createElement('form'); form.method = 'POST'; form.action = res.data.actionURL; form.style.display = 'none';
-      var campos = { merchantId: res.data.merchantId, accountId: res.data.accountId, description: res.data.description, referenceCode: res.data.referenceCode, amount: res.data.amount, tax: res.data.tax, taxReturnBase: res.data.taxReturnBase, currency: res.data.currency, signature: res.data.signature, test: res.data.test, buyerEmail: res.data.buyerEmail, buyerFullName: res.data.buyerFullName, responseUrl: res.data.responseUrl, confirmationUrl: res.data.confirmationUrl };
-      Object.keys(campos).forEach(function(k){ var input = document.createElement('input'); input.type = 'hidden'; input.name = k; input.value = campos[k]; form.appendChild(input); });
-      document.body.appendChild(form); form.submit();
-    })
-    .catch(function(err){
-      if (loadingEl) loadingEl.style.display = 'none';
-      if (errorEl) { errorEl.style.display = 'block'; errorEl.textContent = 'No se pudo iniciar el pago: ' + (err.message || 'error desconocido') + '. Intenta nuevamente o escríbenos al WhatsApp.'; }
-      botones.forEach(function(b){ b.disabled = false; b.style.opacity = '1'; });
-    });
-  };
-})();
-
-// ====== CONFETTI CELEBRACIÓN (se autodestruye después de 4s) ======
-(function gmConfetti() {
-  var wrap = document.getElementById('gm-confetti');
-  if (!wrap) return;
-  var colores = ['#F5B800','#FFD24D','#B8860B','#fff','#37CA37','#6B7BFF'];
-  for (var i = 0; i < 80; i++) {
-    var p = document.createElement('div');
-    p.className = 'gm-confetti-piece';
-    p.style.left = Math.random() * 100 + '%';
-    p.style.background = colores[Math.floor(Math.random() * colores.length)];
-    p.style.width = (6 + Math.random() * 8) + 'px';
-    p.style.height = (6 + Math.random() * 8) + 'px';
-    p.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-    p.style.animationDuration = (2 + Math.random() * 2) + 's';
-    p.style.animationDelay = (Math.random() * 1.5) + 's';
-    wrap.appendChild(p);
+  function observeReveal() {
+    var els = document.querySelectorAll('.mm-app .reveal');
+    var io = new IntersectionObserver(function(entries) { entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }); }, { threshold: 0.15 });
+    els.forEach(function(el) { io.observe(el); });
   }
-  setTimeout(function(){ wrap.style.display = 'none'; }, 5000);
-})();
-
-// ====== COUNTDOWN AL EVENTO (fecha local del grupo del inscrito) ======
-(function gmCountdown() {
-  // Fechas UTC de cada grupo (mismas que el calendario)
-  var FECHAS_EVENTO = {
-    latam_bajo: '2026-06-19T01:00:00Z', // 18 jun 8PM COL (UTC-5)
-    latam_alto: '2026-06-20T01:00:00Z', // 19 jun 8PM COL
-    europa:     '2026-06-20T18:00:00Z'  // 20 jun 8PM CET (UTC+2)
-  };
-  var grupo = 'latam_bajo';
-  try { if (userData && userData.grupo) grupo = userData.grupo; } catch(e){}
-  var targetStr = FECHAS_EVENTO[grupo] || FECHAS_EVENTO.latam_bajo;
-  var target = new Date(targetStr);
-  if (isNaN(target.getTime())) return;
-
-  // Mostrar la fecha formateada en el idioma local
-  try {
-    var opciones = { weekday:'long', day:'numeric', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit', timeZoneName:'short' };
-    var fechaLocal = target.toLocaleDateString('es', opciones);
-    var elFecha = document.querySelector('#gm-countdown + div');
-    if (!elFecha) {
-      // Insertar la fecha debajo del countdown
-      var cdEl = document.getElementById('gm-countdown');
-      if (cdEl) {
-        var fDiv = document.createElement('div');
-        fDiv.style.cssText = 'text-align:center;font-size:13px;color:rgba(255,255,255,0.5);margin-top:8px;font-weight:500;';
-        fDiv.textContent = fechaLocal.charAt(0).toUpperCase() + fechaLocal.slice(1);
-        cdEl.parentNode.insertBefore(fDiv, cdEl.nextSibling.nextSibling);
-      }
-    }
-  } catch(e){}
-
-  function actualizar() {
-    var ahora = new Date();
-    var diff = target.getTime() - ahora.getTime();
-    if (diff <= 0) { diff = 0; }
-    var d = Math.floor(diff / 86400000);
-    var h = Math.floor((diff % 86400000) / 3600000);
-    var m = Math.floor((diff % 3600000) / 60000);
-    var s = Math.floor((diff % 60000) / 1000);
-    var ed = document.getElementById('gm-cd-dias');
-    var eh = document.getElementById('gm-cd-horas');
-    var em = document.getElementById('gm-cd-min');
-    var es = document.getElementById('gm-cd-seg');
-    if (ed) ed.textContent = d;
-    if (eh) eh.textContent = String(h).padStart(2,'0');
-    if (em) em.textContent = String(m).padStart(2,'0');
-    if (es) es.textContent = String(s).padStart(2,'0');
-  }
-  actualizar();
-  setInterval(actualizar, 1000);
+  function init() { poblarSelectores(); detectarPais(); observeReveal(); }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
 })();
 </script>
 
-<!-- ====== COOKIE CONSENT + PIXELS ====== -->
+<!-- ====== COOKIE CONSENT + PIXELS (Meta, Google, TikTok) ====== -->
 <style>
-.gm-cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(11,17,49,0.97);backdrop-filter:blur(12px);border-top:1px solid rgba(245,184,0,0.2);padding:16px 24px;display:none;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;font-family:inherit;font-size:13px;color:rgba(255,255,255,0.7);}
-.gm-cookie-banner a{color:#F5B800;text-decoration:underline;}
-.gm-cookie-btn{padding:8px 20px;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;border:none;font-family:inherit;text-transform:uppercase;letter-spacing:0.5px;}
-.gm-cookie-accept{background:#F5B800;color:#0B1131;}
-.gm-cookie-reject{background:transparent;color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.2);}
+.mm-cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(11,17,49,0.97);backdrop-filter:blur(12px);border-top:1px solid rgba(245,184,0,0.2);padding:16px 24px;display:none;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;font-family:inherit;font-size:13px;color:rgba(255,255,255,0.7);}
+.mm-cookie-banner a{color:#F5B800;text-decoration:underline;}
+.mm-cookie-btn{padding:8px 20px;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;border:none;font-family:inherit;text-transform:uppercase;letter-spacing:0.5px;}
+.mm-cookie-accept{background:#F5B800;color:#0B1131;}
+.mm-cookie-reject{background:transparent;color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.2);}
 </style>
 
-<div class="gm-cookie-banner" id="gm-cookie-banner">
+<div class="mm-cookie-banner" id="mm-cookie-banner">
   <span>Usamos cookies para mejorar tu experiencia y medir el rendimiento de nuestros anuncios. <a href="/legal" target="_blank">M&aacute;s info</a></span>
   <div style="display:flex;gap:8px;">
-    <button class="gm-cookie-btn gm-cookie-accept" onclick="gmCookieConsent(true)">Aceptar todo</button>
-    <button class="gm-cookie-btn gm-cookie-reject" onclick="gmCookieConsent(false)">Solo esenciales</button>
+    <button class="mm-cookie-btn mm-cookie-accept" onclick="mmCookieConsent(true)">Aceptar todo</button>
+    <button class="mm-cookie-btn mm-cookie-reject" onclick="mmCookieConsent(false)">Solo esenciales</button>
   </div>
 </div>
 
 <script>
+// Cookie consent + pixel loading
 (function(){
   var CONSENT_KEY = 'mm_cookie_consent';
   var saved = localStorage.getItem(CONSENT_KEY);
 
-  window.gmCookieConsent = function(acepta) {
+  window.mmCookieConsent = function(acepta) {
     localStorage.setItem(CONSENT_KEY, acepta ? 'all' : 'essential');
-    document.getElementById('gm-cookie-banner').style.display = 'none';
-    if (acepta) gmLoadPixels();
+    document.getElementById('mm-cookie-banner').style.display = 'none';
+    if (acepta) mmLoadPixels();
   };
 
-  function gmLoadPixels() {
-    // ─── META PIXEL ───
+  function mmLoadPixels() {
+    // ─── META PIXEL (Facebook/Instagram) ───
+    // Reemplaza TU_META_PIXEL_ID con tu ID real de Meta Business
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
@@ -890,9 +1317,9 @@
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', 'TU_META_PIXEL_ID');
     fbq('track', 'PageView');
-    fbq('track', 'CompleteRegistration', { content_name: 'Money Magnet' });
 
-    // ─── GOOGLE TAG ───
+    // ─── GOOGLE TAG (Google Ads / Analytics) ───
+    // Reemplaza TU_GOOGLE_TAG_ID (formato G-XXXXXXX o AW-XXXXXXX)
     var gs = document.createElement('script');
     gs.async = true; gs.src = 'https://www.googletagmanager.com/gtag/js?id=TU_GOOGLE_TAG_ID';
     document.head.appendChild(gs);
@@ -900,9 +1327,9 @@
     window.gtag = function(){ dataLayer.push(arguments); };
     gtag('js', new Date());
     gtag('config', 'TU_GOOGLE_TAG_ID');
-    gtag('event', 'conversion', { send_to: 'TU_GOOGLE_TAG_ID/registro' });
 
     // ─── TIKTOK PIXEL ───
+    // Reemplaza TU_TIKTOK_PIXEL_ID
     !function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=
     ["page","track","identify","instances","debug","on","off","once","ready","alias",
     "group","enableCookie","disableCookie"];ttq.setAndDefer=function(t,e){t[e]=function()
@@ -913,12 +1340,13 @@
     ttq._i[e]._u=i;ttq._t=ttq._t||{};ttq._t[e]=+new Date;ttq._o=ttq._o||{};ttq._o[e]=n||{};
     var o=d.createElement("script");o.type="text/javascript";o.async=!0;o.src=i+"?sdkid="+e+"&lib="+t;
     var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
-    ttq.load('TU_TIKTOK_PIXEL_ID');ttq.page();ttq.track('CompleteRegistration');}(window,document,'ttq');
+    ttq.load('TU_TIKTOK_PIXEL_ID');ttq.page();}(window,document,'ttq');
   }
 
-  if (saved === 'all') { gmLoadPixels(); }
-  else if (saved === 'essential') {}
-  else { document.getElementById('gm-cookie-banner').style.display = 'flex'; }
+  // Mostrar banner o cargar pixels según consent previo
+  if (saved === 'all') { mmLoadPixels(); }
+  else if (saved === 'essential') { /* no cargar pixels */ }
+  else { document.getElementById('mm-cookie-banner').style.display = 'flex'; }
 })();
 </script>
 </body>
