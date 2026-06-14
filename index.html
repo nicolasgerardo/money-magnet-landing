@@ -1173,6 +1173,23 @@
   window.mmGetUTM = function(param) {
     try { return new URLSearchParams(window.location.search).get(param) || ''; } catch(e){ return ''; }
   };
+  // Auto-detectar fuente si no hay utm_source (WhatsApp, FB, IG, TikTok, Google, Telegram)
+  window.mmDetectSource = function() {
+    var utm = mmGetUTM('utm_source');
+    if (utm) return utm;
+    var ref = (document.referrer || '').toLowerCase();
+    var ua = (navigator.userAgent || '').toLowerCase();
+    if (ref.indexOf('whatsapp') >= 0 || ua.indexOf('whatsapp') >= 0) return 'whatsapp';
+    if (ref.indexOf('instagram') >= 0 || ua.indexOf('instagram') >= 0) return 'instagram';
+    if (ref.indexOf('facebook') >= 0 || ref.indexOf('fb.com') >= 0 || ua.indexOf('fban') >= 0 || ua.indexOf('fbav') >= 0) return 'facebook';
+    if (ref.indexOf('tiktok') >= 0 || ua.indexOf('tiktok') >= 0 || ua.indexOf('bytedance') >= 0) return 'tiktok';
+    if (ref.indexOf('t.me') >= 0 || ref.indexOf('telegram') >= 0) return 'telegram';
+    if (ref.indexOf('google') >= 0) return 'google';
+    if (ref.indexOf('bing') >= 0) return 'bing';
+    if (ref.indexOf('youtube') >= 0 || ref.indexOf('youtu.be') >= 0) return 'youtube';
+    if (ref) return 'referral';
+    return 'directo';
+  };
   window.mmFirePixelLead = function(email) {
     try { if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'Money Magnet' }); } catch(e){}
     try { if (typeof gtag === 'function') gtag('event', 'generate_lead', { event_category: 'webinar' }); } catch(e){}
@@ -1191,7 +1208,7 @@
     if (!email || !nombre || !pais) { if (msg) { msg.className = 'mm-form-msg error'; msg.textContent = 'Completa todos los campos requeridos'; } btn.disabled = false; btn.textContent = source === 'hero' ? 'REGISTRARME GRATIS' : 'QUIERO MI LUGAR GRATIS'; return false; }
     var grupo = GRUPOS_PAIS[pais] || 'latam_bajo'; var ev = EVENTOS[grupo]; var paisObj = PAISES.find(function(p){return p.code===pais;}) || {name:pais};
     var ticketId = 'MM-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2,5).toUpperCase();
-    var payload = { fuente: 'landing_money_magnet', url_origen: window.location.href, email: email, nombre: nombre, apellido: apellido, sexo: sexo, pais: paisObj.name, pais_codigo: pais, telefono: indicativo + telefono, whatsapp: indicativo + telefono, grupo_evento: grupo, fecha_evento: ev.fecha_display, etiquetas: 'evento_' + grupo + ',webinar_money_magnet', ticket_id: ticketId, acepta_terminos: true, acepta_terminos_ts: new Date().toISOString(), utm_source: mmGetUTM('utm_source'), utm_medium: mmGetUTM('utm_medium'), utm_campaign: mmGetUTM('utm_campaign'), utm_content: mmGetUTM('utm_content'), utm_term: mmGetUTM('utm_term'), referrer: document.referrer || '' };
+    var payload = { fuente: 'landing_money_magnet', url_origen: window.location.href, email: email, nombre: nombre, apellido: apellido, sexo: sexo, pais: paisObj.name, pais_codigo: pais, telefono: indicativo + telefono, whatsapp: indicativo + telefono, grupo_evento: grupo, fecha_evento: ev.fecha_display, etiquetas: 'evento_' + grupo + ',webinar_money_magnet', ticket_id: ticketId, acepta_terminos: true, acepta_terminos_ts: new Date().toISOString(), utm_source: mmDetectSource(), utm_medium: mmGetUTM('utm_medium'), utm_campaign: mmGetUTM('utm_campaign'), utm_content: mmGetUTM('utm_content'), utm_term: mmGetUTM('utm_term'), referrer: document.referrer || '' };
     function safeBase64(str) { return btoa(unescape(encodeURIComponent(str))); }
     var userData = { n: nombre, a: apellido, e: email, s: sexo, p: paisObj.name, pc: pais, g: grupo, fe: ev.fecha_display, he: ev.hora_origen, wp: ev.whatsapp, tg: ev.telegram, tel: indicativo + telefono, t: ticketId };
     var targetUrl = '/gracias?d=' + encodeURIComponent(safeBase64(JSON.stringify(userData)));
