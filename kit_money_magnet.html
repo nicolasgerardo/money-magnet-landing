@@ -485,7 +485,7 @@
 
       <div class="hero-cta" style="justify-content:center" id="ctaInicial">
         <a href="#" class="btn btn-gold" id="ctaConfirmar">Confirmar mi asistencia →</a>
-        <a href="#" class="btn btn-ghost" id="ctaAgenda">Agregar a mi calendario</a>
+        <a href="#" class="btn btn-ghost" id="ctaAgenda">Agregar a Google Calendar</a>
       </div>
 
       <!-- Aparece tras confirmar: une al canal correcto de su sesión -->
@@ -530,8 +530,7 @@
   var CONFIG = {
     APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbwK6XSxi1T4I2hCSZeEScJy7pKhFGs2S1OVtxSmAfc2oFjK1UonFmIGFjGEmJAdTymQ8g/exec',
     FUENTE: 'kit_money_magnet',
-    URL_CONFIRMAR: '#',     // tu página/acción de confirmar asistencia
-    URL_CALENDARIO: '#',    // enlace "agregar a calendario" (Google Cal, .ics, etc.)
+    URL_CONFIRMAR: '#',     // tu página/acción de confirmar asistencia (opcional)
 
     // ====== LAS 3 SESIONES DEL WEBINAR (todas en hora Colombia, COT = UTC-5) ======
     // Las fechas se guardan en UTC para que el countdown sea exacto en cualquier reloj.
@@ -541,6 +540,9 @@
       europa: { utc:'2026-06-20T19:00:00Z', etiqueta:'Sábado 20 de junio · 2:00 PM (hora Colombia)' }  // Europa
     },
     SESION_DEFAULT: 'alto',  // si no se detecta país: viernes (alto/dólares)
+    DURACION_MIN: 90,        // duración del webinar en minutos (para el evento de calendario)
+    TITULO_EVENTO: 'Webinar Money Magnet · Academia Intrade',
+    DESC_EVENTO: 'Tu sesión del webinar Money Magnet. Llega con tus 3 imanes cargados — adentro se revela el cuarto. Te acompaña Nicolás Cuéllar.',
 
     // ====== CANALES por sesión (alto y europa comparten) ======
     CANALES: {
@@ -742,6 +744,27 @@
      ============================================================ */
   var cdTarget = null, cdInterval = null, sesionActual = null;
 
+  // Formatea una fecha a UTC compacto que Google Calendar espera: 20260619T010000Z
+  function fechaGCal(date){
+    function p(n){ return ('0'+n).slice(-2); }
+    return date.getUTCFullYear() + p(date.getUTCMonth()+1) + p(date.getUTCDate()) + 'T' +
+           p(date.getUTCHours()) + p(date.getUTCMinutes()) + '00Z';
+  }
+
+  function linkGoogleCalendar(sesionKey){
+    var ses = CONFIG.SESIONES[sesionKey] || CONFIG.SESIONES[CONFIG.SESION_DEFAULT];
+    var ini = new Date(ses.utc);
+    var fin = new Date(ini.getTime() + CONFIG.DURACION_MIN*60000);
+    var params = [
+      'action=TEMPLATE',
+      'text='    + encodeURIComponent(CONFIG.TITULO_EVENTO),
+      'dates='   + fechaGCal(ini) + '/' + fechaGCal(fin),
+      'details=' + encodeURIComponent(CONFIG.DESC_EVENTO),
+      'ctz=America/Bogota'
+    ];
+    return 'https://calendar.google.com/calendar/render?' + params.join('&');
+  }
+
   function pintarFecha(sesionKey){
     var ses = CONFIG.SESIONES[sesionKey] || CONFIG.SESIONES[CONFIG.SESION_DEFAULT];
     cdTarget = new Date(ses.utc).getTime();
@@ -753,6 +776,9 @@
     var can = CONFIG.CANALES[sesionKey] || CONFIG.CANALES[CONFIG.SESION_DEFAULT];
     if($('ctaWhatsapp')) $('ctaWhatsapp').href = can.whatsapp;
     if($('ctaTelegram')) $('ctaTelegram').href = can.telegram;
+    // enlace de Google Calendar para la sesión correcta
+    var ag = $('ctaAgenda');
+    if(ag){ ag.href = linkGoogleCalendar(sesionKey); ag.target = '_blank'; ag.rel = 'noopener'; }
   }
 
   function tick(){
@@ -798,7 +824,8 @@
   /* ============================================================
      CTAs · Confirmar asistencia → registra + muestra canales
      ============================================================ */
-  if($('ctaAgenda') && CONFIG.URL_CALENDARIO !== '#') $('ctaAgenda').href = CONFIG.URL_CALENDARIO;
+  // (El botón "Agregar a mi calendario" se conecta dinámicamente en pintarFecha,
+  //  con el día/hora de la sesión que corresponde al país del lead.)
 
   function mostrarCanales(){
     var box = $('canalesBox');
