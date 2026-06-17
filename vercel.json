@@ -5,6 +5,7 @@
     { "source": "/intrader-pago-exitoso", "destination": "/intrader_pago_exitoso.html" },
     { "source": "/ebook", "destination": "/intrader_ebook.html" },
     { "source": "/programa", "destination": "/intrader_checkout.html" },
+    { "source": "/kit", "destination": "/kit-money-magnet.html" },
     { "source": "/legal", "destination": "/legal_intrade.html" }
   ],
   "headers": [
