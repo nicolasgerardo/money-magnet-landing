@@ -625,18 +625,19 @@
     }
   };
 
-  // Mapeo de país -> sesión. Lo no listado cae en SESION_DEFAULT.
+  // Mapeo de país -> sesión. IDÉNTICO al GRUPOS_PAIS de la landing (index.html).
+  // bajo=jueves · alto=viernes · europa=sábado. Lo no listado cae en SESION_DEFAULT.
   var PAIS_SESION = {
     // --- Latam bajo (jueves) ---
-    CO:'bajo', VE:'bajo', BO:'bajo', PY:'bajo', GT:'bajo', HN:'bajo', NI:'bajo',
-    MX:'bajo', AR:'bajo', CL:'bajo', PE:'bajo',
+    CO:'bajo', MX:'bajo', PE:'bajo', BO:'bajo', VE:'bajo', AR:'bajo', PY:'bajo',
+    HN:'bajo', NI:'bajo', SV:'bajo', GT:'bajo', CU:'bajo', DO:'bajo', HT:'bajo', BR:'bajo',
     // --- Latam alto / dólares / EEUU (viernes) ---
-    EC:'alto', US:'alto', CA:'alto', PR:'alto', PA:'alto', SV:'alto',
-    UY:'alto', CR:'alto', DO:'alto',
+    EC:'alto', CL:'alto', UY:'alto', CR:'alto', PA:'alto', PR:'alto', US:'alto', CA:'alto',
     // --- Europa (sábado) ---
-    ES:'europa', PT:'europa', FR:'europa', IT:'europa', DE:'europa', GB:'europa',
-    NL:'europa', BE:'europa', CH:'europa', AT:'europa', IE:'europa', SE:'europa',
-    NO:'europa', DK:'europa', FI:'europa', PL:'europa', RO:'europa', GR:'europa'
+    ES:'europa', PT:'europa', IT:'europa', FR:'europa', DE:'europa', GB:'europa',
+    NL:'europa', BE:'europa', CH:'europa', AT:'europa', SE:'europa', NO:'europa',
+    DK:'europa', FI:'europa', IE:'europa', PL:'europa', CZ:'europa', GR:'europa',
+    HU:'europa', RO:'europa', LU:'europa', IS:'europa', MT:'europa'
   };
 
   // resuelve la sesión a partir del código de país (y continente como respaldo)
@@ -971,35 +972,20 @@
     // 2) país del lead si ya lo tenemos
     if(leadInfo.pais && PAIS_SESION[leadInfo.pais]){ arrancarCountdown(PAIS_SESION[leadInfo.pais]); return; }
 
-    // 3) detectar por IP con varias APIs en cascada (si una falla, prueba la siguiente)
+    // 3) detección por IP — MISMA lógica que la landing (index.html) que ya funciona
     arrancarCountdown(CONFIG.SESION_DEFAULT); // muestra algo de inmediato mientras detecta
-
-    var fuentes = [
-      { url:'https://ipwho.is/',                       cc:function(d){ return d && d.success !== false ? d.country_code : null; }, cont:function(d){ return d ? d.continent_code : null; } },
-      { url:'https://ipapi.co/json/',                  cc:function(d){ return d ? d.country_code : null; },                       cont:function(d){ return d ? d.continent_code : null; } },
-      { url:'https://api.country.is/',                 cc:function(d){ return d ? d.country : null; },                            cont:function(){ return null; } },
-      { url:'https://get.geojs.io/v1/ip/country.json', cc:function(d){ return d ? d.country : null; },                            cont:function(){ return null; } }
-    ];
-
-    function intentar(i){
-      if(i >= fuentes.length){ return; } // se queda con el default ya pintado
-      var f = fuentes[i];
-      fetch(f.url, { cache:'no-store' })
-        .then(function(r){ return r.json(); })
-        .then(function(d){
-          var cc = (f.cc(d) || '').toString().toUpperCase();
-          if(cc && cc.length === 2){
-            var cont = (f.cont(d) || '').toString().toUpperCase();
-            var ses = sesionDesdePais(cc, cont);
-            estado.pais_detectado = cc; guardar();
-            arrancarCountdown(ses);
-          } else {
-            intentar(i+1); // respuesta inútil, probar siguiente
-          }
-        })
-        .catch(function(){ intentar(i+1); }); // esta falló, probar siguiente
-    }
-    intentar(0);
+    fetch('https://ipapi.co/json/').then(function(r){ return r.json(); }).then(function(d){
+      var code = (d.country_code || d.country || '').toString().toUpperCase();
+      if(code && PAIS_SESION[code]){
+        estado.pais_detectado = code; guardar();
+        arrancarCountdown(PAIS_SESION[code]);
+      } else if(code){
+        // país detectado pero no listado → según continente si lo da, si no, default
+        estado.pais_detectado = code; guardar();
+        arrancarCountdown(sesionDesdePais(code, (d.continent_code||'').toUpperCase()));
+      }
+      // si no hay código, se queda con el default ya pintado
+    }).catch(function(){ /* se queda con el default ya pintado */ });
   })();
 
   /* ============================================================
