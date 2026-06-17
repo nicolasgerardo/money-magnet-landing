@@ -135,37 +135,46 @@
   /* ===================== LOS 3 IMANES ===================== */
   .magnets{display:flex;flex-direction:column;gap:18px;margin:34px 0}
   .magnet{position:relative;background:linear-gradient(150deg,var(--navy-2),var(--navy-3));
-    border:1px solid var(--linea-soft);border-radius:20px;padding:26px;transition:.3s;overflow:hidden}
-  .magnet.active{border-color:var(--oro);box-shadow:0 0 0 1px var(--linea),0 20px 50px -30px rgba(245,184,0,.6)}
+    border:1px solid var(--linea-soft);border-radius:20px;padding:26px;transition:.3s;overflow:hidden;
+    --acc:var(--oro)} /* acento por defecto; cada imán lo redefine */
+  /* acentos propios por sección */
+  .magnet[data-magnet="1"]{--acc:#4FD0E0} /* Claridad · cian */
+  .magnet[data-magnet="2"]{--acc:#3FD68A} /* Retención · verde */
+  .magnet[data-magnet="3"]{--acc:#B07CF0} /* Mentalidad · violeta */
+  /* franja de color a la izquierda que identifica la sección */
+  .magnet::after{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+    background:var(--acc);opacity:.5;transition:.3s}
+  .magnet.active{border-color:var(--acc);box-shadow:0 0 0 1px var(--linea),0 20px 50px -30px var(--acc)}
+  .magnet.active::after{opacity:1;box-shadow:0 0 18px var(--acc)}
   .magnet.active::before{content:"";position:absolute;inset:0;
-    background:radial-gradient(circle at 100% 0%,rgba(245,184,0,.10),transparent 55%);pointer-events:none}
+    background:radial-gradient(circle at 100% 0%,color-mix(in srgb,var(--acc) 14%,transparent),transparent 55%);pointer-events:none}
   .magnet-top{display:flex;align-items:center;gap:16px;margin-bottom:6px}
-  .magnet-ico{width:54px;height:54px;flex:none;position:relative;display:grid;place-items:center}
-  /* imán en forma de herradura dibujado con CSS */
-  .horseshoe{width:38px;height:38px;border:7px solid var(--txt-faint);border-bottom-color:transparent;
-    border-radius:50% 50% 0 0;position:relative;transition:.3s}
-  .horseshoe::before,.horseshoe::after{content:"";position:absolute;bottom:-7px;width:7px;height:9px}
-  .horseshoe::before{left:-7px;background:#C0392B}
-  .horseshoe::after{right:-7px;background:#3F6FD6}
-  .magnet.active .horseshoe{border-color:var(--oro);border-bottom-color:transparent;
-    box-shadow:0 0 18px rgba(245,184,0,.5)}
-  .magnet-num{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--oro)}
+  .magnet-ico{width:56px;height:56px;flex:none;position:relative;display:grid;place-items:center;
+    border-radius:14px;background:color-mix(in srgb,var(--acc) 12%,transparent);
+    border:1px solid color-mix(in srgb,var(--acc) 35%,transparent);transition:.3s}
+  .magnet-ico svg{width:28px;height:28px;stroke:var(--acc);fill:none;stroke-width:1.8;
+    stroke-linecap:round;stroke-linejoin:round;transition:.3s}
+  .magnet.active .magnet-ico{background:var(--acc);border-color:var(--acc);
+    box-shadow:0 0 24px color-mix(in srgb,var(--acc) 55%,transparent)}
+  .magnet.active .magnet-ico svg{stroke:var(--navy)}
+  .magnet-num{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc)}
   .magnet h3{margin:2px 0 0;font-size:24px;color:#fff;font-family:var(--serif)}
   .magnet .estado{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.12em;
     text-transform:uppercase;color:var(--txt-faint);border:1px solid var(--linea-soft);border-radius:100px;padding:5px 11px}
-  .magnet.active .estado{color:var(--navy);background:var(--oro);border-color:var(--oro)}
+  .magnet.active .estado{color:var(--navy);background:var(--acc);border-color:var(--acc)}
   .magnet .desc{color:var(--txt-sec);font-size:15.5px;margin:14px 0 18px;line-height:1.6}
 
-  /* tareas dentro del imán */
+  /* tareas dentro del imán (heredan el acento de su sección) */
   .tasks{display:flex;flex-direction:column;gap:9px}
   .task{display:flex;gap:13px;align-items:flex-start;padding:13px 15px;border-radius:11px;cursor:pointer;
     background:rgba(255,255,255,.03);border:1px solid var(--linea-soft);transition:.16s;user-select:none}
-  .task:hover{border-color:var(--linea)}
-  .task .check{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--oro-deep);flex:none;
+  .task:hover{border-color:color-mix(in srgb,var(--acc) 40%,transparent)}
+  .task .check{width:22px;height:22px;border-radius:6px;border:1.5px solid color-mix(in srgb,var(--acc) 60%,transparent);flex:none;
     margin-top:1px;display:grid;place-items:center;transition:.16s}
   .task .check svg{opacity:0;transition:.16s}
-  .task.done .check{background:var(--oro);border-color:var(--oro)}
+  .task.done .check{background:var(--acc);border-color:var(--acc)}
   .task.done .check svg{opacity:1}
+  .task.done .check svg path{stroke:var(--navy)}
   .task .tlabel{font-size:15px;color:var(--txt-sec);transition:.16s;line-height:1.5}
   .task.done .tlabel{color:var(--blanco)}
   .task .tlabel b{color:#fff;font-weight:600}
@@ -173,6 +182,7 @@
 
   .magnet-foot{margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.04em;
     color:var(--txt-faint);display:flex;align-items:center;gap:8px}
+  .magnet.active .magnet-foot{color:var(--acc)}
   .magnet.active .magnet-foot{color:var(--oro-bright)}
 
   /* ===================== TARJETA DE VALOR (mini-lecciones) ===================== */
@@ -212,6 +222,17 @@
   .webinar-fecha{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;
     text-transform:uppercase;color:var(--oro-bright);border:1px solid var(--linea);
     background:rgba(245,184,0,.06);border-radius:100px;padding:9px 18px;margin-top:18px}
+  /* canales tras confirmar */
+  .canales-box{margin-top:24px;padding:22px;border-radius:16px;border:1px solid var(--linea);
+    background:rgba(63,214,138,.05);animation:fadeUp .5s ease}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .canales-titulo{font-family:var(--sans);font-size:15px;font-weight:600;color:#fff;margin-bottom:16px;line-height:1.4}
+  .canales-btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+  .btn-wa{background:#25D366;color:#072b16}
+  .btn-wa:hover{transform:translateY(-2px);box-shadow:0 14px 36px -16px #25D366}
+  .btn-tg{background:#2AABEE;color:#03263a}
+  .btn-tg:hover{transform:translateY(-2px);box-shadow:0 14px 36px -16px #2AABEE}
+  .canales-nota{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--txt-faint);margin-top:14px}
   .cd-box{background:rgba(255,255,255,.05);border:1px solid var(--linea);border-radius:12px;padding:14px 8px;min-width:72px}
   .cd-box .n{font-family:var(--serif);font-size:32px;font-weight:900;color:var(--oro-bright);line-height:1}
   .cd-box .l{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--txt-sec);margin-top:6px}
@@ -337,7 +358,7 @@
       <!-- IMÁN 1 -->
       <div class="magnet" data-magnet="1">
         <div class="magnet-top">
-          <div class="magnet-ico"><span class="horseshoe"></span></div>
+          <div class="magnet-ico"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
           <div>
             <div class="magnet-num">Imán uno</div>
             <h3>Claridad</h3>
@@ -370,7 +391,7 @@
       <!-- IMÁN 2 -->
       <div class="magnet" data-magnet="2">
         <div class="magnet-top">
-          <div class="magnet-ico"><span class="horseshoe"></span></div>
+          <div class="magnet-ico"><svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
           <div>
             <div class="magnet-num">Imán dos</div>
             <h3>Retención</h3>
@@ -403,7 +424,7 @@
       <!-- IMÁN 3 -->
       <div class="magnet" data-magnet="3">
         <div class="magnet-top">
-          <div class="magnet-ico"><span class="horseshoe"></span></div>
+          <div class="magnet-ico"><svg viewBox="0 0 24 24"><path d="M9.5 2a5.5 5.5 0 0 0-3 10.1V16a2 2 0 0 0 2 2h.5v2a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-2h.5a2 2 0 0 0 2-2v-3.9A5.5 5.5 0 0 0 14.5 2z"/><path d="M9 22h6"/></svg></div>
           <div>
             <div class="magnet-num">Imán tres</div>
             <h3>Mentalidad</h3>
@@ -462,9 +483,19 @@
         <div class="cd-box"><div class="n" id="cd-s">--</div><div class="l">Seg</div></div>
       </div>
 
-      <div class="hero-cta" style="justify-content:center">
+      <div class="hero-cta" style="justify-content:center" id="ctaInicial">
         <a href="#" class="btn btn-gold" id="ctaConfirmar">Confirmar mi asistencia →</a>
         <a href="#" class="btn btn-ghost" id="ctaAgenda">Agregar a mi calendario</a>
+      </div>
+
+      <!-- Aparece tras confirmar: une al canal correcto de su sesión -->
+      <div class="canales-box" id="canalesBox" style="display:none">
+        <div class="canales-titulo">✅ ¡Asistencia confirmada! Únete a tu canal para recibir el acceso y los recordatorios</div>
+        <div class="canales-btns">
+          <a href="#" class="btn btn-wa" id="ctaWhatsapp" target="_blank" rel="noopener">Unirme al WhatsApp →</a>
+          <a href="#" class="btn btn-tg" id="ctaTelegram" target="_blank" rel="noopener">Unirme al Telegram →</a>
+        </div>
+        <div class="canales-nota">Entra a uno (o a los dos). Ahí te aviso cuándo arranca y comparto el enlace en vivo.</div>
       </div>
 
       <div class="author-card">
@@ -509,7 +540,14 @@
       alto:   { utc:'2026-06-20T01:00:00Z', etiqueta:'Viernes 19 de junio · 8:00 PM (hora Colombia)' }, // Latam alto + dólares + EEUU
       europa: { utc:'2026-06-20T19:00:00Z', etiqueta:'Sábado 20 de junio · 2:00 PM (hora Colombia)' }  // Europa
     },
-    SESION_DEFAULT: 'alto'  // si no se detecta país: viernes (alto/dólares)
+    SESION_DEFAULT: 'alto',  // si no se detecta país: viernes (alto/dólares)
+
+    // ====== CANALES por sesión (alto y europa comparten) ======
+    CANALES: {
+      bajo:   { whatsapp:'https://chat.whatsapp.com/EjbCRtt9gr98iciCjJwrFD', telegram:'https://t.me/+h6kz_j2FyHxhZmIx' },
+      alto:   { whatsapp:'https://chat.whatsapp.com/K7OKlvU222FIAa33woJdlB', telegram:'https://t.me/+4E7N8IwfWXY1YzJh' },
+      europa: { whatsapp:'https://chat.whatsapp.com/K7OKlvU222FIAa33woJdlB', telegram:'https://t.me/+4E7N8IwfWXY1YzJh' }
+    }
   };
 
   // Mapeo de país -> sesión. Lo no listado cae en SESION_DEFAULT.
@@ -634,7 +672,7 @@
   /* ============================================================
      ENVÍO AL CRM
      ============================================================ */
-  function enviarCRM(completo){
+  function enviarCRM(completo, confirmado){
     var imanes = {
       claridad: imanCompleto(1),
       retencion: imanCompleto(2),
@@ -649,6 +687,7 @@
       telefono: leadInfo.telefono || '',
       pais: leadInfo.pais || '',
       kit_completo: !!completo,
+      confirmado: !!confirmado || estado.confirmado === true,
       imanes_activos: [imanes.claridad,imanes.retencion,imanes.mentalidad].filter(Boolean).length,
       iman_claridad: imanes.claridad,
       iman_retencion: imanes.retencion,
@@ -701,14 +740,19 @@
   /* ============================================================
      COUNTDOWN AL WEBINAR (sesión según país por IP)
      ============================================================ */
-  var cdTarget = null, cdInterval = null;
+  var cdTarget = null, cdInterval = null, sesionActual = null;
 
   function pintarFecha(sesionKey){
     var ses = CONFIG.SESIONES[sesionKey] || CONFIG.SESIONES[CONFIG.SESION_DEFAULT];
     cdTarget = new Date(ses.utc).getTime();
+    sesionActual = sesionKey;
     var et = $('webinarFecha');
     if(et){ et.textContent = ses.etiqueta; }
     estado.sesion = sesionKey; guardar();
+    // actualizar enlaces de canal según la sesión
+    var can = CONFIG.CANALES[sesionKey] || CONFIG.CANALES[CONFIG.SESION_DEFAULT];
+    if($('ctaWhatsapp')) $('ctaWhatsapp').href = can.whatsapp;
+    if($('ctaTelegram')) $('ctaTelegram').href = can.telegram;
   }
 
   function tick(){
@@ -752,10 +796,30 @@
   })();
 
   /* ============================================================
-     CTAs
+     CTAs · Confirmar asistencia → registra + muestra canales
      ============================================================ */
-  if($('ctaConfirmar')) $('ctaConfirmar').href = CONFIG.URL_CONFIRMAR;
-  if($('ctaAgenda')) $('ctaAgenda').href = CONFIG.URL_CALENDARIO;
+  if($('ctaAgenda') && CONFIG.URL_CALENDARIO !== '#') $('ctaAgenda').href = CONFIG.URL_CALENDARIO;
+
+  function mostrarCanales(){
+    var box = $('canalesBox');
+    if(box){
+      box.style.display = 'block';
+      setTimeout(function(){ box.scrollIntoView({behavior:'smooth', block:'center'}); }, 100);
+    }
+    estado.confirmado = true; guardar();
+  }
+
+  if($('ctaConfirmar')){
+    $('ctaConfirmar').addEventListener('click', function(e){
+      e.preventDefault();
+      // registrar la confirmación en el CRM (lead caliente: confirmó asistencia)
+      enviarCRM(estado.enviado === true, true);
+      mostrarToast('🎉 ¡Asistencia confirmada! Únete a tu canal abajo.');
+      mostrarCanales();
+    });
+  }
+  // si ya había confirmado en una visita previa, mostrar los canales directo
+  if(estado.confirmado){ var b=$('canalesBox'); if(b) b.style.display='block'; }
 
   /* ============================================================
      PROGRESO DE SCROLL + REVEAL
