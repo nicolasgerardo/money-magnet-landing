@@ -965,14 +965,41 @@
     var p = new URLSearchParams(window.location.search);
     var forzada = p.get('sesion');
     if(forzada && CONFIG.SESIONES[forzada]){ arrancarCountdown(forzada); return; }
+    // 1b) ?pais=CO también se respeta (útil para pruebas o enlaces segmentados)
+    var paisForzado = (p.get('pais') || '').toUpperCase();
+    if(paisForzado && PAIS_SESION[paisForzado]){ arrancarCountdown(PAIS_SESION[paisForzado]); return; }
     // 2) país del lead si ya lo tenemos
     if(leadInfo.pais && PAIS_SESION[leadInfo.pais]){ arrancarCountdown(PAIS_SESION[leadInfo.pais]); return; }
-    // 3) detectar por IP
-    arrancarCountdown(CONFIG.SESION_DEFAULT); // muestra algo de inmediato
-    fetch('https://ipapi.co/json/').then(function(r){return r.json();}).then(function(geo){
-      var ses = sesionDesdePais(geo.country_code, geo.continent_code);
-      arrancarCountdown(ses);
-    }).catch(function(){ /* se queda con el default ya pintado */ });
+
+    // 3) detectar por IP con varias APIs en cascada (si una falla, prueba la siguiente)
+    arrancarCountdown(CONFIG.SESION_DEFAULT); // muestra algo de inmediato mientras detecta
+
+    var fuentes = [
+      { url:'https://ipwho.is/',                       cc:function(d){ return d && d.success !== false ? d.country_code : null; }, cont:function(d){ return d ? d.continent_code : null; } },
+      { url:'https://ipapi.co/json/',                  cc:function(d){ return d ? d.country_code : null; },                       cont:function(d){ return d ? d.continent_code : null; } },
+      { url:'https://api.country.is/',                 cc:function(d){ return d ? d.country : null; },                            cont:function(){ return null; } },
+      { url:'https://get.geojs.io/v1/ip/country.json', cc:function(d){ return d ? d.country : null; },                            cont:function(){ return null; } }
+    ];
+
+    function intentar(i){
+      if(i >= fuentes.length){ return; } // se queda con el default ya pintado
+      var f = fuentes[i];
+      fetch(f.url, { cache:'no-store' })
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          var cc = (f.cc(d) || '').toString().toUpperCase();
+          if(cc && cc.length === 2){
+            var cont = (f.cont(d) || '').toString().toUpperCase();
+            var ses = sesionDesdePais(cc, cont);
+            estado.pais_detectado = cc; guardar();
+            arrancarCountdown(ses);
+          } else {
+            intentar(i+1); // respuesta inútil, probar siguiente
+          }
+        })
+        .catch(function(){ intentar(i+1); }); // esta falló, probar siguiente
+    }
+    intentar(0);
   })();
 
   /* ============================================================
