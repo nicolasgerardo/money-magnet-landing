@@ -183,7 +183,24 @@
   .magnet-foot{margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.04em;
     color:var(--txt-faint);display:flex;align-items:center;gap:8px}
   .magnet.active .magnet-foot{color:var(--acc)}
-  .magnet.active .magnet-foot{color:var(--oro-bright)}
+
+  /* ===== reto dinámico por imán (botones de elección + feedback) ===== */
+  .reto{margin:18px 0 4px;padding:18px;border-radius:14px;
+    background:color-mix(in srgb,var(--acc) 6%,transparent);
+    border:1px solid color-mix(in srgb,var(--acc) 22%,transparent)}
+  .reto-q{font-family:var(--sans);font-size:14.5px;font-weight:600;color:#fff;margin-bottom:13px;display:flex;gap:9px;align-items:flex-start}
+  .reto-q .spark{color:var(--acc);flex:none}
+  .reto-opts{display:flex;flex-wrap:wrap;gap:9px}
+  .reto-opt{font-family:var(--sans);font-size:13.5px;color:var(--txt-sec);cursor:pointer;
+    background:rgba(255,255,255,.04);border:1px solid var(--linea-soft);border-radius:100px;
+    padding:9px 16px;transition:.16s;user-select:none}
+  .reto-opt:hover{border-color:var(--acc);color:#fff}
+  .reto-opt.sel{background:var(--acc);border-color:var(--acc);color:var(--navy);font-weight:600}
+  .reto-fb{margin-top:13px;font-family:var(--sans);font-size:14px;line-height:1.55;color:var(--blanco);
+    padding:12px 14px;border-radius:10px;background:rgba(0,0,0,.22);
+    border-left:3px solid var(--acc);display:none}
+  .reto-fb.show{display:block;animation:fadeUp .4s ease}
+  .reto-fb b{color:var(--acc)}
 
   /* ===================== TARJETA DE VALOR (mini-lecciones) ===================== */
   .value-card{background:rgba(255,255,255,.025);border:1px solid var(--linea-soft);border-radius:14px;
@@ -233,6 +250,21 @@
   .btn-tg{background:#2AABEE;color:#03263a}
   .btn-tg:hover{transform:translateY(-2px);box-shadow:0 14px 36px -16px #2AABEE}
   .canales-nota{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--txt-faint);margin-top:14px}
+  /* formulario de correo (identificación) */
+  .email-box{margin-top:22px;padding:22px;border-radius:16px;border:1px solid var(--linea);
+    background:rgba(245,184,0,.05);animation:fadeUp .5s ease}
+  .email-titulo{font-family:var(--serif);font-size:19px;font-weight:700;color:#fff;margin-bottom:6px}
+  .email-sub{font-family:var(--sans);font-size:13.5px;color:var(--txt-sec);margin-bottom:16px;line-height:1.5}
+  .email-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .email-row input{flex:1;min-width:220px;max-width:340px;padding:14px 16px;border-radius:11px;
+    border:1px solid var(--linea);background:rgba(255,255,255,.05);color:var(--blanco);
+    font-family:var(--sans);font-size:15px;text-align:center}
+  .email-row input:focus{outline:none;border-color:var(--oro)}
+  .email-row input::placeholder{color:var(--txt-faint)}
+  .email-msg{margin-top:12px;font-family:var(--sans);font-size:13.5px;min-height:18px;line-height:1.5}
+  .email-msg.ok{color:var(--exito)}
+  .email-msg.err{color:#FF8A8A}
+  .email-msg.info{color:var(--oro-bright)}
   .cd-box{background:rgba(255,255,255,.05);border:1px solid var(--linea);border-radius:12px;padding:14px 8px;min-width:72px}
   .cd-box .n{font-family:var(--serif);font-size:32px;font-weight:900;color:var(--oro-bright);line-height:1}
   .cd-box .l{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--txt-sec);margin-top:6px}
@@ -385,6 +417,16 @@
           <h4>Lo que se mide, cambia</h4>
           <p>No es magia: es atención. En el momento en que un gasto deja de ser invisible y pasa a estar escrito, tu cerebro empieza a optimizarlo solo. Por eso el primer imán no es ganar más — es <em>ver</em> con claridad. Lo demás se construye encima de esto.</p>
         </div>
+        <div class="reto" data-reto="claridad">
+          <div class="reto-q"><span class="spark">◆</span> Sé honesto contigo: si paras de trabajar hoy, ¿cuánto aguantas tu vida actual?</div>
+          <div class="reto-opts">
+            <span class="reto-opt" data-val="0">Menos de 1 mes</span>
+            <span class="reto-opt" data-val="1">1 a 3 meses</span>
+            <span class="reto-opt" data-val="2">3 a 12 meses</span>
+            <span class="reto-opt" data-val="3">Más de 1 año</span>
+          </div>
+          <div class="reto-fb"></div>
+        </div>
         <div class="magnet-foot" id="foot-1">Completa las 3 acciones para activar este imán</div>
       </div>
 
@@ -418,6 +460,16 @@
           <h4>Pagarte a ti primero</h4>
           <p>La trampa es esperar a fin de mes "a ver qué sobra". Nunca sobra. El que retiene aparta su porcentaje <em>el día que entra el dinero</em>, antes de que la vida se lo gaste. Es la diferencia entre ser tu primera prioridad o la última de la fila.</p>
         </div>
+        <div class="reto" data-reto="retencion">
+          <div class="reto-q"><span class="spark">◆</span> De cada $100 que entran a tu vida, ¿cuánto termina realmente invertido (no gastado, no en el banco)?</div>
+          <div class="reto-opts">
+            <span class="reto-opt" data-val="0">$0 — se va todo</span>
+            <span class="reto-opt" data-val="1">Algo va al banco</span>
+            <span class="reto-opt" data-val="2">Entre $10 y $20</span>
+            <span class="reto-opt" data-val="3">Más de $20</span>
+          </div>
+          <div class="reto-fb"></div>
+        </div>
         <div class="magnet-foot" id="foot-2">Completa las 3 acciones para activar este imán</div>
       </div>
 
@@ -450,6 +502,16 @@
           <div class="vc-tag">💡 Mini-lección</div>
           <h4>No atraes lo que quieres, atraes lo que crees</h4>
           <p>Puedes tener la mejor estrategia del mundo, pero si en el fondo crees que el dinero es escaso o sucio, vas a sabotearte sin notarlo. El tercer imán alinea lo que haces con lo que crees. Cuando los dos apuntan al mismo lado, el metal por fin se pega.</p>
+        </div>
+        <div class="reto" data-reto="mentalidad">
+          <div class="reto-q"><span class="spark">◆</span> Cuando piensas en invertir tu dinero, lo primero que sientes es:</div>
+          <div class="reto-opts">
+            <span class="reto-opt" data-val="0">Miedo a perderlo todo</span>
+            <span class="reto-opt" data-val="1">Confusión, no sé por dónde</span>
+            <span class="reto-opt" data-val="2">Curiosidad, quiero aprender</span>
+            <span class="reto-opt" data-val="3">Claridad, ya lo hago</span>
+          </div>
+          <div class="reto-fb"></div>
         </div>
         <div class="magnet-foot" id="foot-3">Completa las 3 acciones para activar este imán</div>
       </div>
@@ -488,9 +550,20 @@
         <a href="#" class="btn btn-ghost" id="ctaAgenda">Agregar a Google Calendar</a>
       </div>
 
+      <!-- Aparece al pulsar confirmar: pide el correo para identificar al lead -->
+      <div class="email-box" id="emailBox" style="display:none">
+        <div class="email-titulo">Confirma tu correo para asegurar tu lugar</div>
+        <div class="email-sub">Usa el mismo con el que te registraste. Así te reconocemos y te damos el acceso correcto.</div>
+        <div class="email-row">
+          <input id="emailInput" type="email" inputmode="email" autocomplete="email" placeholder="tucorreo@ejemplo.com">
+          <button class="btn btn-gold" id="emailSubmit">Confirmar →</button>
+        </div>
+        <div class="email-msg" id="emailMsg"></div>
+      </div>
+
       <!-- Aparece tras confirmar: une al canal correcto de su sesión -->
       <div class="canales-box" id="canalesBox" style="display:none">
-        <div class="canales-titulo">✅ ¡Asistencia confirmada! Únete a tu canal para recibir el acceso y los recordatorios</div>
+        <div class="canales-titulo" id="canalesTitulo">✅ ¡Asistencia confirmada! Únete a tu canal para recibir el acceso y los recordatorios</div>
         <div class="canales-btns">
           <a href="#" class="btn btn-wa" id="ctaWhatsapp" target="_blank" rel="noopener">Unirme al WhatsApp →</a>
           <a href="#" class="btn btn-tg" id="ctaTelegram" target="_blank" rel="noopener">Unirme al Telegram →</a>
@@ -595,11 +668,14 @@
   var STORE_KEY = 'mm_kit_progreso';
   var estado = cargar();
   function cargar(){
-    try{ return JSON.parse(localStorage.getItem(STORE_KEY)) || {tasks:{}, enviado:false}; }
-    catch(e){ return {tasks:{}, enviado:false}; }
+    try{ return JSON.parse(localStorage.getItem(STORE_KEY)) || {tasks:{}, retos:{}, enviado:false}; }
+    catch(e){ return {tasks:{}, retos:{}, enviado:false}; }
   }
   function guardar(){
-    try{ localStorage.setItem(STORE_KEY, JSON.stringify(estado)); }catch(e){}
+    try{
+      if(!estado.retos) estado.retos = {};
+      localStorage.setItem(STORE_KEY, JSON.stringify(estado));
+    }catch(e){}
   }
 
   /* ============================================================
@@ -620,6 +696,72 @@
     estado.tasks[id] = done;
     guardar();
     actualizar(true);
+  }
+
+  /* ============================================================
+     RETOS DINÁMICOS (botones de elección + feedback por imán)
+     ============================================================ */
+  // Feedback según la elección. Texto duro pero útil; sube conciencia.
+  var RETO_FB = {
+    claridad: [
+      'Estás a un paso del precipicio. Si tu ingreso se corta, tu vida se desarma en semanas. <b>No es para asustarte: es la razón #1 por la que necesitas el imán de Claridad ya.</b>',
+      'Tienes algo de aire, pero es frágil. Un imprevisto y vuelves a cero. <b>La claridad convierte ese colchón delgado en una base real.</b>',
+      'Vas bien — ya tienes margen para decidir sin pánico. <b>Ahora ese colchón debería empezar a producir, no solo a esperar.</b>',
+      'Estás en el 5% que duerme tranquilo. <b>Tu reto no es sobrevivir, es no estancarte.</b> El webinar te muestra el siguiente nivel.'
+    ],
+    retencion: [
+      'Tu imán está apagado: todo lo que atraes se escapa el mismo día. <b>No tienes un problema de ingresos, tienes un colador.</b> Eso se arregla, y rápido.',
+      '"Ahorrar" en el banco te da paz, pero le regala a otro el crecimiento de tu dinero. <b>Ahorrar no es invertir.</b> En el webinar verás la diferencia que lo cambia todo.',
+      'Vas en serio: ya inviertes una parte. <b>El reto es subir ese número con método, no con suerte.</b>',
+      'Disciplina de élite. Inviertes más del 20%. <b>La pregunta ya no es cuánto, sino con qué criterio.</b>'
+    ],
+    mentalidad: [
+      'El miedo es legítimo — pero la inacción también cuesta: es toda la libertad que NO construyes cada año. <b>El cuarto imán existe justo para personas como tú.</b>',
+      'La confusión es normal cuando nadie te enseñó las reglas. <b>No te falta capacidad, te falta el mapa.</b> Eso es exactamente lo que abre el webinar.',
+      'Esa curiosidad es oro. Es la mentalidad correcta apuntando al lado correcto. <b>Solo te falta el método para canalizarla.</b>',
+      'Ya tienes la polaridad alineada. <b>Estás listo para el nivel que casi nadie alcanza.</b> El webinar es tu siguiente escalón.'
+    ]
+  };
+
+  var retos = Array.prototype.slice.call(document.querySelectorAll('.reto'));
+  retos.forEach(function(reto){
+    var clave = reto.getAttribute('data-reto');
+    var fb = reto.querySelector('.reto-fb');
+    var opts = reto.querySelectorAll('.reto-opt');
+    // restaurar elección previa
+    if(estado.retos && estado.retos[clave] != null){
+      var prev = estado.retos[clave];
+      opts.forEach(function(o){ if(o.getAttribute('data-val') === String(prev)) o.classList.add('sel'); });
+      if(RETO_FB[clave] && RETO_FB[clave][prev]){ fb.innerHTML = RETO_FB[clave][prev]; fb.classList.add('show'); }
+    }
+    opts.forEach(function(o){
+      o.addEventListener('click', function(){
+        var val = parseInt(o.getAttribute('data-val'), 10);
+        opts.forEach(function(x){ x.classList.remove('sel'); });
+        o.classList.add('sel');
+        if(!estado.retos) estado.retos = {};
+        estado.retos[clave] = val;
+        guardar();
+        if(RETO_FB[clave] && RETO_FB[clave][val]){ fb.innerHTML = RETO_FB[clave][val]; fb.classList.add('show'); }
+      });
+    });
+  });
+
+  // Precalificación a partir de los 3 retos (0..9 → frío/tibio/caliente)
+  function calcularPrecalif(){
+    var keys = ['claridad','retencion','mentalidad'];
+    var suma = 0, respondidos = 0;
+    keys.forEach(function(k){
+      if(estado.retos && estado.retos[k] != null){ suma += estado.retos[k]; respondidos++; }
+    });
+    var temp = 'sin_datos';
+    if(respondidos > 0){
+      // menor puntaje = más necesita = más caliente para tu oferta
+      if(suma <= 3) temp = 'caliente';       // mucho dolor, mucha necesidad
+      else if(suma <= 6) temp = 'tibio';
+      else temp = 'consciente';              // ya avanzado
+    }
+    return { score: suma, respondidos: respondidos, temperatura: temp };
   }
 
   function imanCompleto(n){
@@ -674,12 +816,14 @@
   /* ============================================================
      ENVÍO AL CRM
      ============================================================ */
-  function enviarCRM(completo, confirmado){
+  function enviarCRM(completo, confirmado, callback){
     var imanes = {
       claridad: imanCompleto(1),
       retencion: imanCompleto(2),
       mentalidad: imanCompleto(3)
     };
+    var pre = calcularPrecalif();
+    var r = estado.retos || {};
     var payload = {
       action: 'lead_kit_money_magnet',
       fuente: CONFIG.FUENTE,
@@ -697,6 +841,13 @@
       tareas_completadas: contarHechas(),
       tareas_total: totalTasks,
       sesion: estado.sesion || '',
+      // ---- respuestas de los retos dinámicos + precalificación ----
+      reto_claridad: (r.claridad != null ? r.claridad : ''),
+      reto_retencion: (r.retencion != null ? r.retencion : ''),
+      reto_mentalidad: (r.mentalidad != null ? r.mentalidad : ''),
+      precalif_score: pre.score,
+      precalif_respondidos: pre.respondidos,
+      temperatura: pre.temperatura,
       ts: new Date().toISOString()
     };
     try{
@@ -704,8 +855,11 @@
         method:'POST',
         headers:{'Content-Type':'text/plain;charset=utf-8'},
         body: JSON.stringify(payload)
-      }).then(function(r){ return r.json().catch(function(){return {ok:true};}); }).catch(function(){});
-    }catch(e){}
+      })
+      .then(function(res){ return res.json().catch(function(){return {ok:true};}); })
+      .then(function(resp){ if(typeof callback==='function') callback(resp || {ok:true}); })
+      .catch(function(){ if(typeof callback==='function') callback({ok:true}); });
+    }catch(e){ if(typeof callback==='function') callback({ok:true}); }
   }
 
   /* ============================================================
@@ -836,15 +990,62 @@
     estado.confirmado = true; guardar();
   }
 
+  function emailValido(v){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
+
+  // Paso 1: pulsar "Confirmar" abre el campo de correo
   if($('ctaConfirmar')){
     $('ctaConfirmar').addEventListener('click', function(e){
       e.preventDefault();
-      // registrar la confirmación en el CRM (lead caliente: confirmó asistencia)
-      enviarCRM(estado.enviado === true, true);
+      var box = $('emailBox');
+      if(box){
+        box.style.display = 'block';
+        // si ya tenemos el correo del lead, lo precargamos
+        if(leadInfo.email && $('emailInput')) $('emailInput').value = leadInfo.email;
+        setTimeout(function(){ box.scrollIntoView({behavior:'smooth', block:'center'}); }, 100);
+        if($('emailInput')) $('emailInput').focus();
+      }
+    });
+  }
+
+  // Paso 2: enviar el correo → verifica base, guarda, muestra canales
+  function procesarConfirmacion(){
+    var input = $('emailInput'), msg = $('emailMsg'), btn = $('emailSubmit');
+    if(!input) return;
+    var correo = input.value.trim().toLowerCase();
+    if(!emailValido(correo)){
+      msg.className = 'email-msg err';
+      msg.textContent = 'Escribe un correo válido para continuar.';
+      return;
+    }
+    // guardar el correo como dato del lead
+    leadInfo.email = correo;
+    estado.email = correo; guardar();
+
+    msg.className = 'email-msg info';
+    msg.innerHTML = '<span class="spin"></span> Verificando tu registro…';
+    if(btn){ btn.disabled = true; }
+
+    // registrar/confirmar en el CRM (incluye retos + precalificación)
+    enviarCRM(estado.enviado === true, true, function(resp){
+      if(btn){ btn.disabled = false; }
+      // resp.en_base lo devuelve el backend si el correo ya está inscrito
+      if(resp && resp.en_base){
+        msg.className = 'email-msg ok';
+        msg.textContent = '✓ ¡Te reconocimos! Tu lugar está confirmado.';
+      } else {
+        msg.className = 'email-msg ok';
+        msg.textContent = '✓ ¡Listo! Quedaste confirmado.';
+      }
       mostrarToast('🎉 ¡Asistencia confirmada! Únete a tu canal abajo.');
       mostrarCanales();
     });
   }
+
+  if($('emailSubmit')) $('emailSubmit').addEventListener('click', procesarConfirmacion);
+  if($('emailInput')) $('emailInput').addEventListener('keydown', function(e){ if(e.key==='Enter') procesarConfirmacion(); });
+
   // si ya había confirmado en una visita previa, mostrar los canales directo
   if(estado.confirmado){ var b=$('canalesBox'); if(b) b.style.display='block'; }
 
