@@ -153,12 +153,24 @@
     background:linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.02));
     padding:18px 22px;
     margin-bottom:28px;
-    display:flex;gap:16px;align-items:center;
+    display:flex;gap:16px;align-items:center;flex-wrap:wrap;
   }
   .ebook-hook .eb-ic{font-size:26px;flex-shrink:0}
+  .ebook-hook .eb-txt{flex:1;min-width:200px}
   .ebook-hook .eb-t{font-family:'Playfair Display',serif;font-weight:700;font-size:16px}
   .ebook-hook .eb-t em{color:var(--oro);font-style:normal}
   .ebook-hook .eb-s{font-size:13px;color:var(--texto-sec);font-weight:300;margin-top:2px}
+  .btn-ebook{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    flex-shrink:0;white-space:nowrap;
+    background:transparent;color:var(--oro);
+    border:1px solid var(--borde-oro);
+    padding:11px 18px;border-radius:10px;
+    font-family:'DM Sans',sans-serif;font-weight:600;font-size:13.5px;
+    text-decoration:none;cursor:pointer;transition:background .2s, transform .15s;
+  }
+  .btn-ebook:hover{background:rgba(201,168,76,0.12);transform:translateY(-2px)}
+  .btn-ebook svg{width:16px;height:16px;flex-shrink:0}
 
   /* Imagen del programa */
   .programa-img{
@@ -385,7 +397,6 @@
   .plan.activo{border-color:var(--oro);background:rgba(201,168,76,0.06)}
   .plan-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
   .plan-name{font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px}
-  /* En planes minimizados, un botoncito "Cambiar" deja claro que se pueden reabrir */
   .plan:not(.activo) .plan-top::after{
     content:'Cambiar';
     font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;
@@ -408,11 +419,9 @@
   }
   .plan-detail{font-size:12.5px;color:var(--texto-cuerpo);font-weight:400;margin-top:7px;padding-left:24px;line-height:1.55;
     overflow:hidden;max-height:300px;opacity:1;transition:max-height .35s ease, opacity .25s ease, margin-top .35s ease;}
-  /* Plan NO activo: se colapsa el detalle para que el checkout no quede tan largo */
   .plan:not(.activo) .plan-detail{max-height:0;opacity:0;margin-top:0;}
   .plan-detail .ok{color:var(--exito)}
   .plan-detail .warn{color:var(--oro-claro)}
-  /* Resumen breve que se muestra en el plan colapsado (1 línea) */
   .plan-mini{font-size:12px;color:var(--texto-sec);font-weight:400;margin-top:5px;padding-left:24px;
     max-height:0;opacity:0;overflow:hidden;transition:max-height .3s ease, opacity .25s ease, margin-top .3s ease;}
   .plan:not(.activo) .plan-mini{max-height:40px;opacity:1;margin-top:5px;}
@@ -648,6 +657,7 @@
     .wrap{grid-template-columns:1fr;gap:32px;padding:34px 18px 24px}
     .checkout{position:static;order:-1}
     .foot-grid{grid-template-columns:1fr;gap:24px}
+    .ebook-hook .btn-ebook{width:100%}
   }
 </style>
 </head>
@@ -677,24 +687,29 @@
       <!-- GANCHO EBOOK -->
       <div class="ebook-hook">
         <div class="eb-ic">📘</div>
-        <div>
+        <div class="eb-txt">
           <div class="eb-t">Recibiste tu <em>ebook gratuito</em>. Ahora da el siguiente paso.</div>
           <div class="eb-s">El ebook te mostró las reglas. INTRADER te convierte en quien sabe jugarlas.</div>
         </div>
+        <a class="btn-ebook" id="btn-ebook" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+          Leer el ebook
+        </a>
       </div>
 
       <h2 class="oferta-head">Esto es lo que recibes en <em>6 meses de transformación</em></h2>
       <p class="oferta-lead">No es un curso de trading. Es un sistema completo para pensar, decidir y actuar con criterio profesional sobre tu dinero.</p>
 
-      <!-- ESPACIO PARA IMAGEN DEL PROGRAMA -->
+      <!-- IMAGEN DEL PROGRAMA -->
       <div class="programa-img" id="programa-img">
-        <!-- Cuando tengas el enlace, reemplaza este bloque por:
-             <img src="URL_DE_TU_IMAGEN" alt="Programa INTRADER"> -->
-        <div class="ph">
-          <div class="ph-icon">🖼️</div>
-          <div class="ph-t">Imagen del programa</div>
-          <div class="ph-s">Aquí va la imagen de tu programa INTRADER. Pásame el enlace y la conecto en este espacio.</div>
-        </div>
+        <img src="https://drive.google.com/thumbnail?id=1VCgw7q4AcSCpjXOARjSvekZeZqf0StZN&sz=w1200"
+             alt="Programa INTRADER"
+             loading="lazy"
+             referrerpolicy="no-referrer"
+             onerror="this.onerror=null;this.src='https://lh3.googleusercontent.com/d/1VCgw7q4AcSCpjXOARjSvekZeZqf0StZN=w1200';">
       </div>
 
       <!-- ============ PROGRAMA · 10 ETAPAS ============ -->
@@ -785,7 +800,7 @@
         <div class="item-num">10</div>
         <div class="item-body">
           <div class="item-title">CERTIFIED INTRADER<span class="tm">™</span><span class="item-val">$697</span></div>
-          <div class="item-desc">15–17 de diciembre. De alumno a Intrader certificado: evaluación completa y certificación oficial con certificado digital, inclusión en el directorio y badge para LinkedIn.</div>
+          <div class="item-desc">15–17 de diciembre. De alumno a Intrader certificado: evaluación completa y certificación oficial con certificado digital.</div>
           <div class="plan-tags"><span class="ptag all">Incluido en los 3 planes</span></div>
         </div>
       </div>
@@ -1153,6 +1168,10 @@
   <script>
     var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK6XSxi1T4I2hCSZeEScJy7pKhFGs2S1OVtxSmAfc2oFjK1UonFmIGFjGEmJAdTymQ8g/exec';
 
+    // URL del ebook de Daniel ("Las Reglas del Juego del Dinero").
+    // Cambia este valor cuando confirmes la ruta pública definitiva del ebook.
+    var EBOOK_URL = 'https://magnet.academiaintrade.com/ebook';
+
     /* ---------- LISTA DE PAÍSES (bandera + indicativo) ---------- */
     var PAISES = [
       {c:'CO', n:'Colombia', d:'+57', f:'🇨🇴'},
@@ -1242,21 +1261,15 @@
       if (match){ seleccionarPaisCS(match); }
     }
 
-    /* ---------- CONTADOR: termina a la MEDIANOCHE local del visitante ----------
-       Usa los métodos locales del navegador (getDate/getMonth/getFullYear), así que
-       siempre toma la medianoche del día actual en la zona horaria de quien mira la página.
-       Cuando llega a 00:00:00, recalcula automáticamente la medianoche del día siguiente.
-       Solo muestra HH:MM:SS (las horas que faltan hasta medianoche, máximo 23). */
+    /* ---------- CONTADOR: termina a la MEDIANOCHE local del visitante ---------- */
     function finMedianocheLocal(){
       var ahora = new Date();
-      // 00:00:00 del día SIGUIENTE en hora local = medianoche de hoy del visitante
       return new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate() + 1, 0, 0, 0, 0).getTime();
     }
     var finOferta = finMedianocheLocal();
 
     function tickCountdown(){
       var diff = finOferta - new Date().getTime();
-      // Si ya pasó la medianoche, recalcular para la próxima
       if (diff <= 0){ finOferta = finMedianocheLocal(); diff = finOferta - new Date().getTime(); }
       if (diff < 0) diff = 0;
       var totalH = Math.floor(diff / 3600000);
@@ -1264,7 +1277,6 @@
       var s = Math.floor((diff % 60000) / 1000);
       var p = function(n){ return n < 10 ? '0' + n : '' + n; };
 
-      // Barra superior (HH : MM : SS)
       var barra = $('cd-clock');
       if (barra){
         barra.innerHTML =
@@ -1274,24 +1286,16 @@
           + '<div class="cd-sep">:</div>'
           + '<div class="cd-unit"><div class="cd-num">'+p(s)+'</div><div class="cd-tag">Seg</div></div>';
       }
-      // Mini reloj del checkout (HH:MM:SS, idéntico a la barra)
       if ($('cd-mini-clock')) $('cd-mini-clock').textContent = p(totalH)+':'+p(m)+':'+p(s);
-      // Label fijo
       var lbl = $('cd-label');
       if (lbl){ lbl.innerHTML = 'Este precio especial <b>termina hoy a la medianoche</b>'; }
     }
     setInterval(tickCountdown, 1000); tickCountdown();
 
-    /* ---------- SELECTOR DE PLAN ----------
-       Estrategia de precios (anclaje descendente para empujar al PAGO COMPLETO):
-       - precioFinal = precio de contado (el más bajo). Se lleva TODO + 2 bonos exclusivos.
-       - Apartado: total con recargo. Reserva inicial = 40% del total del apartado.
-                   Su total queda ARRIBA del contado pero DEBAJO de las 3 cuotas.
-       - 3 cuotas: el total más alto (máxima facilidad => mayor costo).
-       Bonos exclusivos del pago completo: Precision Template $1,497 + The Intrader Strategy $1,997 + Advanced Strategies $997. */
-    var RECARGO_APARTADO = 0.12;  // +12% sobre contado
-    var RECARGO_CUOTAS   = 0.22;  // +22% sobre contado (el más caro)
-    var RESERVA_APARTADO = 0.40;  // 40% inicial para arrancar el apartado
+    /* ---------- SELECTOR DE PLAN ---------- */
+    var RECARGO_APARTADO = 0.12;
+    var RECARGO_CUOTAS   = 0.22;
+    var RESERVA_APARTADO = 0.40;
 
     var planActivo = 'completo';
     window.seleccionarPlan = function(plan){
@@ -1300,7 +1304,6 @@
       $('plan-apartado').classList.toggle('activo', plan === 'apartado');
       $('plan-cuotas').classList.toggle('activo', plan === 'cuotas');
       renderPrecioPlan();
-      // Lleva la vista al precio para que se vea de inmediato (clave en móvil)
       var box = $('precio-box');
       if (box){
         var r = box.getBoundingClientRect();
@@ -1317,11 +1320,9 @@
       return txt + ' <span style="font-family:\'DM Mono\',monospace;font-size:13px;color:var(--texto-sec)">USD</span>';
     }
 
-    // Valor total del stacking que recibe cada plan (para el RESUMEN detallado)
     var VALOR_PLAN = { completo: 17523, apartado: 13032, cuotas: 11341 };
 
     function renderPrecioPlan(){
-      // --- Valor del stacking (resumen detallado de la derecha) ---
       var anclaPlan = VALOR_PLAN[planActivo] || VALOR_PLAN.completo;
       if ($('r-num-total')) $('r-num-total').innerHTML = usdTag('$' + anclaPlan.toLocaleString('en-US'));
 
@@ -1336,10 +1337,9 @@
         if ($('r-bonos-total')) $('r-bonos-total').textContent = '$0';
       }
 
-      // Atenúa en el resumen las líneas de bonos que tu plan NO recibe
       var lineas = document.querySelectorAll('#r-grupo-bonos .r-line');
       lineas.forEach(function(ln){
-        var tipo = ln.getAttribute('data-bono'); // completo | apartado
+        var tipo = ln.getAttribute('data-bono');
         var incluido = (tipo === 'apartado' && (planActivo === 'completo' || planActivo === 'apartado'))
           || (tipo === 'completo' && planActivo === 'completo');
         ln.style.opacity = incluido ? '1' : '0.32';
@@ -1347,10 +1347,9 @@
         if (val){ val.style.textDecoration = incluido ? 'none' : 'line-through'; }
       });
 
-      // --- Precio-box (caja de pago): ancla y ahorro segun REGIÓN, no segun plan ---
       var anclaRegion = estado.ancla != null ? estado.ancla : (PRECIOS[estado.region] ? PRECIOS[estado.region].ancla : 3997);
       if (estado.precioFinal == null) { pintarAhorro(anclaRegion, anclaRegion); return; }
-      var base = estado.precioFinal;                 // precio de contado (por región/código)
+      var base = estado.precioFinal;
       var totApartado = base * (1 + RECARGO_APARTADO);
       var totCuotas   = base * (1 + RECARGO_CUOTAS);
 
@@ -1371,7 +1370,6 @@
         pintarAhorro(anclaRegion, totCuotas);
       }
 
-      // Aviso: PayU procesa el cobro en pesos colombianos (muestra el USD como referencia)
       var n = $('moneda');
       if (n) n.innerHTML = n.textContent + '<br><span style="color:var(--texto-sec);font-size:10px">El cobro se procesa en COP a la tasa del día</span>';
     }
@@ -1387,6 +1385,20 @@
       paisCodigo: ''
     };
 
+    // Enlazar el botón del ebook, conservando datos de seguimiento (email, región, etc.)
+    function configurarBotonEbook(){
+      var btn = $('btn-ebook');
+      if (!btn) return;
+      var url = EBOOK_URL;
+      var qs = [];
+      if (estado.region) qs.push('region=' + encodeURIComponent(estado.region));
+      var emailParam = params.get('email');
+      if (emailParam) qs.push('email=' + encodeURIComponent(emailParam));
+      qs.push('utm_source=intrader_checkout');
+      if (qs.length){ url += (url.indexOf('?') >= 0 ? '&' : '?') + qs.join('&'); }
+      btn.setAttribute('href', url);
+    }
+
     function detectarRegion(){
       if (estado.region) { cargarPrecio(); mostrarRegion(estado.region); return; }
       fetch('https://ipapi.co/json/')
@@ -1397,32 +1409,24 @@
           if (geo.country_code){
             if (!leadTienePais) setPaisPorCodigo(geo.country_code);
           }
+          configurarBotonEbook();
           cargarPrecio();
         })
         .catch(function(){
           estado.region = 'resto';
           mostrarRegion('resto');
+          configurarBotonEbook();
           cargarPrecio();
         });
     }
 
     function regionDesdePais(pais, continente){
-      // Todos los países de Latinoamérica -> 'latam'. El resto del mundo -> 'resto'.
       var latam = ['CO','VE','BO','EC','PE','PY','NI','HN','GT','SV','MX','CL','AR',
                    'UY','CR','PA','BR','DO','CU','PR','HT'];
       if (latam.indexOf(pais) >= 0) return 'latam';
       return 'resto';
     }
 
-    /* ---------- TABLA DE PRECIOS (respaldo local) ----------
-       IMPORTANTE: el precio REAL que se cobra lo decide y FIRMA el backend (Apps Script).
-       Esta tabla es solo un respaldo para MOSTRAR el precio si el backend no responde.
-
-       Para TODOS:      ancla $3,997 · precio $1,997
-       Latinoamérica:   con CODINTRADER -> $497
-       Resto del mundo: con SOYINTRADER -> $997
-
-       El ANCLA (valor tachado) depende de la REGIÓN (no del plan). */
     var PRECIOS = {
       latam: { ancla: 3997, precio: 1997, codigo: 'CODINTRADER', precioCodigo: 497 },
       resto: { ancla: 3997, precio: 1997, codigo: 'SOYINTRADER', precioCodigo: 997 }
@@ -1441,7 +1445,6 @@
       $('region-tag').textContent = 'Precio para tu región' + (paisNombre ? ' · ' + paisNombre : '');
     }
 
-    // Pinta ancla, ahorro en $ y % de descuento a partir de ancla y precio final
     function pintarAhorro(ancla, final){
       if ($('ancla')) $('ancla').textContent = '$' + Number(ancla).toLocaleString('en-US') + ' USD';
       var ahorro = ancla - final;
@@ -1457,15 +1460,14 @@
     }
 
     function cargarPrecio(){
-      var fb = precioLocal(estado.region, estado.codigo); // respaldo inmediato
-      estado.ancla = fb.ancla; // ancla por región (la usa el precio-box)
+      var fb = precioLocal(estado.region, estado.codigo);
+      estado.ancla = fb.ancla;
       var url = APPS_SCRIPT_URL + '?action=intrader_precio&region=' + encodeURIComponent(estado.region) +
                 (estado.codigo ? '&codigo=' + encodeURIComponent(estado.codigo) : '');
       fetch(url)
         .then(function(r){ return r.json(); })
         .then(function(res){
           if (!res || !res.ok) throw new Error(res && res.error || '');
-          // El backend manda la verdad sobre el PRECIO. El ancla del precio-box es la de región.
           estado.precioFinal = res.final;
           estado.precioBase = res.base != null ? res.base : res.final;
           if (res.ancla != null) estado.ancla = res.ancla;
@@ -1473,7 +1475,6 @@
           renderPrecioPlan();
         })
         .catch(function(){
-          // Backend no disponible: respaldo local (el cobro real se firma en backend al pagar)
           estado.precioFinal = fb.final;
           estado.precioBase = fb.base;
           estado.ancla = fb.ancla;
@@ -1485,7 +1486,6 @@
       var cod = $('f-codigo').value.trim().toUpperCase();
       if (!cod){ return; }
       var msg = $('codigo-msg');
-      // Cálculo LOCAL inmediato (la verdad para mostrar; el cobro real lo firma el backend al pagar)
       var fb = precioLocal(estado.region, cod);
       if (fb.codigo_aplicado){
         estado.codigo = cod;
@@ -1494,10 +1494,9 @@
         renderPrecioPlan();
         msg.style.color = 'var(--exito)'; msg.textContent = '✓ Código aplicado';
       } else {
-        // El código no corresponde a la región del visitante
         estado.codigo = '';
         var cfg = PRECIOS[estado.region] || PRECIOS.resto;
-        estado.precioFinal = cfg.precio;   // vuelve al precio sin descuento
+        estado.precioFinal = cfg.precio;
         estado.ancla = cfg.ancla;
         renderPrecioPlan();
         msg.style.color = 'var(--alerta)'; msg.textContent = 'Ese código no es válido para tu región';
@@ -1590,6 +1589,7 @@
       }catch(e){}
     })();
 
+    configurarBotonEbook();
     detectarRegion();
   </script>
   <!-- ============ BANNER DE COOKIES ============ -->
