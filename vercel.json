@@ -6,6 +6,7 @@
     { "source": "/intrader-ebook", "destination": "/intrader_ebook.html" },
     { "source": "/libro", "destination": "/reglas_Dinero_Ebook.html" },
     { "source": "/programa", "destination": "/intrader_checkout.html" },
+    { "source": "/cobro", "destination": "/cobro.html" },
     { "source": "/kit", "destination": "/kit_money_magnet.html" },
     { "source": "/legal", "destination": "/legal_intrade.html" }
   ],
