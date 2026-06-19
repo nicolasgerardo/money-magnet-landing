@@ -3,6 +3,7 @@
     { "source": "/gracias", "destination": "/gracias.html" },
     { "source": "/pago-exitoso", "destination": "/pago-exitoso.html" },
     { "source": "/intrader-pago-exitoso", "destination": "/intrader_pago_exitoso.html" },
+    { "source": "/intrader-ebook", "destination": "/intrader_ebook.html" },
     { "source": "/libro", "destination": "/reglas_Dinero_Ebook.html" },
     { "source": "/programa", "destination": "/intrader_checkout.html" },
     { "source": "/kit", "destination": "/kit_money_magnet.html" },
