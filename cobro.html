@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INTRADER · Tu pago</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --negro:#0A0A0A;--sup:#161616;--sup2:#1E1E1E;
+    --oro:#C9A84C;--oro-claro:#E0C77A;--oro-oscuro:#8B6B2A;
+    --blanco:#FAF8F4;--sec:#B8B2A6;--cuerpo:#D8D3C8;--exito:#5FB585;--alerta:#C94C4C;
+    --borde:rgba(201,168,76,0.30);
+  }
+  body{font-family:'DM Sans',sans-serif;background:var(--negro);color:var(--blanco);
+    min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
+    -webkit-font-smoothing:antialiased;}
+  .card{
+    width:100%;max-width:440px;background:linear-gradient(180deg,var(--sup2),var(--sup));
+    border:1px solid var(--borde);border-radius:20px;padding:38px 32px;
+    box-shadow:0 30px 80px rgba(0,0,0,0.6);text-align:center;
+  }
+  .wordmark{font-family:'Playfair Display',serif;font-weight:900;font-size:26px;letter-spacing:6px}
+  .wordmark-sub{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--oro);margin-top:3px}
+  .oro-rule{width:46px;height:2px;background:var(--oro);margin:18px auto 24px}
+  h1{font-family:'Playfair Display',serif;font-weight:700;font-size:22px;margin-bottom:6px}
+  .sub{color:var(--sec);font-size:13.5px;font-weight:300;margin-bottom:26px}
+  .resumen{
+    border:1px solid var(--borde);border-radius:14px;padding:22px;margin-bottom:24px;
+    background:radial-gradient(circle at 50% 0%, rgba(201,168,76,0.06), transparent 70%);
+  }
+  .r-tipo{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--oro);margin-bottom:8px}
+  .r-monto{font-family:'Playfair Display',serif;font-weight:900;font-size:46px;color:var(--oro);line-height:1}
+  .r-monto small{font-family:'DM Mono',monospace;font-size:15px;color:var(--sec);vertical-align:super;margin-left:4px}
+  .r-nombre{font-size:15px;color:var(--cuerpo);margin-top:12px}
+  .r-nombre b{color:var(--blanco)}
+  .r-extra{font-size:12.5px;color:var(--sec);margin-top:10px;line-height:1.5}
+  .r-extra .saldo{color:var(--oro-claro)}
+  .btn{
+    width:100%;background:var(--oro);color:var(--negro);border:none;
+    padding:16px;border-radius:11px;font-family:'DM Sans',sans-serif;font-weight:700;
+    font-size:15px;cursor:pointer;transition:transform .15s, box-shadow .2s;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(201,168,76,0.25)}
+  .btn:disabled{opacity:.5;cursor:default;transform:none;box-shadow:none}
+  .secure{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:1px;color:var(--sec);margin-top:16px}
+  .estado{font-size:14px;line-height:1.6;color:var(--cuerpo);margin:20px 0}
+  .estado.err{color:var(--alerta)}
+  .estado.ok{color:var(--exito)}
+  .spin{display:inline-block;width:18px;height:18px;border:2px solid rgba(201,168,76,.25);
+    border-top-color:var(--oro);border-radius:50%;animation:s .7s linear infinite;vertical-align:middle}
+  @keyframes s{to{transform:rotate(360deg)}}
+  .mini{font-size:11.5px;color:#5c574e;margin-top:18px;line-height:1.5}
+  .mini a{color:var(--oro);text-decoration:none}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="wordmark">INTRADER</div>
+    <div class="wordmark-sub">EDUCACIÓN FINANCIERA</div>
+    <div class="oro-rule"></div>
+
+    <div id="cargando">
+      <div class="estado"><span class="spin"></span><br><br>Verificando tu cobro…</div>
+    </div>
+
+    <div id="contenido" style="display:none">
+      <h1 id="titulo">Tu pago está listo</h1>
+      <p class="sub" id="subtitulo">Revisa el detalle y continúa al pago seguro.</p>
+
+      <div class="resumen">
+        <div class="r-tipo" id="r-tipo">Pago</div>
+        <div class="r-monto" id="r-monto">—</div>
+        <div class="r-nombre" id="r-nombre"></div>
+        <div class="r-extra" id="r-extra"></div>
+      </div>
+
+      <button class="btn" id="btn-pagar">Ir al pago seguro →</button>
+      <div class="secure">🔒 Pago procesado por PayU</div>
+    </div>
+
+    <div id="errorbox" style="display:none">
+      <h1>No pudimos cargar el cobro</h1>
+      <p class="estado err" id="error-msg"></p>
+      <div class="mini">Si crees que es un error, escríbenos por <a href="https://wa.me/573052460919" target="_blank" rel="noopener">WhatsApp</a>.</div>
+    </div>
+  </div>
+
+<script>
+  // Backend Apps Script (mismo que usa el checkout)
+  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK6XSxi1T4I2hCSZeEScJy7pKhFGs2S1OVtxSmAfc2oFjK1UonFmIGFjGEmJAdTymQ8g/exec';
+
+  function $(id){ return document.getElementById(id); }
+  function getParam(n){ return new URLSearchParams(window.location.search).get(n); }
+
+  var TIPO_LABEL = { completo:'Pago del programa', apartado:'Apartado / adelanto' };
+
+  function mostrarError(msg){
+    $('cargando').style.display = 'none';
+    $('contenido').style.display = 'none';
+    $('errorbox').style.display = 'block';
+    $('error-msg').textContent = msg || 'Cobro no encontrado.';
+  }
+
+  function fmtMonto(a, cur){
+    var n = Number(a);
+    return '$' + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) ;
+  }
+
+  var datosPayU = null;
+
+  function init(){
+    var ref = getParam('ref');
+    if (!ref){ mostrarError('Falta la referencia del cobro.'); return; }
+
+    fetch(APPS_SCRIPT_URL + '?action=cobro_resolver&ref=' + encodeURIComponent(ref))
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        if (!res || !res.ok){ mostrarError(res && res.error ? res.error : 'Cobro no encontrado.'); return; }
+        datosPayU = res.data;
+        var info = res.info || {};
+        // pintar
+        $('r-tipo').textContent = (TIPO_LABEL[info.tipo] || 'Pago');
+        $('r-monto').innerHTML = fmtMonto(info.amount, info.currency) + '<small>' + (info.currency||'USD') + '</small>';
+        $('r-nombre').innerHTML = info.nombre ? ('A nombre de <b>' + info.nombre + '</b>') : '';
+        var extra = '';
+        if (info.concepto) extra += info.concepto + '<br>';
+        if (info.tipo === 'apartado'){
+          if (info.saldo_restante !== '' && info.saldo_restante != null)
+            extra += '<span class="saldo">Saldo restante: ' + fmtMonto(info.saldo_restante, info.currency) + ' ' + (info.currency||'USD') + '</span>';
+          if (info.fecha_limite)
+            extra += (extra ? '<br>' : '') + 'Fecha límite para completar: ' + info.fecha_limite;
+        }
+        $('r-extra').innerHTML = extra;
+        if (info.tipo === 'apartado'){
+          $('titulo').textContent = 'Asegura tu cupo hoy';
+          $('subtitulo').textContent = 'Pagas tu adelanto ahora y reservas tu lugar en INTRADER.';
+          $('btn-pagar').textContent = 'Pagar mi adelanto →';
+        }
+        $('cargando').style.display = 'none';
+        $('contenido').style.display = 'block';
+      })
+      .catch(function(err){ mostrarError('Error de conexión. Intenta de nuevo.'); });
+  }
+
+  function irAPagar(){
+    if (!datosPayU){ return; }
+    var btn = $('btn-pagar');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spin"></span> Redirigiendo…';
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = datosPayU.actionURL;
+    var campos = {
+      merchantId: datosPayU.merchantId, accountId: datosPayU.accountId,
+      description: datosPayU.description, referenceCode: datosPayU.referenceCode,
+      amount: datosPayU.amount, tax: datosPayU.tax, taxReturnBase: datosPayU.taxReturnBase,
+      currency: datosPayU.currency, signature: datosPayU.signature, test: datosPayU.test,
+      buyerEmail: datosPayU.buyerEmail, buyerFullName: datosPayU.buyerFullName,
+      responseUrl: datosPayU.responseUrl, confirmationUrl: datosPayU.confirmationUrl
+    };
+    for (var k in campos){
+      var inp = document.createElement('input');
+      inp.type = 'hidden'; inp.name = k; inp.value = (campos[k] == null ? '' : campos[k]);
+      form.appendChild(inp);
+    }
+    document.body.appendChild(form);
+    form.submit();
+  }
+
+  document.getElementById('btn-pagar').addEventListener('click', irAPagar);
+  init();
+</script>
+</body>
+</html>
