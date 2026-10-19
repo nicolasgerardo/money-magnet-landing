@@ -1341,6 +1341,11 @@
     if (acepta) mmLoadPixels();
   };
 
+  // IDs de medición (públicos, no son secretos). 19-oct-2026: Meta = píxel 2510210255799209 de la cuenta
+  // publicitaria 729011261958704. Google y TikTok quedan vacíos hasta crear sus cuentas: vacíos no cargan nada.
+  var MM_META_PIXEL_ID = '2510210255799209';
+  var MM_GOOGLE_TAG_ID = '';
+  var MM_TIKTOK_PIXEL_ID = '';
   function mmLoadPixels() {
     // ─── META PIXEL (Facebook/Instagram) ───
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -1348,20 +1353,22 @@
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', 'TU_META_PIXEL_ID');
+    fbq('init', MM_META_PIXEL_ID);
     fbq('track', 'PageView');
 
     // ─── GOOGLE TAG ───
+    if (MM_GOOGLE_TAG_ID) {
     var gs = document.createElement('script');
-    gs.async = true; gs.src = 'https://www.googletagmanager.com/gtag/js?id=TU_GOOGLE_TAG_ID';
+    gs.async = true; gs.src = 'https://www.googletagmanager.com/gtag/js?id=' + MM_GOOGLE_TAG_ID;
     document.head.appendChild(gs);
     window.dataLayer = window.dataLayer || [];
     window.gtag = function(){ dataLayer.push(arguments); };
     gtag('js', new Date());
-    gtag('config', 'TU_GOOGLE_TAG_ID');
+    gtag('config', MM_GOOGLE_TAG_ID);
+    }
 
     // ─── TIKTOK PIXEL ───
-    !function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=
+    if (MM_TIKTOK_PIXEL_ID) !function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=
     ["page","track","identify","instances","debug","on","off","once","ready","alias",
     "group","enableCookie","disableCookie"];ttq.setAndDefer=function(t,e){t[e]=function()
     {t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;
@@ -1371,7 +1378,7 @@
     ttq._i[e]._u=i;ttq._t=ttq._t||{};ttq._t[e]=+new Date;ttq._o=ttq._o||{};ttq._o[e]=n||{};
     var o=d.createElement("script");o.type="text/javascript";o.async=!0;o.src=i+"?sdkid="+e+"&lib="+t;
     var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
-    ttq.load('TU_TIKTOK_PIXEL_ID');ttq.page();}(window,document,'ttq');
+    ttq.load(MM_TIKTOK_PIXEL_ID);ttq.page();}(window,document,'ttq');
 
     // ─── TRACKING DE COMPORTAMIENTO (scroll + tiempo por sección) ───
     mmTrackBehavior();
