@@ -594,7 +594,7 @@
     var dataParam = params.get('d');
     if (dataParam) {
       var decoded = JSON.parse(decodeURIComponent(escape(atob(dataParam))));
-      userData = { nombre: decoded.n, apellido: decoded.a, email: decoded.e, sexo: decoded.s, pais: decoded.p, pais_codigo: decoded.pc, grupo: decoded.g, fecha_evento: decoded.fe, hora_evento: decoded.he, whatsapp_url: decoded.wp, telegram_url: decoded.tg, telefono: decoded.tel, ticket_id: decoded.t };
+      userData = { nombre: decoded.n, apellido: decoded.a, email: decoded.e, sexo: decoded.s, pais: decoded.p, pais_codigo: decoded.pc, grupo: decoded.g, fecha_evento: decoded.fe, hora_evento: decoded.he, whatsapp_url: decoded.wp, telegram_url: decoded.tg, telefono: decoded.tel, ticket_id: decoded.t, lista_espera: decoded.lw === 1 };
     }
   } catch(e) { console.error('[GRACIAS] Error decodificando:', e.message); }
 
@@ -629,6 +629,12 @@
 
   document.getElementById('gm-fecha-display').textContent = userData.fecha_evento || 'Proximo webinar';
   document.getElementById('gm-hora-display').innerHTML = (userData.hora_evento || '8:00 PM') + ' &middot; 2 horas en vivo';
+  // 19-oct-2026: registro en lista de espera (no hay fecha confirmada): sin cuenta regresiva ni calendario.
+  if (userData.lista_espera) {
+    document.getElementById('gm-hora-display').textContent = 'Te enviamos la fecha y el horario apenas estén confirmados';
+    var cdEsp = document.getElementById('gm-countdown'); if (cdEsp && cdEsp.closest('.gm-card')) cdEsp.closest('.gm-card').style.display = 'none';
+    var calEsp = document.getElementById('gm-cal-google'); if (calEsp && calEsp.closest('.gm-card')) calEsp.closest('.gm-card').style.display = 'none';
+  }
 
   // ====== AGREGAR AL CALENDARIO (fecha segun grupo del registrado) ======
   // Fechas oficiales del webinar, 8:00 PM hora Colombia (UTC-5), 2 horas.
@@ -812,6 +818,7 @@
   };
   var grupo = 'latam_bajo';
   try { if (userData && userData.grupo) grupo = userData.grupo; } catch(e){}
+  try { if (userData && userData.lista_espera) return; } catch(e){}
   var targetStr = FECHAS_EVENTO[grupo] || FECHAS_EVENTO.latam_bajo;
   var target = new Date(targetStr);
   if (isNaN(target.getTime())) return;

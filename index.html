@@ -1092,6 +1092,11 @@
     'latam_alto': { fecha_iso: '2026-06-19T20:00:00-05:00', fecha_display: 'Viernes 19 de junio', hora_origen: '8:00 PM (Hora Colombia)', grupo: 'latam_alto', whatsapp: 'https://chat.whatsapp.com/K7OKlvU222FIAa33woJdlB', telegram: 'https://t.me/+4E7N8IwfWXY1YzJh' },
     'europa': { fecha_iso: '2026-06-20T20:00:00+02:00', fecha_display: 'Sabado 20 de junio', hora_origen: '8:00 PM (Hora Europa Central)', grupo: 'europa', whatsapp: 'https://chat.whatsapp.com/K7OKlvU222FIAa33woJdlB', telegram: 'https://t.me/+4E7N8IwfWXY1YzJh' }
   };
+  // 19-oct-2026: si todas las fechas de EVENTOS ya pasaron, la landing entra en «lista de espera»:
+  // sin cuenta regresiva ni fecha vieja, y el registro se guarda para la próxima fecha.
+  // Al poner fechas nuevas en EVENTOS vuelve sola al modo normal.
+  var MM_VENCIDO = Object.keys(EVENTOS).every(function(k){ return new Date(EVENTOS[k].fecha_iso).getTime() < Date.now(); });
+  var MM_FECHA_ESPERA = 'Próxima fecha: te avisamos por correo y WhatsApp';
   var GRUPOS_PAIS = {
     'CO':'latam_bajo','MX':'latam_bajo','PE':'latam_bajo','BO':'latam_bajo','VE':'latam_bajo','AR':'latam_bajo','PY':'latam_bajo','HN':'latam_bajo','NI':'latam_bajo','SV':'latam_bajo','GT':'latam_bajo','CU':'latam_bajo','DO':'latam_bajo','HT':'latam_bajo','BR':'latam_bajo',
     'EC':'latam_alto','CL':'latam_alto','UY':'latam_alto','CR':'latam_alto','PA':'latam_alto','PR':'latam_alto','US':'latam_alto','CA':'latam_alto',
@@ -1150,6 +1155,14 @@
   }
   function mostrarEvento(grupo) {
     eventoActual = EVENTOS[grupo];
+    if (MM_VENCIDO) {
+      var bEsp = document.getElementById('mm-badge-fecha'); if (bEsp) bEsp.textContent = 'PRÓXIMA FECHA MUY PRONTO . ONLINE';
+      var sEsp = document.getElementById('mm-subtitle-region'); if (sEsp) sEsp.textContent = 'WEBINAR 2026 . NUEVA FECHA EN CAMINO';
+      var dEsp = document.getElementById('mm-cd-date'); if (dEsp) dEsp.textContent = 'Regístrate y te avisamos primero cuando abramos la nueva fecha.';
+      var lEsp = document.querySelector('.mm-cd-lbl'); if (lEsp) lEsp.textContent = 'NUEVA FECHA EN CAMINO';
+      var gEsp = document.querySelector('.mm-cd-grid'); if (gEsp) gEsp.style.display = 'none';
+      return;
+    }
     var badge = document.getElementById('mm-badge-fecha'); if (badge) badge.textContent = eventoActual.fecha_display.toUpperCase() + ' . ONLINE';
     var date = document.getElementById('mm-cd-date');
     if (date) { var horaLoc = new Date(eventoActual.fecha_iso).toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit', hour12: true }); date.innerHTML = eventoActual.fecha_display + ' . <span style="color:#fff;">8:00 PM</span> . <span style="color:#B5B8C5;font-size:0.85em;">Tu hora: ' + horaLoc + '</span>'; }
@@ -1209,10 +1222,11 @@
     var nombre = (data.get('nombre')||'').toString().trim(), apellido = (data.get('apellido')||'').toString().trim(), email = (data.get('email')||'').toString().trim(), sexo = (data.get('sexo')||'').toString(), pais = (data.get('pais')||'').toString(), indicativo = (data.get('indicativo')||'').toString(), telefono = (data.get('telefono')||'').toString().trim();
     if (!email || !nombre || !pais) { if (msg) { msg.className = 'mm-form-msg error'; msg.textContent = 'Completa todos los campos requeridos'; } btn.disabled = false; btn.textContent = source === 'hero' ? 'REGISTRARME GRATIS' : 'QUIERO MI LUGAR GRATIS'; return false; }
     var grupo = GRUPOS_PAIS[pais] || 'latam_bajo'; var ev = EVENTOS[grupo]; var paisObj = PAISES.find(function(p){return p.code===pais;}) || {name:pais};
+    if (MM_VENCIDO) { ev = { fecha_display: MM_FECHA_ESPERA, hora_origen: '', whatsapp: ev.whatsapp, telegram: ev.telegram, lista_espera: true }; }
     var ticketId = 'MM-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2,5).toUpperCase();
-    var payload = { fuente: 'landing_money_magnet', url_origen: window.location.href, email: email, nombre: nombre, apellido: apellido, sexo: sexo, pais: paisObj.name, pais_codigo: pais, telefono: indicativo + telefono, whatsapp: indicativo + telefono, grupo_evento: grupo, fecha_evento: ev.fecha_display, etiquetas: 'evento_' + grupo + ',webinar_money_magnet', ticket_id: ticketId, acepta_terminos: true, acepta_terminos_ts: new Date().toISOString(), utm_source: mmDetectSource(), utm_medium: mmGetUTM('utm_medium'), utm_campaign: mmGetUTM('utm_campaign'), utm_content: mmGetUTM('utm_content'), utm_term: mmGetUTM('utm_term'), referrer: document.referrer || '' };
+    var payload = { fuente: 'landing_money_magnet', url_origen: window.location.href, email: email, nombre: nombre, apellido: apellido, sexo: sexo, pais: paisObj.name, pais_codigo: pais, telefono: indicativo + telefono, whatsapp: indicativo + telefono, grupo_evento: grupo, fecha_evento: ev.fecha_display, etiquetas: 'evento_' + grupo + ',webinar_money_magnet' + (ev.lista_espera ? ',lista_espera' : ''),ticket_id: ticketId, acepta_terminos: true, acepta_terminos_ts: new Date().toISOString(), utm_source: mmDetectSource(), utm_medium: mmGetUTM('utm_medium'), utm_campaign: mmGetUTM('utm_campaign'), utm_content: mmGetUTM('utm_content'), utm_term: mmGetUTM('utm_term'), referrer: document.referrer || '' };
     function safeBase64(str) { return btoa(unescape(encodeURIComponent(str))); }
-    var userData = { n: nombre, a: apellido, e: email, s: sexo, p: paisObj.name, pc: pais, g: grupo, fe: ev.fecha_display, he: ev.hora_origen, wp: ev.whatsapp, tg: ev.telegram, tel: indicativo + telefono, t: ticketId };
+    var userData = { n: nombre, a: apellido, e: email, s: sexo, p: paisObj.name, pc: pais, g: grupo, fe: ev.fecha_display, he: ev.hora_origen, wp: ev.whatsapp, tg: ev.telegram, tel: indicativo + telefono, t: ticketId, lw: ev.lista_espera ? 1 : 0 };
     var targetUrl = '/gracias?d=' + encodeURIComponent(safeBase64(JSON.stringify(userData)));
     fetch(APPS_SCRIPT_URL + '?action=registro_landing', { method: 'POST', body: JSON.stringify(payload), mode: 'no-cors' }).then(function() {}).catch(function() {});
     try { mmFirePixelLead(email); } catch(e) {}
