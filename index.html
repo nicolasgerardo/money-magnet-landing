@@ -582,7 +582,7 @@ a.boton,button.boton{cursor:pointer;border:0;font-family:inherit}
 <section class="sec banda-clara"><h2 class="sec-t">El profesor</h2><div class="prof"><img src="/marca/retrato.jpg" alt="Nicolás Gerardo Cuéllar" loading="lazy" decoding="async">
 <div><h3>Nicolás Gerardo Cuéllar</h3><p class="rol">Trader y educador financiero. Fundador de Academia Intrade.</p>
 <p>Yo también empecé sin saber nada de mercados. Creía que el dinero se ganaba trabajando más duro. Tardé años en entender que el dinero tiene reglas distintas, y que nadie me las había enseñado. Hoy llevo más de 8 años en los mercados y 7 formando personas en Latinoamérica.</p>
-<ul style="margin-top:12px"><li>Ingeniero de Sistemas, Universidad El Bosque</li><li id="mm-libros">Autor de <i>Las ondas del dinero</i> (2026), <i>Intrader Elliott Analyst</i> (2026) y <i>Sobrevive con las ondas de Elliott</i> (2023)</li><li>Conferencista y educador desde hace 7 años</li></ul>
+<ul style="margin-top:12px"><li>Ingeniero de Sistemas, Universidad El Bosque</li><li id="mm-libros">Autor de <i>Sobrevive con las ondas de Elliott</i> (2023) y, próximamente, de <i>Las ondas del dinero</i> e <i>Intrader Elliott Analyst</i></li><li>Conferencista y educador desde hace 7 años</li></ul>
 <p class="mil"><b>+1.000</b>personas ya han recibido sesiones y formación con Nicolás.</p></div></div></section>
 
 <section class="sec"><h2 class="sec-t">Lo que dicen quienes ya estuvieron</h2><div class="vfila">
@@ -838,7 +838,8 @@ a.boton,button.boton{cursor:pointer;border:0;font-family:inherit}
   });
 
   // Los libros del profesor: la página trae los de hoy y, al abrirse, pide la lista al sitio, que se pone al día sola
-  // cuando cambia el título o la portada de un libro. Si no responde, quedan los de la página.
+  // cuando cambia el título o la portada de un libro. Si no responde, quedan los de la página. Los que aún no están a la
+  // venta («proximamente») van al final y sin año, como en el sitio: «… (2023) y, próximamente, de … e …».
   function librosAlDia() {
     var li = document.getElementById('mm-libros');
     if (!li || !window.fetch) return;
@@ -847,18 +848,24 @@ a.boton,button.boton{cursor:pointer;border:0;font-family:inherit}
       .then(function(d) {
         var libros = d && Array.isArray(d.libros) ? d.libros.filter(function(l) { return l && typeof l.titulo === 'string' && l.titulo; }) : [];
         if (!libros.length) return;
+        var aLaVenta = libros.filter(function(l) { return l.proximamente !== true; });
+        var proximos = libros.filter(function(l) { return l.proximamente === true; });
         var linea = document.createDocumentFragment();
-        linea.appendChild(document.createTextNode('Autor de '));
-        libros.forEach(function(l, i) {
-          if (i > 0) {
-            var ultimo = i === libros.length - 1;
-            linea.appendChild(document.createTextNode(ultimo ? (/^h?i(?![aeiouáéíóú])/i.test(l.titulo) ? ' e ' : ' y ') : ', '));
-          }
-          var t = document.createElement('i');
-          t.textContent = l.titulo;
-          linea.appendChild(t);
-          if (l.anio) linea.appendChild(document.createTextNode(' (' + parseInt(l.anio, 10) + ')'));
-        });
+        function texto(t) { linea.appendChild(document.createTextNode(t)); }
+        function enFila(lista, conAnio) {
+          lista.forEach(function(l, i) {
+            if (i > 0) texto(i === lista.length - 1 ? (/^h?i(?![aeiouáéíóú])/i.test(l.titulo) ? ' e ' : ' y ') : ', ');
+            var t = document.createElement('i');
+            t.textContent = l.titulo;
+            linea.appendChild(t);
+            if (conAnio && l.anio) texto(' (' + parseInt(l.anio, 10) + ')');
+          });
+        }
+        texto('Autor de ');
+        enFila(aLaVenta, true);
+        if (proximos.length && aLaVenta.length) texto(' y, próximamente, de ');
+        enFila(proximos, false);
+        if (proximos.length && !aLaVenta.length) texto(' (próximamente)');
         li.textContent = '';
         li.appendChild(linea);
       })
